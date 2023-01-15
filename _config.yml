@@ -89,9 +89,9 @@ bing_site_verification:  # out your bing-site-verification ID (Bing Webmaster)
 # Blog
 # -----------------------------------------------------------------------------
 
-blog_name: Kevin's Deep Learning Blog # blog_name will be displayed in your blog page
-blog_nav_title: Deep Learning Blog # your blog must have a title for it to be displayed in the nav bar
-blog_description: A personal deep learning blog, usually posting about DL topics, papers, or sometimes interesting updates on projects.
+blog_name: Welcome to My Deep Learning Blog! # blog_name will be displayed in your blog page
+blog_nav_title: My Deep Learning Blog # your blog must have a title for it to be displayed in the nav bar
+blog_description: This is just my personal deep learning blog, usually posting about any DL topics or papers of interest, or sometimes interesting updates on my projects as well. It's really more like a personal diary!
 permalink: /blog/:year/:title/
 
 # Pagination
