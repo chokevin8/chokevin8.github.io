@@ -20,8 +20,8 @@ social: false  # includes social icons at the bottom of the page
 such as RNA-Seq data or H&E images, to study problems in the field of biology and medicine, such as cancer genomics and cancer diagnosis. 
 <br>
 <br>
-I received a bachelor's degree of science (BS) in Chemical and Biomolecular Engineering from Johns Hopkins University. I'm currently pursuing a master's degree of science in engineering in Chemical and Biomolecular Engineering at Johns Hopkins University as well. I'm currently pursuing research under
-the guidance of Dr. Denis Wirtz in the [Wirtz Lab](https://wirtzlab.johnshopkins.edu/) My personal research expertise/interest is utilizing deep learning image segmentation model(s) in H&E images to find new digital biomarkers in cancer and aging. 
+I received a bachelor's degree of science (BS) in Chemical and Biomolecular Engineering from Johns Hopkins University. Currently, I'm pursuing a master's degree of science in engineering in Chemical and Biomolecular Engineering at the Johns Hopkins University. I'm currently pursuing research under
+the guidance of Dr. Denis Wirtz in the [Wirtz Lab](https://wirtzlab.johnshopkins.edu/). My personal research expertise/interest is utilizing deep learning image segmentation model(s) in H&E images to find new digital biomarkers in cancer and aging. 
 <br>
 <br>
 You can find all about me in my [LinkedIn page](https://www.linkedin.com/in/won-june-kevin-cho-742522174/), and look at my personal work in the [repository](/repositories/) menu. 
