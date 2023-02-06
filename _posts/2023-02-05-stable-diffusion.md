@@ -16,13 +16,11 @@ Maybe I could do another blog post on this if the project progresses, or about p
 <strong> Let's dive right in!
 
 
-<div class="col-sm mt-3 mt-md-0">
-{% include figure.html path="assets/img/welcome-pikachu.png" class="img-fluid rounded z-depth-1" %}
-</div>
-
-<p align = "center">
-Cute pikachu drawing made from DALLE-2!
-</p>
+<figure>
+    <img src="assets/img/welcome-pikachu.png""
+         alt="Pikachu says welcome!">
+    <figcaption>Cute pikachu drawing made from DALLE-2!</figcaption>
+</figure>
 
 # Table of Contents: 
 ## [Background](#background)
