@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  First blog post on the famous latent/stable diffusion model paper!
+title:  Full Review of Latent/Stable Diffusion
 date:   2023-02-04
 description: 
 tags: deep-learning machine-learning latent-diffusion stable-diffusion generative-models
