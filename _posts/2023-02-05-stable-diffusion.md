@@ -15,8 +15,8 @@ The reason I'm doing this is because I'm trying to develop a stable diffusion mo
 Maybe I could do another blog post on this if the project progresses, or about previous works on this topic. For reference purposes, the stable diffusion paper named "High-Resolution Image Synthesis with Latent Diffusion Models" can be found [here](https://arxiv.org/pdf/2112.10752.pdf).
 <strong> Let's dive right in!
 
-![image](/blog/assets/images/welcome-pikachu.png)
-(<figcaption>Cute pikachu drawing made from DALLE-2!</figcaption>
+![image](/chokevin8.github.io/assets/images/welcome-pikachu.png)
+<figcaption>Cute pikachu drawing made from DALLE-2!</figcaption>
 
 [//]: # (<img src="chokevin8.github.io/assets/images/welcome-pikachu.png" width="500" height="500">)
 
