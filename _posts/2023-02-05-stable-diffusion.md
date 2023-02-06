@@ -20,6 +20,10 @@ Maybe I could do another blog post on this if the project progresses, or about p
 {% include figure.html path="assets/img/welcome-pikachu.png" class="img-fluid rounded z-depth-1" %}
 </div>
 
+<p align = "center">
+Cute pikachu drawing made from DALLE-2!
+</p>
+
 # Table of Contents: 
 ## [Background](#background)
 - ###  [Introduction](#introduction)
