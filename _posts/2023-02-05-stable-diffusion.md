@@ -17,12 +17,12 @@ Maybe I could do another blog post on this if the project progresses, or about p
 
 
 <figure>
-    <img src="assets/img/welcome-pikachu.png" width="500" height="600">
+    <img src="assets/img/welcome-pikachu.png" width="200" height="200">
          alt="Pikachu says welcome!">
     <figcaption>Cute pikachu drawing made from DALLE-2!</figcaption>
 </figure>
 
-# Table of Contents: 
+# *Table of Contents:* 
 ## [Background](#background)
 - ###  [Introduction](#introduction)
 - ###  [Diffusion models are not new!](#diffusion-models-not-new)
