@@ -15,7 +15,7 @@ The reason I'm doing this is because I'm trying to develop a stable diffusion mo
 Maybe I could do another blog post on this if the project progresses, or about previous works on this topic. For reference purposes, the stable diffusion paper named "High-Resolution Image Synthesis with Latent Diffusion Models" can be found [here](https://arxiv.org/pdf/2112.10752.pdf).
 <strong> Let's dive right in!
 
-![image](/chokevin8.github.io/assets/images/welcome-pikachu.png)
+![](assets/images/welcome-pikachu.png)
 <figcaption>Cute pikachu drawing made from DALLE-2!</figcaption>
 
 [//]: # (<img src="chokevin8.github.io/assets/images/welcome-pikachu.png" width="500" height="500">)
@@ -41,7 +41,9 @@ Maybe I could do another blog post on this if the project progresses, or about p
 ## Background:
 <a id="introduction"></a>
 ### Introduction:
-This is the introduction.
+Latent diffusion models (LDM), or henceforth mentioned as stable diffusion models (SD), are a type of a diffusion model 
+developed for the purpose of image synthesis by Rombach et al of last year. Like Generative Adversarial Networks (GAN), the stable
+diffusion model is a type of generative model. Generative models are divided into two
 <hr>
 
 
