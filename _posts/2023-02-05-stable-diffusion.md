@@ -14,11 +14,18 @@ For this week, I'll do an in-depth review on the famous, famous latent/stable di
 The reason I'm doing this is because I'm trying to develop a stable diffusion model for my research purposes, which is virtual H&E staining of unstained tissue microarrays. 
 Maybe I could do another blog post on this if the project progresses, or about previous works on this topic. For reference purposes, the stable diffusion paper named "High-Resolution Image Synthesis with Latent Diffusion Models" can be found [here](https://arxiv.org/pdf/2112.10752.pdf).
 <strong> Let's dive right in!
+
+
+<div class="col-sm mt-3 mt-md-0">
+{% include figure.html path="assets/img/welcome-pikachu.png" class="img-fluid rounded z-depth-1" %}
+</div>
+
 # Table of Contents: 
 ## [Background](#background)
 - ###  [Introduction](#introduction)
 - ###  [Diffusion models are not new!](#diffusion-models-not-new)
 - ### [Stable Diffusion vs GAN](#stable-diffusion-vs-gan)
+
 ## [Stable Diffusion](#stable-diffusion)
 - ### [Model Architecture](#model-architecture)
 - ### [Experiments & Results](#experiment-results)
