@@ -16,11 +16,10 @@ Maybe I could do another blog post on this if the project progresses, or about p
 <strong> Let's dive right in!
 
 
-<figure>
-    <img src="assets/images/welcome-pikachu.png" width="500" height="500">
+<img src="chokevin8.github.io/assets/images/welcome-pikachu.png" width="500" height="500">
          alt="Pikachu says welcome!">
-    <figcaption>Cute pikachu drawing made from DALLE-2!</figcaption>
-</figure>
+<figcaption>Cute pikachu drawing made from DALLE-2!</figcaption>
+
 
 # *Table of Contents:* 
 ## [Background](#background)
