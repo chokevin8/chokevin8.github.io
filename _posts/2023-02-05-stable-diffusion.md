@@ -17,7 +17,7 @@ Maybe I could do another blog post on this if the project progresses, or about p
 
 
 [//]: # (![image1]&#40;/assets/images/welcome-pikachu.png&#41;)
-<img src = "/assets/images/welcome-pikachu.png" width = "600" height = "600">
+<img src = "/assets/images/welcome-pikachu.png" width = "400" height = "400" class = "center">
 <figcaption>Cute pikachu drawing made from DALLE-2!</figcaption>
 
 [//]: # (<img src="chokevin8.github.io/assets/images/welcome-pikachu.png" width="500" height="500">)
