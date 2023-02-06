@@ -17,7 +17,7 @@ Maybe I could do another blog post on this if the project progresses, or about p
 
 
 <figure>
-    <img src="chokevin8.github.io/assets/img/welcome-pikachu.png" width="200" height="200">
+    <img src="assets/images/welcome-pikachu.png" width="500" height="500">
          alt="Pikachu says welcome!">
     <figcaption>Cute pikachu drawing made from DALLE-2!</figcaption>
 </figure>
