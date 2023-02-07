@@ -42,7 +42,7 @@ developed for the purpose of image synthesis by Rombach et al. of last year. In 
 The diagram below clearly shows the difference between the two:
 <br>
 <img src = "/assets/images/generative_v_discriminative.png" width = "523" height = "293" class = "center">
-<figcaption>Diagram showing difference between generative and discriminative models</figcaption>
+<figcaption>Diagram showing difference between generative and discriminative models.</figcaption>
 <br>
 As shown above, the discriminative model tries to tell the difference of a writing of 0 and 1 by just simply drawing a decision boundary
 through the data space. Therefore, a discriminative model just has to model the posterior $$ p(y|x) $$ for label y and data sample x. 
@@ -60,11 +60,13 @@ Likewise, a stable diffusion model is a type of generative model. Generative mod
 <ul>
     <li>1. Flow-based models: asdfdasf</li>
     <li>2. Autoregressive models: asdfadsfa </li>
-    <li> ** 3. Latent variable models: ** Latent variable models are further classified into two categories, implicit and explicit models.
+    <li> **3. Latent variable models:** **Stable diffusion models** belong to this type. Latent variable models are further classified into two categories, implicit and explicit models.
 Implicit models are</li>
 </ul>
 <hr>
 
 All diagrams/information/papers utilized from online are listed below:
-[1] https://developers.google.com/machine-learning/gan/generative
+<br>
+1. https://developers.google.com/machine-learning/gan/generative
+2. xxx
 
