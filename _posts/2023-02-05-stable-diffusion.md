@@ -62,8 +62,9 @@ Likewise, a stable diffusion model is a type of generative model. Generative mod
     <li>2. <strong>Autoregressive models:</strong> Autoregressive models, like their name suggests, means performing regression on its self. General autoregression means predicting a future outcome based on the 
 previous data of that outcome. However, in deep-learning space, deep autoregression is utilized– in this case, outputs of the neural network is fed back as input, with the layers being one or more convolutional
 layers. The general idea is that autoregressive models model the joint probability space $$ p(x) $$ by utilizing the chain rule $$ p(x,y) = p(y|x)p(x) $$ More on autoregressive models can be mentioned in later blogs as well.</li>
-    <li>3. <strong>Latent variable models:</strong> <strong>Stable diffusion models</strong> and variational autoencoders belong to this type. 
-    <li>4.
+    <li>3. <strong>Generative Adversarial Networks (GAN):</strong>
+    <li>4. <strong>Latent variable models:</strong> <strong>Stable diffusion models</strong> and variational autoencoders belong to this type. 
+    
 
 [//]: # (&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1. <strong>Explicit models:</strong> Note that for both flow-based and autoregressive models, )
 
