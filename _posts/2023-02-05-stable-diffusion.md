@@ -22,7 +22,6 @@ Maybe I could do another blog post on this if the project progresses, or about p
 # *Table of Contents:* 
 ## [Background](#background)
 - ###  [Introduction](#introduction)
-- ###  [Diffusion models are not new!](#diffusion-models-not-new)
 - ### [Stable Diffusion vs GAN](#stable-diffusion-vs-gan)
 
 ## [Stable Diffusion](#stable-diffusion)
@@ -62,20 +61,16 @@ Likewise, a stable diffusion model is a type of generative model. Generative mod
     <li>2. <strong>Autoregressive models:</strong> Autoregressive models, like their name suggests, means performing regression on its self. General autoregression means predicting a future outcome based on the 
 previous data of that outcome. However, in deep-learning space, deep autoregression is utilized– in this case, outputs of the neural network is fed back as input, with the layers being one or more convolutional
 layers. The general idea is that autoregressive models model the joint probability space $$ p(x) $$ by utilizing the chain rule $$ p(x,y) = p(y|x)p(x) $$ More on autoregressive models can be mentioned in later blogs as well.</li>
-    <li>3. <strong>Generative Adversarial Networks (GAN):</strong>
-    <li>4. <strong>Latent variable models:</strong> <strong>Stable diffusion models</strong> and variational autoencoders belong to this type. 
-    
+    <li>3. <strong>Generative Adversarial Networks (GAN): All type of GANS belong to this type– this will be covered in more detail in the sections below. </strong>
+    <li>4. <strong>Latent variable models:</strong> <strong>Stable diffusion models</strong> and variational autoencoders belong to this type. Like GANs, this will be covered in more detail
+in the sections below.
 
-[//]: # (&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1. <strong>Explicit models:</strong> Note that for both flow-based and autoregressive models, )
-
-[//]: # (&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2. <strong>Implicit models:</strong> asdfasdfads)
+---
+<a id="stable-diffusion-vs-gan"></a>
+### Stable Diffusion vs GAN:
+Surprisingly, diffusion models are not new at all! Stable diffusion is a type of diffusion model, a diffusion model is b
 </ul>
 <hr>
-
-<a id="diffusion-models-not-new"></a>
-### Diffusion models are not new!:
-
-
 
 All diagrams/information/papers utilized from online are listed below:
 <br>
