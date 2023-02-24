@@ -63,7 +63,7 @@ previous data of that outcome. However, in deep-learning space, deep autoregress
 layers. The general idea is that autoregressive models model the joint probability space $$ p(x) $$ by utilizing the chain rule $$ p(x,y) = p(y|x)p(x) $$ More on autoregressive models can be mentioned in later blogs as well.</li>
     <li>3. <strong>Generative Adversarial Networks (GAN): All type of GANS belong to this type– this will be covered in more detail in the sections below. </strong>
     <li>4. <strong>Latent variable models:</strong> <strong>Stable diffusion models</strong> and variational autoencoders belong to this type. Like GANs, this will be covered in more detail
-in the sections below.
+in the sections below. d
 
 ---
 <a id="stable-diffusion-vs-gan"></a>
