@@ -79,7 +79,7 @@ the model is able to generate data samples from the noise that is representative
 into stable diffusion, let's first compare stable diffusion and GAN, because before stable diffusion's emergence as the SOTA (state-of-the-art)
 generative model, GAN and its variants have been the SOTA generative model.
 <br>
-<img src = "/assets/images/GAN_architecture.png" width = "400" height = "600" class = "center">
+<img src = "/assets/images/GAN_architecture.png" width = "700" height = "525" class = "center">
 <figcaption>Diagram showing general GAN architecture.</figcaption>
 <br>
 The diagram above shows the general GAN architecture. I could go "mathy" and go in-depth on GANs, but since we're talking about
@@ -94,6 +94,7 @@ Then, the suffered loss is then used for backpropagation to update the discrimin
 which is a probability distribution (e.g. Gaussian) and generates the fake samples. The training process consists of the generator loss penalizing the 
 generator for not being able to "trick" the discriminator. Likewise, the suffered loss is used for backpropagation to update the generator’s weights. 
 Note that the discriminator and generator are separately trained, meaning that when the generator is trained the weights of the discriminator is fixed. 
+<br>
 The ideal situation is that if this is done repeatedly, the generator would eventually be able to learn the entire joint probability distribution of the desired
 data set. But how do we know if we're done training? This is one of GAN's biggest drawbacks, but generally, if the discriminator is starting to give completely 
 random feedback, we know we've done well. This would mean that the generator is generating fake images that are so similar to the real images that the
@@ -113,7 +114,7 @@ updated for the generator model through backpropagation.
 To address these issues during training, when training and evaluating GANs, researchers generally use both qualitative and quantitative metrics
 
 <br>
-<img src = "/assets/images/gan_meme.jpeg" width = "400" height = "600" class = "center">
+<img src = "/assets/images/gan_meme.jpeg" width = "300" height = "450" class = "center">
 <br>
 
 This meme shown above pretty much sums up GANs. Assuming they're well-trained, however. Poorly trained GANs will
