@@ -62,7 +62,7 @@ This is hugely beneficial but also comes at a cost- during backpropagation, the 
 Normalizing flow is essentially a complex distribution modeled by a chain of invertible transformation functions. The probability density function is tractable, meaning the learning process is simply based on minimizing the negative log-likelihood over the given dataset. A critical drawback, however, is that normalizing models have limitations in that 
 the transformations must all be invertible (for change of variable theorem to work) and determinants must be efficiently calculated (for backpropagation). More on flow-based models can be mentioned later in the blog.</li>
     <li>2. <strong>Autoregressive models:</strong> Autoregressive generative models, like their name suggests, means performing regression on its self. General autoregression means predicting a future outcome based on the 
-previous data of that outcome. The general idea is that autoregressive models model the joint probability space $$ p(x) $$ by utilizing the chain rule $$ p(x,y) = p(y|x)p(x) $$, meaning that it is ultimately a product of conditional distributions. Like normalizing flows, defining the complex product of
+previous data of that outcome. The general idea is that autoregressive models model the joint probability space $$p(x)$$ by utilizing the chain rule $$ p(x,y) = p(y|x)p(x) $$, meaning that it is ultimately a product of conditional distributions. Like normalizing flows, defining the complex product of
 conditional distribution is no easy task, and autoregressive models do this by utilizing the deep neural networks. In this case, outputs of the neural network is fed back as input, with the layers being one or more convolutional layers. Like normalizing flow models, the probability distribution is tractable, but 
 the sampling process is slower as it is sequential by nature (sequential conditionals). More on autoregressive models can be mentioned in later blogs as well.</li>
     <li>3. <strong>Generative Adversarial Networks (GAN):</strong> GANs will be covered in more detail in the section below. </li>
@@ -128,5 +128,5 @@ and then input a table comparing the two and finish the blog.
 All diagrams/information/papers utilized from online are listed below (todo: put footnote marker):
 <br>
 1. https://developers.google.com/machine-learning/gan/generative
-2. xxx
+2. xxxx
 
