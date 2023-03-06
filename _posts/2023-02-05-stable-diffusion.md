@@ -78,6 +78,8 @@ is introduced to an image until the image is pure noise, and the reverse diffusi
 the model is able to generate data samples from the noise that is representative of the true data distribution. Before diving deeper
 into stable diffusion, let's first compare stable diffusion and GAN, because before stable diffusion's emergence as the SOTA (state-of-the-art)
 generative model, GAN and its variants have been the SOTA generative model.
+
+## **What are GANs?**
 <br>
 <img src = "/assets/images/GAN_architecture.png" width = "700" height = "525" class = "center">
 <figcaption>Diagram showing general GAN architecture.</figcaption>
@@ -108,20 +110,27 @@ of the GAN during the training process. </li>
 <li> 2. Furthermore, because two separate networks must be trained, GANs suffer from high training time and will sometimes fail to converge if GAN continues 
 training past the point when the discriminator is giving completely random feedback. In this case, the generator starts to train on junk feedback, and the generated 
 image will start to degrade in quality. 
-<li> 3. Lastly, we can have vanishing gradients when the discriminator performs very well, as there would be little loss suffered from the generator and hence almost no weight 
+<li> 3. Also, if the generator happens to create a very plausible output, the generator in turn would learn to only produce that type of one output. If the discriminator then gets stuck in 
+a local minima and it can't find itself out, the generator and the entire model only generates a small subset of output types. This is a common problem in GANs called mode collapse. </li>
+<li> 4. Lastly, we can have vanishing gradients when the discriminator performs very well, as there would be little loss suffered from the generator and hence almost no weight 
 updated for the generator model through backpropagation. 
 
-To address these issues during training, when training and evaluating GANs, researchers generally use both qualitative and quantitative metrics
+To address these issues during training, when training and evaluating GANs, researchers generally use both qualitative and quantitative metrics during the training and evaluation 
+process. Qualitative metrics are essentially human judges rating the quality of the generated images compared to the ground-truth images. Quantitative metrics that are often used, are 
+Inception Score (IS) and Frechet Inception Distance (FID). More on these later. 
 
 <br>
 <img src = "/assets/images/gan_meme.jpeg" width = "300" height = "450" class = "center">
 <br>
 
-This meme shown above pretty much sums up GANs. Assuming they're well-trained, however. Poorly trained GANs will
-have overfitted discriminators that...
+Assuming the GANs are well-trained, this meme above pretty much explains the life of a discriminator. How hard it must be!
 
-Input stable diffusion advantages,
-and then input a table comparing the two and finish the blog.
+## **Why Stable Diffusion over GANs?** 
+First of all, while the drawbacks of GANs listed above do have their own remedies, they may still not work, or even if they do work, they may require a lot of time and effort. 
+However, stable diffusion hasn't become the SOTA generative model just because of the drawbacks of GANs, they have their own advantages as well! 
+Just explain diffusion lightly and just put an image of comparison of generated gan vs stable diffusion image. 
+
+insert table for SD vs GAN, mention SD will be explained in next blog (part 2!)
 </ul>
 <hr>
 
