@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Latent/Stable Diffusion for Beginners! (Part 1)
-date:   2023-02-04
+date:   2023-02-11
 description: 
 tags: deep-learning machine-learning latent-diffusion stable-diffusion generative-models
 categories: posts
@@ -20,16 +20,15 @@ It really is the "hot topic" right now, as the generative models are taking over
 
 ---
 
-# *Table of Contents:* 
-## [Background](#background) (Part 1)
+## **Table of Contents:**
+### [Background](#background) (Part 1- This Blog!)
 - ###  [Introduction](#introduction)
 - ### [Stable Diffusion vs GAN](#stable-diffusion-vs-gan)
 
-## [Stable Diffusion](#stable-diffusion) (Part 2)
+### [Stable Diffusion](#stable-diffusion) (Part 2- [Next Blog](link to Part2)
 - ### [Model Architecture](#model-architecture)
 - ### [Experiments & Results](#experiment-results)
 - ### [Variation of Stable Diffusion](#variation-stable-diffusion)
-
 
 ---
 <a id="background"></a>
@@ -84,7 +83,7 @@ generative model, GAN and its variants have been the SOTA generative model.
 <img src = "/assets/images/GAN_architecture.png" width = "700" height = "525" class = "center">
 <figcaption>Diagram showing general GAN architecture.</figcaption>
 <br>
-The diagram above shows the general GAN architecture. I could go "mathy" and go in-depth on GANs, but since we're talking about
+The diagram above shows the general GAN architecture. I could go in-depth on GANs, but since we're talking about
 stable diffusion and trying to compare it, I'll keep it brief and talk about the pros and cons of GAN.
 As seen in the diagram, a GAN consists of a generator and a discriminator, which are both deep neural networks that are trained. 
 The generator learns to generate plausible data, or so-called "fake images". The generated instances of fake images then become 
@@ -117,7 +116,7 @@ updated for the generator model through backpropagation.
 
 To address these issues during training, when training and evaluating GANs, researchers generally use both qualitative and quantitative metrics during the training and evaluation 
 process. Qualitative metrics are essentially human judges rating the quality of the generated images compared to the ground-truth images. Quantitative metrics that are often used, are 
-Inception Score (IS) and Frechet Inception Distance (FID). More on these later. 
+Inception Score (IS) and Frechet Inception Distance (FID). More on these in later blogs.
 
 <br>
 <img src = "/assets/images/gan_meme.jpeg" width = "300" height = "450" class = "center">
@@ -125,17 +124,11 @@ Inception Score (IS) and Frechet Inception Distance (FID). More on these later.
 
 Assuming the GANs are well-trained, this meme above pretty much explains the life of a discriminator. How hard it must be!
 
-## **Why Stable Diffusion over GANs?** 
-First of all, while the drawbacks of GANs listed above do have their own remedies, they may still not work, or even if they do work, they may require a lot of time and effort. 
-However, stable diffusion hasn't become the SOTA generative model just because of the drawbacks of GANs, they have their own advantages as well! 
-Just explain diffusion lightly and just put an image of comparison of generated gan vs stable diffusion image. 
 
-insert table for SD vs GAN, mention SD will be explained in next blog (part 2!)
+While the drawbacks of GANs listed above do have their own remedies, they may still not work, or even if they do work, they may require a lot of time and effort- which may not be worth it.
+However, stable diffusion hasn't become the SOTA generative model just because of the drawbacks of GANs, they have their own advantages as well! Stable diffusion will be detailed in
+[Part 2](link to part2, /blog/...) and [Part 3](link to part 3)! Click to find out!
+
 </ul>
 <hr>
-
-All diagrams/information/papers utilized from online are listed below (todo: put footnote marker):
-<br>
-1. https://developers.google.com/machine-learning/gan/generative
-2. xxxx
 
