@@ -25,7 +25,7 @@ It really is the "hot topic" right now, as the generative models are taking over
 - ###  [Introduction](#introduction)
 - ### [Stable Diffusion vs GAN](#stable-diffusion-vs-gan)
 
-### [Stable Diffusion](#stable-diffusion) (Part 2- [Next Blog](link to Part2)
+### [Stable Diffusion](#stable-diffusion) ([Part 2])(/blog/2023/stable-diffusion-part2/)
 - ### [Model Architecture](#model-architecture)
 - ### [Experiments & Results](#experiment-results)
 - ### [Variation of Stable Diffusion](#variation-stable-diffusion)
