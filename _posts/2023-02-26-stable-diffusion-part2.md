@@ -29,7 +29,7 @@ the decoder allows the previously mentioned forward diffusion process to happen 
 from our pixel space is essentially downsampled into the latent space. Without the autoencoder, the forward diffusion process would simply take too long. Likewise, the decoder is then responsible
 for upsampling the generated latent space image back to the pixel space. With the help of the The U-Net, which is a popular model used in semantic segmentation, is a U-shaped convolutional neural network. It follows a U-shape because of 
 its downsampling contracting path with max-pooling and its upsampling expansive path, with skip connections between each layers to preserve semantic details. The U-Net in stable diffusion, therefore, is responsible 
-of 
+of...
 
 insert image from: https://towardsdatascience.com/what-are-stable-diffusion-models-and-why-are-they-a-step-forward-for-image-generation-aa1182801d46
 
