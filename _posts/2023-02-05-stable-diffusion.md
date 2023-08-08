@@ -76,6 +76,7 @@ the sampling process is slower as it is sequential by nature (sequential conditi
     <li>3. <strong>Generative Adversarial Networks (GAN):</strong> GANs will be covered in more detail in the section below. </li>
     <li>4. <strong>Latent variable models:</strong> <strong>Stable diffusion models</strong> belong to this type. This will also be covered in more detail 
 in the section below. </li>
+
 ---
 
 <a id="stable-diffusion-vs-gan"></a>
@@ -87,7 +88,6 @@ the model is able to generate data samples from the noise that is representative
 into stable diffusion, let's first compare stable diffusion and GAN, because before stable diffusion's emergence as the SOTA (state-of-the-art)
 generative model, GAN and its variants have been the SOTA generative model (however GAN still may be superior in niche use cases since sampling is much faster on GANs).
 
-## **What are GANs?**
 <br>
 <img src = "/assets/images/GAN_architecture.png" width = "700" height = "525" class = "center">
 <figcaption>Diagram showing general GAN architecture.</figcaption>

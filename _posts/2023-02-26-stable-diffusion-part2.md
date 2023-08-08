@@ -17,7 +17,7 @@ categories: posts
 - ### [Model Architecture](#model-architecture)
 - ### [Model Objective](#model-objective)
 - ### [Experiments & Results](#experiment-results)
-- ### [Applications of Stable Diffusion](#variation-stable-diffusion)
+- ### [Applications of Stable Diffusion](#applications-stable-diffusion)
 
 ### [Math and Details Behind Stable Diffusion](#math-behind-stable-diffusion) ([Part 3](/blog/2023/stable-diffusion-part3/))
 - ### [Autoencoder](#autoencoder)
@@ -27,6 +27,8 @@ categories: posts
 ---
 
 *Note: For Part 1 and 3 , please click the link above in the table of contents.* 
+
+To continue from part 1, let's first look at the overall architecture of the model.
 
 <a id="stable-diffusion"></a>
 ##  **Stable Diffusion:**
@@ -57,15 +59,18 @@ by the encoder via a cross-attention mechanism built in to the U-Net architectur
 Therefore, the pretrained text/image (mostly texts and images are used) encoder is responsible for projecting the conditioning text/image prompts to an intermediate representation that can be
 mapped to the cross-attention components, which is the usual query, key, and value matrices. For example, BERT or BERT-like pretrained text encoders have been pretrained on huge corpus datasets and
 are suited to take text prompts and generate token embeddings which are the intermediate representations that gets mapped to the cross-attention components. Nowadays, CLIP or CLIP-like pretrained text/image encoders pretrained on
-huge dataset of image-text pairs are used and thus allows text and image prompted stable diffusion as well (BERT could not handle images). 
+huge dataset of image-text pairs are used and thus allows text and image prompted stable diffusion as well (BERT can not handle images). 
 
 Personally, I think that these huge pretrained encoders trained on massive datasets allowed the emergence of the diffusion model, as autoencoders and U-Nets were already in practice years ago.
 
 <a id="model-objective"></a>
 ### **Model Objective:**
+With the model architecture in mind, what is the model actually trying to do? What's the objective, or the loss function of the model? 
 
 <a id="experiment-results"></a>
 ### **Experiments & Results:**
 
+<a id="applications-stable-diffusion"></a>
+### **Applications of Stable Diffusion:**
 
 *Image credits to: [Stable Diffusion Architecture](https://towardsdatascience.com/what-are-stable-diffusion-models-and-why-are-they-a-step-forward-for-image-generation-aa1182801d46) 
