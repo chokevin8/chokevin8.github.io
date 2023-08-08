@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Latent/Stable Diffusion for Beginners! (Part 1)
+title:  Stable Diffusion for Beginners! (Part 1)
 date:   2023-02-11
 description: 
 tags: deep-learning machine-learning latent-diffusion stable-diffusion generative-models
@@ -10,8 +10,10 @@ categories: posts
     Welcome to my first blog post! From now on, I'll be trying to do regular updates on any interesting, recent AI-related topic.
 </blockquote>
 
-For my first post, I thought it'd be fitting to do an in-depth review on the famous, famous latent/stable diffusion model which basically started the stable diffusion boom last year. 
-It really is the "hot topic" right now, as the generative models are taking over the AI industry! For reference purposes, the stable diffusion paper that started it all is named "High-Resolution Image Synthesis with Latent Diffusion Models", and can be found [here](https://arxiv.org/pdf/2112.10752.pdf).
+For my first post, I thought it'd be fitting to do an in-depth review on the stable diffusion model which basically started the stable diffusion boom last year. 
+It really is the "hot topic" right now, as the generative models are taking over the AI industry. For reference purposes, the stable diffusion paper that started it all is named 
+"High-Resolution Image Synthesis with Latent Diffusion Models", and can be found [here](https://arxiv.org/pdf/2112.10752.pdf). For this part (part 1), I will just touch upon the surface
+about stable diffusion and its predecessor, GANs. The next two parts as seen in the table of contents below will cover more details. 
 <strong> Let's dive right in!
 
 
@@ -25,18 +27,25 @@ It really is the "hot topic" right now, as the generative models are taking over
 - ###  [Introduction](#introduction)
 - ### [Stable Diffusion vs GAN](#stable-diffusion-vs-gan)
 
-### [Stable Diffusion](#stable-diffusion) ([Part 2])(/blog/2023/stable-diffusion-part2/)
+### [Stable Diffusion](#stable-diffusion) ([Part 2](/blog/2023/stable-diffusion-part2/))
 - ### [Model Architecture](#model-architecture)
 - ### [Experiments & Results](#experiment-results)
 - ### [Variation of Stable Diffusion](#variation-stable-diffusion)
 
+### [Math and Details Behind Stable Diffusion](#math-behind-stable-diffusion) ([Part 3- Next Blog!](/blog/2023/stable-diffusion-part3/))
+- ### [Autoencoder](#autoencoder)
+- ### [U-Net](#u-net)
+- ### [Pretrained Encoder](#pretrained-encoder)
+
+*Note: For Part 2 and 3 , please click the link above in the table of contents.* 
 ---
 <a id="background"></a>
 ##  **Background:**
 <a id="introduction"></a>
 ###  **Introduction:** 
-Latent diffusion models (LDM), or henceforth mentioned as stable diffusion models (SD), are a type of a diffusion model 
-developed for the purpose of image synthesis by Rombach et al. of last year. In Machine Learning, a "model" is either a generative or discriminative. 
+Latent diffusion models (LD), or henceforth mentioned as stable diffusion models (SD), are a type of a diffusion model 
+developed for the purpose of image synthesis by Rombach et al. of last year. (While LD and SD are not exactly equal- SD is an improved version and hence a type of LD-
+we will use the term interchangeably) In Machine Learning, a model is either a generative or discriminative. 
 The diagram below clearly shows the difference between the two:
 <br>
 <img src = "/assets/images/generative_v_discriminative.png" width = "523" height = "293" class = "center">
@@ -65,7 +74,7 @@ previous data of that outcome. The general idea is that autoregressive models mo
 conditional distribution is no easy task, and autoregressive models do this by utilizing the deep neural networks. In this case, outputs of the neural network is fed back as input, with the layers being one or more convolutional layers. Like normalizing flow models, the probability distribution is tractable, but 
 the sampling process is slower as it is sequential by nature (sequential conditionals). More on autoregressive models can be mentioned in later blogs as well.</li>
     <li>3. <strong>Generative Adversarial Networks (GAN):</strong> GANs will be covered in more detail in the section below. </li>
-    <li>4. <strong>Latent variable models:</strong> <strong>Stable diffusion models</strong> belong to this type. This will be covered in more detail 
+    <li>4. <strong>Latent variable models:</strong> <strong>Stable diffusion models</strong> belong to this type. This will also be covered in more detail 
 in the section below. </li>
 ---
 
@@ -73,19 +82,17 @@ in the section below. </li>
 ## **Stable Diffusion vs GAN:**
 Surprisingly, diffusion models are not new at all! Stable diffusion is a type of diffusion model, and like its name suggests,
 is actually based on the diffusion from thermodynamics! The forward diffusion process is where random (usually Gaussian) noise 
-is introduced to an image until the image is pure noise, and the reverse diffusion process is where the model is trained so that 
+is introduced to an image until the image is pure noise (isotropic Gaussian), and the reverse diffusion process is where the model is trained so that 
 the model is able to generate data samples from the noise that is representative of the true data distribution. Before diving deeper
 into stable diffusion, let's first compare stable diffusion and GAN, because before stable diffusion's emergence as the SOTA (state-of-the-art)
-generative model, GAN and its variants have been the SOTA generative model.
+generative model, GAN and its variants have been the SOTA generative model (however GAN still may be superior in niche use cases since sampling is much faster on GANs).
 
 ## **What are GANs?**
 <br>
 <img src = "/assets/images/GAN_architecture.png" width = "700" height = "525" class = "center">
 <figcaption>Diagram showing general GAN architecture.</figcaption>
 <br>
-The diagram above shows the general GAN architecture. I could go in-depth on GANs, but since we're talking about
-stable diffusion and trying to compare it, I'll keep it brief and talk about the pros and cons of GAN.
-As seen in the diagram, a GAN consists of a generator and a discriminator, which are both deep neural networks that are trained. 
+The diagram above shows the general GAN architecture. As seen in the diagram, a GAN consists of a generator and a discriminator, which are both deep neural networks that are trained. 
 The generator learns to generate plausible data, or so-called "fake images". The generated instances of fake images then become 
 negative training examples for the discriminator. Then, the discriminator learns to distinguish the generator's fake data from real data.
 Hence, the discriminator is simply a classifier model where it labels the images generated by the generator as real or fake. Simple!
@@ -108,7 +115,7 @@ models like the flow-based and autoregressive models have tractable density func
 of the GAN during the training process. </li>
 <li> 2. Furthermore, because two separate networks must be trained, GANs suffer from high training time and will sometimes fail to converge if GAN continues 
 training past the point when the discriminator is giving completely random feedback. In this case, the generator starts to train on junk feedback, and the generated 
-image will start to degrade in quality. 
+image will suddenly start to degrade in quality. 
 <li> 3. Also, if the generator happens to create a very plausible output, the generator in turn would learn to only produce that type of one output. If the discriminator then gets stuck in 
 a local minima and it can't find itself out, the generator and the entire model only generates a small subset of output types. This is a common problem in GANs called mode collapse. </li>
 <li> 4. Lastly, we can have vanishing gradients when the discriminator performs very well, as there would be little loss suffered from the generator and hence almost no weight 
@@ -116,7 +123,7 @@ updated for the generator model through backpropagation.
 
 To address these issues during training, when training and evaluating GANs, researchers generally use both qualitative and quantitative metrics during the training and evaluation 
 process. Qualitative metrics are essentially human judges rating the quality of the generated images compared to the ground-truth images. Quantitative metrics that are often used, are 
-Inception Score (IS) and Frechet Inception Distance (FID). More on these in later blogs.
+Inception Score (IS) and Frechet Inception Distance (FID). 
 
 <br>
 <img src = "/assets/images/gan_meme.jpeg" width = "300" height = "450" class = "center">
@@ -126,8 +133,8 @@ Assuming the GANs are well-trained, this meme above pretty much explains the lif
 
 
 While the drawbacks of GANs listed above do have their own remedies, they may still not work, or even if they do work, they may require a lot of time and effort- which may not be worth it.
-However, stable diffusion hasn't become the SOTA generative model just because of the drawbacks of GANs, they have their own advantages as well! Stable diffusion will be detailed in
-[Part 2](blog/2023/stable-diffusion-part2/) and [Part 3](blog/2023/stable-diffusion-part3/)! Click to find out!
+However, stable diffusion hasn't become the SOTA generative model just because of the drawbacks of GANs, they have their own advantages as well! The paper itself will be detailed in
+[Part 2](blog/2023/stable-diffusion-part2/) and the nitty gritty details and math will be explained in [Part 3](blog/2023/stable-diffusion-part3/)! Click to find out!
 
 </ul>
 <hr>
