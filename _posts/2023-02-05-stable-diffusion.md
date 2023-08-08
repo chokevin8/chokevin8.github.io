@@ -79,7 +79,7 @@ in the section below. </li>
 
 ---
 
-<a id="stable-diffusion-vs-gan"></a>
+<a id="#stable-diffusion-vs-gan"></a>
 ## **Stable Diffusion vs GAN:**
 Surprisingly, diffusion models are not new at all! Stable diffusion is a type of diffusion model, and like its name suggests,
 is actually based on the diffusion from thermodynamics! The forward diffusion process is where random (usually Gaussian) noise 
