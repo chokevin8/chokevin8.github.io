@@ -76,6 +76,7 @@ the sampling process is slower as it is sequential by nature (sequential conditi
     <li>3. <strong>Generative Adversarial Networks (GAN):</strong> GANs will be covered in more detail in the section below. </li>
     <li>4. <strong>Latent variable models:</strong> <strong>Stable diffusion models</strong> belong to this type. This will also be covered in more detail 
 in the section below. </li>
+</ul>
 
 ---
 
@@ -136,6 +137,4 @@ While the drawbacks of GANs listed above do have their own remedies, they may st
 However, stable diffusion hasn't become the SOTA generative model just because of the drawbacks of GANs, they have their own advantages as well! The paper itself will be detailed in
 the next part (part 2) now. 
 
-</ul>
-<hr>
 
