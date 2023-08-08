@@ -30,13 +30,12 @@ categories: posts
 
 *Note: For Part 1 and 3 , please click the link above in the table of contents.* 
 
-
-
 <a id="motivation"></a>
 ##  **Motivation:**
 In part 1, I've introduced the concept of generative models and the disadvantages of GANs, but that's not the true motivation of the authors of the paper.
-Diffusion models are a (explicit) likelihood-based model, which can be classified as similar types to an autoregressive or a normalizing flow model. Therefore,
-diffusion models tend to share similar disadvantages as autoregressive or normalizing-flow models, as it suffers from high computational cost due to the model spending
+Diffusion models are a (explicit) likelihood-based model, which can be classified as similar types to an autoregressive or a normalizing flow model. 
+<br>
+Therefore, diffusion models tend to share similar disadvantages as autoregressive or normalizing-flow models, as it suffers from high computational cost due to the model spending
 a lot of its resources and times preserving the details of the data entirely in the pixel space, which are often times unnecessary. Therefore, the authors aim to combat 
 this issue by enabling diffusion models to train in the latent space without loss of performance, which enables training on limited computational resources.
 
@@ -44,7 +43,9 @@ Now, converting the input image to the latent space isn't an easy task, as it re
 *Perceptual image compression* is just like what it sounds- it aims to preserve the visual quality of an image by prioritizing the information that is most noticeable to human 
 perception while compressing and removing parts of the image that is less sensitive to human perception. In most cases, high frequency components of the image, which tend to 
 be rapid changes in the images like edges and fine patterns can be removed as human perception is more sensitive to changes in low frequency components of the image
-such as major shapes and structures. *Semantic image compression* is a bit different- it aims to preserve the high-level semantic information that is important for understanding
+such as major shapes and structures.
+<br>
+*Semantic image compression* is a bit different- it aims to preserve the high-level semantic information that is important for understanding
 the overall image content, such as the outlines and borders of key objects of the image. 
 
 In stable diffusion, the authors perform perceptual and semantic compression in two distinct steps:
@@ -67,7 +68,7 @@ Stable diffusion consists of three major components- an autoencoder, a U-Net, an
 The entire model architecture and its three major components can be visualized in the below image:
 
 <br>
-<img src = "/assets/images/stable-diffusion.png" width = "523" height = "293" class = "center">
+<img src = "/assets/images/stable-diffusion.png" width = "800" height = "500" class = "center">
 <figcaption>Diagram showing the general model architecture of the stable (latent) diffusion.</figcaption>
 <br>
 
