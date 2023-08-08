@@ -49,17 +49,32 @@ such as major shapes and structures.
 the overall image content, such as the outlines and borders of key objects of the image. 
 
 In stable diffusion, the authors perform perceptual and semantic compression in two distinct steps:
-1. The autoencoder (model architecture is explained in the next section) converts and compresses the input image from the pixel space to the latent space without losing perceptual details. Essentially, the autoencoder performs
+1. The autoencoder (model architecture will be explained in the next section) converts and compresses the input image from the pixel space to the latent space without losing perceptual details. Essentially, the autoencoder performs
 the perceptual compression by removing high-frequency details. 
 2. The pretrained encoder and the U-Net, which as a combination is responsible for the actual generation of images (reverse diffusion), learns the semantic composition
 of the data. Essentially, the pretrained encoder and the U-Net performs semantic compression by learning how to generate the high-level semantic information of the input image.
 
-Now, one of the biggest reasons why previous diffusion or likelihood-based models required such high computational cost was because the models spent so much time processing
-losses, gradients, 
+The autoencoder that maps between the pixel and the latent space and performs perceptual compression is called the "latent diffusion model". However, it seems like the authors meant to say that
+if the entire model architecture contains this mapping autoencoder, it can be under the same class of latent diffusion models. The authors mention that this universal autoencoding stage is needed
+to be trained only once, and this autoencoder can be utilized in various different multi-modal tasks.
+<br>
+Now, one of the biggest reasons why previous diffusion or likelihood-based models required such high computational cost was because the models spent so much time updating and calculating
+losses, gradients, and different weights of the backbone during training and inference on parts of the images that are not important perceptual details.
+<br>
+<img src = "/assets/images/distortion_vs_rate.png" width = "800" height = "500" class = "center">
+<figcaption>Diagram showing the relationship between rate and distortion and its tradeoff.</figcaption>
+<br>
+As seen above in the graph from the paper, we see the rate-distortion tradeoff. Distortion can be thought of as the root-mean-squared error (RMSE) between
+the original input image and the final generated image from the decoder. Rate, or bits per dimension/pixel, can be thought of as 
 
-Therefore, the authors hypothesize that:
+inductive bias UNet
+
+Therefore, the authors state that their work offers three main advantages over other previous diffusion models or any general generative models:
 <ul>
-    <li> 1. asfdasfasf </li>
+    <li> 1. pixel to latent space computationally more efficient </li>
+    <li> 2. general purpose autoencoder that only needs to be trained once for various downstream training of multiple, multi-modal generative
+models, which are explained in the experiments section.</li>
+    <li> 3. no aggressive compression due to inductive bias of UNet</li>
 </ul>
 
 <a id="model-architecture-objective"></a>
