@@ -9,7 +9,7 @@ categories: posts
 ---
 
 ## **Table of Contents:**
-### [Background](#background) ([Part 1- Previous Blog!](/blog/2023/stable-diffusion/))
+### [Background](#background) ([Part 1](/blog/2023/stable-diffusion/))
 - ###  [Introduction](#introduction)
 - ### [Stable Diffusion vs GAN](#stable-diffusion-vs-gan)
 
@@ -19,7 +19,7 @@ categories: posts
 - ### [Experiments & Results](#experiment-results)
 - ### [Applications of Stable Diffusion](#variation-stable-diffusion)
 
-### [Math and Details Behind Stable Diffusion](#math-behind-stable-diffusion) ([Part 3- Next Blog!](/blog/2023/stable-diffusion-part3/))
+### [Math and Details Behind Stable Diffusion](#math-behind-stable-diffusion) ([Part 3](/blog/2023/stable-diffusion-part3/))
 - ### [Autoencoder](#autoencoder)
 - ### [U-Net](#u-net)
 - ### [Pretrained Encoder](#pretrained-encoder)
@@ -36,8 +36,7 @@ The entire model architecture and its three major components can be visualized i
 ### **Model Architecture:**
 <br>
 <img src = "/assets/images/stable-diffusion.png" width = "523" height = "293" class = "center">
-<figcaption>Diagram showing the general model architecture of the stable (latent) diffusion. Image credits to: [Link](https://towardsdatascience.com/what-are-stable-diffusion-models-and-why-are-they-a-step-forward-for-image-generation-aa1182801d46) 
-</figcaption>
+<figcaption>Diagram showing the general model architecture of the stable (latent) diffusion.</figcaption>
 <br>
 
 1. **Autoencoder:** The autoencoder is responsible for two major tasks, with the encoder and the decoder being responsible for each task. First, the encoder allows the previously mentioned forward
@@ -69,3 +68,4 @@ Personally, I think that these huge pretrained encoders trained on massive datas
 ### **Experiments & Results:**
 
 
+*Image credits to: [Stable Diffusion Architecture](https://towardsdatascience.com/what-are-stable-diffusion-models-and-why-are-they-a-step-forward-for-image-generation-aa1182801d46) 

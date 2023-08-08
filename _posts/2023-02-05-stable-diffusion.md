@@ -32,7 +32,7 @@ about stable diffusion and its predecessor, GANs. The next two parts as seen in 
 - ### [Experiments & Results](#experiment-results)
 - ### [Variation of Stable Diffusion](#variation-stable-diffusion)
 
-### [Math and Details Behind Stable Diffusion](#math-behind-stable-diffusion) ([Part 3- Next Blog!](/blog/2023/stable-diffusion-part3/))
+### [Math and Details Behind Stable Diffusion](#math-behind-stable-diffusion) ([Part 3](/blog/2023/stable-diffusion-part3/))
 - ### [Autoencoder](#autoencoder)
 - ### [U-Net](#u-net)
 - ### [Pretrained Encoder](#pretrained-encoder)
