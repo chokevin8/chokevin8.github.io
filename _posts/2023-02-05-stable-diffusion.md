@@ -134,7 +134,7 @@ Assuming the GANs are well-trained, this meme above pretty much explains the lif
 
 While the drawbacks of GANs listed above do have their own remedies, they may still not work, or even if they do work, they may require a lot of time and effort- which may not be worth it.
 However, stable diffusion hasn't become the SOTA generative model just because of the drawbacks of GANs, they have their own advantages as well! The paper itself will be detailed in
-[Part 2](blog/2023/stable-diffusion-part2/) and the nitty gritty details and math will be explained in [Part 3](blog/2023/stable-diffusion-part3/)! Click to find out!
+the next part (part 2) now. 
 
 </ul>
 <hr>
