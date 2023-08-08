@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Stable Diffusion for Beginners! (Part 1)
-date:   2023-02-11
+date:   2023-03-20
 description: 
 tags: deep-learning machine-learning latent-diffusion stable-diffusion generative-models
 categories: posts
@@ -25,14 +25,16 @@ about stable diffusion and its predecessor, GANs. The next two parts as seen in 
 ## **Table of Contents:**
 ### [Background](#background) (Part 1- This Blog!)
 - ###  [Introduction](#introduction)
-- ### [Stable Diffusion vs GAN](#stable-diffusion-vs-gan)
+- ### [Why ditch GANs for Stable Diffusion?](#why-ditch-GANs)
 
 ### [Stable Diffusion](#stable-diffusion) ([Part 2](/blog/2023/stable-diffusion-part2/))
+- ### [Motivation](#motivation)
 - ### [Model Architecture](#model-architecture)
 - ### [Experiments & Results](#experiment-results)
-- ### [Variation of Stable Diffusion](#variation-stable-diffusion)
+- ### [Applications of Stable Diffusion](#applications-stable-diffusion)
 
 ### [Math and Details Behind Stable Diffusion](#math-behind-stable-diffusion) ([Part 3](/blog/2023/stable-diffusion-part3/))
+- ### [Model Objective](#model-objective)
 - ### [Autoencoder](#autoencoder)
 - ### [U-Net](#u-net)
 - ### [Pretrained Encoder](#pretrained-encoder)
@@ -45,7 +47,7 @@ about stable diffusion and its predecessor, GANs. The next two parts as seen in 
 ###  **Introduction:** 
 Latent diffusion models (LD), or henceforth mentioned as stable diffusion models (SD), are a type of a diffusion model 
 developed for the purpose of image synthesis by Rombach et al. of last year. (While LD and SD are not exactly equal- SD is an improved version and hence a type of LD-
-we will use the term interchangeably) In Machine Learning, a model is either a generative or discriminative. 
+we will use the term interchangeably) Let's do a quick overview of what a "model" is first. In Machine Learning, a model is either a generative or discriminative. 
 The diagram below clearly shows the difference between the two:
 <br>
 <img src = "/assets/images/generative_v_discriminative.png" width = "523" height = "293" class = "center">
@@ -55,7 +57,7 @@ As shown above, the discriminative model tries to tell the difference of a writi
 through the data space. Therefore, a discriminative model just has to model the posterior $$ p(y|x) $$ for label y and data sample x. 
 It doesn't need to model the probability distribution of the entire data space to do this. For example, if you are familiar with SVMs, which is a type
 of a discriminative classifier/model, we know that the model's objective is to find the support vectors that maximize the distance between the support vectors 
-and the decision boundary, which is called a margin. Most of the time, the support vectors are very few data points that lie near the decision boundary (hyperplane)– 
+and the decision boundary, which is the margin. Most of the time, the support vectors are very few data points that lie near the decision boundary (hyperplane)– 
 the majority of the other data samples simply don't matter. 
 
 On the other hand, a generative model aims to model the probability distribution $$ p(x,y) $$ of the entire data space.
@@ -68,26 +70,26 @@ Likewise, a stable diffusion model is a type of generative model. Generative mod
     <li>1. <strong>Flow-based models:</strong> Flow-based generative models are quite unique in that they utilize a method called "normalizing flow". Normalizing flow uses the change of variable theorem, which allows us to estimate a more complex probability density function for our model. 
 This is hugely beneficial but also comes at a cost- during backpropagation, the derivative would be impossible or too hard to calculate. Therefore, we will later see that this is why stable diffusion utilizes the gaussian distribution in its noising process, even though it is much simpler than the "real world" distribution.
 Normalizing flow is essentially a complex distribution modeled by a chain of invertible transformation functions. The probability density function is tractable, meaning the learning process is simply based on minimizing the negative log-likelihood over the given dataset. A critical drawback, however, is that normalizing models have limitations in that 
-the transformations must all be invertible (for change of variable theorem to work) and determinants must be efficiently calculated (for backpropagation). More on flow-based models can be mentioned later in the blog.</li>
+the transformations must all be invertible (for change of variable theorem to work) and determinants must be efficiently calculated (for backpropagation). </li>
     <li>2. <strong>Autoregressive models:</strong> Autoregressive generative models, like their name suggests, means performing regression on its self. General autoregression means predicting a future outcome based on the 
 previous data of that outcome. The general idea is that autoregressive models model the joint probability space $$p(x)$$ by utilizing the chain rule $$ p(x,y) = p(y|x)p(x) $$, meaning that it is ultimately a product of conditional distributions. Like normalizing flows, defining the complex product of
 conditional distribution is no easy task, and autoregressive models do this by utilizing the deep neural networks. In this case, outputs of the neural network is fed back as input, with the layers being one or more convolutional layers. Like normalizing flow models, the probability distribution is tractable, but 
-the sampling process is slower as it is sequential by nature (sequential conditionals). More on autoregressive models can be mentioned in later blogs as well.</li>
-    <li>3. <strong>Generative Adversarial Networks (GAN):</strong> GANs will be covered in more detail in the section below. </li>
+the sampling process is slower as it is sequential by nature (sequential conditionals). </li>
+    <li>3. <strong>Generative Adversarial Networks (GAN):</strong> GANs will be covered in more detail in this blog. </li>
     <li>4. <strong>Latent variable models:</strong> <strong>Stable diffusion models</strong> belong to this type. This will also be covered in more detail 
-in the section below. </li>
+in this blog. </li>
 </ul>
 
 ---
 
-<a id="#stable-diffusion-vs-gan"></a>
-## **Stable Diffusion vs GAN:**
+<a id="#why-ditch-GANs"></a>
+## **Why ditch GANs for Stable Diffusion?**
 Surprisingly, diffusion models are not new at all! Stable diffusion is a type of diffusion model, and like its name suggests,
 is actually based on the diffusion from thermodynamics! The forward diffusion process is where random (usually Gaussian) noise 
 is introduced to an image until the image is pure noise (isotropic Gaussian), and the reverse diffusion process is where the model is trained so that 
 the model is able to generate data samples from the noise that is representative of the true data distribution. Before diving deeper
-into stable diffusion, let's first compare stable diffusion and GAN, because before stable diffusion's emergence as the SOTA (state-of-the-art)
-generative model, GAN and its variants have been the SOTA generative model (however GAN still may be superior in niche use cases since sampling is much faster on GANs).
+into stable diffusion, let's first review GAN's disadvantages, because before stable diffusion's emergence as the SOTA (state-of-the-art)
+generative model, GAN and its variants have been the SOTA generative model (however GANs still may be superior in niche use cases since sampling is still much faster on GANs).
 
 <br>
 <img src = "/assets/images/GAN_architecture.png" width = "700" height = "525" class = "center">

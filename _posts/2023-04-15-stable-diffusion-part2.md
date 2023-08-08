@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Latent/Stable Diffusion for Beginners! (Part 2)
-date:   2023-02-25
+date:   2023-04-15
 description: 
 tags: deep-learning machine-learning latent-diffusion stable-diffusion generative-models
 categories: posts
@@ -14,12 +14,14 @@ categories: posts
 - ### [Stable Diffusion vs GAN](#stable-diffusion-vs-gan)
 
 ### [Stable Diffusion](#stable-diffusion) (Part 2- This Blog!)
+
+- ### [Motivation](#motivation)
 - ### [Model Architecture](#model-architecture)
-- ### [Model Objective](#model-objective)
 - ### [Experiments & Results](#experiment-results)
 - ### [Applications of Stable Diffusion](#applications-stable-diffusion)
 
 ### [Math and Details Behind Stable Diffusion](#math-behind-stable-diffusion) ([Part 3](/blog/2023/stable-diffusion-part3/))
+- ### [Model Objective](#model-objective)
 - ### [Autoencoder](#autoencoder)
 - ### [U-Net](#u-net)
 - ### [Pretrained Encoder](#pretrained-encoder)
@@ -28,14 +30,42 @@ categories: posts
 
 *Note: For Part 1 and 3 , please click the link above in the table of contents.* 
 
-To continue from part 1, let's first look at the overall architecture of the model.
 
-<a id="stable-diffusion"></a>
-##  **Stable Diffusion:**
-Stable diffusion consists of three major components- an autoencoder, a U-Net, and a pretrained encoder. Each of the three components are critical and work together to work their magic.
-The entire model architecture and its three major components can be visualized in the below image:
+
+<a id="motivation"></a>
+##  **Motivation:**
+In part 1, I've introduced the concept of generative models and the disadvantages of GANs, but that's not the true motivation of the authors of the paper.
+Diffusion models are a (explicit) likelihood-based model, which can be classified as similar types to an autoregressive or a normalizing flow model. Therefore,
+diffusion models tend to share similar disadvantages as autoregressive or normalizing-flow models, as it suffers from high computational cost due to the model spending
+a lot of its resources and times preserving the details of the data entirely in the pixel space, which are often times unnecessary. Therefore, the authors aim to combat 
+this issue by enabling diffusion models to train in the latent space without loss of performance, which enables training on limited computational resources.
+
+Now, converting the input image to the latent space isn't an easy task, as it requires compressing the images without losing its perceptual and semantic details.
+*Perceptual image compression* is just like what it sounds- it aims to preserve the visual quality of an image by prioritizing the information that is most noticeable to human 
+perception while compressing and removing parts of the image that is less sensitive to human perception. In most cases, high frequency components of the image, which tend to 
+be rapid changes in the images like edges and fine patterns can be removed as human perception is more sensitive to changes in low frequency components of the image
+such as major shapes and structures. *Semantic image compression* is a bit different- it aims to preserve the high-level semantic information that is important for understanding
+the overall image content, such as the outlines and borders of key objects of the image. 
+
+In stable diffusion, the authors perform perceptual and semantic compression in two distinct steps:
+1. The autoencoder (model architecture is explained in the next section) converts and compresses the input image from the pixel space to the latent space without losing perceptual details. Essentially, the autoencoder performs
+the perceptual compression by removing high-frequency details. 
+2. The pretrained encoder and the U-Net, which as a combination is responsible for the actual generation of images (reverse diffusion), learns the semantic composition
+of the data. Essentially, the pretrained encoder and the U-Net performs semantic compression by learning how to generate the high-level semantic information of the input image.
+
+Now, one of the biggest reasons why previous diffusion or likelihood-based models required such high computational cost was because the models spent so much time processing
+losses, gradients, 
+
+Therefore, the authors hypothesize that:
+<ul>
+    <li> 1. asfdasfasf </li>
+</ul>
+
 <a id="model-architecture-objective"></a>
 ### **Model Architecture:**
+Stable diffusion consists of three major components- an autoencoder, a U-Net, and a pretrained encoder. Each of the three components are critical and work together to work their magic.
+The entire model architecture and its three major components can be visualized in the below image:
+
 <br>
 <img src = "/assets/images/stable-diffusion.png" width = "523" height = "293" class = "center">
 <figcaption>Diagram showing the general model architecture of the stable (latent) diffusion.</figcaption>
@@ -61,11 +91,7 @@ mapped to the cross-attention components, which is the usual query, key, and val
 are suited to take text prompts and generate token embeddings which are the intermediate representations that gets mapped to the cross-attention components. Nowadays, CLIP or CLIP-like pretrained text/image encoders pretrained on
 huge dataset of image-text pairs are used and thus allows text and image prompted stable diffusion as well (BERT can not handle images). 
 
-Personally, I think that these huge pretrained encoders trained on massive datasets allowed the emergence of the diffusion model, as autoencoders and U-Nets were already in practice years ago.
-
-<a id="model-objective"></a>
-### **Model Objective:**
-With the model architecture in mind, what is the model actually trying to do? What's the objective, or the loss function of the model? 
+Now, with the above motivation resulting in the authors designing this unique model architecture, the authors performed several experiments to verify their claims.
 
 <a id="experiment-results"></a>
 ### **Experiments & Results:**
