@@ -32,21 +32,26 @@ categories: posts
 
 <a id="motivation"></a>
 ##  **Motivation:**
+<p> 
 In part 1, I've introduced the concept of generative models and the disadvantages of GANs, but that's not the true motivation of the authors of the paper.
 Diffusion models are a (explicit) likelihood-based model, which can be classified as similar types to an autoregressive or a normalizing flow model. 
-<br>
+</p>
+<p>
 Therefore, diffusion models tend to share similar disadvantages as autoregressive or normalizing-flow models, as it suffers from high computational cost due to the model spending
 a lot of its resources and times preserving the details of the data entirely in the pixel space, which are often times unnecessary. Therefore, the authors aim to combat 
 this issue by enabling diffusion models to train in the latent space without loss of performance, which enables training on limited computational resources.
-
+</p>
+<p>
 Now, converting the input image to the latent space isn't an easy task, as it requires compressing the images without losing its perceptual and semantic details.
 *Perceptual image compression* is just like what it sounds- it aims to preserve the visual quality of an image by prioritizing the information that is most noticeable to human 
 perception while compressing and removing parts of the image that is less sensitive to human perception. In most cases, high frequency components of the image, which tend to 
 be rapid changes in the images like edges and fine patterns can be removed as human perception is more sensitive to changes in low frequency components of the image
 such as major shapes and structures.
-<br>
+</p>
+<p>
 *Semantic image compression* is a bit different- it aims to preserve the high-level semantic information that is important for understanding
 the overall image content, such as the outlines and borders of key objects of the image. 
+</p>
 
 In stable diffusion, the authors perform perceptual and semantic compression in two distinct steps:
 1. The autoencoder (model architecture will be explained in the next section) converts and compresses the input image from the pixel space to the latent space without losing perceptual details. Essentially, the autoencoder performs
@@ -54,10 +59,11 @@ the perceptual compression by removing high-frequency details.
 2. The pretrained encoder and the U-Net, which as a combination is responsible for the actual generation of images (reverse diffusion), learns the semantic composition
 of the data. Essentially, the pretrained encoder and the U-Net performs semantic compression by learning how to generate the high-level semantic information of the input image.
 
+<p>
 The autoencoder that maps between the pixel and the latent space and performs perceptual compression is called the "latent diffusion model". However, it seems like the authors meant to say that
 if the entire model architecture contains this mapping autoencoder, it can be under the same class of latent diffusion models. The authors mention that this universal autoencoding stage is needed
 to be trained only once, and this autoencoder can be utilized in various different multi-modal tasks.
-<br>
+</p>
 Now, one of the biggest reasons why previous diffusion or likelihood-based models required such high computational cost was because the models spent so much time updating and calculating
 losses, gradients, and different weights of the backbone during training and inference on parts of the images that are not important perceptual details.
 <br>
