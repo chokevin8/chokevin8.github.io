@@ -103,6 +103,7 @@ models.</li>
 </ul>
 
 Before looking at experiments and results the authors conclueded to verify those claims above, let's look at the overall model architecture first.
+
 ---
 
 <a id="model-architecture-objective"></a>
@@ -139,6 +140,8 @@ are suited to take text prompts and generate token embeddings which are the inte
 huge dataset of image-text pairs are used and thus allows text and image prompted stable diffusion as well (BERT can not handle images). 
 
 Now, with the above motivation resulting in the authors designing this unique model architecture, the authors performed several experiments to verify their claims.
+
+---
 
 <a id="experiment-results"></a>
 ### **Experiments & Results:**
