@@ -80,7 +80,7 @@ actually the complete opposite- optimizing one will alway come at the expense of
 </p>
 <p>
 
-*Rate*, or bits per dimension or pixel, can be thought of as the amount of information. Therefore, higher the rate, the more "information" there is in the image. I believe
+**Rate**, or bits per dimension or pixel, can be thought of as the amount of information. Therefore, higher the rate, the more "information" there is in the image. I believe
 that the diagram shows the progression of the reverse diffusion process, where it starts at high distortion and zero rate (completely noised image) at time T, and where it ends
 at low distortion and high rate (completely denoised image) at time 0. Thus, it makes sense why distortion would decrease when rate is increased, as shown in the graph. 
 The graph above first shows the separately trained universal autoencoder for an effective mapping of the input image in the pixel space to the latent space. 
@@ -96,13 +96,15 @@ advantages like translational invariance due to convolutions.
 
 Therefore, the authors state that their work offers three main advantages over other previous diffusion models or any general generative models:
 <ul>
-    <li> 1. Training an autoencoder that maps pixel to latent space makes the forward and reverse diffusion process computationally efficient with minimal losses in perceptual quality. </li>
-    <li> 2. The autoencoder only needs to be trained once and then can be used for various downstream training of multiple, multi-modal generative
+    <li> Training an autoencoder that maps pixel to latent space makes the forward and reverse diffusion process computationally efficient with minimal losses in perceptual quality. </li>
+    <li> The autoencoder only needs to be trained once and then can be used for various downstream training of multiple, multi-modal generative
 models.</li>
-    <li> 3. By utilizing the inductive bias of U-Net, the model does not need aggressive compression of images which could deteriorate perceptual quality of generated images. </li>
+    <li> By utilizing the inductive bias of U-Net, the model does not need aggressive compression of images which could deteriorate perceptual quality of generated images. </li>
 </ul>
 
 Before looking at experiments and results the authors conclueded to verify those claims above, let's look at the overall model architecture first.
+---
+
 <a id="model-architecture-objective"></a>
 ### **Model Architecture:**
 Stable diffusion consists of three major components- an autoencoder, a U-Net, and a pretrained encoder. Each of the three components are critical and work together to work their magic.
