@@ -80,7 +80,7 @@ actually the complete opposite- optimizing one will alway come at the expense of
 </p>
 <p>
 
-<b>Rate</b>, or bits per dimension or pixel, can be thought of as the amount of information. Therefore, higher the rate, the more "information" there is in the image. I believe
+<i><b>Rate</b></i>, or bits per dimension or pixel, can be thought of as the amount of information. Therefore, higher the rate, the more "information" there is in the image. I believe
 that the diagram shows the progression of the reverse diffusion process, where it starts at high distortion and zero rate (completely noised image) at time T, and where it ends
 at low distortion and high rate (completely denoised image) at time 0. Thus, it makes sense why distortion would decrease when rate is increased, as shown in the graph. 
 The graph above first shows the separately trained universal autoencoder for an effective mapping of the input image in the pixel space to the latent space. 
