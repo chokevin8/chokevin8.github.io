@@ -44,13 +44,13 @@ this issue by enabling diffusion models to train in the latent space without los
 <p>
 
 Now, converting the input image to the latent space isn't an easy task, as it requires compressing the images without losing its perceptual and semantic details.
-*Perceptual image compression* is just like what it sounds- it aims to preserve the visual quality of an image by prioritizing the information that is most noticeable to human 
+<b><i>Perceptual image compression</b></i> is just like what it sounds- it aims to preserve the visual quality of an image by prioritizing the information that is most noticeable to human 
 perception while compressing and removing parts of the image that is less sensitive to human perception. In most cases, high frequency components of the image, which tend to 
 be rapid changes in the images like edges and fine patterns can be removed as human perception is more sensitive to changes in low frequency components of the image
 such as major shapes and structures.
 </p>
 <p>
-*Semantic image compression* is a bit different- it aims to preserve the high-level semantic information that is important for understanding
+<b><i>Semantic image compression</b></i> is a bit different- it aims to preserve the high-level semantic information that is important for understanding
 the overall image content, such as the outlines and borders of key objects of the image. 
 </p>
 
@@ -73,7 +73,7 @@ losses, gradients, and different weights of the backbone during training and inf
 <br>
 <p>
 
-As seen above in the graph from the paper, we see the rate-distortion tradeoff. *Distortion* can be thought of as the root-mean-squared error (RMSE) between
+As seen above in the graph from the paper, we see the rate-distortion tradeoff. <b><i>Distortion</b></i> can be thought of as the root-mean-squared error (RMSE) between
 the original input image and the final generated image from the decoder. The lower the distortion, the lower the root-mean-squared error between the 
 original image and the generated image. One may erroneously assume that a low distortion would always mean good perceptual quality of the image, but this is
 actually the complete opposite- optimizing one will alway come at the expense of another.
@@ -89,7 +89,7 @@ Therefore, this autoencoder allows the reverse diffusion process of the conditio
 
 <p>
 
-But one may ask, *why specifically use U-Net?* The authors believe that by using U-Net, they can utilize the inductive bias of U-Net to generate high quality
+But one may ask, <b><i>why specifically use U-Net?</b></i> The authors believe that by using U-Net, they can utilize the inductive bias of U-Net to generate high quality
 images. This is indeed true, as U-Nets, like other convolution-based networks, naturally excel at capturing the spatial relationship of images and have unique
 advantages like translational invariance due to convolutions. 
 </p>
