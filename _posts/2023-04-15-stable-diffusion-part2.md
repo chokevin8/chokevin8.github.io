@@ -50,7 +50,6 @@ be rapid changes in the images like edges and fine patterns can be removed as hu
 such as major shapes and structures.
 </p>
 <p>
-
 *Semantic image compression* is a bit different- it aims to preserve the high-level semantic information that is important for understanding
 the overall image content, such as the outlines and borders of key objects of the image. 
 </p>
