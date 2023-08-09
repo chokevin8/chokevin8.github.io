@@ -42,6 +42,7 @@ a lot of its resources and times preserving the details of the data entirely in 
 this issue by enabling diffusion models to train in the latent space without loss of performance, which enables training on limited computational resources.
 </p>
 <p>
+
 Now, converting the input image to the latent space isn't an easy task, as it requires compressing the images without losing its perceptual and semantic details.
 *Perceptual image compression* is just like what it sounds- it aims to preserve the visual quality of an image by prioritizing the information that is most noticeable to human 
 perception while compressing and removing parts of the image that is less sensitive to human perception. In most cases, high frequency components of the image, which tend to 
@@ -49,6 +50,7 @@ be rapid changes in the images like edges and fine patterns can be removed as hu
 such as major shapes and structures.
 </p>
 <p>
+
 *Semantic image compression* is a bit different- it aims to preserve the high-level semantic information that is important for understanding
 the overall image content, such as the outlines and borders of key objects of the image. 
 </p>
@@ -70,8 +72,26 @@ losses, gradients, and different weights of the backbone during training and inf
 <img src = "/assets/images/distortion_vs_rate.png" width = "800" height = "500" class = "center">
 <figcaption>Diagram showing the relationship between rate and distortion and its tradeoff.</figcaption>
 <br>
-As seen above in the graph from the paper, we see the rate-distortion tradeoff. Distortion can be thought of as the root-mean-squared error (RMSE) between
-the original input image and the final generated image from the decoder. Rate, or bits per dimension/pixel, can be thought of as 
+<p>
+
+As seen above in the graph from the paper, we see the rate-distortion tradeoff. *Distortion* can be thought of as the root-mean-squared error (RMSE) between
+the original input image and the final generated image from the decoder. The lower the distortion, the lower the root-mean-squared error between the 
+original image and the generated image. One may erroneously assume that a low distortion would always mean good perceptual quality of the image, but this is
+actually the complete opposite- optimizing one will alway come at the expense of another.
+</p>
+<p>
+
+*Rate*, or bits per dimension or pixel, can be thought of as the amount of information. Therefore, higher the rate, the more "information" there is in the image. I believe
+that the diagram shows the progression of the reverse diffusion process, where it starts at high distortion and zero rate (completely noised image) at time T, and where it ends
+at low distortion and high rate (completely denoised image) at time 0. Thus, it makes sense why distortion would decrease when rate is increased, as shown in the graph. 
+</p>
+
+<p>
+Therefore, the graph above first shows the separately trained universal autoencoder for perceptual compression for decreasing the rate of the image with minimally increasing the distortion
+for an effective mapping of the input image in the pixel space to the latent space. 
+space 
+</p>
+
 
 inductive bias UNet
 
