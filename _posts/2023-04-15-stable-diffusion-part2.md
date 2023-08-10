@@ -148,9 +148,9 @@ effective- too high of a downsampling factor will be too aggressive in the perce
 process slower since it would leave most of the perceptual compression to the reverse diffusion process (image not compressed enough). As expected, the graph below shows that a downsampling
 factor of 4 or 8 was the ideal factor for training the autoencoder. 
 </p>
-<img src = "/assets/images/optimizing_downsampling_factor.jpeg" width = "1200" height = "500" class = "center">
+<img src = "/assets/images/optimizing_downsampling_factor.jpeg" width = "1000" height = "400" class = "center">
 <figcaption>Diagram showing FID and Inception Scores of generated images for different downsampling factors of the autoencoder.</figcaption>
-
+<br>
 <p>
 It is confirmed that LDM with downsampling factor 4 and 8 achieve the lowest FID score and the highest Inception Score, with downsampling factors
 at each extreme ends (1 and 32) performing poorly as expected. Lastly, the authors utilized LDM with downsampling factor of 4 and 8 and tested them against multiple benchmark datasets.
@@ -160,7 +160,7 @@ as it is too much detail to cover every result in the blog.
 </p>
 
 **2. Conditional Latent Diffusion:**
-
+Note that one of the biggest advantages to the LDM that the authors described
 
 
 
