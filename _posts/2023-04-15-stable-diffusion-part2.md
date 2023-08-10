@@ -160,7 +160,16 @@ as it is too much detail to cover every result in the blog.
 </p>
 
 **2. Conditional Latent Diffusion:**
-Note that one of the biggest advantages to the LDM that the authors described
+<p>
+Note that one of the biggest advantages to the LDM is its multi-modality due to its cross-attention based text/image conditioning made possible with the U-Net backbone and pretrained encoders like
+BERT and CLIP. The authors explore the multi-modality by performing different experiments in LDM's ability to perform semantic synthesis, image superresolution, and image inpainting. 
+Before briefly looking over each experiments, however, it is important to touch upon: <i><b> 1) KL and VQ-regularized LDMs and 2) Classifier-guided and classifier-free diffusion process.</b></i>
+</p>
+
+1. ***KL and VQ-regularized LDMs***: 
+ASDFADSF
+2. ***Classifier-guided and classifier-free diffusion process:
+ASDFADSF
 
 
 
