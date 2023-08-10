@@ -70,16 +70,13 @@ losses, gradients, and different weights of the backbone during training and inf
 <br>
 <img src = "/assets/images/distortion_vs_rate.png" width = "800" height = "500" class = "center">
 <figcaption>Diagram showing the relationship between rate and distortion and its tradeoff.</figcaption>
-<br>
 <p>
-
 As seen above in the graph from the paper, we see the rate-distortion tradeoff. <i><b>Distortion</b></i> can be thought of as the root-mean-squared error (RMSE) between
 the original input image and the final generated image from the decoder. The lower the distortion, the lower the root-mean-squared error between the 
 original image and the generated image. One may erroneously assume that a low distortion would always mean good perceptual quality of the image, but this is
 actually the complete opposite- optimizing one will alway come at the expense of another.
 </p>
 <p>
-
 <i><b>Rate</b></i>, or bits per dimension or pixel, can be thought of as the amount of information. Therefore, higher the rate, the more "information" there is in the image. I believe
 that the diagram shows the progression of the reverse diffusion process, where it starts at high distortion and zero rate (completely noised image) at time T, and where it ends
 at low distortion and high rate (completely denoised image) at time 0. Thus, it makes sense why distortion would decrease when rate is increased, as shown in the graph. 
@@ -88,8 +85,7 @@ Therefore, this autoencoder allows the reverse diffusion process of the conditio
 </p>
 
 <p>
-
-But one may ask, <i><b>>why specifically use U-Net?</b></i> The authors believe that by using U-Net, they can utilize the inductive bias of U-Net to generate high quality
+But one may ask, <i><b>why specifically use U-Net?</b></i> The authors believe that by using U-Net, they can utilize the inductive bias of U-Net to generate high quality
 images. This is indeed true, as U-Nets, like other convolution-based networks, naturally excel at capturing the spatial relationship of images and have unique
 advantages like translational invariance due to convolutions. 
 </p>
@@ -108,13 +104,12 @@ Before looking at experiments and results the authors concluded to verify those 
 
 <a id="model-architecture-objective"></a>
 ### **Model Architecture:**
-Stable diffusion consists of three major components- an autoencoder, a U-Net, and a pretrained encoder. Each of the three components are critical and work together to work their magic.
+Stable diffusion consists of three major components- *an autoencoder, a U-Net, and a pretrained encoder*. Each of the three components are critical and work together to work their magic.
 The entire model architecture and its three major components can be visualized in the below image:
 
 <br>
 <img src = "/assets/images/stable-diffusion.png" width = "800" height = "500" class = "center">
 <figcaption>Diagram showing the general model architecture of the stable (latent) diffusion.</figcaption>
-<br>
 
 1. **Autoencoder:** The autoencoder is responsible for two major tasks, with the encoder and the decoder being responsible for each task. First, the encoder allows the previously mentioned forward
 diffusion process to happen in the latent space. This means that the forward diffusion process, which is Markovian, would take less time since the image from our pixel space is 
@@ -141,13 +136,17 @@ huge dataset of image-text pairs are used and thus allows text and image prompte
 
 Now, with the above motivation resulting in the authors designing this unique model architecture, the authors performed several experiments to verify their claims.
 
+1. Experiment on Perceptual Compression Tradeoffs:
+Recall that the autoencoder is responsible for mapping the input image from the pixel space to the latent space, and therefore needs an optimized downsampling factor for it to be
+effective- too high of a downsampling factor will be too aggressive in the perceptual compression and 
 ---
 
 <a id="experiment-results"></a>
 ### **Experiments & Results:**
-
+First, the authors 
 
 <a id="applications-stable-diffusion"></a>
 ### **Applications of Stable Diffusion:**
 
-*Image credits to: [Stable Diffusion Architecture](https://towardsdatascience.com/what-are-stable-diffusion-models-and-why-are-they-a-step-forward-for-image-generation-aa1182801d46) 
+*Image credits to:*
+- [Stable Diffusion Architecture](https://towardsdatascience.com/what-are-stable-diffusion-models-and-why-are-they-a-step-forward-for-image-generation-aa1182801d46) 
