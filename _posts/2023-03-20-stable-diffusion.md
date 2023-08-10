@@ -31,7 +31,6 @@ about stable diffusion and its predecessor, GANs. The next two parts as seen in 
 - ### [Motivation](#motivation)
 - ### [Model Architecture](#model-architecture)
 - ### [Experiments & Results](#experiment-results)
-- ### [Applications of Stable Diffusion](#applications-stable-diffusion)
 
 ### [Math and Details Behind Stable Diffusion](#math-behind-stable-diffusion) ([Part 3](/blog/2023/stable-diffusion-part3/))
 - ### [Model Objective](#model-objective)

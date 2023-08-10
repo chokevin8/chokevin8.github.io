@@ -18,7 +18,6 @@ categories: posts
 - ### [Motivation](#motivation)
 - ### [Model Architecture](#model-architecture)
 - ### [Experiments & Results](#experiment-results)
-- ### [Applications of Stable Diffusion](#applications-stable-diffusion)
 
 ### [Math and Details Behind Stable Diffusion](#math-behind-stable-diffusion) ([Part 3](/blog/2023/stable-diffusion-part3/))
 - ### [Model Objective](#model-objective)
@@ -95,7 +94,7 @@ Therefore, the authors state that their work offers three main advantages over o
     <li> Training an autoencoder that maps pixel to latent space makes the forward and reverse diffusion process computationally efficient with minimal losses in perceptual quality. </li>
     <li> The autoencoder only needs to be trained once and then can be used for various downstream training of multiple, multi-modal generative
 models.</li>
-    <li> By utilizing the inductive bias of U-Net, the model does not need aggressive compression of images which could deteriorate perceptual quality of generated images. </li>
+    <li> By utilizing the image-specific inductive bias of U-Net, the model does not need aggressive compression of images which could deteriorate perceptual quality of generated images. </li>
 </ul>
 
 Before looking at experiments and results the authors concluded to verify those claims above, let's look at the overall model architecture first.
@@ -112,8 +111,8 @@ The entire model architecture and its three major components can be visualized i
 <figcaption>Diagram showing the general model architecture of the stable (latent) diffusion.</figcaption>
 
 1. **Autoencoder:** The autoencoder is responsible for two major tasks, with the encoder and the decoder being responsible for each task. First, the encoder allows the previously mentioned forward
-diffusion process to happen in the latent space. This means that the forward diffusion process, which is Markovian, would take less time since the image from our pixel space is 
-essentially downsampled into the latent space. Without the encoder, the forward diffusion process in the pixel space would simply take too long. Likewise, the decoder is then responsible
+diffusion process to happen in the latent space. This means that the forward diffusion process, which is Markovian or non-Markovian would take less time since the image from our pixel space is 
+essentially downsampled into the latent space (DDPM is Markovian while DDIM isn't, but both need the autoencoder regardless). Without the encoder, the forward diffusion process in the pixel space would simply take too long. Likewise, the decoder is then responsible
 for upsampling the generated latent space image back to the pixel space. The generated latent space image is obtained from the output of the U-Net, which will be mentioned next. 
 The decoder is needed because the latent space image needs to be converted back to the pixel space to obtain our desired image. Basically, the autoencoder allows the forward and the backward diffusion process
 to happen in the latent space, and also performs perceptual compression by removing high-frequency details as explained in the previous section. Note that this autoencoder can be separately trained only once and
@@ -134,19 +133,35 @@ mapped to the cross-attention components, which is the usual query, key, and val
 are suited to take text prompts and generate token embeddings which are the intermediate representations that gets mapped to the cross-attention components. Nowadays, CLIP or CLIP-like pretrained text/image encoders pretrained on
 huge dataset of image-text pairs are used and thus allows text and image prompted stable diffusion as well (BERT can not handle images). 
 
-Now, with the above motivation resulting in the authors designing this unique model architecture, the authors performed several experiments to verify their claims.
-
-1. Experiment on Perceptual Compression Tradeoffs:
-Recall that the autoencoder is responsible for mapping the input image from the pixel space to the latent space, and therefore needs an optimized downsampling factor for it to be
-effective- too high of a downsampling factor will be too aggressive in the perceptual compression and 
 ---
 
 <a id="experiment-results"></a>
 ### **Experiments & Results:**
-First, the authors 
+Now, with the above motivation resulting in the authors designing this unique model architecture, the authors performed several experiments to verify their claims.
 
-<a id="applications-stable-diffusion"></a>
-### **Applications of Stable Diffusion:**
+**1. Experiment on Perceptual Compression Tradeoffs:**
+<p>
+Recall that the autoencoder is responsible for mapping the input image from the pixel space to the latent space, and therefore needs an optimized downsampling factor for it to be
+effective- too high of a downsampling factor will be too aggressive in the perceptual compression and cause information loss and too low of a downsampling factor will make the training
+process slower since it would leave most of the perceptual compression to the reverse diffusion process (image not compressed enough). As expected, the graph below shows that a downsampling
+factor of 4 or 8 was the ideal factor for training the autoencoder. 
+</p>
+<img src = "/assets/images/optimizing_downsampling_factor.jpeg" width = "800" height = "500" class = "center">
+<figcaption>Diagram showing FID and Inception Scores of generated images for different downsampling factors of the autoencoder.</figcaption>
+<br>
+<p>
+It is confirmed that LDM with downsampling factor 4 and 8 achieve the lowest FID score and the highest Inception Score, with downsampling factors
+at each extreme ends (1 and 32) performing poorly as expected. Lastly, the authors utilized LDM with downsampling factor of 4 and 8 and tested them against multiple benchmark datasets.
+It was concluded that LDM's did show SOTA performance compared to that of previous diffusion-based SOTA models in all but one dataset on FID, and also performed better than GANs on precision
+and recall. This improved performance was also with using significantly less computational resources, matching the author's hypothesis earlier. Please refer to the paper for more information on the results,
+as just summarizing the results is not the focus of my blog.
+</p>
+
+
+**2. Conditional Latent Diffusion:**
+
+
+
 
 *Image credits to:*
 - [Stable Diffusion Architecture](https://towardsdatascience.com/what-are-stable-diffusion-models-and-why-are-they-a-step-forward-for-image-generation-aa1182801d46) 

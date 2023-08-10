@@ -17,7 +17,6 @@ categories: posts
 - ### [Motivation](#motivation)
 - ### [Model Architecture](#model-architecture)
 - ### [Experiments & Results](#experiment-results)
-- ### [Applications of Stable Diffusion](#applications-stable-diffusion)
 
 ### [Math and Details Behind Stable Diffusion](#math-behind-stable-diffusion) (Part 3- This Blog!)
 - ### [Model Objective](#model-objective)
