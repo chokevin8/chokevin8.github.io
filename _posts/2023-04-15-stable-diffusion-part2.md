@@ -69,6 +69,7 @@ losses, gradients, and different weights of the backbone during training and inf
 <br>
 <img src = "/assets/images/distortion_vs_rate.png" width = "800" height = "500" class = "center">
 <figcaption>Diagram showing the relationship between rate and distortion and its tradeoff.</figcaption>
+
 <p>
 As seen above in the graph from the paper, we see the rate-distortion tradeoff. <i><b>Distortion</b></i> can be thought of as the root-mean-squared error (RMSE) between
 the original input image and the final generated image from the decoder. The lower the distortion, the lower the root-mean-squared error between the 
@@ -111,8 +112,9 @@ The entire model architecture and its three major components can be visualized i
 <figcaption>Diagram showing the general model architecture of the stable (latent) diffusion.</figcaption>
 
 1. **Autoencoder:** The autoencoder is responsible for two major tasks, with the encoder and the decoder being responsible for each task. First, the encoder allows the previously mentioned forward
-diffusion process to happen in the latent space. This means that the forward diffusion process, which is Markovian or non-Markovian would take less time since the image from our pixel space is 
-essentially downsampled into the latent space (DDPM is Markovian while DDIM isn't, but both need the autoencoder regardless). Without the encoder, the forward diffusion process in the pixel space would simply take too long. Likewise, the decoder is then responsible
+diffusion process to happen in the latent space. This means that the forward diffusion process, which is Markovian or non-Markovian depending on
+choice of diffusion algorithm, would take less time since the image from our pixel space is essentially downsampled into the latent space (DDPM is Markovian while DDIM isn't, but both need the autoencoder regardless). 
+Without the encoder, the forward diffusion process in the pixel space would simply take too long. Likewise, the decoder is then responsible
 for upsampling the generated latent space image back to the pixel space. The generated latent space image is obtained from the output of the U-Net, which will be mentioned next. 
 The decoder is needed because the latent space image needs to be converted back to the pixel space to obtain our desired image. Basically, the autoencoder allows the forward and the backward diffusion process
 to happen in the latent space, and also performs perceptual compression by removing high-frequency details as explained in the previous section. Note that this autoencoder can be separately trained only once and
@@ -146,17 +148,16 @@ effective- too high of a downsampling factor will be too aggressive in the perce
 process slower since it would leave most of the perceptual compression to the reverse diffusion process (image not compressed enough). As expected, the graph below shows that a downsampling
 factor of 4 or 8 was the ideal factor for training the autoencoder. 
 </p>
-<img src = "/assets/images/optimizing_downsampling_factor.jpeg" width = "800" height = "500" class = "center">
+<img src = "/assets/images/optimizing_downsampling_factor.jpeg" width = "1200" height = "500" class = "center">
 <figcaption>Diagram showing FID and Inception Scores of generated images for different downsampling factors of the autoencoder.</figcaption>
-<br>
+
 <p>
 It is confirmed that LDM with downsampling factor 4 and 8 achieve the lowest FID score and the highest Inception Score, with downsampling factors
 at each extreme ends (1 and 32) performing poorly as expected. Lastly, the authors utilized LDM with downsampling factor of 4 and 8 and tested them against multiple benchmark datasets.
 It was concluded that LDM's did show SOTA performance compared to that of previous diffusion-based SOTA models in all but one dataset on FID, and also performed better than GANs on precision
 and recall. This improved performance was also with using significantly less computational resources, matching the author's hypothesis earlier. Please refer to the paper for more information on the results,
-as just summarizing the results is not the focus of my blog.
+as it is too much detail to cover every result in the blog. 
 </p>
-
 
 **2. Conditional Latent Diffusion:**
 
