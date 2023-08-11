@@ -169,7 +169,7 @@ KL-regularization actually originates from variational autoencoders (VAEs), whic
 so that the resulting image generated from the decoder is diverse but also accurate. This regularization is needed because without regularization, VAEs will tend to spread out in clusters in the latent space, 
 which deteriorates the decoder's performance as it learns to just regurgitate the training data. This becomes more clear when looking at the below diagram:
 
-<img src = "/assets/images/VAE_problem.png" width = "1000" height = "400" class = "center">
+<img src = "/assets/images/VAE_problem.png" width = "800" height = "400" class = "center">
 <figcaption>Diagram showing VAE latent space with KL-regularization (left) and without KL-regularization (right).</figcaption>
 <br>
 <p>
@@ -180,7 +180,7 @@ generate diverse images, and often times images may be "weird looking" since the
 are further apart). 
 </p>
 <p>
-The "KL" stands for the Kullback-Leibler (KL) divergence, that is additionally added to the loss function of the VAEs. The KL-divergence
+The "KL" stands for the <i>Kullback-Leibler (KL) divergence</i>, that is additionally added to the loss function of the VAEs. The KL-divergence
 essentially measures the distance between two probability distributions, and minimizing this essentially brings the above clusters "more together". 
 More on VAEs and KL-regularization can be covered later, but this is not the current focus of this blog, so I will keep it brief.
 </p>

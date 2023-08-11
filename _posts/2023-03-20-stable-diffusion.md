@@ -94,6 +94,7 @@ generative model, GAN and its variants have been the SOTA generative model (howe
 <br>
 <img src = "/assets/images/GAN_architecture.png" width = "700" height = "525" class = "center">
 <figcaption>Diagram showing general GAN architecture.</figcaption>
+<br>
 <p>
 The diagram above shows the general GAN architecture. As seen in the diagram, a GAN consists of a generator and a discriminator, which are both deep neural networks that are trained. 
 The generator learns to generate plausible data, or so-called "fake images". The generated instances of fake images then become 
@@ -139,4 +140,7 @@ While the drawbacks of GANs listed above do have their own remedies, they may st
 However, stable diffusion hasn't become the SOTA generative model just because of the drawbacks of GANs, they have their own advantages as well! The paper itself will be detailed in
 the next part (part 2) now. 
 
-
+*Image credits to:*
+-[Discriminative Model vs Generative Model](https://developers.google.com/machine-learning/gan/generative)
+-[GAN Architecture](https://developers.google.com/machine-learning/gan/generator)
+-[GAN Discriminator Meme](https://medium.com/@harikrishnareddy19995/gans-with-memes-4233952ba151)
