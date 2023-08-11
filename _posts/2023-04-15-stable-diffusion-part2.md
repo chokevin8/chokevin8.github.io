@@ -9,7 +9,7 @@ categories: posts
 ---
 
 ## **Table of Contents:**
-### [Background](/blog/2023/stable-diffusion/)
+### [Background (Part 1)](/blog/2023/stable-diffusion/)
 - ###  Introduction
 - ### Stable Diffusion vs GAN
 
@@ -18,7 +18,7 @@ categories: posts
 - ### [Model Architecture](#model-architecture)
 - ### [Experiments & Results](#experiment-results)
 
-### [Math and Details Behind Stable Diffusion](/blog/2023/stable-diffusion-part3/)
+### [Math and Details Behind Stable Diffusion (Part 3)](/blog/2023/stable-diffusion-part3/)
 - ### Model Objective
 - ### Autoencoder
 - ### U-Net
@@ -67,7 +67,7 @@ losses, gradients, and different weights of the backbone during training and inf
 <br>
 <img src = "/assets/images/distortion_vs_rate.png" width = "800" height = "500" class = "center">
 <figcaption>Diagram showing the relationship between rate and distortion and its tradeoff.</figcaption>
-
+<br>
 <p>
 As seen above in the graph from the paper, we see the rate-distortion tradeoff. <i><b>Distortion</b></i> can be thought of as the root-mean-squared error (RMSE) between
 the original input image and the final generated image from the decoder. The lower the distortion, the lower the root-mean-squared error between the 
@@ -161,15 +161,38 @@ as it is too much detail to cover every result in the blog.
 <p>
 Note that one of the biggest advantages to the LDM is its multi-modality due to its cross-attention based text/image conditioning made possible with the U-Net backbone and pretrained encoders like
 BERT and CLIP. The authors explore the multi-modality by performing different experiments in LDM's ability to perform semantic synthesis, image superresolution, and image inpainting. 
-Before briefly looking over each experiments, however, it is important to touch upon: <i><b> 1) KL and VQ-regularized LDMs and 2) Classifier-guided and classifier-free diffusion process.</b></i>
+Before briefly looking over each experiments, however, it is important to touch upon: <i> 1) KL and VQ-regularized LDMs and 2) Classifier-guided and classifier-free diffusion process.</i>
 </p>
 
-1. ***KL and VQ-regularized LDMs***: 
-ASDFADSF
-2. ***Classifier-guided and classifier-free diffusion process:
+-***KL and VQ-regularized LDMs:***
+KL-regularization actually originates from variational autoencoders (VAEs), which is a type of an autoencoder where its encodings are regularized so that the latent space can be sufficiently diverse,
+so that the resulting image generated from the decoder is diverse but also accurate. This regularization is needed because without regularization, VAEs will tend to spread out in clusters in the latent space, 
+which deteriorates the decoder's performance as it learns to just regurgitate the training data. This becomes more clear when looking at the below diagram:
+
+<img src = "/assets/images/VAE_problem.png" width = "1000" height = "400" class = "center">
+<figcaption>Diagram showing VAE latent space with KL-regularization (left) and without KL-regularization (right).</figcaption>
+<br>
+<p>
+The left plot shows the VAE latent space with KL-regularization, as the clusters are closer together and each cluster 
+has a wider "radius". This VAE will generate images that are both accurate and diverse. On the other hand, the right plot shows the 
+VAE latent space without KL-regularization, as the clusters are further apart and each cluster has a narrower "radius". This VAE will not
+generate diverse images, and often times images may be "weird looking" since there is no smooth transition/interpolation between different classes (clusters
+are further apart). 
+</p>
+<p>
+The "KL" stands for the Kullback-Leibler (KL) divergence, that is additionally added to the loss function of the VAEs. The KL-divergence
+essentially measures the distance between two probability distributions, and minimizing this essentially brings the above clusters "more together". 
+More on VAEs and KL-regularization can be covered later, but this is not the current focus of this blog, so I will keep it brief.
+</p>
+<p>
+VQ-regularization is
+</p>
+
+-***Classifier-guided and classifier-free diffusion process:***
 ASDFADSF
 
-
+Now, to come back to the conditional latent diffusion models...
 
 *Image credits to:*
 - [Stable Diffusion Architecture](https://towardsdatascience.com/what-are-stable-diffusion-models-and-why-are-they-a-step-forward-for-image-generation-aa1182801d46) 
+- [VAE Latent Space KL-Regularization](https://towardsdatascience.com/intuitively-understanding-variational-autoencoders-1bfe67eb5daf)
