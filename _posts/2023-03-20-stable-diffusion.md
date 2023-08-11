@@ -27,16 +27,16 @@ about stable diffusion and its predecessor, GANs. The next two parts as seen in 
 - ###  [Introduction](#introduction)
 - ### [Why ditch GANs for Stable Diffusion?](#why-ditch-GANs)
 
-### [Stable Diffusion](#stable-diffusion) ([Part 2](/blog/2023/stable-diffusion-part2/))
-- ### [Motivation](#motivation)
-- ### [Model Architecture](#model-architecture)
-- ### [Experiments & Results](#experiment-results)
+### [Stable Diffusion](/blog/2023/stable-diffusion-part2/)
+- ### Motivation
+- ### Model Architecture
+- ### Experiments & Results
 
-### [Math and Details Behind Stable Diffusion](#math-behind-stable-diffusion) ([Part 3](/blog/2023/stable-diffusion-part3/))
-- ### [Model Objective](#model-objective)
-- ### [Autoencoder](#autoencoder)
-- ### [U-Net](#u-net)
-- ### [Pretrained Encoder](#pretrained-encoder)
+### [Math and Details Behind Stable Diffusion](/blog/2023/stable-diffusion-part3/)
+- ### Model Objective
+- ### Autoencoder
+- ### U-Net
+- ### Pretrained Encoder
 
 *Note: For Part 2 and 3 , please click the link above in the table of contents.* 
 ---

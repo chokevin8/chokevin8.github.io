@@ -9,22 +9,20 @@ categories: posts
 ---
 
 ## **Table of Contents:**
-### [Background](#background) ([Part 1](/blog/2023/stable-diffusion/))
-- ###  [Introduction](#introduction)
-- ### [Stable Diffusion vs GAN](#stable-diffusion-vs-gan)
+### [Background](/blog/2023/stable-diffusion/)
+- ###  Introduction
+- ### Stable Diffusion vs GAN
 
 ### [Stable Diffusion](#stable-diffusion) (Part 2- This Blog!)
-
 - ### [Motivation](#motivation)
 - ### [Model Architecture](#model-architecture)
 - ### [Experiments & Results](#experiment-results)
 
-### [Math and Details Behind Stable Diffusion](#math-behind-stable-diffusion) ([Part 3](/blog/2023/stable-diffusion-part3/))
-- ### [Model Objective](#model-objective)
-- ### [Autoencoder](#autoencoder)
-- ### [U-Net](#u-net)
-- ### [Pretrained Encoder](#pretrained-encoder)
-
+### [Math and Details Behind Stable Diffusion](/blog/2023/stable-diffusion-part3/)
+- ### Model Objective
+- ### Autoencoder
+- ### U-Net
+- ### Pretrained Encoder
 ---
 
 *Note: For Part 1 and 3 , please click the link above in the table of contents.* 
