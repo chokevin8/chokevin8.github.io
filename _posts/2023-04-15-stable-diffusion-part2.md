@@ -141,7 +141,7 @@ Now, with the above motivation resulting in the authors designing this unique mo
 
 **1. Experiment on Perceptual Compression Tradeoffs:**
 <p>
-Recall that the autoencoder is responsible for mapping the input image from the pixel space to the latent space, and therefore needs an optimized downsampling factor for it to be
+Recall that the autoencoder is responsible for mapping the input image from the pixel space to the latent space and vice versa, and therefore needs an optimized downsampling factor for it to be
 effective- too high of a downsampling factor will be too aggressive in the perceptual compression and cause information loss and too low of a downsampling factor will make the training
 process slower since it would leave most of the perceptual compression to the reverse diffusion process (image not compressed enough). As expected, the graph below shows that a downsampling
 factor of 4 or 8 was the ideal factor for training the autoencoder. 
@@ -161,10 +161,11 @@ as it is too much detail to cover every result in the blog.
 <p>
 Note that one of the biggest advantages to the LDM is its multi-modality due to its cross-attention based text/image conditioning made possible with the U-Net backbone and pretrained encoders like
 BERT and CLIP. The authors explore the multi-modality by performing different experiments in LDM's ability to perform semantic synthesis, image superresolution, and image inpainting. 
-Before briefly looking over each experiments, however, it is important to touch upon: <i> 1) KL and VQ-regularized LDMs and 2) Classifier-guided and classifier-free diffusion process.</i>
+Before briefly looking over each experiment, however, it is important to touch upon: <i><b> 1) KL and VQ-regularized LDMs and 2) Classifier-guided and classifier-free diffusion process.</b></i>
 </p>
 
 -***KL and VQ-regularized LDMs:***
+<br>
 KL-regularization actually originates from variational autoencoders (VAEs), which is a type of an autoencoder where its encodings are regularized so that the latent space can be sufficiently diverse,
 so that the resulting image generated from the decoder is diverse but also accurate. This regularization is needed because without regularization, VAEs will tend to spread out in clusters in the latent space, 
 which deteriorates the decoder's performance as it learns to just regurgitate the training data. This becomes more clear when looking at the below diagram:
@@ -185,16 +186,18 @@ essentially measures the distance between two probability distributions, and min
 More on VAEs and KL-regularization can be covered later, but this is not the current focus of this blog, so I will keep it brief.
 </p>
 <p>
-VQ-regularization is another method to regularize the latent space of a VAE, a similar method is utilized in Vector-Quantized (VQ) VAEs- hence why it is called VQ-regularization.
+VQ-regularization is another method to regularize the latent space of a VAE, a similar method is utilized in <i>Vector-Quantized (VQ) VAEs</i>- hence why it is called VQ-regularization.
 VQVAEs, unlike VAEs briefly described above, utilize discrete latent variables instead of a continuous normal distribution used in the original VAE. Then, the embeddings generated
-by the encoder is categorical, and samples drawn from this generate a discrete embedding dictionary. The authors call this regularization process with a "vector quantization layer by learning
-a codebook of |Z| different exemplars", in which the vector quantization layer converts the continuous latent distribution to discrete indices. Here, "codebook" refers to the discrete 
+by the encoder is categorical, and samples drawn from this generate a discrete embedding dictionary. The authors call this regularization process with a <i>"vector quantization layer by learning
+a codebook of |Z| different exemplars"</i>, in which the vector quantization layer converts the continuous latent distribution to discrete indices. Here, "codebook" refers to the discrete 
 embedding dictionary. To briefly explain how the vector quantization layer works, the vector quantization works by comparing the continuous input from the encoder and the "codebook" and finding
 the index of the closest vector ("argmin") in the "codebook" by using Euclidean distance or other similarity measures. Again, more on VQVAEs and VQ-regularization can be covered later, but is not the focus of 
-this blog. The authors utilize the VQ-regularization in the decoder of the autoencoder in an attempt to regularize the latent space.
+this blog. The authors utilize the VQ-regularization for their LDMs in the decoder of the autoencoder in an attempt to regularize the latent space, in a way to enhance the interpretability of the latent space and hence increase
+the robustness and quality of the generated samples. 
 </p>
 
 -***Classifier-guided and classifier-free diffusion process:***
+<br>
 In the reverse diffusion or sampling process, one can utilize a classifier-guided or a classifier-free diffusion process. A classifier-guided diffusion process, like its name, requires a separate classifier
 to be trained. This classifier guidance technique did boost the sample quality of a diffusion model using the separately trained classifier, by essentially mixing the score (score = gradient of log probability) of the diffusion model
 and the gradient of the log probability of this auxillary classifier model. However, not only was training this auxillary classifier time-consuming (it requires training on noisy images, meaning
@@ -205,14 +208,32 @@ training a conditional and an unconditional diffusion model simultaneously, and 
 <p>
 Now, to come back to the conditional LDMs, the authors wanted to test how their model performed on a text-to-image synthesis by using a BERT tokenizer. The authors concluded that their "LDM-KL-8-G" model, or their classifier-free,
 KL-regularized LDM with downsample factor of 8 performed on par with recent SOTA diffusion or autoregressive models despite utilizing significantly lower number of parameters. With their success, the authors tested their LDM model
-on three additional tasks:
+on four additional tasks:
 </p>
 
--Semantic Synthesis:
+-***Semantic Synthesis:***
+Semantic synthesis was tested to see the LDM's ability to condition on different modalities outside of text. As seen in the diagram below, a 256 x 256 resolution
+semantic map was conditioned on the LDM to generate a 512 x 1024 resolution landscape image. The authors tested various different downsampling factors and also both KL- and VQ-regularized
+LDMs, and concluded that signal-to-noise ratio (SNR) significantly affected the sample quality. 
 
--Image Superresolution
+<img src = "/assets/images/semantic_synthesis.png" width = "800" height = "400" class = "center">
+<figcaption>Diagram showing a smaller resolution semantic map conditioned on the LDM and the resulting generated larger resolution landscape image (right).</figcaption>
+<br>
 
--Image Inpainting
+The SNR was high for LDMs trained in the latent space regularized by KL-regularization as the variance was too high- resulting in low fidelity images. Therefore, KL-regularized
+LDMs had its latent space rescaled by its component-wise standard deviation of the latents and the SNR was decreased (VQ-regularized space doesn't have this issue as VQ-regularized latent
+space has variance close to 1).
+
+-***Image Super-resolution and Inpainting:***
+Image super-resolution is to generate a higher resolution version of the input image, which is basically an advanced version of semantic synthesis. 
+This was achieved by conditioning on low-resolution images as input, and those low-resolution images were initially degraded using bicubic interpolation with 4x downsampling.
+The LDM is concatenates the low resolution conditioning and the inputs to the UNet, resulting in a "super-resolution" image. The authors were able to achieve SOTA performance,
+and they also developed a more general model that could handle different types of image degradation other than bicubic interpolation for robustness. 
+Image inpainting is to fill in a masked region of a specific image. The authors also report SOTA performance on FID and noted that the VQ-regularized, 4x downsampled LDM-4 worked the best.
+---
+
+Most of the important parts of the paper has been covered, but there was barely any math in my explanations. Fully understanding stable diffusion without covering its mathematic details
+would not be possible. The next part (Part 3) will cover all of this.
 
 *Image credits to:*
 - [Stable Diffusion Architecture](https://towardsdatascience.com/what-are-stable-diffusion-models-and-why-are-they-a-step-forward-for-image-generation-aa1182801d46) 
