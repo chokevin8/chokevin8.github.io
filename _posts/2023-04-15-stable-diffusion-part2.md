@@ -195,14 +195,13 @@ this blog. The authors utilize the VQ-regularization in the decoder of the autoe
 </p>
 
 -***Classifier-guided and classifier-free diffusion process:***
-<p>
 In the reverse diffusion or sampling process, one can utilize a classifier-guided or a classifier-free diffusion process. A classifier-guided diffusion process, like its name, requires a separate classifier
 to be trained. This classifier guidance technique did boost the sample quality of a diffusion model using the separately trained classifier, by essentially mixing the score (score = gradient of log probability) of the diffusion model
 and the gradient of the log probability of this auxillary classifier model. However, not only was training this auxillary classifier time-consuming (it requires training on noisy images, meaning
 it cannot be pre-trained), but this process of mixing resembles an "adversarial attack" (adversarial attack meaning introducing slight perturbations the input which confuses the model and results in different outputs). Therefore,
 a classifier-free diffusion process is utilized by the authors, which doesn't require a separate classifier to be trained, and still boosts the sample quality of the LDM. This classifier-free approach requires
 training a conditional and an unconditional diffusion model simultaneously, and mixes the two scores together.
-</p>
+
 <p>
 Now, to come back to the conditional LDMs, the authors wanted to test how their model performed on a text-to-image synthesis by using a BERT tokenizer. The authors concluded that their "LDM-KL-8-G" model, or their classifier-free,
 KL-regularized LDM with downsample factor of 8 performed on par with recent SOTA diffusion or autoregressive models despite utilizing significantly lower number of parameters. With their success, the authors tested their LDM model
