@@ -5,8 +5,6 @@ permalink: /
 
 profile:
   align: right
-  image: prof_pic.jpg
-  image_circular: false # crops the image to make it circular
   address: >
     <p> US Address: 3700 N Charles St, Baltimore, MD 21218 </p>
     <p> Korea Address: Banpo-daero 275, Seocho-gu, Seoul, South Korea </p>

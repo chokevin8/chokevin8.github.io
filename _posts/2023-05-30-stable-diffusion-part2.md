@@ -230,6 +230,7 @@ This was achieved by conditioning on low-resolution images as input, and those l
 The LDM is concatenates the low resolution conditioning and the inputs to the UNet, resulting in a "super-resolution" image. The authors were able to achieve SOTA performance,
 and they also developed a more general model that could handle different types of image degradation other than bicubic interpolation for robustness. 
 Image inpainting is to fill in a masked region of a specific image. The authors also report SOTA performance on FID and noted that the VQ-regularized, 4x downsampled LDM-4 worked the best.
+
 ---
 
 Most of the important parts of the paper has been covered, but there was barely any math in my explanations. Fully understanding stable diffusion without covering its mathematic details
