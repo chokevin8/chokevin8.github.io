@@ -34,16 +34,18 @@ categories: posts
 
 In this last part of the blog, I will cover most of the important mathematical details behind latent diffusion that is necessary to fully understand
 how latent diffusion works. Before looking at the model objective, I think it's important to do a quick review of the background:
-<br>
-Let's look at variational autoencoders (VAEs) in a probabilistic way. The variational autoencoder holds a probability model with the $x$ representing
-the data, and the $z$ representing the latent variables of the autoencoder. Then, we know that the joint probability of the model is: $\[ p(x, z) = p(x | z) \cdot p(z) \]$.
 
-Let's look at our classic Baye's Rule: $P(z | x) = (P(x | z) * P(z)) / P(x)$
-In this case, we 
-- \( P(z | x) \) represents the posterior probability of event \( z \) given evidence \( x \).
-- \( P(x | z) \) is the likelihood of observing evidence \( x \) given event \( z \).
-- \( P(z) \) is the prior probability of event \( z \), our initial belief in the absence of evidence.
-- \( P(x) \) is the marginal likelihood or evidence, the probability of observing evidence \( x \) across all possible events.
+Let's look at variational autoencoders (VAEs) in a probabilistic way. The variational autoencoder holds a probability model with the $x$ representing
+the data, and the $z$ representing the latent variables of the autoencoder. Then, we know that the joint probability of the model is: $$p(x, z) = p(x | z)\cdot p(z)$$
+
+Let's look at our classic Baye's Rule: $$P(z | x) = (P(x | z)\cdot P(z)) / P(x)$$
+<br>
+
+In this case, we see that: 
+- $P(z | x)$$ represents the posterior probability of event $$z$$ given evidence $$x$$
+- $P(x | z)$$ is the likelihood of observing evidence $$x$$ given event $$z$$
+- $$P(z)$$ is the prior probability of event $$z$$, our initial belief in the absence of evidence.
+- $$P(x)$$ is the marginal likelihood or evidence, the probability of observing evidence $$x$$ across all possible events.
 
 <a id="model-objective"></a>
 ##  **Model Objective:**
