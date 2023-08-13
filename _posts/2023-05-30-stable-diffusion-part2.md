@@ -10,8 +10,8 @@ categories: posts
 
 ## **Table of Contents:**
 ### [Background (Part 1)](/blog/2023/stable-diffusion/)
-- ###  Introduction
-- ### Stable Diffusion vs GAN
+- ### Introduction
+- ### Why ditch GANs for Stable Diffusion?
 
 ### [Stable Diffusion](#stable-diffusion) (Part 2- This Blog!)
 - ### [Motivation](#motivation)

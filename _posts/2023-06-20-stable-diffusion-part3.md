@@ -27,3 +27,8 @@ categories: posts
 ---
 
 *Note: For Part 1 and 2, please click the link above in the table of contents.* 
+
+<a id="model-objective"></a>
+##  **Model Objective:**
+<p> 
+In Part 2, 
