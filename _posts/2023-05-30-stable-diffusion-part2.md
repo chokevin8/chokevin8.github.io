@@ -19,6 +19,7 @@ categories: posts
 - ### [Experiments & Results](#experiment-results)
 
 ### [Math and Details Behind Stable Diffusion (Part 3)](/blog/2023/stable-diffusion-part3/)
+- ### Background
 - ### Model Objective
 - ### Autoencoder
 - ### U-Net

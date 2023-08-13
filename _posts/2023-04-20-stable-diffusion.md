@@ -33,6 +33,7 @@ about stable diffusion and its predecessor, GANs. The next two parts as seen in 
 - ### Experiments & Results
 
 ### [Math and Details Behind Stable Diffusion (Part 3)](/blog/2023/stable-diffusion-part3/)
+- ### Background
 - ### Model Objective
 - ### Autoencoder
 - ### U-Net
