@@ -28,7 +28,10 @@ categories: posts
 
 *Note: For Part 1 and 2, please click the link above in the table of contents.* 
 
+In this last part of the blog, I will cover most of the important mathematical details behind latent diffusion that is necessary to fully understand
+how it works. Let's first look at the model objective:
+
 <a id="model-objective"></a>
 ##  **Model Objective:**
 <p> 
-In Part 2, 
+In any model, there is a defined model loss function that is minimized- in the case of LDMs, since it has a tractable likelihood, it is 
