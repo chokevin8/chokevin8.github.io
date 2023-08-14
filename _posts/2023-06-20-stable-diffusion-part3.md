@@ -71,18 +71,18 @@ model, the dashed arrow going from x to z represents the variational approximati
 Before looking at the mathematical steps for variational approximation, let's look at VAEs in a neural network's perspective. A VAE consists of an encoder and a decoder, and both
 are neural networks. The *encoder* takes in input data $$x$$ and compresses it to latent representation $$z$$, and must learn a good latent representation known as the bottleneck of the model. Note that
 contrary to the encoder of the vanilla autoencoder, the encoder of the variational autoencoder will learn the mean and variance 
-Therefore, the encoder can be denoted as $$q_\phi(z | x)$$, where the $$\phi$$ is the weights and biases of the model. Note that as previously mentioned, the latent space is assumed to be a Gaussian probability distribution, so sampling from the
+Therefore, the encoder can be denoted as $$p_\phi(z | x)$$, where the $$\phi$$ is the weights and biases of the model. Note that as previously mentioned, the latent space is assumed to be a Gaussian probability distribution, so sampling from the
 trained encoder gets us the latent representation $$z$$ from data $$x$$. The *decoder* takes in the latent representation **z** from the encoder output and outputs the reconstructed data, or the parameters to 
 the modeled probability distribution of the data space, and therefore can be denoted as $$p_\theta(x | z)$$, where $$\theta$$ is also the weights and biases. 
 
 Note that this reconstructed probability distribution cannot be *perfect*, as the decoder learns to reconstruct the original input image only from the latent representations.
-However, we can optimize a loss function during our training to minimize this reconstruction loss, which is simple as a 
+However, we can optimize a loss function during our training to minimize this reconstruction loss, which is simple as a negative log likelihoo
 
 
 <a id="model-objective"></a>
 ##  **Model Objective:**
 <p> 
-Now why did we go over the basics of VAEs and variational approximation process? This is because diffusion models have a very similar set up to VAEs in
+Now why did we go over the VAEs and its variational approximation process? This is because diffusion models have a very similar set up to VAEs in
 that it also has a tractable likelihood that can be maximized in a similar way. 
 
 
@@ -149,62 +149,6 @@ The Evidence Lower Bound (ELBO) is a crucial concept in Variational Autoencoders
 In future articles, we'll explore advanced VAE techniques and real-world applications. Stay tuned!
 
 
-# Exploring Stochastic Gradient Langevin Dynamics (SGLD)
-
-Stochastic Gradient Langevin Dynamics (SGLD) is a powerful optimization algorithm that combines the concepts of stochastic gradient descent and Langevin dynamics. It's widely used in machine learning and Bayesian inference to explore complex high-dimensional spaces efficiently. In this article, we'll dive into the workings of SGLD and understand how it can be applied to various scenarios.
-
-## Introduction to SGLD
-
-SGLD is a variant of the Langevin Monte Carlo method, which originates from statistical physics. It's designed to sample from complex probability distributions by introducing noise into the gradient updates. This noise mimics the randomness seen in real-world data and helps the algorithm escape local minima and explore the entire distribution.
-
-## Basics of Langevin Dynamics
-
-Langevin Dynamics is a concept borrowed from physics, where particles follow a trajectory influenced by both a deterministic force and random noise. In the context of optimization, Langevin Dynamics can be used to sample from a target distribution by iteratively updating the position of a point.
-
-## Incorporating Stochastic Gradient Descent
-
-SGLD combines Langevin Dynamics with Stochastic Gradient Descent (SGD) to create a practical optimization algorithm for machine learning. In each step of the algorithm, SGLD updates the model parameters using both the negative log-likelihood gradient (SGD component) and a random noise term (Langevin Dynamics component).
-
-## SGLD Algorithm
-
-Here's the basic outline of the SGLD algorithm:
-
-1. **Initialization**: Start with initial parameters \(\theta_0\).
-
-2. **Iteration**:
-   - Sample a mini-batch of data \(D\) from the dataset.
-   - Calculate the gradient of the negative log-likelihood: \(\nabla \mathcal{L}(\theta | D)\).
-   - Introduce noise to the gradient using random noise: \(\eta \sim \mathcal{N}(0, \epsilon I)\).
-   - Update the parameters using the SGLD update rule:
-     \[
-     \theta_{t+1} = \theta_t - \frac{\epsilon}{2} \nabla \mathcal{L}(\theta_t | D) + \eta
-     \]
-
-3. **Repeat Iteration**: Perform multiple iterations to optimize the parameters.
-
-## Advantages and Challenges
-
-SGLD offers several advantages:
-- It efficiently explores complex high-dimensional spaces.
-- It can escape local minima and avoid getting stuck.
-- It incorporates data-driven noise, making it suitable for noisy data.
-
-However, SGLD also has challenges:
-- Setting the noise level (\(\epsilon\)) is crucial; too high or too low values can impact convergence.
-- The algorithm might converge slowly for certain distributions.
-
-## Applications
-
-SGLD finds applications in various fields:
-- Bayesian Inference: Sampling from posterior distributions.
-- Neural Network Training: Optimizing deep neural networks.
-- Generative Models: Training generative adversarial networks (GANs) and variational autoencoders (VAEs).
-
-## Conclusion
-
-Stochastic Gradient Langevin Dynamics (SGLD) bridges the gap between optimization and probabilistic modeling. By combining Langevin Dynamics with stochastic gradient descent, SGLD efficiently explores complex probability distributions, making it a valuable tool in machine learning and Bayesian inference. Understanding SGLD opens the door to exploring high-dimensional spaces and training advanced models that handle uncertainty effectively.
-
-In future articles, we'll dive deeper into SGLD's applications and advanced techniques. Stay curious!
 
 *Image credits to:*
 - [VAE Directed Graphical Model](https://arxiv.org/pdf/1312.6114.pdf)
