@@ -64,7 +64,7 @@ continuous distribution (in VAEs, the latent variable z is assumed to specified 
 However, this simple-looking integral over the product of gaussian conditional and prior distribution is ***intractable*** because the integration is performed over 
 the entire latent space, which is continuous (it is possible to have infinite number of latent variables for a single input). 
 
-But can we try calculating $$P(x)$$ in a different way? We also know that the *joint probability* $$P(x,z) = P(x)P(z | x) $$, meaning that P(x) = \frac{P(x,z)}{P(z | x)}$$. 
+But can we try calculating $$P(x)$$ in a different way? We also know that the *joint probability* $$P(x,z) = P(x)P(z | x) $$, meaning that $$P(x) = \frac{P(x,z)}{P(z | x)}$$. 
 We quickly realize that this doesn't work either since we already saw above that the posterior $$P(z | x)$$ is unknown! Therefore, we have to resort to approximating the
 posterior $$P(z | x)$$ with an *approximate variational distribution $$q_\phi(z | x)$$* which has parameters $$\phi$$ that needs to be optimized. Hence, in the previous graphical
 model, the dashed arrow going from x to z represents the variational approximation.
