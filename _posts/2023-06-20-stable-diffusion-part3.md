@@ -53,10 +53,14 @@ $$P(z | x) = \frac{P(x | z)\cdot P(z)}{P(x)}$$
 </p>
 
 In this case, each variable is:
-$$P(z)$$ is the prior probability of $$z$$, which is the initial belief without any knowledge about $$x$$.
-$$P(x)$$ is the evidence, or the marginal likelihood, the probability of observing $$x$$ across all possible events.
-$$P(z | x)$$ is the posterior probability of $$z$$ given $$x$$.
-$$P(x | z)$$ is the likelihood of observing $$x$$ given $$z$$, which assumes the prior is correct.
+<br>
+$$P(z)$$ is the ***prior*** probability of $$z$$, which is the initial belief without any knowledge about $$x$$.
+<br>
+$$P(x)$$ is the ***evidence, or the marginal likelihood***, the probability of observing $$x$$ across all possible events.
+<br>
+$$P(z | x)$$ is the ***posterior*** probability of $$z$$ given $$x$$.
+<br>
+$$P(x | z)$$ is the ***likelihood*** of observing $$x$$ given $$z$$, which assumes the prior is correct.
 
 From above, let's focus on the evidence, or the marginal likelihood. $$P(x)$$ can be calculated by: $$P(x) = \displaystyle \int P(x | z)P(z) dz$$ since we have a 
 continuous distribution (in VAEs, the latent variable z is assumed to specified to be a Gaussian distribution with a mean of zero and unit variance ($$\mathcal{N}(0, 1)$$).
@@ -75,8 +79,9 @@ Therefore, the encoder can be denoted as $$p_\phi(z | x)$$, where the $$\phi$$ i
 trained encoder gets us the latent representation $$z$$ from data $$x$$. The *decoder* takes in the latent representation **z** from the encoder output and outputs the reconstructed data, or the parameters to 
 the modeled probability distribution of the data space, and therefore can be denoted as $$p_\theta(x | z)$$, where $$\theta$$ is also the weights and biases. 
 
+
 Note that this reconstructed probability distribution cannot be *perfect*, as the decoder learns to reconstruct the original input image only from the latent representations.
-However, we can optimize a loss function during our training to minimize this reconstruction loss, which is simple as a negative log likelihoo
+However, we can optimize a loss function during our training to minimize this reconstruction loss, which is simple as a negative log likelihood
 
 
 <a id="model-objective"></a>
