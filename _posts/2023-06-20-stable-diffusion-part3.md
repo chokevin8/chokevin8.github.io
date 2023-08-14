@@ -37,26 +37,24 @@ how latent diffusion works. Before looking at the model objective, I think it's 
 
 Let's look at variational autoencoders (VAEs) in a probabilistic way. The variational autoencoder holds a probability model with the $x$ representing
 the data, and the $z$ representing the latent variables of the autoencoder. Remember that we want our latent variable $$z$$ to model the data $$x$$ as 
-accurately as possible. Note that $$x$$ can be seen, but $$z$$ cannot since it is in the latent space. Also, it is known that the joint probability of the model is: $$p(x, z) = p(x | z)\cdot p(z)$$.
-To perform the generative process, or run inference, for each individual data $$j$$, we first sample latent variable $$z_i$$ from the prior $$p(z)$$: $$z_i \sim p(z)$$. 
+accurately as possible. Note that $$x$$ can be seen, but $$z$$ cannot since it is in the latent space. Also, it is known that the joint probability of the model is: $$P(x, z) = P(x | z)\cdot P(z)$$.
+To perform the generative process, or run inference, for each individual data $$j$$, we first sample latent variable $$z_i$$ from the prior $$P(z)$$: $$z_i \sim P(z)$$. 
 Then, with the prior sampled, we sample an individual data $$x_i$$ from the likelihood $$P(x | z)$$: $$x_i \sim P(x | z)$$.
 Precisely, this can be represented in a graphical model below where we can see that the unobserved latent variable $$z$$ is the parent of the observed data $$x$$.
-
-
 
 Now, in *Bayesian Inference*, "inference" means calculating the posterior probability, in this case the $$P(z | x)$$. This also makes sense
 since we want to infer 
 
 Let's look at the classic Baye's Rule: 
-[/
+<p>
 $$P(z | x) = \frac{P(x | z)\cdot P(z)}{P(x)}$$ 
-\]
+</p>
 
 In this case, each variable is: 
 - $$P(z)$$ is the prior probability of $$z$$, which is the initial belief without any knowledge about $$x$$.
 - $$P(x)$$ is the evidence, or the marginal likelihood, the probability of observing $$x$$ across all possible events.
-- $$P(z | x)$$ is the posterior probability of $$z$$ given $$x$$.
-- $$P(x | z)$$ is the likelihood of observing $$x$$ given $$z$$, which assumes the prior is correct.
+- $$P(z|x)$$ is the posterior probability of $$z$$ given $$x$$.
+- $$P(x|z)$$ is the likelihood of observing $$x$$ given $$z$$, which assumes the prior is correct.
 
 Intractable posterior, since evidence is: p(x)=∫p(x∣z)p(z)dz. Note that in VAEs, the latent variable z is assumed to specified to be a Gaussian distribution
 with a mean of zero and unit variance (\mathcal{N}(0, 1)). The normalization factor for solving the integral
