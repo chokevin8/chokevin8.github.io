@@ -44,7 +44,6 @@ Precisely, this can be represented in a graphical model below where we can see t
 
 <img src = "/assets/images/VAE_graphical_model.PNG" width = "200" height = "300" class = "center">
 <figcaption>Diagram showing directed graphical model for VAEs.</figcaption>
-<br>
 
 Now, remember again our goal in running inference in the VAE model is to model the latent space as good as possible given our data. This is *Bayesian Inference*,
 as "inference" means calculating the posterior probability, in this case the $$P(z | x)$$. How do we calculate this? Let's look at the classic Baye's Rule: 
