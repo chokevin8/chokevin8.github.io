@@ -54,13 +54,13 @@ $$P(z | x) = \frac{P(x | z)\cdot P(z)}{P(x)}$$
 </p>
 
 In this case, each variable is:
-- $$P(z)$$ is the prior probability of $$z$$, which is the initial belief without any knowledge about $$x$$.
-- $$P(x)$$ is the evidence, or the marginal likelihood, the probability of observing $$x$$ across all possible events.
-- $$P(z | x)$$ is the posterior probability of $$z$$ given $$x$$.
-- $$P(x | z)$$ is the likelihood of observing $$x$$ given $$z$$, which assumes the prior is correct.
+$$P(z)$$ is the prior probability of $$z$$, which is the initial belief without any knowledge about $$x$$.
+$$P(x)$$ is the evidence, or the marginal likelihood, the probability of observing $$x$$ across all possible events.
+$$P(z | x)$$ is the posterior probability of $$z$$ given $$x$$.
+$$P(x | z)$$ is the likelihood of observing $$x$$ given $$z$$, which assumes the prior is correct.
 
 From above, let's focus on the evidence, or the marginal likelihood. $$P(x)$$ can be calculated by: $$P(x) = \displaystyle \int P(x | z)P(z) dz$$ since we have a 
-continuous distribution (in VAEs, the latent variable z is assumed to specified to be a Gaussian distribution with a mean of zero and unit variance (\mathcal{N}(0, 1)).
+continuous distribution (in VAEs, the latent variable z is assumed to specified to be a Gaussian distribution with a mean of zero and unit variance ($$\mathcal{N}(0, 1)$$).
 However, this simple-looking integral over the product of gaussian conditional and prior distribution is ***intractable*** because the integration is performed over 
 the entire latent space, which is continuous (it is possible to have infinite number of latent variables for a single input). 
 
@@ -70,10 +70,14 @@ posterior $$P(z | x)$$ with an *approximate variational distribution $$q_\phi(z 
 model, the dashed arrow going from x to z represents the variational approximation.
 
 Before looking at the mathematical steps for variational approximation, let's look at VAEs in a neural network's perspective. A VAE consists of an encoder and a decoder, and both
-are neural networks. The *encoder* takes in input data $$x$$ and compresses it to latent representation $$z$$, and must learn a good latent representation known as the bottleneck of the model.
-Therefore, the encoder can be denoted as $$q_\phi(z | x)$$. The $$\phi$$ Note that as previously mentioned, the latent space is assumed to be a Gaussian probability distribution, so sampling from the
-trained encoder gets us the latent representation $$z$$ from data $$x$$. The *decoder* takes in the latent representation **z** from the encoder output
+are neural networks. The *encoder* takes in input data $$x$$ and compresses it to latent representation $$z$$, and must learn a good latent representation known as the bottleneck of the model. Note that
+contrary to the encoder of the vanilla autoencoder, the encoder of the variational autoencoder will learn the mean and variance 
+Therefore, the encoder can be denoted as $$q_\phi(z | x)$$, where the $$\phi$$ is the weights and biases of the model. Note that as previously mentioned, the latent space is assumed to be a Gaussian probability distribution, so sampling from the
+trained encoder gets us the latent representation $$z$$ from data $$x$$. The *decoder* takes in the latent representation **z** from the encoder output and outputs the reconstructed data, or the parameters to 
+the modeled probability distribution of the data space, and therefore can be denoted as $$p_\theta(x | z)$$, where $$\theta$$ is also the weights and biases. 
 
+Note that this reconstructed probability distribution cannot be *perfect*, as the decoder learns to reconstruct the original input image only from the latent representations.
+However, we can optimize a loss function during our training to minimize this reconstruction loss, which is simple as a 
 
 
 <a id="model-objective"></a>
