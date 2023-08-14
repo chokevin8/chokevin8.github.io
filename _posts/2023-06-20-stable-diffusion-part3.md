@@ -36,17 +36,28 @@ In this last part of the blog, I will cover most of the important mathematical d
 how latent diffusion works. Before looking at the model objective, I think it's important to do a quick review of the background:
 
 Let's look at variational autoencoders (VAEs) in a probabilistic way. The variational autoencoder holds a probability model with the $x$ representing
-the data, and the $z$ representing the latent variables of the autoencoder. Then, we know that the joint probability of the model is: $$p(x, z) = p(x | z)\cdot p(z)$$
+the data, and the $z$ representing the latent variables of the autoencoder. Remember that we want our latent variable $$z$$ to model the data $$x$$ as 
+accurately as possible. Note that $$x$$ can be seen, but $$z$$ cannot since it is in the latent space. Also, it is known that the joint probability of the model is: $$p(x, z) = p(x | z)\cdot p(z)$$.
+To perform the generative process, or run inference, for each individual data $$j$$, we first sample latent variable $$z_i$$ from the prior $$p(z)$$: $$z_i ~ p(z)$$. 
+Then, with the prior sampled, we sample an individual data $$x_i$$ from the likelihood $$P(x | z)$$
+Precisely, this can be represented in a graphical model below
+where we can see that 
 
-Let's look at our classic Baye's Rule: 
+Now, in *Bayesian Inference*, "inference" means calculating the posterior probability, in this case the $$P(z | x)$$. This also makes sense
+since we want to infer 
+
+Let's look at the classic Baye's Rule: 
 $$P(z | x) = \frac{P(x | z)\cdot P(z)}{P(x)}$$
 <br>
 
-In this case, we see that: 
-- $$P(z | x)$$ represents the posterior probability of event $$z$$ given evidence $$x$$
-- $$P(x | z)$$ is the likelihood of observing evidence $$x$$ given event $$z$$
-- $$P(z)$$ is the prior probability of event $$z$$, our initial belief in the absence of evidence.
-- $$P(x)$$ is the marginal likelihood or evidence, the probability of observing evidence $$x$$ across all possible events.
+In this case, each variable is: 
+- $$P(z)$$ is the prior probability of $$z$$, which is the initial belief without any knowledge about $$x$$.
+- $$P(x)$$ is the marginal likelihood, the probability of observing $$x$$ across all possible events.
+- $$P(z | x)$$ is the posterior probability of $$z$$ given $$x$$.
+- $$P(x | z)$$ is the likelihood of observing $$x$$ given $$z$$, which assumes the prior is correct.
+
+
+
 
 <a id="model-objective"></a>
 ##  **Model Objective:**
