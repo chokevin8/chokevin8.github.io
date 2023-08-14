@@ -54,24 +54,25 @@ $$P(z | x) = \frac{P(x | z)\cdot P(z)}{P(x)}$$
 </p>
 
 In this case, each variable is:
-1. $$P(z)$$ is the prior probability of $$z$$, which is the initial belief without any knowledge about $$x$$.
-2. P(x)$$ is the evidence, or the marginal likelihood, the probability of observing $$x$$ across all possible events.
-3. $$P(z | x)$$ is the posterior probability of $$z$$ given $$x$$.
-4. $$P(x | z)$$ is the likelihood of observing $$x$$ given $$z$$, which assumes the prior is correct.
+- $$P(z)$$ is the prior probability of $$z$$, which is the initial belief without any knowledge about $$x$$.
+- $$P(x)$$ is the evidence, or the marginal likelihood, the probability of observing $$x$$ across all possible events.
+- $$P(z | x)$$ is the posterior probability of $$z$$ given $$x$$.
+- $$P(x | z)$$ is the likelihood of observing $$x$$ given $$z$$, which assumes the prior is correct.
 
 From above, let's focus on the evidence, or the marginal likelihood. $$P(x)$$ can be calculated by: $$P(x) = \displaystyle \int P(x | z)P(z) dz$$ since we have a 
 continuous distribution (in VAEs, the latent variable z is assumed to specified to be a Gaussian distribution with a mean of zero and unit variance (\mathcal{N}(0, 1)).
 However, this simple-looking integral over the product of gaussian conditional and prior distribution is ***intractable*** because the integration is performed over 
 the entire latent space, which is continuous (it is possible to have infinite number of latent variables for a single input). 
 
-But can we try calculating $$P(x) in a different way? We also know that the *joint probability* $$P(x,z) = P(x)P(z | x) $$, meaning that P(x) = \frac{P(x,z)}{P(z | x)}$$. 
+But can we try calculating $$P(x)$$ in a different way? We also know that the *joint probability* $$P(x,z) = P(x)P(z | x) $$, meaning that P(x) = \frac{P(x,z)}{P(z | x)}$$. 
 We quickly realize that this doesn't work either since we already saw above that the posterior $$P(z | x)$$ is unknown! Therefore, we have to resort to approximating the
-posterior $$P(z | x)$$ with an approximate variational distribution $$q_\phi(z | x)$$ which has parameters $$\phi$$ that needs to be optimized. Hence, in the previous graphical
+posterior $$P(z | x)$$ with an *approximate variational distribution $$q_\phi(z | x)$$* which has parameters $$\phi$$ that needs to be optimized. Hence, in the previous graphical
 model, the dashed arrow going from x to z represents the variational approximation.
 
 Before looking at the mathematical steps for variational approximation, let's look at VAEs in a neural network's perspective. A VAE consists of an encoder and a decoder, and both
-are neural networks. The encoder takes in input data $$x$$ and compresses it to latent variable $$z$$, and must learn a good latent representation known as the bottleneck of the model.
-Therefore, the encoder can be denoted as q
+are neural networks. The *encoder* takes in input data $$x$$ and compresses it to latent representation $$z$$, and must learn a good latent representation known as the bottleneck of the model.
+Therefore, the encoder can be denoted as $$q_\phi(z | x)$$. The $$\phi$$ Note that as previously mentioned, the latent space is assumed to be a Gaussian probability distribution, so sampling from the
+trained encoder gets us the latent representation $$z$$ from data $$x$$. The *decoder* takes in the latent representation **z** from the encoder output
 
 
 
