@@ -42,6 +42,10 @@ To perform the generative process, or run inference, for each individual data $$
 Then, with the prior sampled, we sample an individual data $$x_i$$ from the likelihood $$P(x | z)$$: $$x_i \sim P(x | z)$$.
 Precisely, this can be represented in a graphical model below where we can see that the unobserved latent variable $$z$$ is the parent of the observed data $$x$$.
 
+<img src = "/assets/images/VAE_graphical_model.PNG" width = "500" height = "600" class = "center">
+<figcaption>Diagram showing directed graphical model for VAEs.</figcaption>
+<br>
+
 Now, in *Bayesian Inference*, "inference" means calculating the posterior probability, in this case the $$P(z | x)$$. This also makes sense
 since we want to infer 
 
@@ -50,11 +54,11 @@ Let's look at the classic Baye's Rule:
 $$P(z | x) = \frac{P(x | z)\cdot P(z)}{P(x)}$$ 
 </p>
 
-In this case, each variable is: 
+In this case, each variable is:
 - $$P(z)$$ is the prior probability of $$z$$, which is the initial belief without any knowledge about $$x$$.
 - $$P(x)$$ is the evidence, or the marginal likelihood, the probability of observing $$x$$ across all possible events.
-- $$P(z|x)$$ is the posterior probability of $$z$$ given $$x$$.
-- $$P(x|z)$$ is the likelihood of observing $$x$$ given $$z$$, which assumes the prior is correct.
+- $$P(z | x)$$ is the posterior probability of $$z$$ given $$x$$.
+- $$P(x | z)$$ is the likelihood of observing $$x$$ given $$z$$, which assumes the prior is correct.
 
 Intractable posterior, since evidence is: p(x)=∫p(x∣z)p(z)dz. Note that in VAEs, the latent variable z is assumed to specified to be a Gaussian distribution
 with a mean of zero and unit variance (\mathcal{N}(0, 1)). The normalization factor for solving the integral
@@ -187,3 +191,6 @@ SGLD finds applications in various fields:
 Stochastic Gradient Langevin Dynamics (SGLD) bridges the gap between optimization and probabilistic modeling. By combining Langevin Dynamics with stochastic gradient descent, SGLD efficiently explores complex probability distributions, making it a valuable tool in machine learning and Bayesian inference. Understanding SGLD opens the door to exploring high-dimensional spaces and training advanced models that handle uncertainty effectively.
 
 In future articles, we'll dive deeper into SGLD's applications and advanced techniques. Stay curious!
+
+*Image credits to:*
+- [VAE Directed Graphical Model](https://arxiv.org/pdf/1312.6114.pdf)
