@@ -3,7 +3,7 @@ layout: post
 title:  Latent/Stable Diffusion for Beginners! (Part 3)
 date:   2023-06-20
 description: 
-tags: deep-learning machine-learning latent-diffusion stable-diffusion generative-models
+tags: deep-learning machine-learning latent-diffusion stable-diffusion generative-models autoencoders u-net pretrained-encoders variational-autoencoders 
 categories: posts
 ---
 ---
@@ -37,39 +37,49 @@ how latent diffusion works. Before looking at the model objective, I think it's 
 
 Let's look at variational autoencoders (VAEs) in a probabilistic way. The variational autoencoder holds a probability model with the $x$ representing
 the data, and the $z$ representing the latent variables of the autoencoder. Remember that we want our latent variable $$z$$ to model the data $$x$$ as 
-accurately as possible. Note that $$x$$ can be seen, but $$z$$ cannot since it is in the latent space. Also, it is known that the joint probability of the model is: $$P(x, z) = P(x | z)\cdot P(z)$$.
-To perform the generative process, or run inference, for each individual data $$j$$, we first sample latent variable $$z_i$$ from the prior $$P(z)$$: $$z_i \sim P(z)$$. 
+accurately as possible. Note that $$x$$ can be seen, but $$z$$ cannot since it is in the latent space. To perform the generative process, or run inference, 
+for each individual data $$j$$, we first sample latent variable $$z_i$$ from the prior $$P(z)$$: $$z_i \sim P(z)$$. 
 Then, with the prior sampled, we sample an individual data $$x_i$$ from the likelihood $$P(x | z)$$: $$x_i \sim P(x | z)$$.
-Precisely, this can be represented in a graphical model below where we can see that the unobserved latent variable $$z$$ is the parent of the observed data $$x$$.
+Precisely, this can be represented in a graphical model below where we can see that the observed data $$x$$ is conditioned on unobserved latent variable $$z$$.
 
-<img src = "/assets/images/VAE_graphical_model.PNG" width = "500" height = "600" class = "center">
+<img src = "/assets/images/VAE_graphical_model.PNG" width = "200" height = "300" class = "center">
 <figcaption>Diagram showing directed graphical model for VAEs.</figcaption>
 <br>
 
-Now, in *Bayesian Inference*, "inference" means calculating the posterior probability, in this case the $$P(z | x)$$. This also makes sense
-since we want to infer 
+Now, remember again our goal in running inference in the VAE model is to model the latent space as good as possible given our data. This is *Bayesian Inference*,
+as "inference" means calculating the posterior probability, in this case the $$P(z | x)$$. How do we calculate this? Let's look at the classic Baye's Rule: 
 
-Let's look at the classic Baye's Rule: 
 <p>
 $$P(z | x) = \frac{P(x | z)\cdot P(z)}{P(x)}$$ 
 </p>
 
 In this case, each variable is:
-- $$P(z)$$ is the prior probability of $$z$$, which is the initial belief without any knowledge about $$x$$.
-- $$P(x)$$ is the evidence, or the marginal likelihood, the probability of observing $$x$$ across all possible events.
-- $$P(z | x)$$ is the posterior probability of $$z$$ given $$x$$.
-- $$P(x | z)$$ is the likelihood of observing $$x$$ given $$z$$, which assumes the prior is correct.
+1. $$P(z)$$ is the prior probability of $$z$$, which is the initial belief without any knowledge about $$x$$.
+2. P(x)$$ is the evidence, or the marginal likelihood, the probability of observing $$x$$ across all possible events.
+3. $$P(z | x)$$ is the posterior probability of $$z$$ given $$x$$.
+4. $$P(x | z)$$ is the likelihood of observing $$x$$ given $$z$$, which assumes the prior is correct.
 
-Intractable posterior, since evidence is: p(x)=∫p(x∣z)p(z)dz. Note that in VAEs, the latent variable z is assumed to specified to be a Gaussian distribution
-with a mean of zero and unit variance (\mathcal{N}(0, 1)). The normalization factor for solving the integral
-C= 1/p(x) is intractable since there is no way for us to know the entire p(x). This is the entire reason why we want to model
-it using latent variable z!
+From above, let's focus on the evidence, or the marginal likelihood. $$P(x)$$ can be calculated by: $$P(x) = \displaystyle \int P(x | z)P(z) dz$$ since we have a 
+continuous distribution (in VAEs, the latent variable z is assumed to specified to be a Gaussian distribution with a mean of zero and unit variance (\mathcal{N}(0, 1)).
+However, this simple-looking integral over the product of gaussian conditional and prior distribution is ***intractable*** because the integration is performed over 
+the entire latent space, which is continuous (it is possible to have infinite number of latent variables for a single input). 
+
+But can we try calculating $$P(x) in a different way? We also know that the *joint probability* $$P(x,z) = P(x)P(z | x) $$, meaning that P(x) = \frac{P(x,z)}{P(z | x)}$$. 
+We quickly realize that this doesn't work either since we already saw above that the posterior $$P(z | x)$$ is unknown! Therefore, we have to resort to approximating the
+posterior $$P(z | x)$$ with an approximate variational distribution $$q_\phi(z | x)$$ which has parameters $$\phi$$ that needs to be optimized. Hence, in the previous graphical
+model, the dashed arrow going from x to z represents the variational approximation.
+
+Before looking at the mathematical steps for variational approximation, let's look at VAEs in a neural network's perspective. A VAE consists of an encoder and a decoder, and both
+are neural networks. The encoder takes in input data $$x$$ and compresses it to latent variable $$z$$, and must learn a good latent representation known as the bottleneck of the model.
+Therefore, the encoder can be denoted as q
+
 
 
 <a id="model-objective"></a>
 ##  **Model Objective:**
 <p> 
-In any model, there is a defined model loss function that is minimized- in the case of LDMs, since it has a tractable likelihood, it is 
+Now why did we go over the basics of VAEs and variational approximation process? This is because diffusion models have a very similar set up to VAEs in
+that it also has a tractable likelihood that can be maximized in a similar way. 
 
 
 # Understanding the Evidence Lower Bound (ELBO) in Variational Autoencoders (VAEs)
