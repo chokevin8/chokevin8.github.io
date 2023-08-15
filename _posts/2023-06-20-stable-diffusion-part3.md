@@ -117,9 +117,11 @@ the modeled probability distribution of the data space, and therefore can be den
 <img src = "/assets/images/autoencoder_diagram.png" width = "800" height = "420" class = "center">
 <figcaption>Diagram showing autoencoder architecture.</figcaption>
 
-Now let's go back to the remembered equation that I just mentioned. Observe this:
+Now let's go back to the remembered equation that I just mentioned. Expand the first term $$\mathbb{E}_{q(z|x)} P(x|z)$$:
 <br>
-
+<p>
+\mathbb{E}_{q(z|x)} P(x|z) = 
+</p>
 Note that this reconstructed probability distribution cannot be *perfect*, as the decoder learns to reconstruct the original input image only from the latent representations.
 Look at the above equation #3...
 
