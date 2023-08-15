@@ -112,8 +112,10 @@ are neural networks. The *encoder* takes in input data $$x$$ and compresses it t
 contrary to the encoder of the vanilla autoencoder, the encoder of the variational autoencoder will learn the mean and variance 
 Therefore, the encoder can be denoted as $$q_\phi(z | x)$$, where the $$\phi$$ is the weights and biases of the model. Note that as previously mentioned, the latent space is assumed to be a Gaussian probability distribution, so sampling from the
 trained encoder gets us the latent representation $$z$$ from data $$x$$. The *decoder* takes in the latent representation **z** from the encoder output and outputs the reconstructed data, or the parameters to 
-the modeled probability distribution of the data space, and therefore can be denoted as $$p_\theta(x | z)$$, where $$\theta$$ is also the weights and biases. The below diagram helps us see this
+the modeled probability distribution of the data space, and therefore can be denoted as $$p_\theta(x | z)$$, where $$\theta$$ is also the weights and biases. The below diagram helps us see this entire scheme.
 
+<img src = "/assets/images/autoencoder_diagram.png" width = "800" height = "420" class = "center">
+<figcaption>Diagram showing autoencoder architecture.</figcaption>
 
 Note that this reconstructed probability distribution cannot be *perfect*, as the decoder learns to reconstruct the original input image only from the latent representations.
 Look at the above equation #3...
