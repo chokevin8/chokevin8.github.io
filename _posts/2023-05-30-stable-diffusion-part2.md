@@ -106,7 +106,7 @@ Before looking at experiments and results the authors concluded to verify those 
 
 ---
 
-<a id="model-architecture-objective"></a>
+<a id="model-architecture"></a>
 ### **Model Architecture:**
 Stable diffusion consists of three major components- *an autoencoder, a U-Net, and a pretrained encoder*. Each of the three components are critical and work together to work their magic.
 The entire model architecture and its three major components can be visualized in the below image:

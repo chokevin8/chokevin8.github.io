@@ -35,7 +35,7 @@ categories: posts
 ## **Stable Diffusion In Numbers**
 In this part of the blog, I will cover the mathematical details behind latent diffusion that is necessary to fully understand
 how latent diffusion works. Before looking at the model objective of LDMs, I think it's important to do an in-depth review on VAEs and how the Evidence Lower Bound
-(ELBO) is utilized:
+(ELBO) is utilized: 
 
 <a id="vaes-elbo"></a>
 ###  ***VAEs and ELBO:***
@@ -77,15 +77,18 @@ We quickly realize that this doesn't work either since we already saw above that
 posterior $$P(z | x)$$ with an *approximate variational distribution $$q_\phi(z | x)$$* which has parameters $$\phi$$ that needs to be optimized. Hence, in the previous graphical
 model, the dashed arrow going from x to z represents the variational approximation.
 
-Before looking at the mathematical steps for variational approximation, let's look at VAEs in a neural network's perspective. A VAE consists of an encoder and a decoder, and both
+But *how do we ensure that our approximate variational distribution $$q_\phi(z | x)$$ will be as similar as possible to the intractable posterior $$P(z | x)$$?*
+We do this by minimizing the KL-divergence between the two distributions:
+ 
+
+Let's now look at VAEs in a neural network's perspective. A VAE consists of an encoder and a decoder, and both
 are neural networks. The *encoder* takes in input data $$x$$ and compresses it to latent representation $$z$$, and must learn a good latent representation known as the bottleneck of the model. Note that
 contrary to the encoder of the vanilla autoencoder, the encoder of the variational autoencoder will learn the mean and variance 
 Therefore, the encoder can be denoted as $$p_\phi(z | x)$$, where the $$\phi$$ is the weights and biases of the model. Note that as previously mentioned, the latent space is assumed to be a Gaussian probability distribution, so sampling from the
 trained encoder gets us the latent representation $$z$$ from data $$x$$. The *decoder* takes in the latent representation **z** from the encoder output and outputs the reconstructed data, or the parameters to 
 the modeled probability distribution of the data space, and therefore can be denoted as $$p_\theta(x | z)$$, where $$\theta$$ is also the weights and biases. 
-
 Note that this reconstructed probability distribution cannot be *perfect*, as the decoder learns to reconstruct the original input image only from the latent representations.
-How do we ensure that the 
+Look at the above equation #3...
 
 
 
@@ -106,7 +109,6 @@ of the data at all. Therefore, the cluster of 1's and 5's will not have a smooth
 <a id="model-objective"></a>
 ###  ***Model Objective:***
 
-<p> 
 Now why did we go over the VAEs and its variational approximation process? This is because diffusion models have a very similar set up to VAEs in
 that it also has a tractable likelihood that can be maximized in a similar way. 
 

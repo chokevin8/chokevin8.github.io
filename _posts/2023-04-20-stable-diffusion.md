@@ -87,7 +87,7 @@ in this blog.
 
 ---
 
-<a id="#why-ditch-GANs"></a>
+<a id="why-ditch-GANs"></a>
 ## ***Why ditch GANs for Stable Diffusion?***
 Surprisingly, diffusion models are not new at all! Stable diffusion is a type of diffusion model, and like its name suggests,
 is actually based on the diffusion from thermodynamics! The forward diffusion process is where random (usually Gaussian) noise 
