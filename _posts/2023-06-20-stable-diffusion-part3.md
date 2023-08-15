@@ -32,7 +32,7 @@ categories: posts
 *Note: For other parts, please click the link above in the table of contents.* 
 
 <a id="stable-diffusion-in-numbers-1"></a>
-## ** Stable Diffusion In Numbers **
+## **Stable Diffusion In Numbers**
 In this part of the blog, I will cover the mathematical details behind latent diffusion that is necessary to fully understand
 how latent diffusion works. Before looking at the model objective of LDMs, I think it's important to do an in-depth review on VAEs and how the Evidence Lower Bound
 (ELBO) is utilized:
@@ -86,28 +86,24 @@ the modeled probability distribution of the data space, and therefore can be den
 
 Note that this reconstructed probability distribution cannot be *perfect*, as the decoder learns to reconstruct the original input image only from the latent representations.
 How do we ensure that the 
-<p>
 
-</p>
 
 
 <img src = "/assets/images/VAE_problem.png" width = "800" height = "400" class = "center">
 <figcaption>Diagram showing VAE latent space with KL-regularization (left) and without KL-regularization (right).</figcaption>
-<br>
 
+<p>
 However, only having this reconstruction loss as our loss function for training the VAE is not enough. This ties back to the KL-regularization of LDMs in the previous blog (part 2),
 which is the diagram showing the VAE latent space with and without KL-regularization. This is re-shown above. With an additional KL-regularization term to the VAE loss function, the "clusters" itself are bigger
 and are more centered around within each other. This ensures that the decoder creates *diverse and accurate samples*, as there is smoother transitions between different classes (clusters). 
 For example, for MNIST handwritten digits, if there was a cluster of 1's and a cluster of 5's, there should be a smooth transformation between 1 and 5 like they're morphing from one to another. 
 However, without the KL-regularization or KL loss term in the VAE loss, we end up with small individual clusters that are far apart from each other- resulting in a latent space that is not representative 
-of the data at all. Therefore, the cluster of 1's and 5's will not have a smooth transformation between one another. 
-<p>
-
+of the data at all. Therefore, the cluster of 1's and 5's will not have a smooth transformation between one another.
 </p>
-
 
 <a id="model-objective"></a>
 ###  ***Model Objective:***
+
 <p> 
 Now why did we go over the VAEs and its variational approximation process? This is because diffusion models have a very similar set up to VAEs in
 that it also has a tractable likelihood that can be maximized in a similar way. 
