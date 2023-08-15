@@ -13,14 +13,16 @@ categories: posts
 - ###  [Introduction](#introduction)
 - ### [Stable Diffusion vs GAN](#stable-diffusion-vs-gan)
 
-### [Stable Diffusion](#stable-diffusion) ([Part 2](/blog/2023/stable-diffusion-part2/))
+### [Stable Diffusion In Words](#stable-diffusion-in-words) ([Part 2](/blog/2023/stable-diffusion-part2/))
 - ### [Motivation](#motivation)
 - ### [Model Architecture](#model-architecture)
 - ### [Experiments & Results](#experiment-results)
 
-### [Math and Details Behind Stable Diffusion](#math-behind-stable-diffusion) (Part 3- This Blog!)
-- ### [Background](#background)
+### [Stable Diffusion In Numbers (Part 1)](#stable-diffusion-in-numbers-1) (Part 3- This Blog!)
+- ### [VAEs and ELBO](#vaes-elbo)
 - ### [Model Objective](#model-objective)
+
+### [Stable Diffusion In Numbers (Part 2)](#stable-diffusion-in-numbers-2) ([Part 4](/blog/2023/stable-diffusion-part4/))
 - ### [Autoencoder](#autoencoder)
 - ### [U-Net](#u-net)
 - ### [Pretrained Encoder](#pretrained-encoder)
@@ -29,11 +31,12 @@ categories: posts
 
 *Note: For Part 1 and 2, please click the link above in the table of contents.* 
 
-<a id="Background"></a>
-##  **Background:**
+<a id="vaes-elbo"></a>
+##  **VAEs and ELBO:**
 
 In this last part of the blog, I will cover most of the important mathematical details behind latent diffusion that is necessary to fully understand
-how latent diffusion works. Before looking at the model objective, I think it's important to do a quick review of the background:
+how latent diffusion works. Before looking at the model objective, I think it's important to do an in-depth review on VAEs and how the Evidence Lower Bound
+(ELBO) is utilized. 
 
 Let's look at variational autoencoders (VAEs) in a probabilistic way. The variational autoencoder holds a probability model with the $x$ representing
 the data, and the $z$ representing the latent variables of the autoencoder. Remember that we want our latent variable $$z$$ to model the data $$x$$ as 
@@ -44,7 +47,7 @@ Precisely, this can be represented in a graphical model below where we can see t
 
 <img src = "/assets/images/VAE_graphical_model.PNG" width = "200" height = "300" class = "center">
 <figcaption>Diagram showing directed graphical model for VAEs.</figcaption>
-
+<br>
 Now, remember again our goal in running inference in the VAE model is to model the latent space as good as possible given our data. This is *Bayesian Inference*,
 as "inference" means calculating the posterior probability, in this case the $$P(z | x)$$. How do we calculate this? Let's look at the classic Baye's Rule: 
 
@@ -79,9 +82,26 @@ Therefore, the encoder can be denoted as $$p_\phi(z | x)$$, where the $$\phi$$ i
 trained encoder gets us the latent representation $$z$$ from data $$x$$. The *decoder* takes in the latent representation **z** from the encoder output and outputs the reconstructed data, or the parameters to 
 the modeled probability distribution of the data space, and therefore can be denoted as $$p_\theta(x | z)$$, where $$\theta$$ is also the weights and biases. 
 
-
 Note that this reconstructed probability distribution cannot be *perfect*, as the decoder learns to reconstruct the original input image only from the latent representations.
-However, we can optimize a loss function during our training to minimize this reconstruction loss, which is simple as a negative log likelihood
+How do we ensure that the 
+<p>
+
+</p>
+
+
+<img src = "/assets/images/VAE_problem.png" width = "800" height = "400" class = "center">
+<figcaption>Diagram showing VAE latent space with KL-regularization (left) and without KL-regularization (right).</figcaption>
+<br>
+
+However, only having this reconstruction loss as our loss function for training the VAE is not enough. This ties back to the KL-regularization of LDMs in the previous blog (part 2),
+which is the diagram showing the VAE latent space with and without KL-regularization. This is re-shown above. With an additional KL-regularization term to the VAE loss function, the "clusters" itself are bigger
+and are more centered around within each other. This ensures that the decoder creates *diverse and accurate samples*, as there is smoother transitions between different classes (clusters). 
+For example, for MNIST handwritten digits, if there was a cluster of 1's and a cluster of 5's, there should be a smooth transformation between 1 and 5 like they're morphing from one to another. 
+However, without the KL-regularization or KL loss term in the VAE loss, we end up with small individual clusters that are far apart from each other- resulting in a latent space that is not representative 
+of the data at all. Therefore, the cluster of 1's and 5's will not have a smooth transformation between one another. 
+<p>
+
+</p>
 
 
 <a id="model-objective"></a>
@@ -90,6 +110,7 @@ However, we can optimize a loss function during our training to minimize this re
 Now why did we go over the VAEs and its variational approximation process? This is because diffusion models have a very similar set up to VAEs in
 that it also has a tractable likelihood that can be maximized in a similar way. 
 
+maximize the likelihood that an image that you generate looks like it comes from original distribution. apply same ELBO (lower bound) to the likelihood of the diffusion as well
 
 # Understanding the Evidence Lower Bound (ELBO) in Variational Autoencoders (VAEs)
 

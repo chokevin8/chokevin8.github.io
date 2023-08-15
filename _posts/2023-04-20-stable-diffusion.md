@@ -27,13 +27,13 @@ about stable diffusion and its predecessor, GANs. The next two parts as seen in 
 - ###  [Introduction](#introduction)
 - ### [Why ditch GANs for Stable Diffusion?](#why-ditch-GANs)
 
-### [Stable Diffusion (Part 2)](/blog/2023/stable-diffusion-part2/) 
+### [Stable Diffusion In Words(Part 2)](/blog/2023/stable-diffusion-part2/) 
 - ### Motivation
 - ### Model Architecture
 - ### Experiments & Results
 
 ### [Math and Details Behind Stable Diffusion (Part 3)](/blog/2023/stable-diffusion-part3/)
-- ### Background
+- ### VAEs and ELBO
 - ### Model Objective
 - ### Autoencoder
 - ### U-Net

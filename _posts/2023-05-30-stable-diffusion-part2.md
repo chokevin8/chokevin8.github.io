@@ -13,13 +13,13 @@ categories: posts
 - ### Introduction
 - ### Why ditch GANs for Stable Diffusion?
 
-### [Stable Diffusion](#stable-diffusion) (Part 2- This Blog!)
+### [Stable Diffusion In Words](#stable-diffusion-in-words) (Part 2- This Blog!)
 - ### [Motivation](#motivation)
 - ### [Model Architecture](#model-architecture)
 - ### [Experiments & Results](#experiment-results)
 
 ### [Math and Details Behind Stable Diffusion (Part 3)](/blog/2023/stable-diffusion-part3/)
-- ### Background
+- ### VAEs and ELBO
 - ### Model Objective
 - ### Autoencoder
 - ### U-Net
@@ -184,7 +184,7 @@ are further apart).
 <p>
 The "KL" stands for the <i>Kullback-Leibler (KL) divergence</i>, that is additionally added to the loss function of the VAEs. The KL-divergence
 essentially measures the distance between two probability distributions, and minimizing this essentially brings the above clusters "more together". 
-More on VAEs and KL-regularization can be covered later, but this is not the current focus of this blog, so I will keep it brief.
+More on VAEs and KL-divergence will be covered in the next part of the blog.
 </p>
 <p>
 VQ-regularization is another method to regularize the latent space of a VAE, a similar method is utilized in <i>Vector-Quantized (VQ) VAEs</i>- hence why it is called VQ-regularization.
