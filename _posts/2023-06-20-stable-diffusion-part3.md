@@ -79,13 +79,17 @@ model, the dashed arrow going from x to z represents the variational approximati
 
 But *how do we ensure that our approximate variational distribution $$q_\phi(z | x)$$ will be as similar as possible to the intractable posterior $$P(z | x)$$?*
 We do this by minimizing the KL-divergence between the two distributions. For two distributions P and Q, KL-divergence essentially measures the difference between the two distributions.
-The value of the KL-divergence cannot be less than zero, as zero denotes that the two distributions are perfectly equal to each other. Note that $$D_KL(P || Q) = \\sum_{n=i} P(i) \log \frac{P(i)}{Q(i)} $$ 
+The value of the KL-divergence cannot be less than zero, as zero denotes that the two distributions are perfectly equal to each other. Note that $$D_{KL}(P || Q) = \sum_{n=i} P(i) \log \frac{P(i)}{Q(i)} $$ 
+<br>
 Now let's derive this:
-<p>
-$$min(D_KL(q(z|x) || P(z|x))\) = - \\sum_{n=i}$$ 
 
-</p>
+<p>
+$$min(D_{KL}(q(z|x) || P(z|x))) = - \sum_{n=i} q(z|x) \log \frac{P(z|x)}{q(z|x)}$$ (1)
+$$min(D_{KL}(q(z|x) || P(z|x))) = - \sum_{n=i} q(z|x) \log \frac{P(x,z)}{q(z|x)P(x)}$$ (2) (since $$P(z | x) = \frac {P(x,z)}{P(x)}$$)
+$$min(D_{KL}(q(z|x) || P(z|x))) = - \sum_{n=i} q(z|x) [\log \frac{P(x,z)}{q(z|x)} - \log P(x)] (3)
  
+</p>
+  
 
 Let's now look at VAEs in a neural network's perspective. A VAE consists of an encoder and a decoder, and both
 are neural networks. The *encoder* takes in input data $$x$$ and compresses it to latent representation $$z$$, and must learn a good latent representation known as the bottleneck of the model. Note that
