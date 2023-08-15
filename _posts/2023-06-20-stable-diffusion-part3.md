@@ -101,6 +101,8 @@ However, without the KL-regularization or KL loss term in the VAE loss, we end u
 of the data at all. Therefore, the cluster of 1's and 5's will not have a smooth transformation between one another.
 </p>
 
+---
+
 <a id="model-objective"></a>
 ###  ***Model Objective:***
 
@@ -139,19 +141,11 @@ The ELBO can be split into two components:
 - Reconstruction Loss: \(\mathbb{E}_{q(Z|X)}[\log p(X|Z)]\)
 - Regularization Term: \(\text{KL}(q(Z|X) || p(Z))\)
 
-The reconstruction loss encourages the model to generate data that resembles the input data, while the regularization term encourages the learned latent space to follow a desired prior distribution.
-
-## ELBO Optimization
-
-During training, our goal is to maximize the ELBO with respect to the model parameters. This involves fine-tuning the model to strike a balance between generating accurate reconstructions and maintaining a well-behaved latent space.
-
-## Conclusion
-
-The Evidence Lower Bound (ELBO) is a crucial concept in Variational Autoencoders (VAEs) that guides the training process by combining the reconstruction objective and regularization. Understanding the ELBO helps us grasp the underlying principles of VAEs and their role in unsupervised learning and generative modeling.
-
-In future articles, we'll explore advanced VAE techniques and real-world applications. Stay tuned!
 
 
+---
+
+The next part (last part of blog on stable diffusion) will cover more mathematical details on LDMs that were not covered in this part of the blog.
 
 *Image credits to:*
 - [VAE Directed Graphical Model](https://arxiv.org/pdf/1312.6114.pdf)
