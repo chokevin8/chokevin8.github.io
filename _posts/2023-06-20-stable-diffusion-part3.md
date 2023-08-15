@@ -9,34 +9,36 @@ categories: posts
 ---
 
 ## **Table of Contents:**
-### [Background](#background) ([Part 1](/blog/2023/stable-diffusion/))
-- ###  [Introduction](#introduction)
-- ### [Stable Diffusion vs GAN](#stable-diffusion-vs-gan)
+### [Background (Part 1)](/blog/2023/stable-diffusion/))
+- ### Introduction
+- ### Stable Diffusion vs GAN
 
-### [Stable Diffusion In Words](#stable-diffusion-in-words) ([Part 2](/blog/2023/stable-diffusion-part2/))
-- ### [Motivation](#motivation)
-- ### [Model Architecture](#model-architecture)
-- ### [Experiments & Results](#experiment-results)
+### [Stable Diffusion In Words (Part 2)](/blog/2023/stable-diffusion-part2/) 
+- ### Motivation
+- ### Model Architecture
+- ### Experiments & Results
 
-### [Stable Diffusion In Numbers (Part 1)](#stable-diffusion-in-numbers-1) (Part 3- This Blog!)
+### [Stable Diffusion In Numbers (Part 3)](#stable-diffusion-in-numbers-1) (This Blog!)
 - ### [VAEs and ELBO](#vaes-elbo)
 - ### [Model Objective](#model-objective)
 
-### [Stable Diffusion In Numbers (Part 2)](#stable-diffusion-in-numbers-2) ([Part 4](/blog/2023/stable-diffusion-part4/))
-- ### [Autoencoder](#autoencoder)
-- ### [U-Net](#u-net)
-- ### [Pretrained Encoder](#pretrained-encoder)
+### [Stable Diffusion In Numbers Continued (Part 4)](/blog/2023/stable-diffusion-part4/)
+- ### Autoencoder
+- ### U-Net
+- ### Pretrained Encoder
 
 ---
 
-*Note: For Part 1 and 2, please click the link above in the table of contents.* 
+*Note: For other parts, please click the link above in the table of contents.* 
+
+<a id="stable-diffusion-in-numbers-1"></a>
+## ** Stable Diffusion In Numbers **
+In this part of the blog, I will cover the mathematical details behind latent diffusion that is necessary to fully understand
+how latent diffusion works. Before looking at the model objective of LDMs, I think it's important to do an in-depth review on VAEs and how the Evidence Lower Bound
+(ELBO) is utilized:
 
 <a id="vaes-elbo"></a>
-##  **VAEs and ELBO:**
-
-In this last part of the blog, I will cover most of the important mathematical details behind latent diffusion that is necessary to fully understand
-how latent diffusion works. Before looking at the model objective, I think it's important to do an in-depth review on VAEs and how the Evidence Lower Bound
-(ELBO) is utilized. 
+###  ***VAEs and ELBO:***
 
 Let's look at variational autoencoders (VAEs) in a probabilistic way. The variational autoencoder holds a probability model with the $x$ representing
 the data, and the $z$ representing the latent variables of the autoencoder. Remember that we want our latent variable $$z$$ to model the data $$x$$ as 
@@ -105,17 +107,55 @@ of the data at all. Therefore, the cluster of 1's and 5's will not have a smooth
 
 
 <a id="model-objective"></a>
-##  **Model Objective:**
+###  ***Model Objective:***
 <p> 
 Now why did we go over the VAEs and its variational approximation process? This is because diffusion models have a very similar set up to VAEs in
 that it also has a tractable likelihood that can be maximized in a similar way. 
 
 maximize the likelihood that an image that you generate looks like it comes from original distribution. apply same ELBO (lower bound) to the likelihood of the diffusion as well
-</p>
+
+2. **Applying Jensen's Inequality**:
+   Start with the definition of the log likelihood of the data under the model:
+   \[
+   \log p(X) = \log \int p(X, Z) dZ
+   \]
+   Apply Jensen's inequality with the variational distribution \(q(Z|X)\):
+   \[
+   \log p(X) \geq \int q(Z|X) \log \frac{p(X, Z)}{q(Z|X)} dZ
+   \]
+
+3. **ELBO Definition**:
+   Define the Evidence Lower Bound (ELBO) as the right-hand side of the inequality:
+   \[
+   \text{ELBO} = \int q(Z|X) \log \frac{p(X, Z)}{q(Z|X)} dZ
+   \]
+
+4. **Simplification**:
+   Rearrange the terms to get a more intuitive form of ELBO:
+   \[
+   \text{ELBO} = \mathbb{E}_{q(Z|X)}[\log p(X|Z)] - \text{KL}(q(Z|X) || p(Z))
+   \]
+   where \(\text{KL}(q(Z|X) || p(Z))\) is the Kullback-Leibler divergence between the approximate posterior and the prior.
+
+## Interpreting the ELBO Components
+
+The ELBO can be split into two components:
+- Reconstruction Loss: \(\mathbb{E}_{q(Z|X)}[\log p(X|Z)]\)
+- Regularization Term: \(\text{KL}(q(Z|X) || p(Z))\)
+
+The reconstruction loss encourages the model to generate data that resembles the input data, while the regularization term encourages the learned latent space to follow a desired prior distribution.
+
+## ELBO Optimization
+
+During training, our goal is to maximize the ELBO with respect to the model parameters. This involves fine-tuning the model to strike a balance between generating accurate reconstructions and maintaining a well-behaved latent space.
+
+## Conclusion
+
+The Evidence Lower Bound (ELBO) is a crucial concept in Variational Autoencoders (VAEs) that guides the training process by combining the reconstruction objective and regularization. Understanding the ELBO helps us grasp the underlying principles of VAEs and their role in unsupervised learning and generative modeling.
+
+In future articles, we'll explore advanced VAE techniques and real-world applications. Stay tuned!
 
 
 
 *Image credits to:*
-
 - [VAE Directed Graphical Model](https://arxiv.org/pdf/1312.6114.pdf)
-- [VAE Latent Space KL-Regularization](https://towardsdatascience.com/intuitively-understanding-variational-autoencoders-1bfe67eb5daf)

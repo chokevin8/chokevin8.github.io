@@ -13,34 +13,39 @@ categories: posts
 - ### Introduction
 - ### Why ditch GANs for Stable Diffusion?
 
-### [Stable Diffusion In Words](#stable-diffusion-in-words) (Part 2- This Blog!)
+### [Stable Diffusion In Words (Part 2)](#stable-diffusion-in-words) (This Blog!)
 - ### [Motivation](#motivation)
 - ### [Model Architecture](#model-architecture)
 - ### [Experiments & Results](#experiment-results)
 
-### [Math and Details Behind Stable Diffusion (Part 3)](/blog/2023/stable-diffusion-part3/)
+### [Stable Diffusion In Numbers (Part 3)](/blog/2023/stable-diffusion-part3/)
 - ### VAEs and ELBO
 - ### Model Objective
+
+### [Stable Diffusion In Numbers Continued (Part 4)](/blog/2023/stable-diffusion-part4/))
 - ### Autoencoder
 - ### U-Net
 - ### Pretrained Encoder
+
 ---
 
-*Note: For Part 1 and 3 , please click the link above in the table of contents.* 
+*Note: For other parts, please click the link above in the table of contents.* 
+
+<a id="stable-diffusion-in-words"></a>
+## ***Stable Diffusion In Words:***
+
+In part 1, I've introduced the concept of generative models and the disadvantages of GANs, but that's not all the motivation of the authors of the paper. Let's first look 
+at the author's motivation of developing the latent diffusion model:
 
 <a id="motivation"></a>
-##  **Motivation:**
-<p> 
-In part 1, I've introduced the concept of generative models and the disadvantages of GANs, but that's not the true motivation of the authors of the paper.
-Diffusion models are a (explicit) likelihood-based model, which can be classified as similar types to an autoregressive or a normalizing flow model. 
-</p>
+###  ***Motivation:***
 <p>
+Diffusion models are a (explicit) likelihood-based model, which can be classified as similar types to an autoregressive or a normalizing flow model. 
 Therefore, diffusion models tend to share similar disadvantages as autoregressive or normalizing-flow models, as it suffers from high computational cost due to the model spending
 a lot of its resources and times preserving the details of the data entirely in the pixel space, which are often times unnecessary. Therefore, the authors aim to combat 
 this issue by enabling diffusion models to train in the latent space without loss of performance, which enables training on limited computational resources.
 </p>
 <p>
-
 Now, converting the input image to the latent space isn't an easy task, as it requires compressing the images without losing its perceptual and semantic details.
 <i><b>Perceptual image compression</b></i> is just like what it sounds- it aims to preserve the visual quality of an image by prioritizing the information that is most noticeable to human 
 perception while compressing and removing parts of the image that is less sensitive to human perception. In most cases, high frequency components of the image, which tend to 
@@ -167,7 +172,7 @@ Before briefly looking over each experiment, however, it is important to touch u
 
 -***KL and VQ-regularized LDMs:***
 <br>
-KL-regularization actually originates from variational autoencoders (VAEs), which is a type of an autoencoder where its encodings are regularized so that the latent space can be sufficiently diverse,
+KL-regularization actually originates from variational autoencoders (VAEs), which is a type of autoencoder where its encodings are regularized so that the latent space can be sufficiently diverse,
 so that the resulting image generated from the decoder is diverse but also accurate. This regularization is needed because without regularization, VAEs will tend to spread out in clusters in the latent space, 
 which deteriorates the decoder's performance as it learns to just regurgitate the training data. This becomes more clear when looking at the below diagram:
 
@@ -228,7 +233,7 @@ space has variance close to 1).
 -***Image Super-resolution and Inpainting:***
 Image super-resolution is to generate a higher resolution version of the input image, which is basically an advanced version of semantic synthesis. 
 This was achieved by conditioning on low-resolution images as input, and those low-resolution images were initially degraded using bicubic interpolation with 4x downsampling.
-The LDM is concatenates the low resolution conditioning and the inputs to the UNet, resulting in a "super-resolution" image. The authors were able to achieve SOTA performance,
+The LDM concatenates the low resolution conditioning and the inputs to the UNet, resulting in a "super-resolution" image. The authors were able to achieve SOTA performance,
 and they also developed a more general model that could handle different types of image degradation other than bicubic interpolation for robustness. 
 Image inpainting is to fill in a masked region of a specific image. The authors also report SOTA performance on FID and noted that the VQ-regularized, 4x downsampled LDM-4 worked the best.
 

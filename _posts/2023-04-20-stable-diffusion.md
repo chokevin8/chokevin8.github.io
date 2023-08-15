@@ -23,7 +23,7 @@ about stable diffusion and its predecessor, GANs. The next two parts as seen in 
 ---
 
 ## **Table of Contents:**
-### [Background](#background) (Part 1- This Blog!)
+### [Background (Part 1)](#background) (This Blog!)
 - ###  [Introduction](#introduction)
 - ### [Why ditch GANs for Stable Diffusion?](#why-ditch-GANs)
 
@@ -32,23 +32,28 @@ about stable diffusion and its predecessor, GANs. The next two parts as seen in 
 - ### Model Architecture
 - ### Experiments & Results
 
-### [Math and Details Behind Stable Diffusion (Part 3)](/blog/2023/stable-diffusion-part3/)
+### [Stable Diffusion In Numbers (Part 3)](/blog/2023/stable-diffusion-part3/)
 - ### VAEs and ELBO
 - ### Model Objective
+
+### [Stable Diffusion In Numbers Continued (Part 4)](/blog/2023/stable-diffusion-part4/))
 - ### Autoencoder
 - ### U-Net
 - ### Pretrained Encoder
 
-*Note: For Part 2 and 3 , please click the link above in the table of contents.* 
-
 ---
+
+*Note: For other parts, please click the link above in the table of contents.* 
+
 <a id="background"></a>
 ##  **Background:**
-<a id="introduction"></a>
-###  **Introduction:** 
 Latent diffusion models (LD), or henceforth mentioned as stable diffusion models (SD), are a type of a diffusion model 
 developed for the purpose of image synthesis by Rombach et al. of last year. (While LD and SD are not exactly equal- SD is an improved version and hence a type of LD-
-we will use the term interchangeably) Let's do a quick overview of what a "model" is first. In Machine Learning, a model is either a generative or discriminative. 
+we will use the term interchangeably) Let's do a quick review/introduction of what a "model" is first:
+
+<a id="introduction"></a>
+###  ***Introduction:***
+In Machine Learning, a model is either a generative or discriminative. 
 The diagram below clearly shows the difference between the two:
 <br>
 <img src = "/assets/images/generative_v_discriminative.png" width = "523" height = "293" class = "center">
@@ -83,7 +88,7 @@ in this blog.
 ---
 
 <a id="#why-ditch-GANs"></a>
-## **Why ditch GANs for Stable Diffusion?**
+## ***Why ditch GANs for Stable Diffusion?***
 Surprisingly, diffusion models are not new at all! Stable diffusion is a type of diffusion model, and like its name suggests,
 is actually based on the diffusion from thermodynamics! The forward diffusion process is where random (usually Gaussian) noise 
 is introduced to an image until the image is pure noise (isotropic Gaussian), and the reverse diffusion process is where the model is trained so that 
