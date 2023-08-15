@@ -104,6 +104,7 @@ $$ ELBO = \sum_{n=i} q(z|x) \log \frac{P(x|z)P(z)}{q(z|x)} \ (2)$$
 $$ ELBO = \sum_{n=i} q(z|x) [\log P(x|z) + \log \frac{P(z)}{q(z|x)}] \ (3)$$
 $$ ELBO = \sum_{n=i} q(z|x) \log P(x|z) + \sum_{n=i} q(z|x) \log \frac{P(z)}{q(z|x)} \ (4)$$
 $$ ELBO = \sum_{n=i} q(z|x) \log P(x|z) - D_{KL}(q(z|x) || P(z)) \ (5)$$ 
+$$ ELBO = \mathbb{E}_{q(z|x)} P(x|z) - D_{KL}(q(z|x) || P(z)) \ (6)$$ 
 </p>
 
 
