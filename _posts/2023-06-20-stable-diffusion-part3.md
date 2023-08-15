@@ -78,7 +78,13 @@ posterior $$P(z | x)$$ with an *approximate variational distribution $$q_\phi(z 
 model, the dashed arrow going from x to z represents the variational approximation.
 
 But *how do we ensure that our approximate variational distribution $$q_\phi(z | x)$$ will be as similar as possible to the intractable posterior $$P(z | x)$$?*
-We do this by minimizing the KL-divergence between the two distributions:
+We do this by minimizing the KL-divergence between the two distributions. For two distributions P and Q, KL-divergence essentially measures the difference between the two distributions.
+The value of the KL-divergence cannot be less than zero, as zero denotes that the two distributions are perfectly equal to each other. Note that $$D_KL(P || Q) = \\sum_{n=i} P(i) \log \frac{P(i)}{Q(i)} $$ 
+Now let's derive this:
+<p>
+$$min(D_KL(q(z|x) || P(z|x))\) = - \\sum_{n=i}$$ 
+
+</p>
  
 
 Let's now look at VAEs in a neural network's perspective. A VAE consists of an encoder and a decoder, and both
