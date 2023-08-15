@@ -81,7 +81,7 @@ But *how do we ensure that our approximate variational distribution $$q_\phi(z |
 We do this by minimizing the KL-divergence between the two distributions. For two distributions P and Q, KL-divergence essentially measures the difference between the two distributions.
 The value of the KL-divergence cannot be less than zero, as zero denotes that the two distributions are perfectly equal to each other. Note that $$D_{KL}(P || Q) = \sum_{n=i} P(i) \log \frac{P(i)}{Q(i)} $$ 
 <br>
-Now let's derive this:
+Now let's expand on this:
 
 <p>
 $$min(D_{KL}(q(z|x) || P(z|x))) = - \sum_{n=i} q(z|x) \log \frac{P(z|x)}{q(z|x)} \ (1)$$ 
@@ -92,7 +92,13 @@ $$min(D_{KL}(q(z|x) || P(z|x))) = - \sum_{n=i} q(z|x) \log \frac{P(x,z)}{q(z|x)}
 $$\log P(x) = min(D_{KL}(q(z|x) || P(z|x))) + \sum_{n=i} q(z|x) \log \frac{P(x,z)}{q(z|x)} \ (6)$$
 </p>
 Observe the left hand side of the last line above (or equation #6). Since we observe $$x$$, this is simply a constant. Observe the right hand side now. 
-The first term is what we initially wanted to minimize. The second term
+The first term is what we initially wanted to minimize. The second term is what's called an ***"evidence/variational lower bound", or "ELBO" for short***.
+This is because rather than minimizing our first term (KL-divergence), utilizing the fact that the KL-divergence is always greater than or equal to zero, we can
+rather maximize the ELBO instead. We know understand why the second term is called a "lower bound", as $$ELBO \leq \log P(x)$$ since $$D_{KL}(q(z|x) || P(z|x)) \geq 0$$ 
+all the time. 
+<br>
+Now let's expand on this even more:
+
 
 Let's now look at VAEs in a neural network's perspective. A VAE consists of an encoder and a decoder, and both
 are neural networks. The *encoder* takes in input data $$x$$ and compresses it to latent representation $$z$$, and must learn a good latent representation known as the bottleneck of the model. Note that
