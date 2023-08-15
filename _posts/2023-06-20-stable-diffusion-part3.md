@@ -104,23 +104,22 @@ $$ ELBO = \sum_{n=i} q(z|x) \log \frac{P(x|z)P(z)}{q(z|x)} \ (2)$$
 $$ ELBO = \sum_{n=i} q(z|x) [\log P(x|z) + \log \frac{P(z)}{q(z|x)}] \ (3)$$
 $$ ELBO = \sum_{n=i} q(z|x) \log P(x|z) + \sum_{n=i} q(z|x) \log \frac{P(z)}{q(z|x)} \ (4)$$
 $$ ELBO = \sum_{n=i} q(z|x) \log P(x|z) - D_{KL}(q(z|x) || P(z)) \ (5)$$ 
-$$ ELBO = \mathbb{E}_{q(z|x)} P(x|z) - D_{KL}(q(z|x) || P(z)) \ (6)$$ 
+$$ ELBO = \mathbb{E}_{q(z|x)} [\log P(x|z)] - D_{KL}(q(z|x) || P(z)) \ (6)$$ 
 </p>
 
 ***Remember*** the last line above (or equation #6) for later. But to understand this expression better, let's now look at VAEs in a *neural network's perspective*. A VAE consists of an encoder and a decoder, and both
 are neural networks. The *encoder* takes in input data $$x$$ and compresses it to latent representation $$z$$, and must learn a good latent representation known as the bottleneck of the model. Note that
 contrary to the encoder of the vanilla autoencoder, the encoder of the variational autoencoder will learn the mean and variance 
 Therefore, the encoder can be denoted as $$q_\phi(z | x)$$, where the $$\phi$$ is the weights and biases of the model. Note that as previously mentioned, the latent space is assumed to be a Gaussian probability distribution, so sampling from the
-trained encoder gets us the latent representation $$z$$ from data $$x$$. The *decoder* takes in the latent representation **z** from the encoder output and outputs the reconstructed data, or the parameters to 
+trained encoder gets us the latent representation $$z$$ from data $$x$$. The *decoder* takes in the latent representation **z** from the encoder output and outputs the reconstructed data denoted as $\hat{x}$, or the parameters to 
 the modeled probability distribution of the data space, and therefore can be denoted as $$p_\theta(x | z)$$, where $$\theta$$ is also the weights and biases. The below diagram helps us see this entire scheme.
 
 <img src = "/assets/images/autoencoder_diagram.png" width = "800" height = "420" class = "center">
 <figcaption>Diagram showing autoencoder architecture.</figcaption>
-
-Now let's go back to the remembered equation that I just mentioned. Expand the first term $$\mathbb{E}_{q(z|x)} P(x|z)$$:
 <br>
-<p>
-\mathbb{E}_{q(z|x)} P(x|z) = 
+Now let's go back to the remembered equation that I just mentioned. Let's look at the first term $$\mathbb{E}_{q(z|x)} [\log P(x|z)]$$. Now, remember that the latent space $$z $$z_i \sim P(z)$$
+($$\mathcal{N}(0, 1)$$)
+
 </p>
 Note that this reconstructed probability distribution cannot be *perfect*, as the decoder learns to reconstruct the original input image only from the latent representations.
 Look at the above equation #3...
@@ -129,7 +128,7 @@ Look at the above equation #3...
 
 <img src = "/assets/images/VAE_problem.png" width = "800" height = "400" class = "center">
 <figcaption>Diagram showing VAE latent space with KL-regularization (left) and without KL-regularization (right).</figcaption>
-
+<br>
 <p>
 However, only having this reconstruction loss as our loss function for training the VAE is not enough. This ties back to the KL-regularization of LDMs in the previous blog (part 2),
 which is the diagram showing the VAE latent space with and without KL-regularization. This is re-shown above. With an additional KL-regularization term to the VAE loss function, the "clusters" itself are bigger
