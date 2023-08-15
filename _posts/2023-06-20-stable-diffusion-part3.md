@@ -97,7 +97,14 @@ This is because rather than minimizing our first term (KL-divergence), utilizing
 rather maximize the ELBO instead. We know understand why the second term is called a "lower bound", as $$ELBO \leq \log P(x)$$ since $$D_{KL}(q(z|x) || P(z|x)) \geq 0$$ 
 all the time. 
 <br>
-Now let's expand on this even more:
+Now let's expand on ELBO:
+<p>
+$$ ELBO = \sum_{n=i} q(z|x) \log \frac{P(x,z)}{q(z|x)} \ (1)$$ 
+$$ ELBO = \sum_{n=i} q(z|x) \log \frac{P(x|z)P(z)}{q(z|x)} \ (2)$$
+$$ ELBO = \sum_{n=i} q(z|x) [\log P(x|z) + \log \frac{P(z)}{q(z|x)}] \ (3)$$
+$$ ELBO = \sum_{n=i} q(z|x) \log P(x|z) + \sum_{n=i} q(z|x) \log \frac{P(z)}{q(z|x)} \ (4)$$
+$$ ELBO = \sum_{n=i} q(z|x) \log P(x|z) - D_{KL}(q(z|x) || P(z)) \ (5)$$ 
+</p>
 
 
 Let's now look at VAEs in a neural network's perspective. A VAE consists of an encoder and a decoder, and both
