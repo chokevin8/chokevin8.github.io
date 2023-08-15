@@ -111,70 +111,11 @@ Now why did we go over the VAEs and its variational approximation process? This 
 that it also has a tractable likelihood that can be maximized in a similar way. 
 
 maximize the likelihood that an image that you generate looks like it comes from original distribution. apply same ELBO (lower bound) to the likelihood of the diffusion as well
-
-# Understanding the Evidence Lower Bound (ELBO) in Variational Autoencoders (VAEs)
-
-Variational Autoencoders (VAEs) are powerful generative models that allow us to learn meaningful representations of data. One key concept in VAEs is the Evidence Lower Bound (ELBO), which plays a crucial role in the training process and guides us in optimizing the model's parameters. In this article, we'll break down the ELBO and its significance step by step.
-
-## Introduction to VAEs
-
-Before diving into ELBO, let's briefly understand what VAEs are. VAEs are a type of generative model that combine the strengths of autoencoders and probabilistic modeling. They allow us to learn a latent representation of data that can be used for tasks like data generation, interpolation, and more.
-
-## The ELBO Concept
-
-The Evidence Lower Bound (ELBO) is a fundamental equation in the context of VAEs. It helps us formulate the training objective and guide the optimization process. The ELBO is derived from the idea of maximizing the marginal likelihood of the data.
-
-## Deriving the ELBO
-
-Let's walk through the derivation of the ELBO step by step:
-
-1. **Assumptions**:
-   - We have observed data \(X\) and latent variables \(Z\).
-   - \(p(X, Z)\) is the joint distribution of data and latent variables.
-   - \(q(Z|X)\) is the approximate posterior distribution over latent variables.
-
-2. **Applying Jensen's Inequality**:
-   Start with the definition of the log likelihood of the data under the model:
-   \[
-   \log p(X) = \log \int p(X, Z) dZ
-   \]
-   Apply Jensen's inequality with the variational distribution \(q(Z|X)\):
-   \[
-   \log p(X) \geq \int q(Z|X) \log \frac{p(X, Z)}{q(Z|X)} dZ
-   \]
-
-3. **ELBO Definition**:
-   Define the Evidence Lower Bound (ELBO) as the right-hand side of the inequality:
-   \[
-   \text{ELBO} = \int q(Z|X) \log \frac{p(X, Z)}{q(Z|X)} dZ
-   \]
-
-4. **Simplification**:
-   Rearrange the terms to get a more intuitive form of ELBO:
-   \[
-   \text{ELBO} = \mathbb{E}_{q(Z|X)}[\log p(X|Z)] - \text{KL}(q(Z|X) || p(Z))
-   \]
-   where \(\text{KL}(q(Z|X) || p(Z))\) is the Kullback-Leibler divergence between the approximate posterior and the prior.
-
-## Interpreting the ELBO Components
-
-The ELBO can be split into two components:
-- Reconstruction Loss: \(\mathbb{E}_{q(Z|X)}[\log p(X|Z)]\)
-- Regularization Term: \(\text{KL}(q(Z|X) || p(Z))\)
-
-The reconstruction loss encourages the model to generate data that resembles the input data, while the regularization term encourages the learned latent space to follow a desired prior distribution.
-
-## ELBO Optimization
-
-During training, our goal is to maximize the ELBO with respect to the model parameters. This involves fine-tuning the model to strike a balance between generating accurate reconstructions and maintaining a well-behaved latent space.
-
-## Conclusion
-
-The Evidence Lower Bound (ELBO) is a crucial concept in Variational Autoencoders (VAEs) that guides the training process by combining the reconstruction objective and regularization. Understanding the ELBO helps us grasp the underlying principles of VAEs and their role in unsupervised learning and generative modeling.
-
-In future articles, we'll explore advanced VAE techniques and real-world applications. Stay tuned!
+</p>
 
 
 
 *Image credits to:*
+
 - [VAE Directed Graphical Model](https://arxiv.org/pdf/1312.6114.pdf)
+- [VAE Latent Space KL-Regularization](https://towardsdatascience.com/intuitively-understanding-variational-autoencoders-1bfe67eb5daf)
