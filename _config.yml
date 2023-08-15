@@ -91,7 +91,7 @@ bing_site_verification:  # out your bing-site-verification ID (Bing Webmaster)
 
 blog_name: Welcome to My Deep Learning Blog! # blog_name will be displayed in your blog page
 blog_nav_title: blog # your blog must have a title for it to be displayed in the nav bar
-blog_description: This is just my personal blog, usually posting about any ML/DL topics or papers of interest, or sometimes interesting updates on my projects as well. Since my interest is in image segmentation models, it may be a bit biased though :) I'll just call it my personal diary then!
+blog_description: This is my personal blog, usually posting about any ML/DL topics or papers of interest, or sometimes interesting updates on my projects as well. Feel free to take a look at anything that interests you!
 permalink: /blog/:year/:title/
 
 # Pagination
@@ -217,7 +217,7 @@ jekyll-archives:
     tag: '/blog/tag/:name/'
     category: '/blog/category/:name/'
 
-display_tags: ['machine-learning', 'deep-learning', 'image-segmentation', 'paper', 'project-update'] # this tags will be dispalyed on the front page of your blog
+display_tags: ['machine-learning', 'deep-learning', 'image-segmentation', 'generative-models','paper-review', 'project-update'] # this tags will be dispalyed on the front page of your blog
 
 # -----------------------------------------------------------------------------
 # Jekyll Scholar

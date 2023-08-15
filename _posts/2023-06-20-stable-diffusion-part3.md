@@ -3,7 +3,7 @@ layout: post
 title:  Latent/Stable Diffusion for Beginners! (Part 3)
 date:   2023-06-20
 description: 
-tags: deep-learning machine-learning latent-diffusion stable-diffusion generative-models autoencoders u-net pretrained-encoders variational-autoencoders 
+tags: deep-learning machine-learning generative-models paper-review
 categories: posts
 ---
 ---
@@ -117,6 +117,9 @@ the modeled probability distribution of the data space, and therefore can be den
 <img src = "/assets/images/autoencoder_diagram.png" width = "800" height = "420" class = "center">
 <figcaption>Diagram showing autoencoder architecture.</figcaption>
 
+Now let's go back to the remembered equation that I just mentioned. Observe this:
+<br>
+
 Note that this reconstructed probability distribution cannot be *perfect*, as the decoder learns to reconstruct the original input image only from the latent representations.
 Look at the above equation #3...
 
@@ -128,7 +131,7 @@ Look at the above equation #3...
 <p>
 However, only having this reconstruction loss as our loss function for training the VAE is not enough. This ties back to the KL-regularization of LDMs in the previous blog (part 2),
 which is the diagram showing the VAE latent space with and without KL-regularization. This is re-shown above. With an additional KL-regularization term to the VAE loss function, the "clusters" itself are bigger
-and are more centered around within each other. This ensures that the decoder creates *diverse and accurate samples*, as there is smoother transitions between different classes (clusters). 
+and are more centered around within each other. This ensures that the decoder creates <i>diverse and accurate samples</i>, as there is smoother transitions between different classes (clusters). 
 For example, for MNIST handwritten digits, if there was a cluster of 1's and a cluster of 5's, there should be a smooth transformation between 1 and 5 like they're morphing from one to another. 
 However, without the KL-regularization or KL loss term in the VAE loss, we end up with small individual clusters that are far apart from each other- resulting in a latent space that is not representative 
 of the data at all. Therefore, the cluster of 1's and 5's will not have a smooth transformation between one another.
