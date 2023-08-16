@@ -190,9 +190,11 @@ $$ x_t = \sqrt{\alpha_t \alpha_{t-1}}x_{t-2} + \sqrt{1-\alpha_t \alpha{t-1}}\eps
 $$ x_t = ... $$
 $$ x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}\epsilon $$
 $$ \mathbf{ \text{Therefore,} \quad q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\alpha_t}x_0,\Sigma_t = (1-\hat{\alpha}_t)I)}$$
-
-
 </p>
+
+Now, look at the reverse diffusion process, which is denoted by $$p_\theta(x_{t-1}|x_t)$$. Now, if we could reverse the above forward diffusion process 
+$$q(x_t|x_{t-1})$$ and sample from $$q(x_{t-1}|x_t)$$, we can easily run inference by sampling from our Gaussian noise input which is $$ \sim \mathcal{N}(0,I)$$.
+However, *this is exactly the same problem we had 
 
 After deriving training objective:
 LDM use DDIM, while Markvovian above is DDPM. Note training objective is the same. Short detail on DDIM: 
