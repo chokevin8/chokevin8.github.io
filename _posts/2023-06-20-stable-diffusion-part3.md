@@ -23,9 +23,8 @@ categories: posts
 - ### [Model Objective](#model-objective)
 
 ### [Stable Diffusion In Numbers Continued (Part 4)](/blog/2023/stable-diffusion-part4/)
-- ### Autoencoder
-- ### U-Net
-- ### Pretrained Encoder
+- ### Conditioning 
+- ### Classifier-Free Guidance
 
 ---
 
@@ -142,7 +141,7 @@ The minimization of KL divergence shown above regularizes the latent space as th
 would be smoother transitions between different classes (clusters). This is why both reconstruction loss term and KL-divergence term are included in the VAE loss function during training.
 
 <img src = "/assets/images/mnist_latent_space.jpg" width = "600" height = "600" class = "center">
-<figcaption>Diagram showing regularized VAE latent space of MNIST dataset (right).</figcaption>
+<figcaption>Diagram showing regularized VAE latent space of MNIST dataset.</figcaption>
 <br>
 For example, as seen above for MNIST handwritten digits, we see that the classes, or clusters have a smooth transition in this latent space. Without regularization, the encoder can cheat by learning narrow distributions
 with low variances. Now that we've understood the importance of maximizing ELBO to train a VAE, let's go back to LDMs.
@@ -153,11 +152,32 @@ with low variances. Now that we've understood the importance of maximizing ELBO 
 ###  ***Model Objective:***
 
 Now why did we go over the VAEs and its variational approximation process? This is because diffusion models have a very similar set up to VAEs in
-that it also has a tractable likelihood that can be maximized in a similar way. We're going to derive the training loss function, or the *model objective* just like
+that it also has a tractable likelihood that can be maximized by maximizing the ELBO to ensure that the approximate posterior is as similar as possible
+to the unknown true posterior we'd like to model. We're going to derive the training loss function, or the *model objective* just like
 how it was done for VAEs. 
 
-Let's first look at the *forward diffusion process* by looking at the below image:
+Let's first look at the forward and the backward diffusion process in a probabilistic way, since we already know about the diffusion processes in neural networks (train
+a regularized autoencoder for forward and backward diffusion process!). Take a look at the diagram below:
 
+<img src = "/assets/images/forward_backward_diffusion.png" width = "1325" height = "258" class = "center">
+<figcaption>Diagram showing the forward and reverse diffusion process.</figcaption>
+<br>
+
+The forward diffusion process actually is the reverse of the above diagram, as the arrows should be going the opposite way- the forward diffusion process adds noise to a specific
+data point $$x_0$$ that is sampled from the unknown, true distribution we'd like to model. Then, $$x_0$$ has Gaussian noise added to it in a Markovian process (from $$x_{t-1}$$ all the way to $$x_T$$) with $$T$$ steps.
+Therefore, $$q(x_t|x_{t-1})$$ takes the image and outputs a slightly more noisy version of the image. This can be formulated below:
+<p>
+$$q(x_t|x_{t-1}) = \mathcal{N}(x_t; \mu_t = \sqrt{1-B_t}x_{t-1},\Sigma_t = B_t = B_tI)$$
+</p>
+*Note that above process can be made non-Markovian in a different sampling process called DDIM(remember in Part 2, I mentioned diffusion process is either Markovian or non-Markovian, this is DDPM vs DDIM, this will be explained
+in next part of this blog).*
+
+Assuming high-dimensionality, $$q(x_t|x_{t-1})$$ is a Gaussian distribution with the above defined mean and variance. Note that for each dimension, it has the same standard deviation $$B_t$$.
+$$B_t$$ is a number between 0 and 1, and essentially scales the data so the variance doesn't grow out of proportion. The authors use a *linear schedule* for $$B_t$$, meaning that 
+
+
+After deriving training objective:
+LDM use DDIM, while Markvovian above is DDPM. Note training objective is the same. Short detail on DDIM: 
 
 
 
