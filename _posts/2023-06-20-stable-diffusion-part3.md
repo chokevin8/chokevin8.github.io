@@ -118,7 +118,7 @@ the modeled probability distribution of the data space, and therefore can be den
 <figcaption>Diagram showing autoencoder architecture.</figcaption>
 <br>
 Now let's go back to the remembered equation that I just mentioned. Let's look at the first term $$\mathbb{E}_{q(z|x)} [\log P(x|z)]$$. Now, remember that the latent space $$z$$ is assumed to be a
-Gaussian distribution $$z_i \sim P(z)$$. Observe this:
+Gaussian distribution $$z_i \sim \mathcal{N}(0,1)$$. Observe this:
 <p>
 $$\log p(x|z) \sim \log exp(-(x-f(z))^2$$
 $$\sim |x-f(z)|^2 $$
@@ -129,8 +129,8 @@ the first term is correlated to the mean squared error (MSE) loss between the or
 if the reconstructed image is too dissimilar to the original image. It is important to see that this was the first term of the *ELBO*, and remember we want to maximize this. Maximizing the first term
 is then therefore correlated to minimizing the MSE/reconstruction loss.
 
-Let's now look at the second term, $$-D_{KL}(q(z|x) || P(z))$$ (note the negative sign) which is the KL-divergence between our learned distribution (encoder) $$q(z|x)$$ 
-and the prior, which is assumed to follow $$\sim \mathcal{N}(0,1)$$. Remember this is the second term of ELBO, so we still want to maximize- but note the negative sign, we
+Let's now look at the second term, $$-D_{KL}(q(z|x) || P(z))$$ (note the negative sign) which is the KL-divergence between our learned gaussian distribution (encoder) $$q(z|x)$$ 
+and the prior (latent space) gaussian distribution. Remember this is the second term of ELBO, so we still want to maximize- but note the negative sign, we
 actually want to minimize the KL divergence between the two- which makes sense as we want to encourage the learned distribution from the encoder to be similar to the unit Gaussian prior.
 
 <img src = "/assets/images/VAE_problem.png" width = "800" height = "400" class = "center">
