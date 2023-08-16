@@ -136,7 +136,7 @@ actually want to minimize the KL divergence between the two- which makes sense a
 <img src = "/assets/images/VAE_problem.png" width = "800" height = "400" class = "center">
 <figcaption>Diagram showing VAE latent space with KL-regularization (left) and without KL-regularization (right).</figcaption>
 <br>
-<p>
+
 This actually ties back to the KL-regularization of LDMs in the previous blog (part 2), which is the diagram showing the VAE latent space with and without KL-regularization. This is re-shown above. 
 The minimization of KL divergence shown above regularizes the latent space as the "clusters" itself are bigger and are more centered around within each other. This ensures that the decoder creates <i>diverse and accurate samples</i>, as there 
 would be smoother transitions between different classes (clusters). This is why both reconstruction loss term and KL-divergence term are included in the VAE loss function during training.
