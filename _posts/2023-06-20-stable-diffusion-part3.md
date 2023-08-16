@@ -144,8 +144,8 @@ would be smoother transitions between different classes (clusters). This is why 
 <img src = "/assets/images/mnist_latent_space.jpg" width = "600" height = "600" class = "center">
 <figcaption>Diagram showing regularized VAE latent space of MNIST dataset (right).</figcaption>
 <br>
-For example, as seen above for MNIST handwritten digits, we see that the classes, or clusters have a smooth transition in this latent space. Now that we've understood the importance of maximizing ELBO to 
-train a VAE, let's go back to LDMs.
+For example, as seen above for MNIST handwritten digits, we see that the classes, or clusters have a smooth transition in this latent space. Without regularization, the encoder can cheat by learning narrow distributions
+with low variances. Now that we've understood the importance of maximizing ELBO to train a VAE, let's go back to LDMs.
 
 ---
 
@@ -153,7 +153,13 @@ train a VAE, let's go back to LDMs.
 ###  ***Model Objective:***
 
 Now why did we go over the VAEs and its variational approximation process? This is because diffusion models have a very similar set up to VAEs in
-that it also has a tractable likelihood that can be maximized in a similar way. 
+that it also has a tractable likelihood that can be maximized in a similar way. We're going to derive the training loss function, or the *model objective* just like
+how it was done for VAEs. 
+
+Let's first look at the *forward diffusion process* by looking at the below image:
+
+
+
 
 maximize the likelihood that an image that you generate looks like it comes from original distribution. apply same ELBO (lower bound) to the likelihood of the diffusion as well
 
