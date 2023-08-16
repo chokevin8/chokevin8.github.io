@@ -166,7 +166,7 @@ The forward diffusion process actually is the reverse of the above diagram, as t
 data point $$x_0$$ that is sampled from the unknown, true distribution we'd like to model. Then, $$x_0$$ has Gaussian noise added to it in a Markovian process (from $$x_{t-1}$$ all the way to $$x_T$$) with $$T$$ steps.
 Therefore, $$q(x_t|x_{t-1})$$ takes the image and outputs a slightly more noisy version of the image. This can be formulated below:
 <p>
-$$q(x_t|x_{t-1}) = \mathcal{N}(x_t; \mu_t = \sqrt{1-\beta_t}x_{t-1},\Sigma_t = \beta_t = \beta_tI)$$
+$$q(x_t|x_{t-1}) = \mathcal{N}(x_t; \mu_t = \sqrt{1-\beta_t}x_{t-1},\Sigma_t = \beta_tI)$$
 </p>
 *Note that above process can be made non-Markovian in a different sampling process called DDIM(remember in Part 2, I mentioned diffusion process is either Markovian or non-Markovian, this is DDPM vs DDIM, this will be explained
 in next part of this blog).*
@@ -179,9 +179,18 @@ formula to sample a noised image at any timestep:
 $$q(x_{1:T}|x_0) = \prod_{t=1}^{T} q(x_t|x_{t-1})$$
 </p>
 Basically, if T = 200 timesteps, we would have 200 products to sample the noised image $$x_{t=200}$$. However, if the timestep gets larger, we run in to trouble of computational issues. Therefore,
-we utilize the *reparametrization trick* which gives us a much simpler tractable, closed-form formula for sampling that requires much less computations:
+we utilize the *reparametrization trick* which gives us a much simpler tractable, closed-form formula for sampling that requires much fewer computations:
 
 <p>
+$$ \text{Let} \quad \alpha_t = 1 - \beta_t \text{and} \hat{\alpha}_t = \prod_{i=1}^{t} \alpha_i $$
+$$ \text{Also sample noise} \quad \epsilon_0, ..., \epsilon_{t-1} \sim \mathcal{N}(0,I) $$
+$$ \text{Then,} \quad x_t = \sqrt{1-\beta_t}x_{t-1} + \sqrt{\beta_t}\epsilon_{t-1} $$
+$$ x_t = \sqrt{\alpha_t}x_{t-1} + \sqrt{1-\alpha_t}\epsilon_{t-1} $$
+$$ x_t = \sqrt{\alpha_t \alpha_{t-1}}x_{t-2} + \sqrt{1-\alpha_t \alpha{t-1}}\epsilon_{t-2} $$
+$$ x_t = ... $$
+$$ x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}\epsilon $$
+$$ \mathbf{ \text{Therefore,} \quad q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\alpha_t}x_0,\Sigma_t = (1-\hat{\alpha}_t)I)}$$
+
 
 </p>
 
