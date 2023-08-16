@@ -20,7 +20,7 @@ categories: posts
 
 ### [Stable Diffusion In Numbers (Part 3)](#stable-diffusion-in-numbers-1) (This Blog!)
 - ### [VAEs and ELBO](#vaes-elbo)
-- ### [Model Objective](#model-objective)
+- ### [Model Objective](#model-objective-1)
 
 ### [Stable Diffusion In Numbers Continued (Part 4)](/blog/2023/stable-diffusion-part4/)
 - ### Conditioning 
@@ -148,7 +148,7 @@ with low variances. Now that we've understood the importance of maximizing ELBO 
 
 ---
 
-<a id="model-objective"></a>
+<a id="model-objective-1"></a>
 ###  ***Model Objective:***
 
 Now why did we go over the VAEs and its variational approximation process? This is because diffusion models have a very similar set up to VAEs in
@@ -208,7 +208,9 @@ maximize the likelihood that an image that you generate looks like it comes from
 
 ---
 
-The next part (last part of blog on stable diffusion) will cover more mathematical details on LDMs that were not covered in this part of the blog.
+Now that we've fully understood the entire story of the training objective (of how VAE's ELBO derivation is similar to LDMs) and how its simplified training objective is
+also just like a MSE, the next part (last part of blog on stable diffusion) will cover more mathematical details on LDMs that were not covered in this part of the blog, especially regarding
+conditioning and classifier-free guidance.
 
 *Image credits to:*
 - [VAE Directed Graphical Model](https://arxiv.org/pdf/1312.6114.pdf)
