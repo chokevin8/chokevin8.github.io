@@ -157,10 +157,10 @@ to the unknown true posterior we'd like to model. We're going to derive the trai
 how it was done for VAEs. 
 
 Let's first look at the forward and the backward diffusion process in a probabilistic way, since we already know about the diffusion processes in neural networks (train
-a regularized autoencoder for forward and backward diffusion process!). Take a look at the diagram below:
+a regularized autoencoder for forward and backward diffusion process!). Take a look at the graphical model below:
 
 <img src = "/assets/images/forward_backward_diffusion.png" width = "1325" height = "258" class = "center">
-<figcaption>Diagram showing the forward and reverse diffusion process.</figcaption>
+<figcaption>Graphical model showing the forward and reverse diffusion process.</figcaption>
 <br>
 The forward diffusion process actually is the reverse of the above diagram, as the arrows should be going the opposite way- the forward diffusion process adds noise to a specific
 data point $$x_0$$ that is sampled from the unknown, true distribution we'd like to model. Then, $$x_0$$ has Gaussian noise added to it in a Markovian process (from $$x_{t-1}$$ all the way to $$x_T$$) with $$T$$ steps.
@@ -176,7 +176,7 @@ $$\beta_t$$ is a number between 0 and 1, and essentially scales the data so the 
 increased as the image gets noised more. Note that with above formula, we can easily obtain desired noised image at timestep $$T$$ by using the Markovian nature of the process. Below is a tractable, closed-form 
 formula to sample a noised image at any timestep:
 <p>
-$$q(x_{1:T}|x_0) = \prod_{t=1}^{T} q(x_t|x_{t-1})
+$$q(x_{1:T}|x_0) = \prod_{t=1}^{T} q(x_t|x_{t-1})$$
 </p>
 Basically, if T = 200 timesteps, we would have 200 products to sample the noised image $$x_{t=200}$$. However, if the timestep gets larger, we run in to trouble of computational issues. Therefore,
 we utilize the *reparametrization trick* which gives us a much simpler tractable, closed-form formula for sampling that requires much less computations:
@@ -201,3 +201,4 @@ The next part (last part of blog on stable diffusion) will cover more mathematic
 *Image credits to:*
 - [VAE Directed Graphical Model](https://arxiv.org/pdf/1312.6114.pdf)
 - [MNIST Latent Space Example](https://www.tensorflow.org/tutorials/generative/cvae)
+- [Graphical Model of Diffusion](https://arxiv.org/pdf/2006.11239.pdf)
