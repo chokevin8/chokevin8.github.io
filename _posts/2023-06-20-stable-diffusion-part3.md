@@ -159,7 +159,7 @@ how it was done for VAEs.
 Let's first look at the forward and the backward diffusion process in a probabilistic way, since we already know about the diffusion processes in neural networks (train
 a regularized autoencoder for forward and backward diffusion process!). Take a look at the graphical model below:
 
-<img src = "/assets/images/forward_backward_diffusion.png" width = "1325" height = "258" class = "center">
+<img src = "/assets/images/forward_backward_diffusion.png" width = "929" height = "181" class = "center">
 <figcaption>Graphical model showing the forward and reverse diffusion process.</figcaption>
 <br>
 The forward diffusion process actually is the reverse of the above diagram, as the arrows should be going the opposite way- the forward diffusion process adds noise to a specific
@@ -182,19 +182,20 @@ Basically, if T = 200 timesteps, we would have 200 products to sample the noised
 we utilize the *reparametrization trick* which gives us a much simpler tractable, closed-form formula for sampling that requires much fewer computations:
 
 <p>
-$$ \text{Let} \quad \alpha_t = 1 - \beta_t \text{and} \hat{\alpha}_t = \prod_{i=1}^{t} \alpha_i $$
+$$ \text{Let} \quad \alpha_t = 1 - \beta_t \text{and} \quad \hat{\alpha}_t = \prod_{i=1}^{t} \alpha_i $$
 $$ \text{Also sample noise} \quad \epsilon_0, ..., \epsilon_{t-1} \sim \mathcal{N}(0,I) $$
 $$ \text{Then,} \quad x_t = \sqrt{1-\beta_t}x_{t-1} + \sqrt{\beta_t}\epsilon_{t-1} $$
 $$ x_t = \sqrt{\alpha_t}x_{t-1} + \sqrt{1-\alpha_t}\epsilon_{t-1} $$
 $$ x_t = \sqrt{\alpha_t \alpha_{t-1}}x_{t-2} + \sqrt{1-\alpha_t \alpha{t-1}}\epsilon_{t-2} $$
-$$ x_t = ... $$
+$$ x_t = \quad ... $$
 $$ x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}\epsilon $$
-$$ \mathbf{ \text{Therefore,} \quad q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\alpha_t}x_0,\Sigma_t = (1-\hat{\alpha}_t)I)}$$
+$$ \mathbf{ \text{Therefore,} \quad q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha}_t}x_0,\Sigma_t = (1-\hat{\alpha}_t)I)}$$
 </p>
 
-Now, look at the reverse diffusion process, which is denoted by $$p_\theta(x_{t-1}|x_t)$$. Now, if we could reverse the above forward diffusion process 
+Now, look at the diagram again for the reverse diffusion process, which is denoted by $$p_\theta(x_{t-1}|x_t)$$. Now, if we could reverse the above forward diffusion process 
 $$q(x_t|x_{t-1})$$ and sample from $$q(x_{t-1}|x_t)$$, we can easily run inference by sampling from our Gaussian noise input which is $$ \sim \mathcal{N}(0,I)$$.
-However, *this is exactly the same problem we had 
+However, *this is exactly the same problem we had for VAEs as above !* This true posterior is unknown and is intractable since we have to compute the entire data distribution or marginal likelihood/evidence,
+$$q(x)$$. Here, we can treat $$x_0$$ as the true data, and every subsequent node in the Markovian chain $$x_1,x_2...x_T$$ as a latent variable. Therefore, we approach this problem the exact same way.
 
 After deriving training objective:
 LDM use DDIM, while Markvovian above is DDPM. Note training objective is the same. Short detail on DDIM: 
