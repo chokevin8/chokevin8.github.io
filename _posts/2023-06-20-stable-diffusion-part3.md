@@ -47,7 +47,7 @@ for each individual data $$j$$, we first sample latent variable $$z_i$$ from the
 Then, with the prior sampled, we sample an individual data $$x_i$$ from the likelihood $$P(x | z)$$: $$x_i \sim P(x | z)$$.
 Precisely, this can be represented in a graphical model below where we can see that the observed data $$x$$ is conditioned on unobserved latent variable $$z$$.
 
-<img src = "/assets/images/VAE_graphical_model.PNG" width = "200" height = "300" class = "center">
+<img src = "/assets/images/VAE_graphical_model.PNG" width = "400" height = "420" class = "center">
 <figcaption>Diagram showing directed graphical model for VAEs.</figcaption>
 <br>
 Now, remember again our goal in running inference in the VAE model is to model the latent space as good as possible given our data. This is *Bayesian Inference*,
@@ -107,36 +107,45 @@ $$ ELBO = \sum_{n=i} q(z|x) \log P(x|z) - D_{KL}(q(z|x) || P(z)) \ (5)$$
 $$ ELBO = \mathbb{E}_{q(z|x)} [\log P(x|z)] - D_{KL}(q(z|x) || P(z)) \ (6)$$ 
 </p>
 
-***Remember*** the last line above (or equation #6) for later. But to understand this expression better, let's now look at VAEs in a *neural network's perspective*. A VAE consists of an encoder and a decoder, and both
+***Remember*** the last line above (or equation #6) for later, this is also the ***loss function*** for training VAEs. But to understand this expression better, let's now look at VAEs in a *neural network's perspective*. A VAE consists of an encoder and a decoder, and both
 are neural networks. The *encoder* takes in input data $$x$$ and compresses it to latent representation $$z$$, and must learn a good latent representation known as the bottleneck of the model. Note that
 contrary to the encoder of the vanilla autoencoder, the encoder of the variational autoencoder will learn the mean and variance 
 Therefore, the encoder can be denoted as $$q_\phi(z | x)$$, where the $$\phi$$ is the weights and biases of the model. Note that as previously mentioned, the latent space is assumed to be a Gaussian probability distribution, so sampling from the
-trained encoder gets us the latent representation $$z$$ from data $$x$$. The *decoder* takes in the latent representation **z** from the encoder output and outputs the reconstructed data denoted as $\hat{x}$, or the parameters to 
+trained encoder gets us the latent representation $$z$$ from data $$x$$. The *decoder* takes in the latent representation **z** from the encoder output and outputs the reconstructed data denoted as $$\hat{x}$$, or the parameters to 
 the modeled probability distribution of the data space, and therefore can be denoted as $$p_\theta(x | z)$$, where $$\theta$$ is also the weights and biases. The below diagram helps us see this entire scheme.
 
 <img src = "/assets/images/autoencoder_diagram.png" width = "800" height = "420" class = "center">
 <figcaption>Diagram showing autoencoder architecture.</figcaption>
 <br>
-Now let's go back to the remembered equation that I just mentioned. Let's look at the first term $$\mathbb{E}_{q(z|x)} [\log P(x|z)]$$. Now, remember that the latent space $$z $$z_i \sim P(z)$$
-($$\mathcal{N}(0, 1)$$)
-
+Now let's go back to the remembered equation that I just mentioned. Let's look at the first term $$\mathbb{E}_{q(z|x)} [\log P(x|z)]$$. Now, remember that the latent space $$z$$ is assumed to be a
+Gaussian distribution $$z_i \sim P(z)$$. Observe this:
+<p>
+$$\log p(x|z) \sim \log exp(-(x-f(z))^2$$
+$$\sim |x-f(z)|^2 $$
+$$ = |x-\hat{x}|^2 $$
 </p>
-Note that this reconstructed probability distribution cannot be *perfect*, as the decoder learns to reconstruct the original input image only from the latent representations.
-Look at the above equation #3...
+where $$f(z) = \hat{x}$$, as the reconstructed image $$\hat{x}$$ is the distribution mean $$f(z)$$. This is because $$ p(x|z) \sim \mathcal{N}(f(z), I)$$. Therefore, here we see that
+the first term is correlated to the mean squared error (MSE) loss between the original image and the reconstructed image. This makes sense, as during training, we want to make penalize the model
+if the reconstructed image is too dissimilar to the original image. It is important to see that this was the first term of the *ELBO*, and remember we want to maximize this. Maximizing the first term
+is then therefore correlated to minimizing the MSE/reconstruction loss.
 
-
+Let's now look at the second term, $$-D_{KL}(q(z|x) || P(z))$$ (note the negative sign) which is the KL-divergence between our learned distribution (encoder) $$q(z|x)$$ 
+and the prior, which is assumed to follow $$\sim \mathcal{N}(0,1)$$. Remember this is the second term of ELBO, so we still want to maximize- but note the negative sign, we
+actually want to minimize the KL divergence between the two- which makes sense as we want to encourage the learned distribution from the encoder to be similar to the unit Gaussian prior.
 
 <img src = "/assets/images/VAE_problem.png" width = "800" height = "400" class = "center">
 <figcaption>Diagram showing VAE latent space with KL-regularization (left) and without KL-regularization (right).</figcaption>
 <br>
 <p>
-However, only having this reconstruction loss as our loss function for training the VAE is not enough. This ties back to the KL-regularization of LDMs in the previous blog (part 2),
-which is the diagram showing the VAE latent space with and without KL-regularization. This is re-shown above. With an additional KL-regularization term to the VAE loss function, the "clusters" itself are bigger
-and are more centered around within each other. This ensures that the decoder creates <i>diverse and accurate samples</i>, as there is smoother transitions between different classes (clusters). 
-For example, for MNIST handwritten digits, if there was a cluster of 1's and a cluster of 5's, there should be a smooth transformation between 1 and 5 like they're morphing from one to another. 
-However, without the KL-regularization or KL loss term in the VAE loss, we end up with small individual clusters that are far apart from each other- resulting in a latent space that is not representative 
-of the data at all. Therefore, the cluster of 1's and 5's will not have a smooth transformation between one another.
-</p>
+This actually ties back to the KL-regularization of LDMs in the previous blog (part 2), which is the diagram showing the VAE latent space with and without KL-regularization. This is re-shown above. 
+The minimization of KL divergence shown above regularizes the latent space as the "clusters" itself are bigger and are more centered around within each other. This ensures that the decoder creates <i>diverse and accurate samples</i>, as there 
+would be smoother transitions between different classes (clusters). This is why both reconstruction loss term and KL-divergence term are included in the VAE loss function during training.
+
+<img src = "/assets/images/mnist_latent_space.jpg" width = "600" height = "600" class = "center">
+<figcaption>Diagram showing regularized VAE latent space of MNIST dataset (right).</figcaption>
+<br>
+For example, as seen above for MNIST handwritten digits, we see that the classes, or clusters have a smooth transition in this latent space. Now that we've understood the importance of maximizing ELBO to 
+train a VAE, let's go back to LDMs.
 
 ---
 
@@ -148,35 +157,6 @@ that it also has a tractable likelihood that can be maximized in a similar way.
 
 maximize the likelihood that an image that you generate looks like it comes from original distribution. apply same ELBO (lower bound) to the likelihood of the diffusion as well
 
-2. **Applying Jensen's Inequality**:
-   Start with the definition of the log likelihood of the data under the model:
-   \[
-   \log p(X) = \log \int p(X, Z) dZ
-   \]
-   Apply Jensen's inequality with the variational distribution \(q(Z|X)\):
-   \[
-   \log p(X) \geq \int q(Z|X) \log \frac{p(X, Z)}{q(Z|X)} dZ
-   \]
-
-3. **ELBO Definition**:
-   Define the Evidence Lower Bound (ELBO) as the right-hand side of the inequality:
-   \[
-   \text{ELBO} = \int q(Z|X) \log \frac{p(X, Z)}{q(Z|X)} dZ
-   \]
-
-4. **Simplification**:
-   Rearrange the terms to get a more intuitive form of ELBO:
-   \[
-   \text{ELBO} = \mathbb{E}_{q(Z|X)}[\log p(X|Z)] - \text{KL}(q(Z|X) || p(Z))
-   \]
-   where \(\text{KL}(q(Z|X) || p(Z))\) is the Kullback-Leibler divergence between the approximate posterior and the prior.
-
-## Interpreting the ELBO Components
-
-The ELBO can be split into two components:
-- Reconstruction Loss: \(\mathbb{E}_{q(Z|X)}[\log p(X|Z)]\)
-- Regularization Term: \(\text{KL}(q(Z|X) || p(Z))\)
-
 
 
 ---
@@ -185,3 +165,4 @@ The next part (last part of blog on stable diffusion) will cover more mathematic
 
 *Image credits to:*
 - [VAE Directed Graphical Model](https://arxiv.org/pdf/1312.6114.pdf)
+- [MNIST Latent Space Example](https://www.tensorflow.org/tutorials/generative/cvae)
