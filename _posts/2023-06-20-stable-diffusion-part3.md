@@ -192,10 +192,19 @@ $$ x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}\epsilon $$
 $$ \mathbf{ \text{Therefore,} \quad q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha}_t}x_0,\Sigma_t = (1-\hat{\alpha}_t)I)}$$
 </p>
 
+To summarize the forward diffusion process, we can think of this as the encoder (remember encoder performs forward diffusion process to map pixel space to latent space)
+Each time step or each encoder transition is denoted as $$q(x_t|x_{t-1})$$ which is from a fixed parameter \mathcal{N}(x_t,\sqrt{\alpha_t}x_{t-1},(1-\alpha_t)I).
+
 Now, look at the diagram again for the reverse diffusion process, which is denoted by $$p_\theta(x_{t-1}|x_t)$$. Now, if we could reverse the above forward diffusion process 
 $$q(x_t|x_{t-1})$$ and sample from $$q(x_{t-1}|x_t)$$, we can easily run inference by sampling from our Gaussian noise input which is $$ \sim \mathcal{N}(0,I)$$.
 However, *this is exactly the same problem we had for VAEs as above !* This true posterior is unknown and is intractable since we have to compute the entire data distribution or marginal likelihood/evidence,
 $$q(x)$$. Here, we can treat $$x_0$$ as the true data, and every subsequent node in the Markovian chain $$x_1,x_2...x_T$$ as a latent variable. Therefore, we approach this problem the exact same way.
+
+We approximate the true posterior $$q(x_{t-1}|x_t)$$ with a neural network that has parameters $$theta$$. Like the forward process, but just reversing the timestep,
+we have:
+<p>
+$$ p_theta(x_{0:T}) = p(x_T) \prod_{t=1}^{T} p_theta(x_{t-1}|x_t) = \mathcal{N}(x_{t-1}; \mu_{\theta}(x_t,t),\Sigma_{\theta}(x_t,t))$$
+</p>
 
 After deriving training objective:
 LDM use DDIM, while Markvovian above is DDPM. Note training objective is the same. Short detail on DDIM: 
