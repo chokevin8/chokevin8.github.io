@@ -234,8 +234,10 @@ Therefore, instead of minimizing the above KL-divergence, we can maximize the EL
 
 <p>
 $$ - \log (p_{\theta}(x_0)) \leq \log(\frac{q(x_{1:T}|x_0)}{p_{\theta}(x_{0:T})}) $$
-$$ - \log (p_{\theta}(x_0)) \leq \quad \log(\frac{\prod_{t=1}^{T} q(x_t|x_{t-1})}{p(x_T) \prod_{t=1}^{T}p_{\theta}(x_{t-1}|x_t)}) \ \text{since} \ p_{\theta}(x_{0:T}) = p(x_T) \prod_{t=1}^{T} p_{\theta}(x_{t-1}|x_t)$$
-
+$$ - \log (p_{\theta}(x_0)) \leq \log(\frac{\prod_{t=1}^{T} q(x_t|x_{t-1})}{p(x_T) \prod_{t=1}^{T}p_{\theta}(x_{t-1}|x_t)}) \ \text{since} \ p_{\theta}(x_{0:T}) = p(x_T) \prod_{t=1}^{T} p_{\theta}(x_{t-1}|x_t)$$
+$$ - \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \log (\frac{\prod_{t=1}^{T} q(x_t|x_{t-1})}{\prod_{t=1}^{T}p_{\theta}(x_{t-1}|x_t)}) $$
+$$ - \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \sum_{t=1}^{T} \log(\frac{q(x_t|x_{t-1})}{p_{\theta}(x_{t-1}|x_t)}) $$
+$$ - \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \sum_{t=2}^{T} \log(\frac{q(x_t|x_{t-1})}{p_{\theta}(x_{t-1}|x_t)}) + log(\frac{q(x_1|x_0}{p_{\theta}(x_0|x_1)}) \ \text{since} \ log(\frac{q(x_1|x_0}{p_{\theta}(x_0|x_1)}) \text{is when} \ t = 1 $$
 </p>
 
 
