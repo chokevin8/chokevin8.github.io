@@ -168,8 +168,6 @@ Therefore, $$q(x_t|x_{t-1})$$ takes the image and outputs a slightly more noisy 
 <p>
 $$q(x_t|x_{t-1}) = \mathcal{N}(x_t; \mu_t = \sqrt{1-\beta_t}x_{t-1},\Sigma_t = \beta_tI) \quad (3)$$
 </p>
-*Note that above process can be made non-Markovian in a different sampling process called DDIM(remember in Part 2, I mentioned diffusion process is either Markovian or non-Markovian, this is DDPM vs DDIM, this will be explained
-in next part of this blog).*
 
 Assuming high-dimensionality, $$q(x_t|x_{t-1})$$ is a Gaussian distribution with the above defined mean and variance. Note that for each dimension, it has the same standard deviation $$\beta_t$$.
 $$\beta_t$$ is a number between 0 and 1, and essentially scales the data so the variance doesn't grow out of proportion. The authors use a *linear schedule* for $$\beta_t$$, meaning that $$\beta_t$$ is linearly
@@ -202,14 +200,17 @@ $$q(x_t|x_{t-1})$$ and sample from $$q(x_{t-1}|x_t)$$, we can easily run inferen
 However, *this is exactly the same problem we had for VAEs as above !* This true posterior is unknown and is intractable since we have to compute the entire data distribution or marginal likelihood/evidence,
 $$q(x)$$. Here, we can treat $$x_0$$ as the true data, and every subsequent node in the Markovian chain $$x_1,x_2...x_T$$ as a latent variable. Therefore, we approach this problem the exact same way.
 
-We approximate the true posterior $$q(x_{t-1}|x_t)$$ with a neural network or decoder that has parameters $$\theta$$. Like the forward process, but just reversing the timestep,
-we have:
+We approximate the true posterior $$q(x_{t-1}|x_t)$$ with a neural network or a "decoder" that has parameters $$\theta$$ (Note that this denoising diffusion "decoder" is the UNet, please don't confuse this
+to the decoder of the autoencoder, which is something completely different as it is responsible for bringing the final output of $$x_0$$ back to the pixel space. As previously discussed, we utilize UNet because of its
+inductive bias to images and its compatibility with cross attention). Like the forward process, but just reversing the timestep, we have:
 <p>
 $$ p_{\theta}(x_{0:T}) = p(x_T) \prod_{t=1}^{T} p_{\theta}(x_{t-1}|x_t) = \mathcal{N}(x_{t-1}; \mu_{\theta}(x_t,t),\Sigma_{\theta}(x_t,t)) \quad (6)$$
 </p>
+*Note that above process can be made non-Markovian in a more fast, effective sampling process called DDIM rather than the above Markovian process which is called DDPM(this will be explained
+in next part of this blog).*
 
 This is just like the forward process in equation #4 but in reverse. By applying this formula, we can go from pure noise $$x_T$$ to the
-approximated data distribution. Remember the encoder does not have learnable parameters, so we only need to train the decoder in learning the conditionals
+approximated data distribution. Remember the encoder does not have learnable parameters (pre-defined or fixed), so we only need to train the decoder in learning the conditionals
 $$p_{\theta}(x_{t-1}|x_t)$$ so we can generate new data. Conditioning on the previous timestep $$t$$ and previous latent $$x_t$$ lets the decoder learn the Gaussian parameters $$\theta$$ which is the mean and variance
 $$\mu_{\theta},\Sigma_{\theta}$$. Therefore, running inference on a LDM only requires the decoder as we sample from pure Gaussian noise $$p(x_T)$$ and run T timesteps of the decoder transition
 $$p_{\theta}(x_{t-1}|x_t)$$ to generate new data sample $$x_0$$. If our approximated $$p_{\theta}(x_{t-1}|x_t)$$ steps are similar to unknown, true posterior steps $$q(x_{t-1}|x_t)$$, the generated
@@ -217,9 +218,14 @@ sample $$x_0$$ will be similar to the one sampled from the training data distrib
 
 *Therefore, we want to train our decoder to find the reverse Markov transitions that will maximize the likelihood of the training data.
 Now, how do we train this denoising/reverse diffusion model?* We utilize the ***ELBO*** again. Remember for equation #1, we saw that the VAE was optimized
-by maximizing the ELBO (which was essentially the same as minimizing the negative log likelihood), we do the same below:
+by maximizing the ELBO (which was essentially the same as minimizing the negative log likelihood), we do the same below. Like VAEs, we first want to minimize the
+KL-divergence between the true unknown posterior $$q(x_{1:T}|x_0)$$ and the approximated posterior $$p_{\theta}(x_{1:T}|x_0)$$:
 
 <p>
+$$ 0 \leq min D_{KL}(q(x_{1:T}|x_0)||p_{\theta}(x_{1:T}|x_0)) $$ 
+$$ - \log (p_{\theta}(x_0)) \leq - \log (p_{\theta}(x_0)) + min D_{KL}(q(x_{1:T}|x_0)||p_{\theta}(x_{1:T}|x_0)) $$ 
+$$ - \log (p_{\theta}(x_0)) \leq - \log (p_{\theta}(x_0)) + min \log(\frac{q(x_{1:T}|x_0)}{p_{\theta}(x_{1:T}|x_0}$$ 
+$$ - \log (p_{\theta}(x_0)) \leq - \log (p_{\theta}(x_0)) + min \log(\frac{q(x_{1:T}|x_0)}{p_{\theta}(x_{0:T}} + \log(p_{\theta}(x_0) \quad \text{since} p_{\theta}(x_{1:T}|x_0) = p_{\theta}(x_0|x_{1:T})p_{\theta}(x_{1:T}) = p_{\theta}(x_0,x_{1:T}) = p_{\theta}(x_{0:T})$$
 
 </p>
 
@@ -228,7 +234,7 @@ After deriving training objective:
 
 
 Now that we've understood and fully derived the training objective, let's briefly compare different sampling processes- DDPM (Markovian process) and DDIM (non-Markovian process, used by the authors).
-Note that the training objective doesn't change as this is a difference in sampling or inference after the LDM is trained. DDPM, or...
+Note that the training objective doesn't change as this is a difference in sampling or inference after the LDM is trained. DDPM, or...equatoin #6 DDPM
 
 
 

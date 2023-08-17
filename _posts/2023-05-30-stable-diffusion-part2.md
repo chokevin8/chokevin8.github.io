@@ -116,11 +116,10 @@ The entire model architecture and its three major components can be visualized i
 <figcaption>Diagram showing the general model architecture of the stable (latent) diffusion.</figcaption>
 
 1. **Autoencoder:** The autoencoder is responsible for two major tasks, with the encoder and the decoder being responsible for each task. First, the encoder allows the previously mentioned forward
-diffusion process to happen in the latent space. This means that the forward diffusion process, which is Markovian or non-Markovian depending on
-choice of diffusion algorithm, would take less time since the image from our pixel space is essentially downsampled into the latent space (DDPM is Markovian while DDIM isn't, but both need the autoencoder regardless). 
+diffusion process to happen in the latent space. This means that the forward diffusion process, which is Markovian, would take less time since the image from our pixel space is essentially downsampled into the latent space.
 Without the encoder, the forward diffusion process in the pixel space would simply take too long. Likewise, the decoder is then responsible
 for upsampling the generated latent space image back to the pixel space. The generated latent space image is obtained from the output of the U-Net, which will be mentioned next. 
-The decoder is needed because the latent space image needs to be converted back to the pixel space to obtain our desired image. Basically, the autoencoder allows the forward and the backward diffusion process
+The decoder is needed because the generated latent space image needs to be converted back to the pixel space to obtain our final desired image. Basically, the autoencoder allows the forward and the backward diffusion process
 to happen in the latent space, and also performs perceptual compression by removing high-frequency details as explained in the previous section. Note that this autoencoder can be separately trained only once and
 be applied in various different tasks since the generative power of the model resides in the U-Net + pretrained encoder.
 
