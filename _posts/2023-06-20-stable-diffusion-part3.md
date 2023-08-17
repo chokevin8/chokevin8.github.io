@@ -262,7 +262,14 @@ $$- \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \sum_{t=2}^{T} \log(\frac{q(x_{
 </p>
 
 Now take the last two terms of the RHS in equation #10 above and further simplify by expanding the log:
+<p>
+$$- \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \sum_{t=2}^{T} \log(\frac{q(x_{t-1}|x_t,x_0)}{p_{\theta}(x_{t-1}|x_t)}) + \log(q(x_t|x_0)) - \log(q(x_1|x_0)) + \log(q(x_1|x_0)) - \log(p_{\theta}(x_0|x_1))$$
+$$- \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \sum_{t=2}^{T} \log(\frac{q(x_{t-1}|x_t,x_0)}{p_{\theta}(x_{t-1}|x_t)}) + \log(q(x_t|x_0)) - \log(p_{\theta}(x_0|x_1))$$
+$$- \log (p_{\theta}(x_0)) \leq \log(\frac{q(x_t|x_0)}{p(x_T)}) + \sum_{t=2}^{T} \log(\frac{q(x_{t-1}|x_t,x_0)}{p_{\theta}(x_{t-1}|x_t)}) - \log(p_{\theta}(x_0|x_1))$$
+$$- \log (p_{\theta}(x_0)) \leq D_{KL}(q(x_T|x_0)||p(x_T)) +  \sum_{t=2}^{T} D_{KL}(q(x_{t-1}|x_t,x_0)||p_{\theta}(x_{t-1}|x_t)) - \log(p_{\theta}(x_0|x_1)) \quad (11)$$
+</p>
 
+Now look at equation #11 above.
 After deriving training objective:
 
 Now that we've understood and fully derived the training objective, let's briefly compare different sampling processes- DDPM (Markovian process) and DDIM (non-Markovian process, used by the authors).
