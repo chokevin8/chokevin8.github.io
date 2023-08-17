@@ -225,8 +225,8 @@ KL-divergence between the true unknown posterior $$q(x_{1:T}|x_0)$$ and the appr
 $$ 0 \leq min D_{KL}(q(x_{1:T}|x_0)||p_{\theta}(x_{1:T}|x_0)) $$ 
 $$ - \log (p_{\theta}(x_0)) \leq - \log (p_{\theta}(x_0)) + min D_{KL}(q(x_{1:T}|x_0)||p_{\theta}(x_{1:T}|x_0)) $$ 
 $$ - \log (p_{\theta}(x_0)) \leq - \log (p_{\theta}(x_0)) + min \log(\frac{q(x_{1:T}|x_0)}{p_{\theta}(x_{1:T}|x_0}$$ 
-$$ - \log (p_{\theta}(x_0)) \leq - \log (p_{\theta}(x_0)) + min \log(\frac{q(x_{1:T}|x_0)}{p_{\theta}(x_{0:T}} + \log(p_{\theta}(x_0) \quad \text{since} p_{\theta}(x_{1:T}|x_0) = p_{\theta}(x_0|x_{1:T})p_{\theta}(x_{1:T}) = p_{\theta}(x_0,x_{1:T}) = p_{\theta}(x_{0:T})$$
-
+$$ - \log (p_{\theta}(x_0)) \leq - \log (p_{\theta}(x_0)) + min \log(\frac{q(x_{1:T}|x_0)}{p_{\theta}(x_{0:T}} + \log(p_{\theta}(x_0) \quad \text{since} \ p_{\theta}(x_{1:T}|x_0) = p_{\theta}(x_0|x_{1:T})p_{\theta}(x_{1:T}) = p_{\theta}(x_0,x_{1:T}) = p_{\theta}(x_{0:T})$$
+$$ - \log (p_{\theta}(x_0)) \leq min \log(\frac{q(x_{1:T}|x_0)}{p_{\theta}(x_{0:T}} \quad \text{since} \ - \log (p_{\theta}(x_0)) + \log(p_{\theta}(x_0) = 0 \quad (7)$$
 </p>
 
 
