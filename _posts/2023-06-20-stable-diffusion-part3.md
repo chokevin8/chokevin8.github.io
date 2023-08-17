@@ -245,7 +245,7 @@ latent image vector $$x_{t-1} thus has a high variance, but by also conditioning
 This is achieved by using the Baye's rule $$q(x_t|x_{t-1}) = \frac{q(x_{t-1}|x_t)q(x_t)}{q(x_{t-1})} = \frac{q(x_{t-1}|x_t,x_0)q(x_t|x_0)}{q(x_{t-1}|x_0)}$$ 
 Substituting this to equation #8 above:
 <p>
-
+$$ - \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \sum_{t=2}^{T} \log(\frac{q(x_t|x_{t-1})}{p_{\theta}(x_{t-1}|x_t)}) + log(\frac{q(x_1|x_0)}{p_{\theta}(x_0|x_1)})$$
 </p>
 After deriving training objective:
 
