@@ -212,7 +212,7 @@ in next part of this blog).*
 This is just like the forward process in equation #4 but in reverse. By applying this formula, we can go from pure noise $$x_T$$ to the
 approximated data distribution. Remember the encoder does not have learnable parameters (pre-defined or fixed), so we only need to train the decoder in learning the conditionals
 $$p_{\theta}(x_{t-1}|x_t)$$ so we can generate new data. Conditioning on the previous timestep $$t$$ and previous latent $$x_t$$ lets the decoder learn the Gaussian parameters $$\theta$$ which is the mean and variance
-$$\mu_{\theta},\Sigma_{\theta}$$. Therefore, running inference on a LDM only requires the decoder as we sample from pure Gaussian noise $$p(x_T)$$ and run T timesteps of the decoder transition
+$$\mu_{\theta},\Sigma_{\theta}$$ (Since we assume variance is fixed due to noise schedule $$\beta$$, however, we just need to learn the mean with the decoder). Therefore, running inference on a LDM only requires the decoder as we sample from pure Gaussian noise $$p(x_T)$$ and run T timesteps of the decoder transition
 $$p_{\theta}(x_{t-1}|x_t)$$ to generate new data sample $$x_0$$. If our approximated $$p_{\theta}(x_{t-1}|x_t)$$ steps are similar to unknown, true posterior steps $$q(x_{t-1}|x_t)$$, the generated
 sample $$x_0$$ will be similar to the one sampled from the training data distribution. 
 
@@ -237,7 +237,7 @@ $$ - \log (p_{\theta}(x_0)) \leq \log(\frac{q(x_{1:T}|x_0)}{p_{\theta}(x_{0:T})}
 $$ - \log (p_{\theta}(x_0)) \leq \log(\frac{\prod_{t=1}^{T} q(x_t|x_{t-1})}{p(x_T) \prod_{t=1}^{T}p_{\theta}(x_{t-1}|x_t)}) \quad \text{since} \ p_{\theta}(x_{0:T}) = p(x_T) \prod_{t=1}^{T} p_{\theta}(x_{t-1}|x_t)$$
 $$ - \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \log (\frac{\prod_{t=1}^{T} q(x_t|x_{t-1})}{\prod_{t=1}^{T}p_{\theta}(x_{t-1}|x_t)}) $$
 $$ - \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \sum_{t=1}^{T} \log(\frac{q(x_t|x_{t-1})}{p_{\theta}(x_{t-1}|x_t)}) $$
-$$ - \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \sum_{t=2}^{T} \log(\frac{q(x_t|x_{t-1})}{p_{\theta}(x_{t-1}|x_t)}) + log(\frac{q(x_1|x_0)}{p_{\theta}(x_0|x_1)}) \quad \text{since} \ log(\frac{q(x_1|x_0}{p_{\theta}(x_0|x_1)}) \ \text{is when} \ t = 1 \quad (8)$$
+$$ - \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \sum_{t=2}^{T} \log(\frac{q(x_t|x_{t-1})}{p_{\theta}(x_{t-1}|x_t)}) + log(\frac{q(x_1|x_0)}{p_{\theta}(x_0|x_1)}) \quad \text{since} \ log(\frac{q(x_1|x_0)}{p_{\theta}(x_0|x_1)}) \ \text{is when} \ t = 1 \quad (8)$$
 </p>
 
 Note equation #8 above, and focus on $$q(x_t|x_{t-1})$$ term. This is essentially the reverse diffusion step, but it is only conditioned on the pure Gaussian noise. The 
@@ -255,7 +255,7 @@ For equation #9, we can further split the second term on the RHS (the summation 
 <p>
 $$ \sum_{t=2}^{T} \log(\frac{q(x_{t-1}|x_t,x_0)q(x_t|x_0)}{p_{\theta}(x_{t-1}|x_t)q(x_{t-1}|x_0)}) = \sum_{t=2}^{T} \log(\frac{q(x_{t-1}|x_t,x_0)}{p_{\theta}(x_{t-1}|x_t)}) + \sum_{t=2}^{T} \log(\frac{q(x_t|x_0)}{q(x_{t-1}|x_0)})$$
 </p>
-Examining $$\sum_{t=2}^{T} \log(\frac{q(x_t|x_0)}{q(x_{t-1}|x_0)})$$, for any $$ t>2 $$, we see that all the terms in the denominator and numerator will cancel out each other and will simplify to $$ \log(\frac{q(x_t|x_0)}{q(x_1|x_0}))$$
+Examining $$\sum_{t=2}^{T} \log(\frac{q(x_t|x_0)}{q(x_{t-1}|x_0)})$$, for any $$ t>2 $$, we see that all the terms in the denominator and numerator will cancel out each other and will simplify to $$ \log(\frac{q(x_t|x_0)}{q(x_1|x_0}))$$.
 <br>
 Performing all of these substitutions to equation #9 gives equation #10:
 <p>
@@ -273,11 +273,13 @@ $$- \log (p_{\theta}(x_0)) \leq D_{KL}(q(x_T|x_0)||p(x_T)) +  \sum_{t=2}^{T} D_{
 Now look at equation #11 above, which is simplified further thanks to the definition of KL-divergence. The first RHS term $$D_{KL}(q(x_T|x_0)||p(x_T))$$ has no learnable parameters, as
 we previously talked about the encoder $$q(x_T|x_0)$$ having no learnable parameters as the forward diffusion process is fixed by the noising schedule shown in equation #3 and #5. 
 Additionally, $$p(x_T)$$ is just pure Gaussian noise as well. Lastly, it is safe to assume that this term will be zero, as q will resemble p's random Gaussian noise and bring the KL-divergence to zero. 
-Therefore, below is our final training objective:
+Therefore, below is our final training objective, all we need to do is maximize the RHS of the equation:
 <p>
 $$ - \log (p_{\theta}(x_0)) \leq \sum_{t=2}^{T} D_{KL}(q(x_{t-1}|x_t,x_0)||p_{\theta}(x_{t-1}|x_t)) - \log(p_{\theta}(x_0|x_1)) \quad (12)$$
 </p>
-Now, let's
+Now, let's look at the first term of the RHS $$\sum_{t=2}^{T} D_{KL}(q(x_{t-1}|x_t,x_0)||p_{\theta}(x_{t-1}|x_t))$$. For $$p_{\theta}(x_{t-1}|x_t)$$, we already know the
+mean and the variance from equation #6 above: $$ p_{\theta}(x_{t-1}|x_t) = \mathcal{N}(x_{t-1}; \mu_{\theta}(x_t,t),\beta I) $$. Note we assume that the variance is fixed by the
+noise schedule $$\beta$$. Then, we can also assume that $$q(x_{t-1}|x_t,x_0)$$ would also follow a similar distribution $$q(x_{t-1}|x_t,x_0) = mathcal{N}(x_{t-1}; \tilde{\mu}_t(x_t,x_0),\tilde{\beta}_tI)$$. 
 
 After deriving training objective:
 
