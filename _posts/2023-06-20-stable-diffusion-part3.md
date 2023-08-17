@@ -232,6 +232,11 @@ $$ - \log (p_{\theta}(x_0)) \leq min \ \log(\frac{q(x_{1:T}|x_0)}{p_{\theta}(x_{
 As seen in above, minimizing the KL-divergence also gives us the form $$ - \log P(x) \leq ELBO $$ or $$ ELBO \leq \log P(x)$$, as we saw for VAEs in equation #1, since the RHS of equation #7 above is the ***ELBO*** for LDMs ($$ELBO_{LDM} = \log(\frac{q(x_{1:T}|x_0)}{p_{\theta}(x_{0:T}})$$).
 Therefore, instead of minimizing the above KL-divergence, we can maximize the ELBO like VAEs:
 
+<p>
+$$ - \log (p_{\theta}(x_0)) \leq \log(\frac{q(x_{1:T}|x_0)}{p_{\theta}(x_{0:T})}) $$
+$$ - \log (p_{\theta}(x_0)) \leq \quad \log(\frac{\prod{t=1}^{T} q(x_t|x_{t-1})}{p(x_T) \prod{t=1}^{T}p_{\theta}(x_{t-1}|x_t)}) \ \text{since} \ p_{\theta}(x_{0:T})) = p(x_T) \prod{t=1}^{T} p_{\theta}(x_{t-1}|x_t)$$
+
+</p>
 
 
 
