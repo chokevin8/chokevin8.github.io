@@ -241,7 +241,8 @@ $$ - \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \sum_{t=2}^{T} \log(\frac{q(x_
 </p>
 
 Note equation #8 above, and focus on $$q(x_t|x_{t-1})$$ term. This is essentially the reverse diffusion step, but it is only conditioned on the pure Gaussian noise. The 
-latent image vector $$x_{t-1}$$ thus has a high variance, but by also conditioning on original image $$x_0$$, we can decrease the variance and therefore enhance the image generation quality. 
+latent image vector $$x_{t-1}$$ thus has a high variance, but by also conditioning on original image $$x_0$$, we can decrease the variance and therefore enhance the image generation quality (think about it, if model is conditioned only on pure Gaussian noise, the produced
+latent image would vary more than the model conditioned on pure Gaussian noise *and* the original image as well).
 This is achieved by using the Baye's rule:
 <p>
 $$q(x_t|x_{t-1}) = \frac{q(x_{t-1}|x_t)q(x_t)}{q(x_{t-1})} = \frac{q(x_{t-1}|x_t,x_0)q(x_t|x_0)}{q(x_{t-1}|x_0)}$$ 
@@ -254,7 +255,7 @@ For equation #9, we can further split the second term on the RHS (the summation 
 <p>
 $$ \sum_{t=2}^{T} \log(\frac{q(x_{t-1}|x_t,x_0)q(x_t|x_0)}{p_{\theta}(x_{t-1}|x_t)q(x_{t-1}|x_0)}) = \sum_{t=2}^{T} \log(\frac{q(x_{t-1}|x_t,x_0)}{p_{\theta}(x_{t-1}|x_t)}) + \sum_{t=2}^{T} \log(\frac{q(x_t|x_0)}{q(x_{t-1}|x_0)})$$
 </p>
-Examining $$\sum_{t=2}^{T} \log(\frac{q(x_t|x_0)}{q(x_{t-1}|x_0)})$$, for any $$ t>2 $$, we see that all the terms in the denominator and numerator will cancel out each other and will simplify to $$ \log(\frac{q(x_t|x_0}{q(x_1|x_0})$$
+Examining $$\sum_{t=2}^{T} \log(\frac{q(x_t|x_0)}{q(x_{t-1}|x_0)})$$, for any $$ t>2 $$, we see that all the terms in the denominator and numerator will cancel out each other and will simplify to $$ \log(\frac{q(x_t|x_0)}{q(x_1|x_0}))$$
 <br>
 Performing all of these substitutions to equation #9 gives equation #10:
 <p>
@@ -269,7 +270,15 @@ $$- \log (p_{\theta}(x_0)) \leq \log(\frac{q(x_t|x_0)}{p(x_T)}) + \sum_{t=2}^{T}
 $$- \log (p_{\theta}(x_0)) \leq D_{KL}(q(x_T|x_0)||p(x_T)) +  \sum_{t=2}^{T} D_{KL}(q(x_{t-1}|x_t,x_0)||p_{\theta}(x_{t-1}|x_t)) - \log(p_{\theta}(x_0|x_1)) \quad (11)$$
 </p>
 
-Now look at equation #11 above.
+Now look at equation #11 above, which is simplified further thanks to the definition of KL-divergence. The first RHS term $$D_{KL}(q(x_T|x_0)||p(x_T))$$ has no learnable parameters, as
+we previously talked about the encoder $$q(x_T|x_0)$$ having no learnable parameters as the forward diffusion process is fixed by the noising schedule shown in equation #3 and #5. 
+Additionally, $$p(x_T)$$ is just pure Gaussian noise as well. Lastly, it is safe to assume that this term will be zero, as q will resemble p's random Gaussian noise and bring the KL-divergence to zero. 
+Therefore, below is our final training objective:
+<p>
+$$ - \log (p_{\theta}(x_0)) \leq \sum_{t=2}^{T} D_{KL}(q(x_{t-1}|x_t,x_0)||p_{\theta}(x_{t-1}|x_t)) - \log(p_{\theta}(x_0|x_1)) \quad (12)$$
+</p>
+Now, let's
+
 After deriving training objective:
 
 Now that we've understood and fully derived the training objective, let's briefly compare different sampling processes- DDPM (Markovian process) and DDIM (non-Markovian process, used by the authors).
