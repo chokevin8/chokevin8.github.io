@@ -210,24 +210,27 @@ $$ p_{\theta}(x_{0:T}) = p(x_T) \prod_{t=1}^{T} p_{\theta}(x_{t-1}|x_t) = \mathc
 
 This is just like the forward process in equation #4 but in reverse. By applying this formula, we can go from pure noise $$x_T$$ to the
 approximated data distribution. Remember the encoder does not have learnable parameters, so we only need to train the decoder in learning the conditionals
-$$p_{\theta}(x{t-1}|x_t)$$ so we can generate new data. Conditioning on the previous timestep $$t$$ and previous latent $$x_t$$ lets the decoder learn the Gaussian parameters $$\theta$$ which is the mean and variance
-(\mu_{\theta},\Sigma_{\theta}). Therefore, running inference on a LDM only requires the decoder as we sample from pure Gaussian noise $$p(x_T)$$ and run T timesteps of the decoder transition
-$$p_{\theta}(x{t-1}|x_t)$$ to generate new data sample $$x_0$$. If our approximated $$p_{\theta}(x{t-1}|x_t)$$ steps are similar to unknown, true posterior $$q(x_{t-1}|x_t)$$, the generated
-sample $$x_0$$ will be of good quality.
+$$p_{\theta}(x_{t-1}|x_t)$$ so we can generate new data. Conditioning on the previous timestep $$t$$ and previous latent $$x_t$$ lets the decoder learn the Gaussian parameters $$\theta$$ which is the mean and variance
+$$\mu_{\theta},\Sigma_{\theta}$$. Therefore, running inference on a LDM only requires the decoder as we sample from pure Gaussian noise $$p(x_T)$$ and run T timesteps of the decoder transition
+$$p_{\theta}(x_{t-1}|x_t)$$ to generate new data sample $$x_0$$. If our approximated $$p_{\theta}(x_{t-1}|x_t)$$ steps are similar to unknown, true posterior steps $$q(x_{t-1}|x_t)$$, the generated
+sample $$x_0$$ will be similar to the one sampled from the training data distribution. 
 
-Therefore, we want to train our decoder to find the reverse Markov transitions that will maximize the likelihood of the training data.
-*Now, how do we train this denoising/reverse diffusion model?* We utilize the ***ELBO*** again. 
+*Therefore, we want to train our decoder to find the reverse Markov transitions that will maximize the likelihood of the training data.
+Now, how do we train this denoising/reverse diffusion model?* We utilize the ***ELBO*** again. Remember for equation #1, we saw that the VAE was optimized
+by maximizing the ELBO (which was essentially the same as minimizing the negative log likelihood), we do the same below:
 
+<p>
+
+</p>
 
 
 After deriving training objective:
 
 
-LDM use DDIM, while Markvovian above is DDPM. Note training objective is the same. Short detail on DDIM: 
+Now that we've understood and fully derived the training objective, let's briefly compare different sampling processes- DDPM (Markovian process) and DDIM (non-Markovian process, used by the authors).
+Note that the training objective doesn't change as this is a difference in sampling or inference after the LDM is trained. DDPM, or...
 
 
-
-maximize the likelihood that an image that you generate looks like it comes from original distribution. apply same ELBO (lower bound) to the likelihood of the diffusion as well
 
 
 
