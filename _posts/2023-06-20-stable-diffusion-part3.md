@@ -83,14 +83,14 @@ The value of the KL-divergence cannot be less than zero, as zero denotes that th
 Now let's expand on this:
 
 <p>
-$$min(D_{KL}(q(z|x) || P(z|x))) = - \sum_{n=i} q(z|x) \log \frac{P(z|x)}{q(z|x)} \ (1)$$ 
-$$min(D_{KL}(q(z|x) || P(z|x))) = - \sum_{n=i} q(z|x) \log \frac{P(x,z)}{q(z|x)P(x)} \ (2) \quad \text{since} \ P(z|x) = \frac {P(x,z)}{P(x)}$$
-$$min(D_{KL}(q(z|x) || P(z|x))) = - \sum_{n=i} q(z|x) [\log \frac{P(x,z)}{q(z|x)} - \log P(x)] \ (3)$$
-$$min(D_{KL}(q(z|x) || P(z|x))) = - \sum_{n=i} q(z|x) \log \frac{P(x,z)}{q(z|x)} + \sum_{n=i} q(z|x) \log P(x) \ (4)$$
-$$min(D_{KL}(q(z|x) || P(z|x))) = - \sum_{n=i} q(z|x) \log \frac{P(x,z)}{q(z|x)} +  \log P(x) \ (5) \quad \text{since} \ \sum_{n=i} q(z|x) = 1$$
-$$\log P(x) = min(D_{KL}(q(z|x) || P(z|x))) + \sum_{n=i} q(z|x) \log \frac{P(x,z)}{q(z|x)} \ (6)$$
+$$min(D_{KL}(q(z|x) || P(z|x))) = - \sum_{n=i} q(z|x) \log \frac{P(z|x)}{q(z|x)}$$ 
+$$min(D_{KL}(q(z|x) || P(z|x))) = - \sum_{n=i} q(z|x) \log \frac{P(x,z)}{q(z|x)P(x)} \quad \text{since} \ P(z|x) = \frac {P(x,z)}{P(x)}$$
+$$min(D_{KL}(q(z|x) || P(z|x))) = - \sum_{n=i} q(z|x) [\log \frac{P(x,z)}{q(z|x)} - \log P(x)]$$
+$$min(D_{KL}(q(z|x) || P(z|x))) = - \sum_{n=i} q(z|x) \log \frac{P(x,z)}{q(z|x)} + \sum_{n=i} q(z|x) \log P(x)$$
+$$min(D_{KL}(q(z|x) || P(z|x))) = - \sum_{n=i} q(z|x) \log \frac{P(x,z)}{q(z|x)} +  \log P(x) \quad \text{since} \ \sum_{n=i} q(z|x) = 1$$
+$$\log P(x) = min(D_{KL}(q(z|x) || P(z|x))) + \sum_{n=i} q(z|x) \log \frac{P(x,z)}{q(z|x)} \quad (1)$$
 </p>
-Observe the left hand side of the last line above (or equation #6). Since we observe $$x$$, this is simply a constant. Observe the right hand side now. 
+Observe the left hand side of the last line above (or equation #1). Since we observe $$x$$, this is simply a constant. Observe the right hand side now. 
 The first term is what we initially wanted to minimize. The second term is what's called an ***"evidence/variational lower bound", or "ELBO" for short***.
 This is because rather than minimizing our first term (KL-divergence), utilizing the fact that the KL-divergence is always greater than or equal to zero, we can
 rather maximize the ELBO instead. We know understand why the second term is called a "lower bound", as $$ELBO \leq \log P(x)$$ since $$D_{KL}(q(z|x) || P(z|x)) \geq 0$$ 
@@ -98,15 +98,15 @@ all the time.
 <br>
 Now let's expand on ELBO:
 <p>
-$$ ELBO = \sum_{n=i} q(z|x) \log \frac{P(x,z)}{q(z|x)} \ (1)$$ 
-$$ ELBO = \sum_{n=i} q(z|x) \log \frac{P(x|z)P(z)}{q(z|x)} \ (2)$$
-$$ ELBO = \sum_{n=i} q(z|x) [\log P(x|z) + \log \frac{P(z)}{q(z|x)}] \ (3)$$
-$$ ELBO = \sum_{n=i} q(z|x) \log P(x|z) + \sum_{n=i} q(z|x) \log \frac{P(z)}{q(z|x)} \ (4)$$
-$$ ELBO = \sum_{n=i} q(z|x) \log P(x|z) - D_{KL}(q(z|x) || P(z)) \ (5)$$ 
-$$ ELBO = \mathbb{E}_{q(z|x)} [\log P(x|z)] - D_{KL}(q(z|x) || P(z)) \ (6)$$ 
+$$ ELBO = \sum_{n=i} q(z|x) \log \frac{P(x,z)}{q(z|x)}$$ 
+$$ ELBO = \sum_{n=i} q(z|x) \log \frac{P(x|z)P(z)}{q(z|x)}$$
+$$ ELBO = \sum_{n=i} q(z|x) [\log P(x|z) + \log \frac{P(z)}{q(z|x)}]$$
+$$ ELBO = \sum_{n=i} q(z|x) \log P(x|z) + \sum_{n=i} q(z|x) \log \frac{P(z)}{q(z|x)}$$
+$$ ELBO = \sum_{n=i} q(z|x) \log P(x|z) - D_{KL}(q(z|x) || P(z))$$ 
+$$ ELBO = \mathbb{E}_{q(z|x)} [\log P(x|z)] - D_{KL}(q(z|x) || P(z)) \quad (2)$$ 
 </p>
 
-***Remember*** the last line above (or equation #6) for later, this is also the ***loss function*** for training VAEs. But to understand this expression better, let's now look at VAEs in a *neural network's perspective*. A VAE consists of an encoder and a decoder, and both
+***Remember*** the last line above (or equation #2) for later, this is also the ***loss function*** for training VAEs. But to understand this expression better, let's now look at VAEs in a *neural network's perspective*. A VAE consists of an encoder and a decoder, and both
 are neural networks. The *encoder* takes in input data $$x$$ and compresses it to latent representation $$z$$, and must learn a good latent representation known as the bottleneck of the model. Note that
 contrary to the encoder of the vanilla autoencoder, the encoder of the variational autoencoder will learn the mean and variance 
 Therefore, the encoder can be denoted as $$q_\phi(z | x)$$, where the $$\phi$$ is the weights and biases of the model. Note that as previously mentioned, the latent space is assumed to be a Gaussian probability distribution, so sampling from the
@@ -116,7 +116,7 @@ the modeled probability distribution of the data space, and therefore can be den
 <img src = "/assets/images/autoencoder_diagram.png" width = "800" height = "420" class = "center">
 <figcaption>Diagram showing autoencoder architecture.</figcaption>
 <br>
-Now let's go back to the remembered equation that I just mentioned. Let's look at the first term $$\mathbb{E}_{q(z|x)} [\log P(x|z)]$$. Now, remember that the latent space $$z$$ is assumed to be a
+Now let's go back to above equation #2. Let's look at the first term $$\mathbb{E}_{q(z|x)} [\log P(x|z)]$$. Now, remember that the latent space $$z$$ is assumed to be a
 Gaussian distribution $$z_i \sim \mathcal{N}(0,1)$$. Observe this:
 <p>
 $$\log p(x|z) \sim \log exp(-(x-f(z))^2$$
@@ -166,7 +166,7 @@ The forward diffusion process actually is the reverse of the above diagram, as t
 data point $$x_0$$ that is sampled from the unknown, true distribution we'd like to model. Then, $$x_0$$ has Gaussian noise added to it in a Markovian process (from $$x_{t-1}$$ all the way to $$x_T$$) with $$T$$ steps.
 Therefore, $$q(x_t|x_{t-1})$$ takes the image and outputs a slightly more noisy version of the image. This can be formulated below:
 <p>
-$$q(x_t|x_{t-1}) = \mathcal{N}(x_t; \mu_t = \sqrt{1-\beta_t}x_{t-1},\Sigma_t = \beta_tI)$$
+$$q(x_t|x_{t-1}) = \mathcal{N}(x_t; \mu_t = \sqrt{1-\beta_t}x_{t-1},\Sigma_t = \beta_tI) \quad (3)$$
 </p>
 *Note that above process can be made non-Markovian in a different sampling process called DDIM(remember in Part 2, I mentioned diffusion process is either Markovian or non-Markovian, this is DDPM vs DDIM, this will be explained
 in next part of this blog).*
@@ -176,7 +176,7 @@ $$\beta_t$$ is a number between 0 and 1, and essentially scales the data so the 
 increased as the image gets noised more. Note that with above formula, we can easily obtain desired noised image at timestep $$T$$ by using the Markovian nature of the process. Below is a tractable, closed-form 
 formula to sample a noised image at any timestep:
 <p>
-$$q(x_{1:T}|x_0) = \prod_{t=1}^{T} q(x_t|x_{t-1})$$
+$$q(x_{1:T}|x_0) = \prod_{t=1}^{T} q(x_t|x_{t-1}) \quad (4)$$
 </p>
 Basically, if T = 200 timesteps, we would have 200 products to sample the noised image $$x_{t=200}$$. However, if the timestep gets larger, we run in to trouble of computational issues. Therefore,
 we utilize the *reparametrization trick* which gives us a much simpler tractable, closed-form formula for sampling that requires much fewer computations:
@@ -189,24 +189,40 @@ $$ x_t = \sqrt{\alpha_t}x_{t-1} + \sqrt{1-\alpha_t}\epsilon_{t-1} $$
 $$ x_t = \sqrt{\alpha_t \alpha_{t-1}}x_{t-2} + \sqrt{1-\alpha_t \alpha{t-1}}\epsilon_{t-2} $$
 $$ x_t = \quad ... $$
 $$ x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}\epsilon $$
-$$ \mathbf{ \text{Therefore,} \quad q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha}_t}x_0,\Sigma_t = (1-\hat{\alpha}_t)I)}$$
+$$ \mathbf{ \text{Therefore,} \quad q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha}_t}x_0,\Sigma_t = (1-\hat{\alpha}_t)I)} \quad (5)$$
 </p>
 
 To summarize the forward diffusion process, we can think of this as the encoder (remember encoder performs forward diffusion process to map pixel space to latent space)
-Each time step or each encoder transition is denoted as $$q(x_t|x_{t-1})$$ which is from a fixed parameter $$\mathcal{N}(x_t,\sqrt{\alpha_t}x_{t-1},(1-\alpha_t)I)$$.
+Each time step or each encoder transition is denoted as $$q(x_t|x_{t-1})$$ which is from a fixed parameter $$\mathcal{N}(x_t,\sqrt{\alpha_t}x_{t-1},(1-\alpha_t)I)$$. Note that like VAE encoder,
+the encoder distribution for the forward diffusion process is also modeled as multivariate Gaussian. However, in VAEs, we learn the mean and variance parameters, while forward diffusion
+has fixed specific means and variances at each timestep as seen in equation #4.
 
-Now, look at the diagram again for the reverse diffusion process, which is denoted by $$p_\theta(x_{t-1}|x_t)$$. Now, if we could reverse the above forward diffusion process 
+Now, look at the graphical model again for the reverse diffusion process, which is denoted by $$p_\theta(x_{t-1}|x_t)$$. Now, if we could reverse the above forward diffusion process 
 $$q(x_t|x_{t-1})$$ and sample from $$q(x_{t-1}|x_t)$$, we can easily run inference by sampling from our Gaussian noise input which is $$ \sim \mathcal{N}(0,I)$$.
 However, *this is exactly the same problem we had for VAEs as above !* This true posterior is unknown and is intractable since we have to compute the entire data distribution or marginal likelihood/evidence,
 $$q(x)$$. Here, we can treat $$x_0$$ as the true data, and every subsequent node in the Markovian chain $$x_1,x_2...x_T$$ as a latent variable. Therefore, we approach this problem the exact same way.
 
-We approximate the true posterior $$q(x_{t-1}|x_t)$$ with a neural network that has parameters $$\theta$$. Like the forward process, but just reversing the timestep,
+We approximate the true posterior $$q(x_{t-1}|x_t)$$ with a neural network or decoder that has parameters $$\theta$$. Like the forward process, but just reversing the timestep,
 we have:
 <p>
-$$ p_{\theta}(x_{0:T}) = p(x_T) \prod_{t=1}^{T} p_{\theta}(x_{t-1}|x_t) = \mathcal{N}(x_{t-1}; \mu_{\theta}(x_t,t),\Sigma_{\theta}(x_t,t))$$
+$$ p_{\theta}(x_{0:T}) = p(x_T) \prod_{t=1}^{T} p_{\theta}(x_{t-1}|x_t) = \mathcal{N}(x_{t-1}; \mu_{\theta}(x_t,t),\Sigma_{\theta}(x_t,t)) \quad (6)$$
 </p>
 
+This is just like the forward process in equation #4 but in reverse. By applying this formula, we can go from pure noise $$x_T$$ to the
+approximated data distribution. Remember the encoder does not have learnable parameters, so we only need to train the decoder in learning the conditionals
+$$p_{\theta}(x{t-1}|x_t)$$ so we can generate new data. Conditioning on the previous timestep $$t$$ and previous latent $$x_t$$ lets the decoder learn the Gaussian parameters $$\theta$$ which is the mean and variance
+(\mu_{\theta},\Sigma_{\theta}). Therefore, running inference on a LDM only requires the decoder as we sample from pure Gaussian noise $$p(x_T)$$ and run T timesteps of the decoder transition
+$$p_{\theta}(x{t-1}|x_t)$$ to generate new data sample $$x_0$$. If our approximated $$p_{\theta}(x{t-1}|x_t)$$ steps are similar to unknown, true posterior $$q(x_{t-1}|x_t)$$, the generated
+sample $$x_0$$ will be of good quality.
+
+Therefore, we want to train our decoder to find the reverse Markov transitions that will maximize the likelihood of the training data.
+*Now, how do we train this denoising/reverse diffusion model?* We utilize the ***ELBO*** again. 
+
+
+
 After deriving training objective:
+
+
 LDM use DDIM, while Markvovian above is DDPM. Note training objective is the same. Short detail on DDIM: 
 
 
