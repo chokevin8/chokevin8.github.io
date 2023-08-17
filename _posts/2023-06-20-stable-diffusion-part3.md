@@ -222,19 +222,19 @@ by maximizing the ELBO (which was essentially the same as minimizing the negativ
 KL-divergence between the true unknown posterior $$q(x_{1:T}|x_0)$$ and the approximated posterior $$p_{\theta}(x_{1:T}|x_0)$$:
 
 <p>
-$$ 0 \leq min D_{KL}(q(x_{1:T}|x_0)||p_{\theta}(x_{1:T}|x_0)) $$ 
+$$ 0 \leq min \ D_{KL}(q(x_{1:T}|x_0)||p_{\theta}(x_{1:T}|x_0)) $$ 
 $$ - \log (p_{\theta}(x_0)) \leq - \log (p_{\theta}(x_0)) + min \ D_{KL}(q(x_{1:T}|x_0)||p_{\theta}(x_{1:T}|x_0)) $$ 
-$$ - \log (p_{\theta}(x_0)) \leq - \log (p_{\theta}(x_0)) + min \ \log(\frac{q(x_{1:T}|x_0)}{p_{\theta}(x_{1:T}|x_0})$$ 
-$$ - \log (p_{\theta}(x_0)) \leq - \log (p_{\theta}(x_0)) + min \ \log(\frac{q(x_{1:T}|x_0)}{p_{\theta}(x_{0:T}}) + \log(p_{\theta}(x_0)) \quad \text{since} \ p_{\theta}(x_{1:T}|x_0) = \frac{p_{\theta}(x_0|x_{1:T})p_{\theta}(x_{1:T})}{p_{\theta}(x_0)} = \frac{p_{\theta}(x_0,x_{1:T})}{p_{\theta}(x_0)} = \frac{p_{\theta}(x_{0:T})}{p_{\theta}(x_0)}$$
-$$ - \log (p_{\theta}(x_0)) \leq min \ \log(\frac{q(x_{1:T}|x_0)}{p_{\theta}(x_{0:T})}) \quad \text{since} \ - \log (p_{\theta}(x_0)) + \log(p_{\theta}(x_0)) = 0 \quad (7)$$
+$$ - \log (p_{\theta}(x_0)) \leq - \log (p_{\theta}(x_0)) + \log(\frac{q(x_{1:T}|x_0)}{p_{\theta}(x_{1:T}|x_0})$$ 
+$$ - \log (p_{\theta}(x_0)) \leq - \log (p_{\theta}(x_0)) + \log(\frac{q(x_{1:T}|x_0)}{p_{\theta}(x_{0:T}}) + \log(p_{\theta}(x_0)) \quad \text{since} \ p_{\theta}(x_{1:T}|x_0) = \frac{p_{\theta}(x_0|x_{1:T})p_{\theta}(x_{1:T})}{p_{\theta}(x_0)} = \frac{p_{\theta}(x_0,x_{1:T})}{p_{\theta}(x_0)} = \frac{p_{\theta}(x_{0:T})}{p_{\theta}(x_0)}$$
+$$ - \log (p_{\theta}(x_0)) \leq \log(\frac{q(x_{1:T}|x_0)}{p_{\theta}(x_{0:T})}) \quad \text{since} \ - \log (p_{\theta}(x_0)) + \log(p_{\theta}(x_0)) = 0 \quad (7)$$
 </p>
 
-As seen in above, minimizing the KL-divergence also gives us the form $$ - \log P(x) \leq ELBO $$ or $$ ELBO \leq \log P(x)$$, as we saw for VAEs in equation #1, since the RHS of equation #7 above is the ***ELBO*** for LDMs ($$ELBO_{LDM} = \log(\frac{q(x_{1:T}|x_0)}{p_{\theta}(x_{0:T}})$$).
+As seen in above, minimizing the KL-divergence also gives us the form $$ - \log P(x) \leq ELBO $$ or $$ -ELBO \leq \log P(x)$$, as we saw for VAEs in equation #1, since the RHS of equation #7 above is the ***ELBO*** for LDMs ($$ELBO_{LDM} = \log(\frac{q(x_{1:T}|x_0)}{p_{\theta}(x_{0:T}})$$).
 Therefore, instead of minimizing the above KL-divergence, we can maximize the ELBO like VAEs:
 
 <p>
 $$ - \log (p_{\theta}(x_0)) \leq \log(\frac{q(x_{1:T}|x_0)}{p_{\theta}(x_{0:T})}) $$
-$$ - \log (p_{\theta}(x_0)) \leq \quad \log(\frac{\prod{t=1}^{T} q(x_t|x_{t-1})}{p(x_T) \prod{t=1}^{T}p_{\theta}(x_{t-1}|x_t)}) \ \text{since} \ p_{\theta}(x_{0:T})) = p(x_T) \prod{t=1}^{T} p_{\theta}(x_{t-1}|x_t)$$
+$$ - \log (p_{\theta}(x_0)) \leq \quad \log(\frac{\prod_{t=1}^{T} q(x_t|x_{t-1})}{p(x_T) \prod_{t=1}^{T}p_{\theta}(x_{t-1}|x_t)}) \ \text{since} \ p_{\theta}(x_{0:T}) = p(x_T) \prod_{t=1}^{T} p_{\theta}(x_{t-1}|x_t)$$
 
 </p>
 
