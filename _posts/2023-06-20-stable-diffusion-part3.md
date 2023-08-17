@@ -234,14 +234,19 @@ Therefore, instead of minimizing the above KL-divergence, we can maximize the EL
 
 <p>
 $$ - \log (p_{\theta}(x_0)) \leq \log(\frac{q(x_{1:T}|x_0)}{p_{\theta}(x_{0:T})}) $$
-$$ - \log (p_{\theta}(x_0)) \leq \log(\frac{\prod_{t=1}^{T} q(x_t|x_{t-1})}{p(x_T) \prod_{t=1}^{T}p_{\theta}(x_{t-1}|x_t)}) \ \text{since} \ p_{\theta}(x_{0:T}) = p(x_T) \prod_{t=1}^{T} p_{\theta}(x_{t-1}|x_t)$$
+$$ - \log (p_{\theta}(x_0)) \leq \log(\frac{\prod_{t=1}^{T} q(x_t|x_{t-1})}{p(x_T) \prod_{t=1}^{T}p_{\theta}(x_{t-1}|x_t)}) \quad \text{since} \ p_{\theta}(x_{0:T}) = p(x_T) \prod_{t=1}^{T} p_{\theta}(x_{t-1}|x_t)$$
 $$ - \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \log (\frac{\prod_{t=1}^{T} q(x_t|x_{t-1})}{\prod_{t=1}^{T}p_{\theta}(x_{t-1}|x_t)}) $$
 $$ - \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \sum_{t=1}^{T} \log(\frac{q(x_t|x_{t-1})}{p_{\theta}(x_{t-1}|x_t)}) $$
-$$ - \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \sum_{t=2}^{T} \log(\frac{q(x_t|x_{t-1})}{p_{\theta}(x_{t-1}|x_t)}) + log(\frac{q(x_1|x_0}{p_{\theta}(x_0|x_1)}) \ \text{since} \ log(\frac{q(x_1|x_0}{p_{\theta}(x_0|x_1)}) \text{is when} \ t = 1 $$
+$$ - \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \sum_{t=2}^{T} \log(\frac{q(x_t|x_{t-1})}{p_{\theta}(x_{t-1}|x_t)}) + log(\frac{q(x_1|x_0)}{p_{\theta}(x_0|x_1)}) \quad \text{since} \ log(\frac{q(x_1|x_0}{p_{\theta}(x_0|x_1)}) \ \text{is when} \ t = 1 \quad (8)$$
 </p>
 
+Note equation #8 above, and focus on $$q(x_t|x_{t-1})$$ term. This is essentially the reverse diffusion step, but it is only conditioned on the pure Gaussian noise. The 
+latent image vector $$x_{t-1} thus has a high variance, but by also conditioning on original image $$x_0$$, we can decrease the variance and therefore enhance the image generation quality. 
+This is achieved by using the Baye's rule $$q(x_t|x_{t-1}) = \frac{q(x_{t-1}|x_t)q(x_t)}{q(x_{t-1})} = \frac{q(x_{t-1}|x_t,x_0)q(x_t|x_0)}{q(x_{t-1}|x_0)}$$ 
+Substituting this to equation #8 above:
+<p>
 
-
+</p>
 After deriving training objective:
 
 
