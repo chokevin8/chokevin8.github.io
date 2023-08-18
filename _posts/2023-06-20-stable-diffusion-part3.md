@@ -285,12 +285,14 @@ Now, finding the mean $$\tilde{\mu}$$ would take too long and not showing this s
 What's important to take away from this, however, is understanding that ***minimizing the above KL divergence*** is like minimizing the mean-squared-error (MSE) between the two distributions. If you follow through from page 13 to page 15 of
 the above mentioned paper, we notice that the minimizing the above KL divergence is equivalent to minimizing below:
 <p>
-$$\frac{\beta_t^2}{2(\sigma_t)^2\alpha_t(1-\hat{alpha}_t)}(||\epsilon - \epsilon_{\theta}(x_t,t)||)^2 $$
-$$(||\epsilon - \epsilon_{\theta}(x_t,t)||)^2 \quad (13)$$
+$$L_{LDM} = \frac{\beta_t^2}{2(\sigma_t)^2\alpha_t(1-\hat{\alpha}_t)}(||\epsilon - \epsilon_{\theta}(x_t,t)||)^2 $$
+$$L_{LDM} = (||\epsilon - \epsilon_{\theta}(x_t,t)||)^2 \quad (13)$$
 </p>
 Note that the objective function finalizes to equation #13 above because it was found that getting rid of the coefficient in front of the MSE term actually performed better when evaluating the performance of diffusion models.
-Therefore, we simply end up with the mean squared difference between the true noise $$\epsilon$$ and the predicted noise (using the decoder or UNet) $$\epsilon_{\theta}(x_t,t)$$. Simply put, the UNet learns to predict the
-ground truth noise $$\epsilon$$ that is randomly sampled from $$\mathcal{N}(0, 1)$$ that determines the pure noised (image) $$x_t$$ from the original image $$x_0$$ and then denoises it.
+This final equation above is equivalent to the loss function the authors use, which is equation #1 in the paper. Therefore, we simply end up with the mean squared difference between the true noise $$\epsilon$$ and the predicted noise (using the decoder or UNet) $$\epsilon_{\theta}(x_t,t)$$. 
+Simply put, the UNet learns to predict the ground truth noise $$\epsilon$$ that is randomly sampled from $$\mathcal{N}(0, 1)$$ that determines the pure noised (image) $$x_t$$ from the original image $$x_0$$ and then denoises it. As stated in the paper,
+this can also be seen as a series of equally weighted autoencoders from $$T = 1,2....t-1,T$$ which predicts a denoised variant of their input $$x_t$$. As timestep reaches T, this Markovian process will then slowly converge to the ground truth input image 
+$$x_0$$. 
 
 <!--More edits: Explain more about what training really does, and also explain training and sampling algorithm and also explain briefly DDIM vs DDPM as mentioned above.-->
 
