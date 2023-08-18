@@ -292,6 +292,7 @@ Note that the objective function finalizes to equation #13 above because it was 
 Therefore, we simply end up with the mean squared difference between the true noise $$\epsilon$$ and the predicted noise (using the decoder or UNet) $$\epsilon_{\theta}(x_t,t)$$. Simply put, the UNet learns to predict the
 ground truth noise $$\epsilon$$ that is randomly sampled from $$\mathcal{N}(0, 1)$$ that determines the pure noised (image) $$x_t$$ from the original image $$x_0$$. 
 
+## More edits: Explain more about what training really does, and also explain training and sampling algorithm and also explain briefly DDIM vs DDPM as mentioned above.
 ---
 
 Now that we've fully understood the entire story of the training objective (of how VAE's ELBO derivation is similar to LDMs) and how its simplified training objective is
