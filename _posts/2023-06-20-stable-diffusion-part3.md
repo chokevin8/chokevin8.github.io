@@ -285,8 +285,8 @@ Now, finding the mean $$\tilde{\mu}$$ would take too long and not showing this s
 What's important to take away from this, however, is understanding that ***minimizing the above KL divergence*** is like minimizing the mean-squared-error (MSE) between the two distributions. If you follow through from page 13 to page 15 of
 the above mentioned paper, we notice that the minimizing the above KL divergence is equivalent to minimizing below:
 <p>
-$$\frac{{\beta_t}^2}{2{\sigma_t}^2\alpha_t(1-\hat{alpha}_t)}{||\epsilon - \epsilon_{\theta}(x_t,t)||}^2 $$
-$${||\epsilon - \epsilon_{\theta}(x_t,t)||}^2 \quad (13)$$
+$$\frac{\beta_t^2}{2(\sigma_t)^2\alpha_t(1-\hat{alpha}_t)}(||\epsilon - \epsilon_{\theta}(x_t,t)||)^2 $$
+$$(||\epsilon - \epsilon_{\theta}(x_t,t)||)^2 \quad (13)$$
 </p>
 Note that the objective function finalizes to equation #13 above because it was found that getting rid of the coefficient in front of the MSE term actually performed better when evaluating the performance of diffusion models.
 Therefore, we simply end up with the mean squared difference between the true noise $$\epsilon$$ and the predicted noise (using the decoder or UNet) $$\epsilon_{\theta}(x_t,t)$$. Simply put, the UNet learns to predict the
