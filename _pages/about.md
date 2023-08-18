@@ -3,11 +3,15 @@ layout: about
 title: about
 permalink: /
 
-profile:
-  align: right
-  address: >
-    <p> US Address: 3700 N Charles St, Baltimore, MD 21218 </p>
-    <p> Korea Address: Banpo-daero 275, Seocho-gu, Seoul, South Korea </p>
+[//]: # (profile:)
+
+[//]: # (  align: right)
+
+[//]: # (  address: >)
+
+[//]: # (    <p> US Address: 3700 N Charles St, Baltimore, MD 21218 </p>)
+
+[//]: # (    <p> Korea Address: Banpo-daero 275, Seocho-gu, Seoul, South Korea </p>)
 
 
 news: false  # includes a list of news items
