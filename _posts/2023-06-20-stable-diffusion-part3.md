@@ -288,17 +288,9 @@ the above mentioned paper, we notice that the minimizing the above KL divergence
 $$\frac{{\beta_t}^2}{2{\sigma_t}^2\alpha_t(1-\hat{alpha}_t)}{||\epsilon - \epsilon_{\theta}(x_t,t)||}^2 $$
 $${||\epsilon - \epsilon_{\theta}(x_t,t)||}^2 \quad (13)$$
 </p>
-
-
-
-After deriving training objective:
-
-Now that we've understood and fully derived the training objective, let's briefly compare different sampling processes- DDPM (Markovian process) and DDIM (non-Markovian process, used by the authors).
-Note that the training objective doesn't change as this is a difference in sampling or inference after the LDM is trained. DDPM, or...equatoin #6 DDPM
-
-
-
-
+Note that the objective function finalizes to equation #13 above because it was found that getting rid of the coefficient in front of the MSE term actually performed better when evaluating the performance of diffusion models.
+Therefore, we simply end up with the mean squared difference between the true noise $$\epsilon$$ and the predicted noise (using the decoder or UNet) $$\epsilon_{\theta}(x_t,t)$$. Simply put, the UNet learns to predict the
+ground truth noise $$\epsilon$$ that is randomly sampled from $$\mathcal{N}(0, 1)$$ that determines the pure noised (image) $$x_t$$ from the original image $$x_0$$. 
 
 ---
 
