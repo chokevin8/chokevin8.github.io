@@ -279,14 +279,14 @@ $$ - \log (p_{\theta}(x_0)) \leq \sum_{t=2}^{T} D_{KL}(q(x_{t-1}|x_t,x_0)||p_{\t
 </p>
 Now, let's look at the first term of the RHS $$\sum_{t=2}^{T} D_{KL}(q(x_{t-1}|x_t,x_0)||p_{\theta}(x_{t-1}|x_t))$$. For $$p_{\theta}(x_{t-1}|x_t)$$, we already know the
 mean and the variance from equation #6 above: $$ p_{\theta}(x_{t-1}|x_t) = \mathcal{N}(x_{t-1}; \mu_{\theta}(x_t,t),\beta I) $$. Note we assume that the variance is fixed by the
-noise schedule $$\beta$$. Then, we can also assume that $$q(x_{t-1}|x_t,x_0)$$ would also follow a similar distribution $$q(x_{t-1}|x_t,x_0) = mathcal{N}(x_{t-1}; \tilde{\mu}_t(x_t,x_0),\tilde{\beta}_tI)$$. 
+noise schedule $$\beta$$. Then, we can also assume that $$q(x_{t-1}|x_t,x_0)$$ would also follow a similar distribution $$q(x_{t-1}|x_t,x_0) = \mathcal{N}(x_{t-1}; \tilde{\mu}_t(x_t,x_0),\tilde{\beta}_tI)$$. 
 Now, finding the mean $$\tilde{\mu}$$ would take too long and not showing this still wouldn't hurt our understanding, but the value and its derivation can be found in page 13 of this [paper](https://arxiv.org/pdf/2208.11970.pdf).
 
 What's important to take away from this, however, is understanding that ***minimizing the above KL divergence*** is like minimizing the mean-squared-error (MSE) between the two distributions. If you follow through from page 13 to page 15 of
 the above mentioned paper, we notice that the minimizing the above KL divergence is equivalent to minimizing below:
 <p>
-$$L_{LDM} = \frac{\beta_t^2}{2(\sigma_t)^2\alpha_t(1-\hat{\alpha}_t)}(||\epsilon - \epsilon_{\theta}(x_t,t)||)^2 $$
-$$L_{LDM} = (||\epsilon - \epsilon_{\theta}(x_t,t)||)^2 \quad (13)$$
+$$L_{LDM} = \frac{\beta_t^2}{2(\sigma_t)^2\alpha_t(1-\hat{\alpha}_t)}||\epsilon - \epsilon_{\theta}(x_t,t)||^2 $$
+$$L_{LDM} = ||\epsilon - \epsilon_{\theta}(x_t,t)||^2 \quad (13)$$
 </p>
 Note that the objective function finalizes to equation #13 above because it was found that getting rid of the coefficient in front of the MSE term actually performed better when evaluating the performance of diffusion models.
 This final equation above is equivalent to the loss function the authors use, which is equation #1 in the paper. Therefore, we simply end up with the mean squared difference between the true noise $$\epsilon$$ and the predicted noise (using the decoder or UNet) $$\epsilon_{\theta}(x_t,t)$$. 
