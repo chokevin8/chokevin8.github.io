@@ -290,7 +290,7 @@ $${||\epsilon - \epsilon_{\theta}(x_t,t)||}^2 \quad (13)$$
 </p>
 Note that the objective function finalizes to equation #13 above because it was found that getting rid of the coefficient in front of the MSE term actually performed better when evaluating the performance of diffusion models.
 Therefore, we simply end up with the mean squared difference between the true noise $$\epsilon$$ and the predicted noise (using the decoder or UNet) $$\epsilon_{\theta}(x_t,t)$$. Simply put, the UNet learns to predict the
-ground truth noise $$\epsilon$$ that is randomly sampled from $$\mathcal{N}(0, 1)$$ that determines the pure noised (image) $$x_t$$ from the original image $$x_0$$. 
+ground truth noise $$\epsilon$$ that is randomly sampled from $$\mathcal{N}(0, 1)$$ that determines the pure noised (image) $$x_t$$ from the original image $$x_0$$ and then denoises it.
 
 <!--More edits: Explain more about what training really does, and also explain training and sampling algorithm and also explain briefly DDIM vs DDPM as mentioned above.-->
 
