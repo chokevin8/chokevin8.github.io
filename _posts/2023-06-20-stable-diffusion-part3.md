@@ -189,7 +189,7 @@ $$ x_t = \quad ... $$
 $$ x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}\epsilon $$
 $$ \mathbf{ \text{Therefore,} \quad q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha}_t}x_0,\Sigma_t = (1-\hat{\alpha}_t)I)} \quad (5)$$
 </p>
-
+*Note that above simplification is possible since the variance of two merged Gaussians is simply the sum of the two variances.*
 To summarize the forward diffusion process, we can think of this as the encoder (remember encoder performs forward diffusion process to map pixel space to latent space)
 Each time step or each encoder transition is denoted as $$q(x_t|x_{t-1})$$ which is from a fixed parameter $$\mathcal{N}(x_t,\sqrt{\alpha_t}x_{t-1},(1-\alpha_t)I)$$. Note that like VAE encoder,
 the encoder distribution for the forward diffusion process is also modeled as multivariate Gaussian. However, in VAEs, we learn the mean and variance parameters, while forward diffusion
@@ -273,13 +273,16 @@ $$- \log (p_{\theta}(x_0)) \leq D_{KL}(q(x_T|x_0)||p(x_T)) +  \sum_{t=2}^{T} D_{
 Now look at equation #11 above, which is simplified further thanks to the definition of KL-divergence. The first RHS term $$D_{KL}(q(x_T|x_0)||p(x_T))$$ has no learnable parameters, as
 we previously talked about the encoder $$q(x_T|x_0)$$ having no learnable parameters as the forward diffusion process is fixed by the noising schedule shown in equation #3 and #5. 
 Additionally, $$p(x_T)$$ is just pure Gaussian noise as well. Lastly, it is safe to assume that this term will be zero, as q will resemble p's random Gaussian noise and bring the KL-divergence to zero. 
-Therefore, below is our final training objective, all we need to do is maximize the RHS of the equation:
+Therefore, below is our final training objective, all we need to do is minimize the RHS of the equation:
 <p>
 $$ - \log (p_{\theta}(x_0)) \leq \sum_{t=2}^{T} D_{KL}(q(x_{t-1}|x_t,x_0)||p_{\theta}(x_{t-1}|x_t)) - \log(p_{\theta}(x_0|x_1)) \quad (12)$$
 </p>
 Now, let's look at the first term of the RHS $$\sum_{t=2}^{T} D_{KL}(q(x_{t-1}|x_t,x_0)||p_{\theta}(x_{t-1}|x_t))$$. For $$p_{\theta}(x_{t-1}|x_t)$$, we already know the
 mean and the variance from equation #6 above: $$ p_{\theta}(x_{t-1}|x_t) = \mathcal{N}(x_{t-1}; \mu_{\theta}(x_t,t),\beta I) $$. Note we assume that the variance is fixed by the
 noise schedule $$\beta$$. Then, we can also assume that $$q(x_{t-1}|x_t,x_0)$$ would also follow a similar distribution $$q(x_{t-1}|x_t,x_0) = mathcal{N}(x_{t-1}; \tilde{\mu}_t(x_t,x_0),\tilde{\beta}_tI)$$. 
+Now, finding the mean $$\tilde{\mu}$$ would take too long and not showing this still wouldn't hurt our understanding, but the value and its derivation can be found in page 13 of this [paper](https://arxiv.org/pdf/2208.11970.pdf).
+
+What's important to take away from this, however, is that ***minimizing the above KL divergence*** is like 
 
 After deriving training objective:
 
