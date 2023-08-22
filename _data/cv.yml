@@ -2,18 +2,18 @@
   type: map
   contents:
     - name: Full Name
-      value: Albert Einstein
-    - name: Date of Birth
-      value: 14th March 1879
+      value: Kevin (Won June) Cho
+    - name: From
+      value: Seoul, South Korea
     - name: Languages
-      value: English, German
+      value: Native in English, Korean, Limited proficiency in Chinese
 
 - title: Education
   type: time_table
   contents:
-    - title: PhD
-      institution: University of Zurich, Zurich, Switzerland
-      year: 1905
+    - title: Bachelor's
+      institution: Johns Hopkins University
+      year: 2022
       description:
         - Description 1.
         - Description 2.

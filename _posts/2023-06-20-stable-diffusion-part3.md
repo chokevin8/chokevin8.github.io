@@ -21,6 +21,7 @@ categories: posts
 ### [Stable Diffusion In Numbers (Part 3)](#stable-diffusion-in-numbers-1) (This Blog!)
 - ### [VAEs and ELBO](#vaes-elbo)
 - ### [Model Objective](#model-objective-1)
+- ### [Training and Inference](#training-inference)
 
 ### [Stable Diffusion In Numbers Continued (Part 4)](/blog/2023/stable-diffusion-part4/)
 - ### Conditioning 
@@ -288,18 +289,44 @@ the above mentioned paper, we notice that the minimizing the above KL divergence
 $$L_{LDM} = \frac{\beta_t^2}{2(\sigma_t)^2\alpha_t(1-\hat{\alpha}_t)}||\epsilon - \epsilon_{\theta}(x_t,t)||^2 $$
 $$L_{LDM} = ||\epsilon - \epsilon_{\theta}(x_t,t)||^2 \quad (13)$$
 </p>
-Note that the objective function finalizes to equation #13 above because it was found that getting rid of the coefficient in front of the MSE term actually performed better when evaluating the performance of diffusion models.
-This final equation above is equivalent to the loss function the authors use, which is equation #1 in the paper. Therefore, we simply end up with the mean squared difference between the true noise $$\epsilon$$ and the predicted noise (using the decoder or UNet) $$\epsilon_{\theta}(x_t,t)$$. 
+Note that the objective function finalizes to equation #13 above because it was experimentally proven that getting rid of the coefficient in front of the MSE term actually performed better when evaluating the performance of diffusion models.
+This final equation above is equivalent to the loss function the authors use, which is equation #1 in the paper. Therefore, we simply end up with the mean squared error (MSE) between the true noise $$\epsilon$$ and the predicted noise (using the decoder or UNet) $$\epsilon_{\theta}(x_t,t)$$. 
 Simply put, the UNet learns to predict the ground truth noise $$\epsilon$$ that is randomly sampled from $$\mathcal{N}(0, 1)$$ that determines the pure noised (image) $$x_t$$ from the original image $$x_0$$ and then denoises it. As stated in the paper,
-this can also be seen as a series of equally weighted autoencoders from $$T = 1,2....t-1,T$$ which predicts a denoised variant of their input $$x_t$$. As timestep reaches T, this Markovian process will then slowly converge to the ground truth input image 
-$$x_0$$. 
+this can also be seen as series of $$T$$ equally weighted autoencoders from $$T = 1,2....t-1,T$$ which predicts a denoised variant of their input $$x_t$$. As timestep reaches T, this Markovian process will then slowly converge to the ground truth input image 
+$$x_0$$, assuming the training of the decoder went well. 
 
-<!--More edits: Explain more about what training really does, and also explain training and sampling algorithm and also explain briefly DDIM vs DDPM as mentioned above.-->
+--- 
+
+<a id="training-inference"></a>
+###  ***Training and Inference:***
+
+Now that we've derived the training (loss) objective, let's briefly go over the entire training and the inference algorithm, look below:
+
+<img src = "/assets/images/train_inference_algorithm.png" width = "985" height = "250" class = "center">
+<figcaption>The training and inference algorithm, summarized.</figcaption>
+<br>
+
+Let's first look at the training algorithm:
+1. We repeat the below process (steps 2~5) until convergence or a preset number of epochs. 
+2. Sample an image $$x_0$$ from our dataset/data distribution, $$q(x_0)$$.
+3. Sample t, or timestep.
+4. Sample noise from a normal distribution $$\epsilon \sim \mathcal{N}(0, I)$$
+5. Take gradient descent step on the previous training objective $$L_{LDM} = ||\epsilon - \epsilon_{\theta}(x_t,t)||^2 $$ with respect to $$\theta$$, which is the 
+parameters of the weights and biases of the decoder.
+ 
+Note that for sampling, we only need the trained decoder from above. Therefore, we sample latent noise $$x_T from prior p(x_T), which is $$\epsilon \sim \mathcal{N}(0, I)$$
+and then run the series of $$T$$ equally weighted autoencoders as mentioned before in a Markovian style (sample from x_{t-1}). However, the sampling process using
+Denoising Diffusion Probabilistic Model (DDPM) uses a Markovian sampling process while an improved method called Denoising Diffusion Implicit Model (DDIM) uses a non-Markovian
+sampling process that makes the process much quicker. The authors of LDM therefore use DDIM over DDPM. The main advantages of DDIM over DDPM are:
+
+1. Consistency: DDIMs are consistent, meaning that if we initialize the same latent variable $$x_T$$ via same random seed during sampling, the samples 
+2. 
+
 
 ---
 
 Now that we've fully understood the entire story of the training objective (of how VAE's ELBO derivation is similar to LDMs) and how its simplified training objective is
-also just like a MSE, the next part (last part of blog on stable diffusion) will cover more mathematical details on LDMs that were not covered in this part of the blog, especially regarding
+also just like a MSE, and briefly mentioned the training and sampling algorithms, the next part (last part of blog on stable diffusion) will cover more mathematical details on LDMs that were not covered in this part of the blog, especially regarding
 conditioning and classifier-free guidance.
 
 *Image credits to:*

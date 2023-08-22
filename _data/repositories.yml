@@ -1,12 +1,7 @@
 github_users:
-  - torvalds
-  - alshedivat
-
+  - chokevin8
 github_repos:
-  - alshedivat/al-folio
-  - twbs/bootstrap
-  - jekyll/jekyll
-  - jquery/jquery
-  - FortAwesome/Font-Awesome
-  - jpswalsh/academicons
-  - mathjax/MathJax
+  - chokevin8/chokevin8.github.io
+  - chokevin8/CBD-Intern
+  - chokevin8/Kaggle-hubmap
+  - Wirtz-lab/wsi_analysis

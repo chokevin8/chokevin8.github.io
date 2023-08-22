@@ -23,10 +23,9 @@ categories: posts
 - ### Model Objective
 
 ### [Stable Diffusion In Numbers Continued (Part 4)](/blog/2023/stable-diffusion-part4/))
-- ### Autoencoder
-- ### U-Net
-- ### Pretrained Encoder
-
+- ### Conditioning 
+- ### Classifier-Free Guidance
+- ### Training and Inference
 ---
 
 *Note: For other parts, please click the link above in the table of contents.* 

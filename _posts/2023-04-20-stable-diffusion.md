@@ -35,11 +35,11 @@ about stable diffusion and its predecessor, GANs. The next two parts as seen in 
 ### [Stable Diffusion In Numbers (Part 3)](/blog/2023/stable-diffusion-part3/)
 - ### VAEs and ELBO
 - ### Model Objective
+- ### Training and Inference
 
 ### [Stable Diffusion In Numbers Continued (Part 4)](/blog/2023/stable-diffusion-part4/))
-- ### Autoencoder
-- ### U-Net
-- ### Pretrained Encoder
+- ### Conditioning 
+- ### Classifier-Free Guidance
 
 ---
 
