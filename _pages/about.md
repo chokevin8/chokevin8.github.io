@@ -2,18 +2,7 @@
 layout: about
 title: About Me
 permalink: /
-subtitle: Graduate Student Researcher at Johns Hopkins Whiting School of Engineering. An aspiring DL scientist in the field of biology and medicine.*
-
-[//]: # (profile:)
-
-[//]: # (  align: right)
-
-[//]: # (  address: >)
-
-[//]: # (    <p> US Address: 3700 N Charles St, Baltimore, MD 21218 </p>)
-
-[//]: # (    <p> Korea Address: Banpo-daero 275, Seocho-gu, Seoul, South Korea </p>)
-
+subtitle: *'Graduate Student Researcher at Johns Hopkins Whiting School of Engineering. An aspiring DL scientist in the field of biology and medicine.'*
 
 news: false  # includes a list of news items
 selected_papers: false # includes a list of papers marked as "selected={true}"
