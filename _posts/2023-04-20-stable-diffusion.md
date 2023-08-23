@@ -136,15 +136,14 @@ Inception Score (IS) and Frechet Inception Distance (FID).
 
 <br>
 <img src = "/assets/images/gan_meme.jpeg" width = "300" height = "450" class = "center">
+<figcaption>Assuming the GANs are well-trained, this meme above pretty much explains the life of a discriminator. How hard it must be!</figcaption>
 <br>
-
-Assuming the GANs are well-trained, this meme above pretty much explains the life of a discriminator. How hard it must be!
-
----
 
 While the drawbacks of GANs listed above do have their own remedies, they may still not work, or even if they do work, they may require a lot of time and effort- which may not be worth it.
 However, stable diffusion hasn't become the SOTA generative model just because of the drawbacks of GANs, they have their own advantages as well! The paper itself will be detailed in
 the next part (part 2) now. 
+
+---
 
 *Image credits to:*
 -[Discriminative Model vs Generative Model](https://developers.google.com/machine-learning/gan/generative)
