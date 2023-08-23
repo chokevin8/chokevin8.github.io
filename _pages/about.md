@@ -2,7 +2,7 @@
 layout: about
 title: About Me
 permalink: /
-subtitle: <a href='#'>Graduate Student Researcher at Johns Hopkins Whiting School of Engineering</a>.
+subtitle: Graduate Student Researcher at Johns Hopkins Whiting School of Engineering. An aspiring DL scientist in the field of biology and medicine.
 
 [//]: # (profile:)
 
