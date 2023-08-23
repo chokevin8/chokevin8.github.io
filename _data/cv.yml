@@ -16,10 +16,16 @@
     - title: Master of Science (MS)
       institution: Johns Hopkins University
       year: Early 2024
-
+      description:
+        - Major in Chemical & Biomolecular Engineering
+        - 'GPA: 3.96/4.0'
     - title: Bachelor of Science (BS)
       institution: Johns Hopkins University
       year: 2022
+      description:
+        - Major in Chemical & Biomolecular Engineering
+        - Minor in Applied Mathematics & Statistics
+        - 'GPA: 3.8/4.0'
 
 #
 #- title: Experience
