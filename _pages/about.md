@@ -14,7 +14,7 @@ such as RNA-Seq data or H&E images, to study problems in the field of biology an
 <br>
 I received a bachelor's degree of science (BS) in Chemical and Biomolecular Engineering from Johns Hopkins University. Currently, I'm pursuing a master's degree of science in engineering in Chemical and Biomolecular Engineering at the Johns Hopkins University. I'm currently pursuing research under
 the guidance of Dr. Denis Wirtz in the [Wirtz Lab](https://wirtzlab.johnshopkins.edu/). My personal research is about utilizing deep learning image segmentation model(s) in H&E images to find new digital biomarkers in aging. Please refer to my [CV](/cv/) here for more
-information, and for details about my projects, please refer to my projects page 
+information, and for details about my projects, please refer to my [projects page](/projects/) as well.
 <br>
 <br>
 Outside of work, I'm a longtime football (or soccer) fan, an avid weightlifter, and an online gamer.
