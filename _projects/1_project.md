@@ -1,13 +1,13 @@
 ---
 layout: page
 title: 2/3D Semantic Segmentation of Skin H&E Tissue Images
-description: Segmentation of Skin H&E Tissue Images to Analyze Novel Cellular Biomarkers of Aging
+description: <i>Segmentation of Skin H&E Tissue Images to Analyze Novel Cellular Biomarkers of Aging</i>
 img: assets/img/h&e_thumbnail.PNG
 importance: 1
 category: research
 ---
 
-# **Table of Contents:**
+### **Table of Contents:**
 
 - ### [Motivation](#motivation)
 - ### [Background](#background)
@@ -17,14 +17,14 @@ category: research
 ---
 
 <a id="motivation"></a>
-## ***Motivation***
+### ***Motivation***
 
 test
 
 ---
 
 <a id="background"></a>
-## ***Background***
+### ***Background***
 
 test
 
