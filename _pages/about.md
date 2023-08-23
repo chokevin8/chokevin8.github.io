@@ -2,7 +2,7 @@
 layout: about
 title: About Me
 permalink: /
-subtitle: <i>'Graduate Student Researcher at Johns Hopkins Whiting School of Engineering. An aspiring DL scientist in the field of biology and medicine.'</i>
+subtitle: <i>Graduate Student Researcher at Johns Hopkins Whiting School of Engineering. An aspiring DL scientist in the field of biology and medicine.</i>
 
 news: false  # includes a list of news items
 selected_papers: false # includes a list of papers marked as "selected={true}"
@@ -19,7 +19,6 @@ information, and for details about my projects, please refer to my projects page
 <br>
 Outside of work, I'm a longtime football (or soccer) fan, an avid weightlifter, and an online gamer.
 You can reach me by <a href="mailto:wonjunecho8@gmail.com">emailing</a> me or messaging me on LinkedIn. Now feel free to look at my [personal blog](/blog/) on DL/AI topics or anything else in the submenu, thanks for visiting!
-
 
 <!-- Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
 -->
