@@ -1,7 +1,7 @@
 ---
 layout: page
 title: {Gene Delivery Using Lipid Nanoparticle-based Immunoengineering Approach}
-description: Developing targeted mRNA/pDNA vaccines for cancer/malaria
+description: Developing Targeted mRNA/pDNA Vaccines for Cancer/Malaria Prevention and Protection
 img: assets/img/3.jpg
 importance: 2
 category: work
