@@ -191,6 +191,7 @@ $$ x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}\epsilon $$
 $$ \mathbf{ \text{Therefore,} \quad q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha}_t}x_0,\Sigma_t = (1-\hat{\alpha}_t)I)} \quad (5)$$
 </p>
 *Note that above simplification is possible since the variance of two merged Gaussians is simply the sum of the two variances.*
+
 To summarize the forward diffusion process, we can think of this as the encoder (remember encoder performs forward diffusion process to map pixel space to latent space)
 Each time step or each encoder transition is denoted as $$q(x_t|x_{t-1})$$ which is from a fixed parameter $$\mathcal{N}(x_t,\sqrt{\alpha_t}x_{t-1},(1-\alpha_t)I)$$. Note that like VAE encoder,
 the encoder distribution for the forward diffusion process is also modeled as multivariate Gaussian. However, in VAEs, we learn the mean and variance parameters, while forward diffusion
@@ -260,7 +261,7 @@ Examining $$\sum_{t=2}^{T} \log(\frac{q(x_t|x_0)}{q(x_{t-1}|x_0)})$$, for any $$
 <br>
 Performing all of these substitutions to equation #9 gives equation #10:
 <p>
-$$- \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \sum_{t=2}^{T} \log(\frac{q(x_{t-1}|x_t,x_0)}{p_{\theta}(x_{t-1}|x_t)}) + \log(\frac{q(x_t|x_0}{q(x_1|x_0}) + log(\frac{q(x_1|x_0)}{p_{\theta}(x_0|x_1)}) \quad (10)$$ 
+$$- \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \sum_{t=2}^{T} \log(\frac{q(x_{t-1}|x_t,x_0)}{p_{\theta}(x_{t-1}|x_t)}) + \log(\frac{q(x_t|x_0)}{q(x_1|x_0)}) + log(\frac{q(x_1|x_0)}{p_{\theta}(x_0|x_1)}) \quad (10)$$ 
 </p>
 
 Now take the last two terms of the RHS in equation #10 above and further simplify by expanding the log:
@@ -314,10 +315,24 @@ Let's first look at the training algorithm:
 5. Take gradient descent step on the previous training objective $$L_{LDM} = ||\epsilon - \epsilon_{\theta}(x_t,t)||^2 $$ with respect to $$\theta$$, which is the 
 parameters of the weights and biases of the decoder.
  
-Note that for sampling, we only need the trained decoder from above. Therefore, we sample latent noise $$x_T from prior p(x_T), which is $$\epsilon \sim \mathcal{N}(0, I)$$
-and then run the series of $$T$$ equally weighted autoencoders as mentioned before in a Markovian style (sample from x_{t-1}). However, the sampling process using
+Note that for sampling, we only need the trained decoder from above. Therefore, we sample latent noise $$x_T from prior p(x_T)$$, which is $$\epsilon \sim \mathcal{N}(0, I)$$
+and then run the series of $$T$$ equally weighted autoencoders as mentioned before in a Markovian style (sample from $$x_{t-1}$$). However, the sampling process using
 Denoising Diffusion Probabilistic Model (DDPM) uses a Markovian sampling process while an improved method called Denoising Diffusion Implicit Model (DDIM) uses a non-Markovian
-sampling process that makes the process much quicker. The authors of LDM therefore use DDIM over DDPM. The main advantages of DDIM over DDPM are:
+sampling process that makes the process much quicker. Therefore, DDIM uses $$S$$ steps instead of $$T$$ where $$ S<T $$, and the authors of LDM therefore use DDIM over DDPM.
+
+To derive the DDIM sampling process, we utilize the *reparametrization trick*, which we actually applied in equation #5 above. The reparametrization trick is used whenever we sample from
+a distribution (Gaussian in our case) that is not directly differentiable. For our case, the mean and the variance of the distribution are both dependent on the model
+parameters, which is learned through SGD (as shown above). The issue is that because sampling from the Gaussian distribution is stochastic, we cannot compute the gradient anymore to update
+the mean and variance parameters. So, we introduce the auxiliary random variable $$\epsilon$$ that is deterministic since it is sampled from a fixed standard Gaussian distribution ($$\epsilon \sim \mathcal{N}(0, 1) $$),
+which allows SGD to be possible since $$\epsilon$$ is not dependent on the model parameters. Therefore, the reparametrization trick $$ x = \mu + \sigma * \epsilon$$ works by initially computing the mean and standard deviation using current weights given input data,
+then drawing deterministic random variable $$\epsilon$$ to obtain the desired sample $$x$$. Then, loss can be computed with respect to mean and variance, and they can be backpropagated via SGD.
+
+Now, the previous reparametrization trick was used to allow SGD, but this time we can also use the reparametrization trick to essentially alter our sampling process $$q(x_{t-1}|x_t,x_0)$$ to be parametrized by another random variable,
+a desired standard deviation $$\epsilon_t$$. The reparametrization is shown below:
+
+
+
+The main advantages of DDIM over DDPM are:
 
 1. Consistency: DDIMs are consistent, meaning that if we initialize the same latent variable $$x_T$$ via same random seed during sampling, the samples 
 2. 
