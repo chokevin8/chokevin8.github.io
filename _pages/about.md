@@ -1,6 +1,6 @@
 ---
 layout: about
-title: about
+title: About Me
 permalink: /
 subtitle: <a href='#'>Graduate Student Researcher at Johns Hopkins Whiting School of Engineering</a>.
 
