@@ -2,7 +2,7 @@
 layout: page
 title: My Projects
 permalink: /projects/
-description: Collection of my projects and its descriptions.
+description: <i>Collection of my projects and its descriptions. Click to find more about each project!</i>
 nav: true
 nav_order: 3
 display_categories: [research, internship, fun]
