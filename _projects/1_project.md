@@ -89,14 +89,18 @@ slide to obtain a z-stack of 2D WSIs. Then, we undergo image registration to reg
 a train-val-test split. 
 
 We train two different models: 1) Nuclei segmentation model using [HoVer-Net](https://arxiv.org/pdf/1812.06499v5.pdf) and 2) Tissue segmentation model
-using [DeepLabV3+](https://arxiv.org/pdf/1802.02611.pdf). In order to train these models, we manually annotate the nuclei or the twelve different tissue
-classes in the training and validation images. 
+using [DeepLabV3+](https://arxiv.org/pdf/1802.02611.pdf). In order to train these supervised models, we manually annotate the nuclei or the twelve different tissue
+classes in the training and validation images.
+
+Then, after confirming the model performance on the test dataset, we use a post-processing pipeline to extract different meaningful 2D features. Some example features extracted are 
+individual tissue compositions and its area, distance between different cells and tissues (ex. distance between fibroblast and sweat glands), and more. A total of 1090 2D features were 
+extracted.
 
 ---
 
 ### ***Results & Discussion:***
 
-Results and Discussion will be updated after the conclusion of my research. 
+Results and Discussion will be updated after the conclusion of my research. Currently, 2D results are being finalized and 3D version of the same pipeline is being developed.
 
 ---
 
