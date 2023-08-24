@@ -1,8 +1,8 @@
 ---
 layout: page
 title: HuBMAP Kidney Blood Vessel Segmentation Challenge (Kaggle)
-description: 
-img: assets/img/7.jpg
+description: Participation in Kaggle Competition to Sharpen Image Segmentation Technique
+img: assets/img/kaggle-thumbnail.tif
 importance: 5
 category: fun
 ---
