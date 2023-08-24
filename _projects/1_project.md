@@ -75,6 +75,16 @@ to shed more light in the biological aging process.*
 ---
 
 ### ***Methods:***
+<div class="row">
+    <div class="col-sm">
+        {% include figure.html path="assets/img/1_project/methods.png" title="Methods" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    Simplified diagram showing overall methods of this project.
+</div>
+
+As seen in above diagram,
 
 
 ---
@@ -86,4 +96,6 @@ Results and Discussion will be updated after the conclusion of my research.
 ---
 
 *Image credits to:*
+- [95 Year Old Man](https://www.gq.com/story/how-does-a-95-year-old-runner-stay-in-shape)
+- [Tom Brady](https://en.wikipedia.org/wiki/Tom_Brady)
 - [Young and Old Skin Comparison Diagram](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6315602/)
