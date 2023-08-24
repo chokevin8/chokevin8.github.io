@@ -99,8 +99,10 @@ extracted.
 ---
 
 ### ***Results & Discussion:***
-
-Results and Discussion will be updated after the conclusion of my research. Currently, 2D results are being finalized and 3D version of the same pipeline is being developed.
+Out of the 1090 2D features that were extracted, through statistical testing with univariate/multivariate analyses and correlation coefficient calculation,
+features that were most predictive and correlated with age were selected. What's more, gender differences and body part differences (skin
+from different body parts) were also analyzed. Currently, 2D results are being finalized and a 3D version of the same pipeline is being developed.
+Results and Discussion will be further updated after the conclusion of my research. 
 
 ---
 

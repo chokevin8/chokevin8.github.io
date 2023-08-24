@@ -119,17 +119,17 @@ data set. But how do we know if we're done training? This is one of GAN's bigges
 random feedback, we know we've done well. This would mean that the generator is generating fake images that are so similar to the real images that the
 discriminator cannot distinguish them. Now let's touch upon the critical disadvantages that GANs have due to their intrinsic architecture and training approach.
 <br>
-<li> 1. GANs are a type of implicit generative model, meaning it implicitly learns the joint probability distribution (probability density function is intractable), 
+1. GANs are a type of implicit generative model, meaning it implicitly learns the joint probability distribution (probability density function is intractable), 
 meaning that any modification or inversion of the model is difficult. (Explicit generative 
 models like the flow-based and autoregressive models have tractable density functions.) This makes training unstable, as we cannot rely on the actual loss function
-of the GAN during the training process. </li>
-<li> 2. Furthermore, because two separate networks must be trained, GANs suffer from high training time and will sometimes fail to converge if GAN continues 
+of the GAN during the training process. 
+2. Furthermore, because two separate networks must be trained, GANs suffer from high training time and will sometimes fail to converge if GAN continues 
 training past the point when the discriminator is giving completely random feedback. In this case, the generator starts to train on junk feedback, and the generated 
 image will suddenly start to degrade in quality. 
-<li> 3. Also, if the generator happens to create a very plausible output, the generator in turn would learn to only produce that type of one output. If the discriminator then gets stuck in 
-a local minima and it can't find itself out, the generator and the entire model only generates a small subset of output types. This is a common problem in GANs called mode collapse. </li>
-<li> 4. Lastly, we can have vanishing gradients when the discriminator performs very well, as there would be little loss suffered from the generator and hence almost no weight 
-updated for the generator model through backpropagation. </li>
+3. Also, if the generator happens to create a very plausible output, the generator in turn would learn to only produce that type of one output. If the discriminator then gets stuck in 
+a local minima and it can't find itself out, the generator and the entire model only generates a small subset of output types. This is a common problem in GANs called mode collapse. 
+4. Lastly, we can have vanishing gradients when the discriminator performs very well, as there would be little loss suffered from the generator and hence almost no weight 
+updated for the generator model through backpropagation.
 
 <p>
 To address these issues during training, when training and evaluating GANs, researchers generally use both qualitative and quantitative metrics during the training and evaluation 
