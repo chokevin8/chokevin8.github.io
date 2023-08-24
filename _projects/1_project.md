@@ -7,25 +7,23 @@ importance: 1
 category: research
 ---
 
-### **Table of Contents:**
+### ***Motivation:***
 
-- ### [Motivation](#motivation)
-- ### [Background](#background)
-- ### [Method](#method)
-- ### [Results & Discussion](#results-discussion)
+
 
 ---
 
-<a id="motivation"></a>
-### ***Motivation***
+### ***Background:***
 
-test
 
 ---
 
-<a id="background"></a>
-### ***Background***
+### ***Methods:***
 
-test
+
+---
+
+### ***Results & Discussion:***
+
 
 ---

@@ -2,7 +2,7 @@
 layout: page
 title: My Projects
 permalink: /projects/
-description: <i>Collection of my projects and its descriptions. Click to find more about each project!</i>
+description: <i>Collection of my projects and its descriptions. Divided projects into 1) Academic Research, 2) Internship, and 3) Side (Fun) Projects. Click to find more about each project! (Currently work in progress)</i>
 nav: true
 nav_order: 3
 display_categories: [research, internship, fun]

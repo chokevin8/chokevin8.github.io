@@ -8,8 +8,9 @@ news: false  # includes a list of news items
 selected_papers: false # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
-<b> Hi everyone, </b> my name is Kevin (Won June) Cho, and I'm an aspiring AI/DL researcher. I enjoy using various biological and medical data, 
-such as RNA-Seq data or H&E images, to study problems in the field of biology and medicine, such as cancer diagnosis/genomics. 
+<b> Hi everyone, </b> my name is Kevin (Won June) Cho, and I'm an aspiring AI/DL researcher. I've used biological and medical data, 
+such as H&E images and RNA-Seq data to study problems in the field of biology and medicine, such as cancer diagnosis/genomics. I'm always striving
+to 
 <br>
 <br>
 I received a bachelor's degree of science (BS) in Chemical and Biomolecular Engineering from Johns Hopkins University. Currently, I'm pursuing a master's degree of science in engineering in Chemical and Biomolecular Engineering at the Johns Hopkins University. I'm currently pursuing research under
