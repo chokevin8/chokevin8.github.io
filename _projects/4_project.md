@@ -7,13 +7,7 @@ importance: 4
 category: internship
 ---
 
-### ***Motivation:***
-
-
-
----
-
-### ***Background:***
+### ***Motivation & Background:***
 
 
 ---

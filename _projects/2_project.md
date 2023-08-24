@@ -7,13 +7,8 @@ importance: 2
 category: research
 ---
 
-### ***Motivation:***
+### ***Motivation & Background:***
 
-
-
----
-
-### ***Background:***
 
 
 ---

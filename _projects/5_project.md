@@ -7,13 +7,7 @@ importance: 5
 category: fun
 ---
 
-### ***Motivation:***
-
-
-
----
-
-### ***Background:***
+### ***Motivation & Background:***
 
 
 ---

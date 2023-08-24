@@ -7,7 +7,7 @@ importance: 1
 category: research
 ---
 
-### **Motivation and Background:**
+### **Motivation & Background:**
 Let's play a simple guessing game: Look at the pictures below. Can you guess who is older?
 
 <div class="row">
@@ -69,8 +69,8 @@ and experiences increased inflammation and poor temperature regulation. Look at 
 
 As seen in the above diagram, we already know the major differences between young and old skin. However, there has been lack of research done in the biomarkers of aging
 at a ***cellular level***. [Previous Research](https://www.nature.com/articles/s41551-017-0093) in our lab has revealed biomolecular and biophysical biomarkers at the cellular level
-by analyzing primary dermal fibroblasts. The purpose of this study is to extend the results of this study in finding *specific morphological biomarkers correlated with aging by utilizing skin H&E images
-to shed more light in the biological aging process.*
+by analyzing primary dermal fibroblasts. The purpose of this study is to extend the results of this study in finding ***specific morphological biomarkers correlated with aging by utilizing skin H&E images
+to shed more light in the biological aging process.***
 
 ---
 
