@@ -128,7 +128,7 @@ image will suddenly start to degrade in quality.
 <li> 3. Also, if the generator happens to create a very plausible output, the generator in turn would learn to only produce that type of one output. If the discriminator then gets stuck in 
 a local minima and it can't find itself out, the generator and the entire model only generates a small subset of output types. This is a common problem in GANs called mode collapse. </li>
 <li> 4. Lastly, we can have vanishing gradients when the discriminator performs very well, as there would be little loss suffered from the generator and hence almost no weight 
-updated for the generator model through backpropagation. 
+updated for the generator model through backpropagation. </li>
 
 To address these issues during training, when training and evaluating GANs, researchers generally use both qualitative and quantitative metrics during the training and evaluation 
 process. Qualitative metrics are essentially human judges rating the quality of the generated images compared to the ground-truth images. Quantitative metrics that are often used, are 
@@ -139,11 +139,13 @@ Inception Score (IS) and Frechet Inception Distance (FID).
 <figcaption>Assuming the GANs are well-trained, this meme above pretty much explains the life of a discriminator. How hard it must be!</figcaption>
 <br>
 
+---
+
 While the drawbacks of GANs listed above do have their own remedies, they may still not work, or even if they do work, they may require a lot of time and effort- which may not be worth it.
 However, stable diffusion hasn't become the SOTA generative model just because of the drawbacks of GANs, they have their own advantages as well! The paper itself will be detailed in
 the next part (part 2) now.
 
----
-
 *Image credits to:*
-- [95 Year Old Man](https://www.gq.com/story/how-does-a-95-year-old-runner-stay-in-shape)
+- [Discriminative Model vs Generative Model](https://developers.google.com/machine-learning/gan/generative)
+- [GAN Architecture](https://developers.google.com/machine-learning/gan/generator)
+- [GAN Discriminator Meme](https://medium.com/@harikrishnareddy19995/gans-with-memes-4233952ba151)
