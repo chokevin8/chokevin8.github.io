@@ -1,7 +1,7 @@
 ---
 layout: page
-title: 2/3D Semantic Segmentation of Skin H&E Tissue Images (2023 ~ Present)
-description: <i>Segmentation of Skin H&E Tissue Images to Analyze Novel Cellular Biomarkers of Aging</i>
+title: 2/3D Semantic Segmentation of Skin H&E Tissue Images 
+description: <i>Segmentation of Skin H&E Tissue Images to Analyze Novel Cellular Biomarkers of Aging</i> (2023 ~ Present)
 img: assets/img/1_project/h&e_thumbnail.PNG
 importance: 1
 category: research
@@ -76,7 +76,7 @@ to shed more light in the biological aging process.***
 
 ---
 
-### ***Methods:***
+### **Methods:**
 <div class="row">
     <div class="col-sm">
         {% include figure.html path="assets/img/1_project/methods.png" title="Methods" class="img-fluid rounded z-depth-1" %}
@@ -100,7 +100,7 @@ extracted.
 
 ---
 
-### ***Results & Discussion:***
+### **Results & Discussion:**
 Out of the 1090 2D features that were extracted, through statistical testing with univariate/multivariate analyses and correlation coefficient calculations,
 features that were most predictive and correlated with age were selected. What's more, gender differences and body part differences (skin
 from different body parts) were also analyzed. Currently, 2D results are being finalized and a 3D version of the same pipeline is being developed.
@@ -108,9 +108,25 @@ Results and Discussion will be further updated after the conclusion of my resear
 
 ---
 
-### ***Personal Motivation:***
+### **Personal Motivation:**
+<p>
+This is a fascinating project to me because it necessitates both biology and deep-learning background. I was originally planning to continue my research about
+[gene delivery for immunoengineering](/_projects/2_project.md), but my interests in computational work grew more as I lost motivation to work in the wet-lab.
+Therefore, this is why I made the decision to switch labs. While I wanted to continue my goal of cancer research, I figured that while this project is not directly 
+related to cancer, the pipeline could easily be transferrable to cancer (just switch the H&E images to cancer and find ways of developing digital biomarkers for cancer diagnosis instead).
+Therefore, since August of 2022, I've been working on this project.
+</p>
 
+<p>
+Since I didn't have any significant prior knowledge in the field of dermatology, histopathology, or deep learning before starting this as my Master's Thesis project, this is a fun but challenging project for me. 
+To make up for my lack of knowledge, I always strive to do more background article reading to learn about the computational pathology space. There are a plethora of different subfields within computational pathology
+that interest me- for example, we can utilize various models like CNNs or ViTs for image registration, segmentation, and even translation/generation for not only H&E stained images, but also for different types of stains frequently 
+utilized such as IHC stains. In addition, since I'm not a computer science major, I also try to continue to learn more about Python/PyTorch and probabilistic machine/deep learning everyday by taking relevant
+courses in school or reading online articles/textbooks. 
+</p>
 
+Therefore, I believe that this Master's research will be an important turning point of my career in truly developing myself as an interdisciplinary scientist that is able to utilize biology/medical data and extract
+meaningful features out of them. 
 
 ---
 

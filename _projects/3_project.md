@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Evaluation and Improvement of Gene Signatures Using Single-cell RNA Sequencing (scRNA) Dataset in Lung Cancer (2022)
-description: Deconvolution of In-House Gene Signature Usage for Better Utilization of Gene Signatures.
+title: Evaluation and Improvement of Gene Signatures Using Single-cell RNA Sequencing (scRNA) Dataset in Lung Cancer 
+description: Deconvolution of In-House Gene Signature Usage for Better Utilization of Gene Signatures (2022)
 img: assets/img/3_project/novartis-intern_thumbnail.png
 importance: 3
 category: internship
@@ -9,22 +9,22 @@ category: internship
 
 ---
 
-### ***Project Motivation & Background:***
+### **Project Motivation & Background:**
 
 
 ---
 
-### ***Methods:***
+### **Methods:**
 
 
 ---
 
-### ***Results & Discussion:***
+### **Results & Discussion:**
 
 
 ---
 
-### ***Personal Motivation:***
+### **Personal Motivation:**
 
 
 
