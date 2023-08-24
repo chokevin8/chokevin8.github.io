@@ -84,8 +84,13 @@ to shed more light in the biological aging process.***
     Simplified diagram showing overall methods of this project.
 </div>
 
-As seen in above diagram,
+As seen in above diagram, we first obtain skin tissue samples, cut them into serial sections, apply H&E stain, and scan and digitize each
+slide to obtain a z-stack of 2D WSIs. Then, we undergo image registration to registrate all of the z-stack together and divide the images into
+a train-val-test split. 
 
+We train two different models: 1) Nuclei segmentation model using [HoVer-Net](https://arxiv.org/pdf/1812.06499v5.pdf) and 2) Tissue segmentation model
+using [DeepLabV3+](https://arxiv.org/pdf/1802.02611.pdf). In order to train these models, we manually annotate the nuclei or the twelve different tissue
+classes in the training and validation images. 
 
 ---
 

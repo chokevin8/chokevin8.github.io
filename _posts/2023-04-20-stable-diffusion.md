@@ -143,4 +143,7 @@ While the drawbacks of GANs listed above do have their own remedies, they may st
 However, stable diffusion hasn't become the SOTA generative model just because of the drawbacks of GANs, they have their own advantages as well! The paper itself will be detailed in
 the next part (part 2) now.
 
+---
+
 *Image credits to:*
+- [95 Year Old Man](https://www.gq.com/story/how-does-a-95-year-old-runner-stay-in-shape)
