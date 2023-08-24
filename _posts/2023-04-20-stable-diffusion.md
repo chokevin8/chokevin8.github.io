@@ -145,8 +145,6 @@ However, stable diffusion hasn't become the SOTA generative model just because o
 the next part (part 2) now.
 </p>
 
----
-
 *Image credits to:*
 
 - [Discriminative Model vs Generative Model](https://developers.google.com/machine-learning/gan/generative)
