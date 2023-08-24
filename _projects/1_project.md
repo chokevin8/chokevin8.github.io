@@ -52,10 +52,11 @@ pictured above, they actually are tissue samples from patients who are 44-year o
 it's much harder to determine a person's age by just looking at their skin H&E tissue sample.* But someone may ask, ***Why do we want to do this? Why study aging, 
 specifically in skin H&E tissue samples?***
 
-Well, it's a well-known fact that old age is correlated with virtually every disease that are the leading causes of death- heart disease, cancer, stroke, Alzheimer's, and recently,
-COVID-19. And as we've seen above, the easiest way of telling the approximate age of someone is to look at their face, or *skin*. However, like any other organs, skin function also
-deteriorates with age. For example, as we age, the skin loses its structural integrity and self-renewal capabilities, and experiences increased
-inflammation and poor temperature regulation. Look at the below diagram:
+It's a well-known fact that old age is correlated with virtually every disease that are the leading causes of death- heart disease, cancer, stroke, Alzheimer's, and recently,
+COVID-19. To help facilitate possible interventions to prevent these chronic age-related diseases, it is critical to develop methods to accurately calculate one's biological age.
+And as we've seen above, the easiest way of telling the approximate age of someone is to look at their face, or *skin*. Therefore, this study aims to find features related to aging
+in the skin, and like any other organs, skin function also  deteriorates with age. For example, as we age, the skin loses its structural integrity and self-renewal capabilities, 
+and experiences increased inflammation and poor temperature regulation. Look at the below diagram:
 
 <div class="row">
     <div class="col-sm">
@@ -66,7 +67,10 @@ inflammation and poor temperature regulation. Look at the below diagram:
     Diagram comparing major differences between young and old skin. Diagram from <i>Orioli et al (Cells 2018) Epigenetic Regulation of Skin Cells in Natural Aging and Premature Aging Diseases</i>.
 </div>
 
-As seen in the above diagram, we already know the major differences
+As seen in the above diagram, we already know the major differences between young and old skin. However, there has been lack of research done in the biomarkers of aging
+at a ***cellular level***. [Previous Research](https://www.nature.com/articles/s41551-017-0093) in our lab has revealed biomolecular and biophysical biomarkers at the cellular level
+by analyzing primary dermal fibroblasts. The purpose of this study is to extend the results of this study in finding *specific morphological biomarkers correlated with aging by utilizing skin H&E images
+to shed more light in the biological aging process.*
 
 ---
 

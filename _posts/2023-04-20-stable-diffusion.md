@@ -148,6 +148,9 @@ the next part (part 2) now.
 ---
 
 *Image credits to:*
+
 - [Discriminative Model vs Generative Model](https://developers.google.com/machine-learning/gan/generative)
-- [GAN Architecture](https://developers.google.com/machine-learning/gan/generator)
-- [GAN Discriminator Meme](https://medium.com/@harikrishnareddy19995/gans-with-memes-4233952ba151)
+
+[//]: # (- [GAN Architecture]&#40;https://developers.google.com/machine-learning/gan/generator&#41;)
+
+[//]: # (- [GAN Discriminator Meme]&#40;https://medium.com/@harikrishnareddy19995/gans-with-memes-4233952ba151&#41;)
