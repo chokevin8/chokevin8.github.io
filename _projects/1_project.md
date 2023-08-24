@@ -8,7 +8,7 @@ category: research
 ---
 
 ### **Motivation & Background:**
-Let's play a simple guessing game: Look at the pictures below. Can you guess who is older?
+**Let's play a simple guessing game: Look at the pictures below. Can you guess who is older?**
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
@@ -22,10 +22,10 @@ Let's play a simple guessing game: Look at the pictures below. Can you guess who
     On the left, we have a 95 year old man, and on the right, we have 44 year old Tom Brady. 
 </div>
 
-*Pretty obvious, right?* Obviously left man is older and right man (Tom Brady) is younger. 
+*Pretty obvious, right?* The man on the left is older and the man on the right (Tom Brady, if you didn't recognize him) is younger. 
 Now, assume we were able to receive the skin tissue samples of both men, cut them into serial sections, applied H&E stain to them, scanned/digitized them, 
-and then looked at one part of the whole slide images (WSI). Two pairs of pictures are shown below, and each man's H&E pictures are on the 
-left and the right. ***Can you answer the same question now?***
+and then looked at one part of the whole slide images (WSI). Two pairs of pictures at different magnifications (4x and 20x) are shown below, and each man's H&E image pairs 
+are either on the left or the right. ***Can you answer the same question now?***
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
@@ -44,11 +44,11 @@ left and the right. ***Can you answer the same question now?***
     </div>
 </div>
 <div class="caption">
-    Which tissue belongs to the 95-year old man? The one on the left or the right?
+    Which tissue belongs to the 95-year old man? The pair on the left or the right? 
 </div>
 
 The answer is: ***44-year old Tom Brady is on the left, and 95-year old man is on the right.*** While these tissues are not actually from the people
-pictured above, they actually are tissue samples from patients who are 44-year old and 95-year old. *The point is, compared to just looking at someone's face, 
+pictured above, they actually are tissue samples from patients who are 44 years old and 95 years old. *The point is, compared to just looking at someone's face, 
 it's much harder to determine a person's age by just looking at their skin H&E tissue sample.* But someone may ask, ***Why do we want to do this? Why study aging, 
 specifically in skin H&E tissue samples?***
 

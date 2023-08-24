@@ -113,6 +113,7 @@ which is a probability distribution (e.g. Gaussian) and generates the fake sampl
 generator for not being able to "trick" the discriminator. Likewise, the suffered loss is used for backpropagation to update the generator’s weights. 
 Note that the discriminator and generator are separately trained, meaning that when the generator is trained the weights of the discriminator is fixed. 
 </p>
+
 The ideal situation is that if this is done repeatedly, the generator would eventually be able to learn the entire joint probability distribution of the desired
 data set. But how do we know if we're done training? This is one of GAN's biggest drawbacks, but generally, if the discriminator is starting to give completely 
 random feedback, we know we've done well. This would mean that the generator is generating fake images that are so similar to the real images that the
@@ -144,6 +145,8 @@ Inception Score (IS) and Frechet Inception Distance (FID).
 While the drawbacks of GANs listed above do have their own remedies, they may still not work, or even if they do work, they may require a lot of time and effort- which may not be worth it.
 However, stable diffusion hasn't become the SOTA generative model just because of the drawbacks of GANs, they have their own advantages as well! The paper itself will be detailed in
 the next part (part 2) now.
+<br>
+<br>
 
 *Image credits to:*
 - [Discriminative Model vs Generative Model](https://developers.google.com/machine-learning/gan/generative)
