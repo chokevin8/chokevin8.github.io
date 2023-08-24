@@ -2,7 +2,7 @@
 layout: page
 title: 2/3D Semantic Segmentation of Skin H&E Tissue Images 
 description: Segmentation of Skin H&E Tissue Images to Analyze Novel Cellular Biomarkers of Aging
-new-description: <i>Master's Thesis Project (2023 ~ Present)</i>
+moredescription: <i>Master's Thesis Project (2023 ~ Present)</i>
 img: assets/img/1_project/h&e_thumbnail.PNG
 importance: 1
 category: research
