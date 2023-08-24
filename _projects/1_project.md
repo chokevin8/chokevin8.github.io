@@ -1,8 +1,7 @@
 ---
 layout: page
-title: 2/3D Semantic Segmentation of Skin H&E Tissue Images
+title: 2/3D Semantic Segmentation of Skin H&E Tissue Images (2023 ~ Present)
 description: <i>Segmentation of Skin H&E Tissue Images to Analyze Novel Cellular Biomarkers of Aging</i>
-date: 2023
 img: assets/img/1_project/h&e_thumbnail.PNG
 importance: 1
 category: research
