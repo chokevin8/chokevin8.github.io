@@ -131,9 +131,11 @@ a local minima and it can't find itself out, the generator and the entire model 
 <li> 4. Lastly, we can have vanishing gradients when the discriminator performs very well, as there would be little loss suffered from the generator and hence almost no weight 
 updated for the generator model through backpropagation. </li>
 
+<p>
 To address these issues during training, when training and evaluating GANs, researchers generally use both qualitative and quantitative metrics during the training and evaluation 
 process. Qualitative metrics are essentially human judges rating the quality of the generated images compared to the ground-truth images. Quantitative metrics that are often used, are 
 Inception Score (IS) and Frechet Inception Distance (FID). 
+</p>
 
 <br>
 <img src = "/assets/images/gan_meme.jpeg" width = "300" height = "450" class = "center">
@@ -142,11 +144,11 @@ Inception Score (IS) and Frechet Inception Distance (FID).
 
 ---
 
+<p>
 While the drawbacks of GANs listed above do have their own remedies, they may still not work, or even if they do work, they may require a lot of time and effort- which may not be worth it.
 However, stable diffusion hasn't become the SOTA generative model just because of the drawbacks of GANs, they have their own advantages as well! The paper itself will be detailed in
 the next part (part 2) now.
-<br>
-<br>
+</p>
 
 *Image credits to:*
 - [Discriminative Model vs Generative Model](https://developers.google.com/machine-learning/gan/generative)
