@@ -63,7 +63,7 @@ inflammation and poor temperature regulation. Look at the below diagram:
     </div>
 </div>
 <div class="caption">
-    Diagram comparing major differences between young and old skin. Diagram from *Orioli et al (Cells 2018) Epigenetic Regulation of Skin Cells in Natural Aging and Premature Aging Diseases*.
+    Diagram comparing major differences between young and old skin. Diagram from <i>Orioli et al (Cells 2018) Epigenetic Regulation of Skin Cells in Natural Aging and Premature Aging Diseases</i>.
 </div>
 
 As seen in the above diagram, we already know the major differences
@@ -77,7 +77,7 @@ As seen in the above diagram, we already know the major differences
 
 ### ***Results & Discussion:***
 
-Results and Discussion will be posted after the conclusion of my research. 
+Results and Discussion will be updated after the conclusion of my research. 
 
 ---
 
