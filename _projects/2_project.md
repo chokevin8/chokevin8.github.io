@@ -7,7 +7,9 @@ importance: 2
 category: research
 ---
 
-### ***Motivation & Background:***
+---
+
+### ***Project Motivation & Background:***
 
 
 
@@ -19,6 +21,12 @@ category: research
 ---
 
 ### ***Results & Discussion:***
+
+
+---
+
+### ***Personal Motivation:***
+
 
 
 ---

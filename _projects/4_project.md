@@ -7,7 +7,9 @@ importance: 4
 category: internship
 ---
 
-### ***Motivation & Background:***
+---
+
+### ***Project Motivation & Background:***
 
 
 ---
@@ -18,6 +20,12 @@ category: internship
 ---
 
 ### ***Results & Discussion:***
+
+
+---
+
+### ***Personal Motivation:***
+
 
 
 ---

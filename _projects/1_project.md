@@ -2,12 +2,15 @@
 layout: page
 title: 2/3D Semantic Segmentation of Skin H&E Tissue Images
 description: <i>Segmentation of Skin H&E Tissue Images to Analyze Novel Cellular Biomarkers of Aging</i>
+date: 2023
 img: assets/img/1_project/h&e_thumbnail.PNG
 importance: 1
 category: research
 ---
 
-### **Motivation & Background:**
+---
+
+### **Project Motivation & Background:**
 **Let's play a simple guessing game: Look at the pictures below. Can you guess who is older?**
 
 <div class="row">
@@ -89,7 +92,7 @@ slide to obtain a z-stack of 2D WSIs. Then, we undergo image registration to reg
 a train-val-test split. 
 
 We train two different models: 1) Nuclei segmentation model using [HoVer-Net](https://arxiv.org/pdf/1812.06499v5.pdf) and 2) Tissue segmentation model
-using [DeepLabV3+](https://arxiv.org/pdf/1802.02611.pdf). In order to train these supervised models, we manually annotate the nuclei or the twelve different tissue
+using [DeepLabV3+](https://arxiv.org/pdf/1802.02611.pdf). In order to train these supervised models, we manually annotated the nuclei or the twelve different tissue
 classes in the training and validation images.
 
 Then, after confirming the model performance on the test dataset, we use a post-processing pipeline to extract different meaningful 2D features. Some example features extracted are 
@@ -99,10 +102,16 @@ extracted.
 ---
 
 ### ***Results & Discussion:***
-Out of the 1090 2D features that were extracted, through statistical testing with univariate/multivariate analyses and correlation coefficient calculation,
+Out of the 1090 2D features that were extracted, through statistical testing with univariate/multivariate analyses and correlation coefficient calculations,
 features that were most predictive and correlated with age were selected. What's more, gender differences and body part differences (skin
 from different body parts) were also analyzed. Currently, 2D results are being finalized and a 3D version of the same pipeline is being developed.
 Results and Discussion will be further updated after the conclusion of my research. 
+
+---
+
+### ***Personal Motivation:***
+
+
 
 ---
 

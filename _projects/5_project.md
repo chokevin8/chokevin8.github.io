@@ -7,7 +7,9 @@ importance: 5
 category: fun
 ---
 
-### ***Motivation & Background:***
+---
+
+### ***Project Motivation & Background:***
 
 
 ---
@@ -18,6 +20,12 @@ category: fun
 ---
 
 ### ***Results & Discussion:***
+
+
+---
+
+### ***Personal Motivation:***
+
 
 
 ---
