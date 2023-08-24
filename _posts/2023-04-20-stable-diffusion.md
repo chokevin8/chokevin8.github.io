@@ -37,7 +37,7 @@ about stable diffusion and its predecessor, GANs. The next two parts as seen in 
 - ### Model Objective
 - ### Training and Inference
 
-### [Stable Diffusion In Numbers Continued (Part 4)](/blog/2023/stable-diffusion-part4/))
+### [Stable Diffusion In Numbers Continued (To Be Continued...)](/blog/2023/stable-diffusion-part4/))
 - ### Conditioning 
 - ### Classifier-Free Guidance
 
@@ -139,9 +139,12 @@ Inception Score (IS) and Frechet Inception Distance (FID).
 <figcaption>Assuming the GANs are well-trained, this meme above pretty much explains the life of a discriminator. How hard it must be!</figcaption>
 <br>
 
+<p>
 While the drawbacks of GANs listed above do have their own remedies, they may still not work, or even if they do work, they may require a lot of time and effort- which may not be worth it.
 However, stable diffusion hasn't become the SOTA generative model just because of the drawbacks of GANs, they have their own advantages as well! The paper itself will be detailed in
 the next part (part 2) now.
+</p>
+<br>
 
 *Image credits to:*
 - [Discriminative Model vs Generative Model](https://developers.google.com/machine-learning/gan/generative)
