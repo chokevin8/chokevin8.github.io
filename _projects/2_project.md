@@ -24,11 +24,12 @@ targeted by the immune system for degradation and clearance and therefore will c
 
 For the malaria pDNA vaccine project, the proposed route of administration was oral, or through the mouth. This makes sense, as it is a wide known fact that oral drugs experience a
 "first pass effect", where the orally taken drugs go through the intestines and end up in the liver. This is why drugs that do not target cells in the liver cannot be taken
-orally as it is often times metabolized in the liver before it even has a chance to circulate in the bloodstream. What's more, the low pH environment of the stomach due to
+orally as it is often times metabolized in the liver before it even has a chance to circulate in the bloodstream. In addition, the low pH environment of the stomach due to
 gastric acid also necessitates a delivery mechanism such as LNPs. However, because the target of the pDNA malaria vaccine is hepatocytes, an oral administration was fitting. 
 
 For the cancer mRNA vaccine project, the proposed method of administration was intramuscular, or through the muscle tissue. This is the same route of administration as the COVID-19 vaccines,
-as it is most effective to elicit a potent immune response. Below is the entire delivery scheme of the mRNA LNPs:
+as it is most effective to elicit a potent immune response. The cancer vaccine can either be prophylactic or therapeutic, but either way, it has to be able to deliver the mRNA that codes for the 
+specific tumor-specific antigens (TSA) that the T cells can recognize and kill the tumor cells. In order to ensure this happens effectively, below is the proposed entire uptake and trafficking scheme of the mRNA LNPs:
 
 <div class="row">
     <div class="col-sm">
@@ -36,9 +37,12 @@ as it is most effective to elicit a potent immune response. Below is the entire 
     </div>
 </div>
 <div class="caption">
-    Scheme showing the ....
+    Proposed scheme showing the uptake and trafficking of mRNA LNPs.
 </div>
 
+As we see above, mRNA LNPs are designed to enter the target antigen-presenting cells (APCs), which in our case are dendritic cells (DCs). They enter the cells via endocytosis, and it is important
+to design the LNPs in a way so they initiate *endosomal escape*, or else they are degraded by the lysosomes. After escaping the endosome by breaking the endosome, the mRNA is released in to the cytoplasm 
+of the DCs, which initiates translation of the desired antigens. Now
 
 Let's also briefly look at some of the background of LNPs. First, LNPs are often divided into four components: 
 
