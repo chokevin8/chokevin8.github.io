@@ -30,6 +30,14 @@ gastric acid also necessitates a delivery mechanism such as LNPs. However, becau
 For the cancer mRNA vaccine project, the proposed method of administration was intramuscular, or through the muscle tissue. This is the same route of administration as the COVID-19 vaccines,
 as it is most effective to elicit a potent immune response. Below is the entire delivery scheme of the mRNA LNPs:
 
+<div class="row">
+    <div class="col-sm">
+        {% include figure.html path="assets/img/2_project/mRNA_uptake.png" title="mRNA uptake" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    Scheme showing the ....
+</div>
 
 
 Let's also briefly look at some of the background of LNPs. First, LNPs are often divided into four components: 
