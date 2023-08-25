@@ -113,7 +113,7 @@ More summaries of results and discussions will be further updated after the conc
 ### **Personal Motivation:**
 <p>
 This is a fascinating project to me because it necessitates both biology and deep-learning background. I was originally planning to continue my research about
-[gene delivery for immunoengineering](/projects/2_project), but my interests in computational work grew more as deep learning grew to be the "hot topic". 
+[gene delivery for immunoengineering](/projects/2_project/), but my interests in computational work grew more as deep learning grew to be the "hot topic". 
 As I switched my research interests to computational work, I was initially worried because I still wanted to continue cancer research in one way or another. 
 However, I figured that while this project is not directly related to cancer, the pipeline could easily be applied to cancer (just switch the H&E WSIs to tumor WSIs
 and find ways of developing digital biomarkers for cancer diagnosis instead). Therefore, since August of 2022, I switched labs and have been working on this project.
