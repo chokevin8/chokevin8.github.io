@@ -22,12 +22,19 @@ longer-lasting or even permanent depending on the nucleic acid used and the targ
 targeted by the immune system for degradation and clearance and therefore will cause unwanted inflammation and toxicity that can be detrimental or even fatal to the patient.
 *Therefore, this project's research was focused on the design of the lipid nanoparticles, or LNPs, for effective delivery of pDNAs/mRNAs to develop vaccines for malaria/cancer.*
 
-For the malaria pDNA vaccine project, the proposed route of administration was oral, or through the mouth. This makes sense, as it is a wide known fact that oral drugs experience a
+To briefly introduce the background of LNPs, LNPs usually are constituted of four components: 
+*The project's main motivation, therefore, is not only for successful delivery of the drug payload, but also about optimizing the formulation of the LNP.*
+
+To briefly introduce the two projects:
+<br>
+For the *malaria pDNA vaccine project*, the proposed route of administration was oral, or through the mouth. This makes sense, as it is a wide known fact that oral drugs experience a
 "first pass effect", where the orally taken drugs go through the intestines and end up in the liver. This is why drugs that do not target cells in the liver cannot be taken
 orally as it is often times metabolized in the liver before it even has a chance to circulate in the bloodstream. In addition, the low pH environment of the stomach due to
-gastric acid also necessitates a delivery mechanism such as LNPs. However, because the target of the pDNA malaria vaccine is hepatocytes, an oral administration was fitting. 
+gastric acid also necessitates a delivery mechanism such as LNPs. However, because the target of the pDNA malaria vaccine is hepatocytes, an oral administration was fitting. Furthermore,
+pDNA is used rather than mRNA because pDNA has a more long-lasting effect than mRNAs do, however they are therefore more likely to elicit an unwanted immune response, which was known to be 
+alleviated by co-delivery of anti-inflammatory siRNA.
 
-For the cancer mRNA vaccine project, the proposed method of administration was intramuscular, or through the muscle tissue. This is the same route of administration as the COVID-19 vaccines,
+For the *cancer mRNA vaccine project*, the proposed method of administration was intramuscular, or through the muscle tissue. This is the same route of administration as the COVID-19 vaccines,
 as it is most effective to elicit a potent immune response. The cancer vaccine can either be prophylactic or therapeutic, but either way, it has to be able to deliver the mRNA that codes for the 
 specific tumor-specific antigens (TSA) that the T cells can recognize and kill the tumor cells. In order to ensure this happens effectively, below is the proposed entire uptake and trafficking scheme of the mRNA LNPs:
 
@@ -41,15 +48,11 @@ specific tumor-specific antigens (TSA) that the T cells can recognize and kill t
 </div>
 
 As we see above, mRNA LNPs are designed to enter the target antigen-presenting cells (APCs), which in our case are dendritic cells (DCs). They enter the cells via endocytosis, and it is important
-to design the LNPs in a way so they initiate *endosomal escape*, or else they are degraded by the lysosomes. After escaping the endosome by breaking the endosome, the mRNA is released in to the cytoplasm 
-of the DCs, which initiates translation of the desired antigens. Now
-
-Let's also briefly look at some of the background of LNPs. First, LNPs are often divided into four components: 
-
-
-
-
-
+to design the LNPs in a way so they initiate *endosomal escape*, or else they are degraded by the lysosomes. After escaping the endosome by breaking the barrier of it, the mRNA is released in to the cytoplasm 
+of the DCs, which initiates translation of the desired TSAs. Now, in DCs, DCs use the proteasome-TAP pathway as a main, conventional route for cross-presentation of the TSAs via MHC Class I molecules. In short, the 
+translated TSA is broken into peptides by the proteasome, and the peptide is translocated by the TAP transporters into the lumen of the endoplasmic reticulum (ER). Then, the MHC Class I complex containing peptides
+and other molecules are assembled in the ER and transported to the cell surface. Lastly, as seen in the diagram, the CD8+ T-cells recognize the MHC Class 1 complex/molecule via its surface receptor, or T cell receptor (TCR). 
+When this cross-presentation is successful, with the help of other signals called co-stimulary signals, the CD8+ T cell is *activated*, meaning it can now detect and kill target tumor cells via recognizing their TSAs.
 
 ---
 
