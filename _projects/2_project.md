@@ -9,9 +9,12 @@ category: research
 ---
 
 ---
-
 ### **Project Motivation & Background:**
-
+Nucleic acid-based therapeutics have been emergent, as more and more nucleic acid therapeutics are being approved due to their
+ability to treat diseases by targeting the genetic blueprint itself. Four main types of nucleic acid-based therapeutics are: 1) antisense
+oligonucleotides (ASO), 2) ligand conjugated small interfering RNA (siRNA), 3) adeno-associated virus vectors (AAV), and 4) lipid nanoparticles (LNP).
+For example, the FDA approved Adstiladrin, which is a 
+viral vector-based Conventional therapeutics 
 
 
 ---

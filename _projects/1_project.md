@@ -11,6 +11,8 @@ category: research
 ---
 
 ### **Project Motivation & Background:**
+<br>
+
 **Let's play a simple guessing game: Look at the pictures below. Can you guess who is older?**
 
 <div class="row">
@@ -47,7 +49,7 @@ are either on the left or the right. ***Can you answer the same question now?***
     </div>
 </div>
 <div class="caption">
-    Which tissue belongs to the 95-year old man? The pair on the left or the right? 
+    Which tissue belongs to the 95-year old man? The image pair on the left or the right? 
 </div>
 
 The answer is: ***44-year old Tom Brady is on the left, and 95-year old man is on the right.*** While these tissues are not actually from the people
@@ -92,30 +94,29 @@ slide to obtain a z-stack of 2D WSIs. Then, we undergo image registration to reg
 a train-val-test split. 
 
 We train two different models: 1) Nuclei segmentation model using [HoVer-Net](https://arxiv.org/pdf/1812.06499v5.pdf) and 2) Tissue segmentation model
-using [DeepLabV3+](https://arxiv.org/pdf/1802.02611.pdf). In order to train these supervised models, we manually annotated the nuclei or the twelve different tissue
+using [DeepLabV3+](https://arxiv.org/pdf/1802.02611.pdf). In order to train these supervised models, we manually annotate the nuclei or the twelve different tissue
 classes in the training and validation images.
 
-Then, after confirming the model performance on the test dataset, we use a post-processing pipeline to extract different meaningful 2D features. Some example features extracted are 
-individual tissue compositions and its area, distance between different cells and tissues (ex. distance between fibroblast and sweat glands), and more. A total of 1090 2D features were 
-extracted.
+Then, after confirming the model performance on the test dataset, we use a post-processing pipeline to extract different meaningful 2D features. Some example features to extract are 
+individual tissue compositions and its area, distance between different cells and tissues (ex. distance between fibroblast and sweat glands), and more. 
 
 ---
 
 ### **Results & Discussion:**
-Out of the 1090 2D features that were extracted, through statistical testing with univariate/multivariate analyses and correlation coefficient calculations,
-features that were most predictive and correlated with age were selected. What's more, gender differences and body part differences (skin
+In total, 1090 2D features were extracted. Out of the 1090 features, through statistical testing with univariate/multivariate analyses and correlation coefficient calculations,
+features that were most predictive and correlated with age were selected. Additionally, gender differences and body part differences (skin
 from different body parts) were also analyzed. Currently, 2D results are being finalized and a 3D version of the same pipeline is being developed.
-Results and Discussion will be further updated after the conclusion of my research. 
+More summaries of results and discussions will be further updated after the conclusion of my Master's research. 
 
 ---
 
 ### **Personal Motivation:**
 <p>
 This is a fascinating project to me because it necessitates both biology and deep-learning background. I was originally planning to continue my research about
-[gene delivery for immunoengineering](/_projects/2_project.md), but my interests in computational work grew more as I lost motivation to work in the wet-lab.
-Therefore, this is why I made the decision to switch labs. While I wanted to continue my goal of cancer research, I figured that while this project is not directly 
-related to cancer, the pipeline could easily be transferrable to cancer (just switch the H&E images to cancer and find ways of developing digital biomarkers for cancer diagnosis instead).
-Therefore, since August of 2022, I've been working on this project.
+[gene delivery for immunoengineering](/projects/2_project), but my interests in computational work grew more as deep learning grew to be the "hot topic". 
+As I switched my research interests to computational work, I was initially worried because I still wanted to continue cancer research in one way or another. 
+However, I figured that while this project is not directly related to cancer, the pipeline could easily be applied to cancer (just switch the H&E WSIs to tumor WSIs
+and find ways of developing digital biomarkers for cancer diagnosis instead). Therefore, since August of 2022, I switched labs and have been working on this project.
 </p>
 
 <p>
@@ -126,7 +127,7 @@ utilized such as IHC stains. In addition, since I'm not a computer science major
 courses in school or reading online articles/textbooks. 
 </p>
 
-Therefore, I believe that this Master's research will be an important turning point of my career in truly developing myself as an interdisciplinary scientist that is able to utilize biology/medical data and extract
+Therefore, I believe that this Master's research will be an important turning point of my career in developing myself as an interdisciplinary scientist that is able to utilize biology/medical data and extract
 meaningful features out of them. 
 
 ---
