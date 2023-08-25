@@ -23,11 +23,11 @@ targeted by the immune system for degradation and clearance and therefore will c
 *Therefore, this project's research was focused on the design of the lipid nanoparticles, or LNPs, for effective delivery of pDNAs/mRNAs to develop vaccines for malaria/cancer.*
 
 To briefly introduce the background of LNPs, LNPs usually are constituted of four components: 1) Ionizable lipid, 2) PEGylated lipid, 3) Cholesterol, and 4) Helper lipid. The first three components 
-were fixed, and six different helper lipids were explored, with the ratios of the four lipids being varied as well. A total of 1090 different LNPs were designed, with two of the helper lipids being
-cationic, anionic, and zwitterionic. The ratio and the different helper lipids have a huge impact on the charge, pKa, and size of LNPs, which all have a huge influence in the successful delivery of the 
+were fixed, and six different helper lipids were explored, with the ratios of the four lipids being varied as well. A total of 1080 different LNPs were designed, with two of the helper lipids being
+cationic, anionic, and zwitterionic. The ratio and the different helper lipids have a huge impact on the surface charge, pKa, and size of LNPs, which all have a huge influence in the successful delivery of the 
 drug payload. *Therefore, the project's main motivation is not only for successful delivery of the drug payload, but also about optimizing the formulation of the LNP beforehand.*
 
-To briefly introduce the two projects:
+**To briefly introduce the two projects:**
 <br>
 For the *malaria pDNA vaccine project*, the proposed route of administration was oral, or through the mouth. This makes sense, as it is a wide known fact that oral drugs experience a
 "first pass effect", where the orally taken drugs go through the intestines and end up in the liver. This is why drugs that do not target cells in the liver cannot be taken
@@ -60,7 +60,7 @@ When this cross-presentation is successful, with the help of other signals calle
 
 ### **Methods:**
 
-First, the methods for screening the 1090 LNPs are shown in below diagram:
+The methods for screening the 1080 LNPs for the pDNA malaria vaccine project are shown in below diagram. 
 
 <div class="row">
     <div class="col-sm">
@@ -68,27 +68,46 @@ First, the methods for screening the 1090 LNPs are shown in below diagram:
     </div>
 </div>
 <div class="caption">
-    Proposed method to screen 1090 LNPs.
+    Proposed method to screen 1080 LNPs of different lipid composition and helper lipid types.
 </div>
 
+1) Component and ratio screening was done via *in vitro* transfection for each of the 1080 LNPs. Each LNPs were synthesized and tested for pDNA transfection in human HepG2 cells via using
+50% mCherry and 50% Luc pDNA. Then, subsequent luciferase protein expression (more pDNA delivered, more bioluminescence in the cells) was tested and as a result, top 32 formulations for each of the six helper lipids
+were selected.
+2) An *in vivo* screening via intrahepatic injection was performed, but in *batch mode*. Just like in COVID-19 testing, where multiple patients' samples are merged together to test for COVID, the same logic was applied here.
+8 of the top 32 formulations were grouped, meaning there were four clusters per helper lipid with a total of 24 clusters tested for intrahepatic injection. The same mix of mCherry and Luc pDNA were injected,
+and transfection efficiency were determined by imaging the mice liver via in vivo imaging system (IVIS). Furthermore, flow cytometry was used to measure mCherry levels in different types of cells in the liver to see which cells
+were transfected. As a result, top 12 clusters were selected for having the highest bioluminescence in the liver.
+3) Again, subsequent *in vivo* screenings via intravenous injection was performed, which was in batch mode as well. The same procedure as before was repeated twice, until only top four formulations remained.
 
-- In Project 1):
-• Formulated and screened ~1080 LNPs via cluster-mode in vitro transfection assays and in vivo intrahepatic/intraduodenal injections.
-• Tested Ai9 Cre reporter mice for co-delivery of anti-inflammatory siRNA with pDNA for in vivo assays of top formulations. 
+Then, after the screening process was over that left us with the top four formulations, a final *in vivo* screening was performed via using Cre-Ai9 mouse. 
 
-- In Project 2):
-• Formulated and screened ~1080 LNPs via cluster-mode in vitro transfection and immunostimulatory assays on dendritic cells.
-• Tested Ai9 Cre reporter mice for mRNA delivery and participated in subsequent therapeutic and prophylactic mice tumor studies.
+The above method was for the pDNA malaria vaccine project, and more details and further experiments are explained in the published paper [here](https://www.nature.com/articles/s41467-022-31993-y). 
+For the mRNA cancer vaccine project, the same screening process can be used, but just in a different applied method:
 
+Note that I cannot reveal the detailed methods and results for the mRNA cancer vaccine project since it has not been published yet. Therefore, I participated independently or contributed as a group
+member for the below 
+
+1. In pDNA malaria vaccine project:
+- Formulated and screened ~1080 LNPs via cluster-mode in vitro transfection assays and in vivo intrahepatic/intraduodenal injections.
+- Tested Ai9 Cre reporter mice for co-delivery of anti-inflammatory siRNA with pDNA for in vivo assays of top formulations. 
+- List of experiments:
+
+2. In mRNA cancer vaccine project:
+- Formulated and screened ~1080 LNPs via cluster-mode in vitro transfection and immunostimulatory assays on dendritic cells.
+- Tested Ai9 Cre reporter mice for mRNA delivery and participated in subsequent therapeutic and prophylactic mice tumor studies.
+- List of experiments:
+- 
 ---
 
 ### **Results & Discussion:**
 
+pDNA paper results
 
 ---
 
 ### **Personal Motivation:**
 
-
+covid-19 vaccine motivation, cancer diagnosis/prevention 
 
 ---
