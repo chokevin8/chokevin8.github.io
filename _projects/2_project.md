@@ -19,17 +19,20 @@ nucleic acid-based therapeutics are hitting the market in the oncology space as 
 
 Compared to conventional therapeutics that usually target proteins that results in transient therapeutic effects, nucleic-acid based therapeutics are often much
 longer-lasting or even permanent depending on the nucleic acid used and the target. However, most nucleic-acid based therapies require a carrier, as they will be
-targeted by the immune system for degradation and clearance and therefore will cause unwanted inflammation that can be deterimental or even fatal to the patient.
-Therefore, this project's research was focused on the design of the lipid nanoparticles, or LNPs, for effective delivery of pDNAs/mRNAs to develop vaccines for malaria/cancer.
+targeted by the immune system for degradation and clearance and therefore will cause unwanted inflammation and toxicity that can be detrimental or even fatal to the patient.
+*Therefore, this project's research was focused on the design of the lipid nanoparticles, or LNPs, for effective delivery of pDNAs/mRNAs to develop vaccines for malaria/cancer.*
 
-For the malaria pDNA vaccine project, the proposed method of administration was oral, or through the mouth. This makes sense, as it is a wide known fact that oral drugs experience a
+For the malaria pDNA vaccine project, the proposed route of administration was oral, or through the mouth. This makes sense, as it is a wide known fact that oral drugs experience a
 "first pass effect", where the orally taken drugs go through the intestines and end up in the liver. This is why drugs that do not target cells in the liver cannot be taken
 orally as it is often times metabolized in the liver before it even has a chance to circulate in the bloodstream. What's more, the low pH environment of the stomach due to
 gastric acid also necessitates a delivery mechanism such as LNPs. However, because the target of the pDNA malaria vaccine is hepatocytes, an oral administration was fitting. 
 
+For the cancer mRNA vaccine project, the proposed method of administration was intramuscular, or through the muscle tissue. This is the same route of administration as the COVID-19 vaccines,
+as it is most effective to elicit a potent immune response. Below is the entire delivery scheme of the mRNA LNPs:
 
 
-Let's also look at some of the background of LNPs. First, 
+
+Let's also briefly look at some of the background of LNPs. First, LNPs are often divided into four components: 
 
 
 
