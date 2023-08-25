@@ -22,8 +22,10 @@ longer-lasting or even permanent depending on the nucleic acid used and the targ
 targeted by the immune system for degradation and clearance and therefore will cause unwanted inflammation and toxicity that can be detrimental or even fatal to the patient.
 *Therefore, this project's research was focused on the design of the lipid nanoparticles, or LNPs, for effective delivery of pDNAs/mRNAs to develop vaccines for malaria/cancer.*
 
-To briefly introduce the background of LNPs, LNPs usually are constituted of four components: 
-*The project's main motivation, therefore, is not only for successful delivery of the drug payload, but also about optimizing the formulation of the LNP.*
+To briefly introduce the background of LNPs, LNPs usually are constituted of four components: 1) Ionizable lipid, 2) PEGylated lipid, 3) Cholesterol, and 4) Helper lipid. The first three components 
+were fixed, and six different helper lipids were explored, with the ratios of the four lipids being varied as well. A total of 1090 different LNPs were designed, with two of the helper lipids being
+cationic, anionic, and zwitterionic. The ratio and the different helper lipids have a huge impact on the charge, pKa, and size of LNPs, which all have a huge influence in the successful delivery of the 
+drug payload. *Therefore, the project's main motivation is not only for successful delivery of the drug payload, but also about optimizing the formulation of the LNP beforehand.*
 
 To briefly introduce the two projects:
 <br>
@@ -57,7 +59,18 @@ When this cross-presentation is successful, with the help of other signals calle
 ---
 
 ### **Methods:**
--Some major projects are: 1) Development of an Oral Liver-targeted Prime-and-trap Malaria pDNA Vaccine and 2) Development of an Enhanced mRNA Cancer Vaccine via Direct Transfection to Host Antigen Presenting Cells.
+
+First, the methods for screening the 1090 LNPs are shown in below diagram:
+
+<div class="row">
+    <div class="col-sm">
+        {% include figure.html path="assets/img/2_project/lnp_optimization_method.PNG" title="LNP optimization" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    Proposed method to screen 1090 LNPs.
+</div>
+
 
 - In Project 1):
 • Formulated and screened ~1080 LNPs via cluster-mode in vitro transfection assays and in vivo intrahepatic/intraduodenal injections.
