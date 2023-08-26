@@ -58,7 +58,7 @@ When this cross-presentation is successful, with the help of other signals calle
 
 ---
 
-### **Methods & Results:**
+### **Methods:**
 
 The methods for screening the 1080 LNPs for the pDNA malaria vaccine project are shown in below diagram. 
 
@@ -82,8 +82,8 @@ were selected.
 and transfection efficiency were determined by imaging the mice liver via in vivo imaging system (IVIS). Furthermore, flow cytometry was used to measure mCherry levels in different types of cells in the liver to see which cells
 were transfected. As a result, top 12 clusters were selected for having the highest bioluminescence in the liver.
 <br>
-3Again, subsequent *in vivo* screenings via intravenous injection was performed, which was in batch mode as well. The same procedure as before was repeated twice, until only top four formulations remained.
-
+3) Again, subsequent *in vivo* screenings via intravenous injection was performed, which was in batch mode as well. The same procedure as before was repeated twice, until only top four formulations remained.
+<br>
 ***Post-Screening Process:***
 <br>
 Then, after the screening process was over that left us with top four formulations, a final *in vivo* screening was performed via using Cre-Ai9 mouse. A Cre-Ai9 mouse, when injected with a Cre pDNA loaded LNP, 
@@ -91,26 +91,72 @@ allows the expression of tdTom only if the pDNA is successfully delivered. Follo
 
 The above method was for the pDNA malaria vaccine project, and more details and further experiments are explained in the published paper [here](https://www.nature.com/articles/s41467-022-31993-y). 
 For the mRNA cancer vaccine project, the same screening process can be used, but just in a different applied method:
-1) Component and ratio screening was done via *in vitro* transfection for the same 1080 LNPs. Each LNPs were synthesized, and tested for mRNA transfection in bone-marrow dendritic cells (BMDCs). Then, after waiting for
-a few days, we collect the BMDCs and co-culture them with CD8+ T cell. Then, we measure level of cell proliferation to test if MHC class I cross-presentation happened or not.
-
-Note that I cannot reveal the detailed methods and results for the mRNA cancer vaccine project since it has not been published yet. Below is the summary of the experiments that I partaked in- some experiments were independent,
-and others were in a group:
+***Screening Process:***
+<br>
+1) Component and ratio screening was done via *in vitro* transfection for the same 1080 LNPs. Each LNPs were synthesized, and tested for mRNA transfection in bone-marrow dendritic cells (BMDCs) instead, since the target is DCs. Then, after waiting for
+a few days, we collect the BMDCs and co-culture them with CD8+ T cell. Then, we measure level of cell proliferation to test if MHC class I cross-presentation between BMDCs and CD8+ T cells happened or not.
+<br>
+2) An *in vivo* screening via subcutaneous/intramuscular injection was performed, also in batch mode. Screening based on measuring cell proliferation- cell proliferation will be evident if T-cells are activated by BMDCs.
+<br>
+3) Again, subsequent *in vivo* screenings in batch mode until top four formulations remain.
+<br>
+***Post-Screening Process:***
+<br>
+Then, after the screening process was over that left us with top four formulations, a final *in vivo* screening was performed via using the Cre-Ai9 mouse as well.
 
 1. **In pDNA malaria vaccine project:**
 - Formulated and screened ~1080 LNPs via cluster-mode in vitro transfection assays and in vivo intrahepatic/intraduodenal injections.
 - Tested Ai9 Cre reporter mice for co-delivery of anti-inflammatory siRNA with pDNA for in vivo assays of top formulations. 
-- List of other experiments not mentioned: 
-
+<br>
+List of other experiments not explicitly mentioned above: 
+- *In vivo* experiment with using OVA-SIINFEKL model antigen to determine immunological effects. 
+- *In vivo* experiment using Cy5 stain to look at LNP biodistribution.
+- ELISA for measuring STAT and NF-κB levels within the liver to determine inflammation levels.
+<br>
 2. **In mRNA cancer vaccine project:**
-- Formulated and screened ~1080 LNPs via cluster-mode in vitro transfection and immunostimulatory assays on dendritic cells.
+- Formulated and screened ~1080 LNPs via cluster-mode in vitro transfection assays on dendritic cells, and in vivo subcutaneous/intramuscular injections.
 - Tested Ai9 Cre reporter mice for mRNA delivery and participated in subsequent therapeutic and prophylactic mice tumor studies.
-- List of other experiments not mentioned:
+<br>
+
+List of other experiments not explicitly mentioned above: 
+- *In vivo* experiment with using OVA-SIINFEKL model antigen to determine immunological effects. 
+- *In vivo* experiment using Cy5 stain to look at LNP biodistribution.
+- CCK-8 for measure of proliferation in co-culture of BMDCs and CD8+ T cells.
+- ELISA for measuring overall cytokine concentration in the following cell culture supernatant and ELISPOT for frequency of cytokine release.
+- ICS (intracellular cytokine staining) followed by flow cytometry measuring cytokine concentration at a cell-type specific manner.
+
+***Note that I participated in group discussions/experiments of designing/performing all of the experiments shown above.***
+
+---
+### **Results:**
+
+The results of the published paper were mainly the fact that the batch-mode screening process is effective in selecting top performing formulations out of a huge library of LNPs. 
+Furthermore, another major result is that co-delivery of anti-inflammatory siRNA with pDNA alleviates the unwanted inflammation caused by the pDNA and the adjuvant effect of LNPs and therefore extends
+the duration of transgene expression via pDNA. This is possible due to the STAT and NF-κB siRNA being co-delivered.
+
+*Note that I cannot reveal the detailed methods and results for the mRNA cancer vaccine project since it has not been published yet.*
 
 ---
 
-### **Personal Motivation:**
+### **Personal Comments:**
 
-covid-19 vaccine motivation, cancer diagnosis/prevention 
+## Q: Why did I choose this project? ##
+<p>
+Due to the COVID-19 outbreak, my start to undergraduate research was late, but the mRNA COVID-19 vaccine sparked my interests in gene delivery, particularly
+for therapeutic gene delivery mechanisms for a prophylactic/therapeutic cancer vaccine. Therefore, participating in these two projects was perfectly in-line with my interests
+at that time. Furthermore, utilizing and activating the human immune system for preventing/reversing cancer just sounded really cool, like 
 
+Thanks to the kind guidance of the group in the lab, I had the privilege of designing and performing various different wet lab techniques as summarized above. Also,
+while not one of the principal authors of the paper, this was my first time contributing to performing experiments and writing a manuscript to be submitted for publication.
+
+## Q: What did I do outside of this project? ##
+<p>
+
+</p>
+
+## Q: What impact did this project have on me? ##
+<p>
+Therefore, I believe that this Master's research will be an important turning point of my career in developing myself as an interdisciplinary scientist that is able to utilize biology/medical data and extract
+meaningful features out of them. 
+</p>
 ---

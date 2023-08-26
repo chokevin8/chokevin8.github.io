@@ -110,15 +110,18 @@ More summaries of results and discussions will be further updated after the conc
 
 ---
 
-### **Personal Motivation:**
+### **Personal Comments:**
+
+## Q: Why did I choose this project? ##
 <p>
 This is a fascinating project to me because it necessitates both biology and deep-learning background. I was originally planning to continue my research about
-[gene delivery for immunoengineering](/projects/2_project/), but my interests in computational work grew more as deep learning grew to be the "hot topic". 
+[gene delivery for immunoengineering](https://chokevin8.github.io/projects/2_project/), but my interests in computational work grew more as deep learning grew to be the "hot topic". 
 As I switched my research interests to computational work, I was initially worried because I still wanted to continue cancer research in one way or another. 
 However, I figured that while this project is not directly related to cancer, the pipeline could easily be applied to cancer (just switch the H&E WSIs to tumor WSIs
 and find ways of developing digital biomarkers for cancer diagnosis instead). Therefore, since August of 2022, I switched labs and have been working on this project.
 </p>
 
+## Q: What did I do outside of this project? ##
 <p>
 Since I didn't have any significant prior knowledge in the field of dermatology, histopathology, or deep learning before starting this as my Master's Thesis project, this is a fun but challenging project for me. 
 To make up for my lack of knowledge, I always strive to do more background article reading to learn about the computational pathology space. There are a plethora of different subfields within computational pathology
@@ -126,6 +129,8 @@ that interest me- for example, we can utilize various models like CNNs or ViTs f
 utilized such as IHC stains. In addition, since I'm not a computer science major, I also try to continue to learn more about Python/PyTorch and probabilistic machine/deep learning everyday by taking relevant
 courses in school or reading online articles/textbooks. 
 </p>
+
+## Q: What impact did this project have on me? ##
 
 Therefore, I believe that this Master's research will be an important turning point of my career in developing myself as an interdisciplinary scientist that is able to utilize biology/medical data and extract
 meaningful features out of them. 
