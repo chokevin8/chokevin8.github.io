@@ -76,11 +76,13 @@ The methods for screening the 1080 LNPs for the pDNA malaria vaccine project are
 1) Component and ratio screening was done via *in vitro* transfection for each of the 1080 LNPs. Each LNPs were synthesized and tested for pDNA transfection in human HepG2 cells via using
 50% mCherry and 50% Luc pDNA. Then, subsequent luciferase protein expression (more pDNA delivered, more bioluminescence in the cells) was tested and as a result, top 32 formulations for each of the six helper lipids
 were selected.
+<br>
 2) An *in vivo* screening via intrahepatic injection was performed, but in *batch mode*. Just like in COVID-19 testing, where multiple patients' samples are merged together to test for COVID, the same logic was applied here.
 8 of the top 32 formulations were grouped, meaning there were four clusters per helper lipid with a total of 24 clusters tested for intrahepatic injection. The same mix of mCherry and Luc pDNA were injected,
 and transfection efficiency were determined by imaging the mice liver via in vivo imaging system (IVIS). Furthermore, flow cytometry was used to measure mCherry levels in different types of cells in the liver to see which cells
 were transfected. As a result, top 12 clusters were selected for having the highest bioluminescence in the liver.
-3) Again, subsequent *in vivo* screenings via intravenous injection was performed, which was in batch mode as well. The same procedure as before was repeated twice, until only top four formulations remained.
+<br>
+3Again, subsequent *in vivo* screenings via intravenous injection was performed, which was in batch mode as well. The same procedure as before was repeated twice, until only top four formulations remained.
 
 ***Post-Screening Process:***
 <br>
@@ -95,12 +97,12 @@ a few days, we collect the BMDCs and co-culture them with CD8+ T cell. Then, we 
 Note that I cannot reveal the detailed methods and results for the mRNA cancer vaccine project since it has not been published yet. Below is the summary of the experiments that I partaked in- some experiments were independent,
 and others were in a group:
 
-1. In pDNA malaria vaccine project:
+1. **In pDNA malaria vaccine project:**
 - Formulated and screened ~1080 LNPs via cluster-mode in vitro transfection assays and in vivo intrahepatic/intraduodenal injections.
 - Tested Ai9 Cre reporter mice for co-delivery of anti-inflammatory siRNA with pDNA for in vivo assays of top formulations. 
 - List of other experiments not mentioned: 
 
-2. In mRNA cancer vaccine project:
+2. **In mRNA cancer vaccine project:**
 - Formulated and screened ~1080 LNPs via cluster-mode in vitro transfection and immunostimulatory assays on dendritic cells.
 - Tested Ai9 Cre reporter mice for mRNA delivery and participated in subsequent therapeutic and prophylactic mice tumor studies.
 - List of other experiments not mentioned:
