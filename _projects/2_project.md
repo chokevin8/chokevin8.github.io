@@ -144,19 +144,22 @@ the duration of transgene expression via pDNA. This is possible due to the STAT 
 <p>
 Due to the COVID-19 outbreak, my start to undergraduate research was late, but the mRNA COVID-19 vaccine sparked my interests in gene delivery, particularly
 for therapeutic gene delivery mechanisms for a prophylactic/therapeutic cancer vaccine. Therefore, participating in these two projects was perfectly in-line with my interests
-at that time. Furthermore, utilizing and activating the human immune system for preventing/reversing cancer just sounded really cool, like 
-
-Thanks to the kind guidance of the group in the lab, I had the privilege of designing and performing various different wet lab techniques as summarized above. Also,
-while not one of the principal authors of the paper, this was my first time contributing to performing experiments and writing a manuscript to be submitted for publication.
+at that time. Furthermore, utilizing and activating the human immune system for preventing/reversing cancer just sounded really cool, as other similar therapies such as 
+CAR-T or immune checkpoint inhibitors were the new "hot" immunotherapies in the oncology space. 
+</p>
 
 ## Q: What did I do outside of this project? ##
 <p>
-
+Before joining this lab, I did not have any practical experience in the wet lab, while I did have some background knowledge regarding LNPs because I took relevant courses in school
+(ex. drug delivery, supramolecular materials, etc). Therefore, I made sure to review the experimental protocols and analyzed why an experiment was planned the way it is. Lastly,
+reading articles regarding LNPs also helped me to stay up to date with recent discoveries/techniques.
 </p>
 
 ## Q: What impact did this project have on me? ##
 <p>
-Therefore, I believe that this Master's research will be an important turning point of my career in developing myself as an interdisciplinary scientist that is able to utilize biology/medical data and extract
-meaningful features out of them. 
+Thanks to the kind guidance of the group in the lab, I had the privilege of designing and performing various different wet lab techniques as summarized above. 
+Even though I'm currently doing computational work, I believe the so-called "scientific method" is equal whether it's in the wet lab or the dry lab. Therefore, 
+this has really taught me how to effectively set up an experiment and execute it in the most efficient way. Also, while not one of the principal authors of the paper, 
+this was my first time contributing to performing experiments and writing a manuscript to be submitted for publication. 
 </p>
 ---

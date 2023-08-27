@@ -25,7 +25,7 @@ category: internship
 
 ---
 
-### **Personal Motivation:**
+### **Personal Comments:**
 
 
 

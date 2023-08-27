@@ -113,13 +113,14 @@ More summaries of results and discussions will be further updated after the conc
 ### **Personal Comments:**
 
 ## Q: Why did I choose this project? ##
-<p>
+
 This is a fascinating project to me because it necessitates both biology and deep-learning background. I was originally planning to continue my research about
-[gene delivery for immunoengineering](https://chokevin8.github.io/projects/2_project/), but my interests in computational work grew more as deep learning grew to be the "hot topic". 
-As I switched my research interests to computational work, I was initially worried because I still wanted to continue cancer research in one way or another. 
-However, I figured that while this project is not directly related to cancer, the pipeline could easily be applied to cancer (just switch the H&E WSIs to tumor WSIs
-and find ways of developing digital biomarkers for cancer diagnosis instead). Therefore, since August of 2022, I switched labs and have been working on this project.
-</p>
+[gene delivery for immunoengineering](/projects/2_project/), but my interests in different types of computational work grew more after my [summer internship experience
+at Novartis](/projects/3_project/). As I switched my research interests to computational work, I was initially worried because I still wanted to continue cancer research in one way or another. 
+Also, I wanted experience in handling different types of biological/medical data. Therefore, while this project is not directly related to cancer, the project was a perfect choice because the 
+pipeline could easily be applied to cancer (just switch the H&E WSIs to tumor WSIs and find ways of developing digital biomarkers for cancer diagnosis instead), and handled image data, which 
+I never had prior experience with. Therefore, since August of 2022, I switched labs and have been working on this project.
+
 
 ## Q: What did I do outside of this project? ##
 <p>
@@ -132,7 +133,7 @@ courses in school or reading online articles/textbooks.
 
 ## Q: What impact did this project have on me? ##
 
-Therefore, I believe that this Master's research will be an important turning point of my career in developing myself as an interdisciplinary scientist that is able to utilize biology/medical data and extract
+This project has and will be an important turning point of my career in developing myself as an interdisciplinary scientist that is able to utilize biology/medical data and extract
 meaningful features out of them. 
 
 ---
