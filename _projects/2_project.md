@@ -135,9 +135,9 @@ List of other experiments not explicitly mentioned above:
 ---
 ### **Results:**
 
-The results of the published paper were mainly the fact that the batch-mode screening process is effective in selecting top performing formulations out of a huge library of LNPs. 
+The results of the [published paper](https://www.nature.com/articles/s41467-022-31993-y) were mainly the fact that the batch-mode screening process is effective in selecting top performing formulations out of a huge library of LNPs. 
 Furthermore, another major result is that co-delivery of anti-inflammatory siRNA with pDNA alleviates the unwanted inflammation caused by the pDNA and the adjuvant effect of LNPs and therefore extends
-the duration of transgene expression via pDNA. This is possible due to the STAT and NF-κB siRNA being co-delivered.
+the duration of transgene expression via pDNA. This is possible due to the STAT and NF-κB siRNA being co-delivered with the pDNA as a payload.
 
 *Note that I cannot reveal the detailed methods and results for the mRNA cancer vaccine project since it has not been published yet.*
 

@@ -25,8 +25,12 @@ category: fun
 
 ---
 
-### ***Personal Motivation:***
+### ***Personal Comments:***
 
+### Q: Why did I choose this project? ###
 
+### Q: What did I do outside of this project? ###
+
+### Q: What impact did this project have on me? ###
 
 ---
