@@ -1,31 +1,30 @@
-- subtitle: Please click the PDF button for downloadable version of the CV.
 
-- title: Basic Information
-  type: map
-  contents:
-    - name: Full Name
-      value: Kevin (Won June) Cho
-    - name: From
-      value: Seoul, South Korea
-    - name: Languages
-      value: Native in English, Korean, Limited proficiency in Chinese
-
-- title: Education
-  type: time_table
-  contents:
-    - title: Master of Science (MS)
-      institution: Johns Hopkins University
-      year: Early 2024
-      description:
-        - Major in Chemical & Biomolecular Engineering
-        - 'GPA: 3.96/4.0'
-    - title: Bachelor of Science (BS)
-      institution: Johns Hopkins University
-      year: 2022
-      description:
-        - Major in Chemical & Biomolecular Engineering
-        - Minor in Applied Mathematics & Statistics
-        - 'GPA: 3.8/4.0'
+#- title: Basic Information
+#  type: map
+#  contents:
+#    - name: Full Name
+#      value: Kevin (Won June) Cho
+#    - name: From
+#      value: Seoul, South Korea
+#    - name: Languages
+#      value: Native in English, Korean, Limited proficiency in Chinese
+#
+#- title: Education
+#  type: time_table
+#  contents:
+#    - title: Master of Science (MS)
+#      institution: Johns Hopkins University
+#      year: Early 2024
+#      description:
+#        - Major in Chemical & Biomolecular Engineering
+#        - 'GPA: 3.96/4.0'
+#    - title: Bachelor of Science (BS)
+#      institution: Johns Hopkins University
+#      year: 2022
+#      description:
+#        - Major in Chemical & Biomolecular Engineering
+#        - Minor in Applied Mathematics & Statistics
+#        - 'GPA: 3.8/4.0'
 
 #
 #- title: Experience
