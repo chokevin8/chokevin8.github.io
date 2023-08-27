@@ -113,7 +113,7 @@ More summaries of results and discussions will be further updated after the conc
 
 ### **Personal Comments:**
 
-## Q: Why did I choose this project? ##
+### Q: Why did I choose this project? ###
 
 This is a fascinating project to me because it necessitates both biology and deep-learning background. I was originally planning to continue my research about
 [gene delivery for immunoengineering](/projects/2_project/), but my interests in different types of computational work grew more after my [summer internship experience
@@ -123,7 +123,7 @@ pipeline could easily be applied to cancer (just switch the H&E WSIs to tumor WS
 I never had prior experience with. Therefore, since August of 2022, I switched labs and have been working on this project.
 
 
-## Q: What did I do outside of this project? ##
+### Q: What did I do outside of this project? ###
 <p>
 Since I didn't have any significant prior knowledge in the field of dermatology, histopathology, or deep learning before starting this as my Master's Thesis project, this is a fun but challenging project for me. 
 To make up for my lack of knowledge, I always strive to do more background article reading to learn about the computational pathology space. There are a plethora of different subfields within computational pathology
@@ -132,7 +132,7 @@ utilized such as IHC stains. In addition, since I'm not a computer science major
 courses in school or reading online articles/textbooks. 
 </p>
 
-## Q: What impact did this project have on me? ##
+### Q: What impact did this project have on me? ###
 
 This project has and will be an important turning point of my career in developing myself as an interdisciplinary scientist that is able to utilize biology/medical data and extract
 meaningful features out of them. 

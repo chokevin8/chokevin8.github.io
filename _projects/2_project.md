@@ -145,7 +145,7 @@ the duration of transgene expression via pDNA. This is possible due to the STAT 
 
 ### **Personal Comments:**
 
-## Q: Why did I choose this project? ##
+### Q: Why did I choose this project? ###
 <p>
 Due to the COVID-19 outbreak, my start to undergraduate research was late, but the mRNA COVID-19 vaccine sparked my interests in gene delivery, particularly
 for therapeutic gene delivery mechanisms for a prophylactic/therapeutic cancer vaccine. Therefore, participating in these two projects was perfectly in-line with my interests
@@ -153,14 +153,14 @@ at that time. Furthermore, utilizing and activating the human immune system for 
 CAR-T or immune checkpoint inhibitors were the new "hot" immunotherapies in the oncology space around that time.
 </p>
 
-## Q: What did I do outside of this project? ##
+### Q: What did I do outside of this project? ###
 <p>
 Before joining this lab, I did not have any practical experience in the wet lab, while I did have some background knowledge regarding LNPs because I took relevant courses in school
 (ex. drug delivery, supramolecular materials, etc). Therefore, I made sure to review the experimental protocols and analyzed why an experiment was planned the way it is. Lastly,
 reading articles (journal club) regarding LNPs also helped me to stay up to date with recent discoveries/techniques.
 </p>
 
-## Q: What impact did this project have on me? ##
+### Q: What impact did this project have on me? ###
 <p>
 Thanks to the kind guidance of the group in the lab, I had the privilege of designing and performing various different wet lab techniques as summarized above. 
 Even though I'm currently doing computational work, I believe the so-called "scientific method" is equal whether it's in the wet lab or the dry lab. Therefore, 
