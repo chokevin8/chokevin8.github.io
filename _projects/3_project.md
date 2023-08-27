@@ -20,7 +20,7 @@ category: internship
 
 ---
 
-### **Results & Discussion:**
+### **Results:**
 
 
 ---

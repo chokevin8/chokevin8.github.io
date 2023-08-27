@@ -103,7 +103,7 @@ individual tissue compositions and its area, distance between different cells an
 
 ---
 
-### **Results & Discussion:**
+### **Results:**
 In total, 1090 2D features were extracted. Out of the 1090 features, through statistical testing with univariate/multivariate analyses and correlation coefficient calculations,
 features that were most predictive and correlated with age were selected. Additionally, gender differences and body part differences (skin
 from different body parts) were also analyzed. Currently, 2D results are being finalized and a 3D version of the same pipeline is being developed.
