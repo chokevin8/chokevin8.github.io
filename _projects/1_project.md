@@ -53,8 +53,9 @@ are either on the left or the right. ***Can you answer the same question now?***
 </div>
 
 The answer is: ***44-year old Tom Brady is on the left, and 95-year old man is on the right.*** While these tissues are not actually from the people
-pictured above, they actually are tissue samples from patients who are 44 years old and 95 years old. *The point is, compared to just looking at someone's face, 
-it's much harder to determine a person's age by just looking at their skin H&E tissue sample.* But someone may ask, ***Why do we want to do this? Why study aging, 
+pictured above, they actually are tissue samples from patients who are 44 years old and 95 years old. How can we tell? The picture in the first row actually shows that
+there are more oil glands in the left than the right, and the second row shows more ECM alignment. However, without this previous knowledge, *the point is, compared to
+just looking at someone's face, it's much harder to determine a person's age by just looking at their skin H&E tissue sample.* But someone may ask, ***Why do we want to do this? Why study aging, 
 specifically in skin H&E tissue samples?***
 
 It's a well-known fact that old age is correlated with virtually every disease that are the leading causes of death- heart disease, cancer, stroke, Alzheimer's, and recently,
