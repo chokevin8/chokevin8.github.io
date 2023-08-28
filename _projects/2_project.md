@@ -168,4 +168,9 @@ this has really taught me how to effectively set up an experiment and execute it
 background that I gained with this experience will eventually help me in the future, even though I've switched over to dry lab. Latly, while not one of the principal authors of the paper,
 this was my first time contributing to performing experiments and writing a manuscript to be submitted for publication. 
 </p>
+
 ---
+
+*Image credits to:*
+- Scheme of uptake and trafficking of mRNA LNPs (In-house)
+- [Method to screen 1080 LNPs](https://www.nature.com/articles/s41467-022-31993-y)
