@@ -11,7 +11,9 @@ category: internship
 ---
 
 ### **Project Motivation & Background:**
+ In the drug discovery space, we have top-down and a bottom-up approach in discovering drugs. Often, drugs
 
+out-license
 
 ---
 
