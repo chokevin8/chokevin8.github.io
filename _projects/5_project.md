@@ -50,7 +50,7 @@ imbalance of training data, it can usually be a good idea to stratify based on c
 -*Choosing a model architecture to train:*
     - UNet (semantic segmentation), YOLOv8 (object detection/instance segmentation), and Mask2Former (semantic segmentation) have been chosen. I've decided to choose a 
     wide variety of models (2 CNN-based and 1 ViT-based) to explore different models. 
-    - Then, if a pretrained model is available, explore if pretrained models will be useful (domain-specific or non domain-specific). A pretrained domain-specific (histopathology) model hub developed [here](https://github.com/lunit-io/benchmark-ssl-pathology) was tested on model architectures if compatible.
+    - Then, if a pretrained model is available, explore if pretrained models will be useful (domain-specific or non-domain-specific). A pretrained domain-specific (histopathology) model hub developed [here](https://github.com/lunit-io/benchmark-ssl-pathology) was tested on model architectures if compatible.
 -*Choosing a loss function and validation metric:*
     - Depending on the model, different loss functions are explored. 
     - For example, UNet can be explored with different functions like Dice/Jaccard(IOU)/BCE losses, while YOLOv8 will be a combination of Focal, Bbox, and IOU loss. 
@@ -69,18 +69,41 @@ While the goal of this project wasn't focused on winning the competition (lack o
 still a list of things that I tried doing that worked and didn't work in increasing the performance of the model. 
 
 - Things that worked:
-
+    - Dilating the dataset 2 annotations, since the annotations are inconsistent (some including the endothelial cells around blood vessels and some not) to make it consistent. 
+    - Stratification of WSI tiles based on dataset number and making sure each CV fold has dataset 1 for training and validation since testing dataset is solely based on dataset 1. 
+    - Using Albumentation's normalization and augmentation pipeline boosted performance compared to Torchvision or RandstainNA.
+    - YOLOv8 instance segmentation model worked pretty well, with some edits to the loss function weightings. 
+    - Utilizing Test-time augmentation (TTA) on YOLOv8 and UNet boosted performance compared to not utilizing it. 
 
 - Things that didn't seem to work:
-
+    - Stratification of WSI tiles based on its classes didn't work. Probably because the testing dataset was solely on dataset 1, so the validation needs to be against mostly dataset 1.
+    - Using RandStainNA as an augmentation + normalization tool together did not boost performance.
+    - Surprisingly, using pretrained model on histopathology dataset (Resnet50 backbone) didn't boost performance at all compared to random initialization.
+    - Using UNet as a sole semantic segmentation model, probably because the metric is an object-detection based metric, and UNet doesn't naturally create Bboxes and a confidence value. 
+    - Using Mask2Former as a semantic segmentation model, but probably because I may have used the wrong pretrained model (imagenet pretrained).
+    - Self-supervised learning, this is something I couldn't do due to only having a single GPU.
 ---
 
 ### ***Personal Comments:***
 
 ### Q: Why did I choose this project? ###
+I decided to work on this project on the side whenever I had time to work on it, since I thought that I would need more experience in working on an entire project by myself. I thought that performing the entire DL research pipeline of
+EDA -> Data Preprocessing -> Training/Validating -> Testing/Tuning -> Post-processing by myself would be massively helpful to learn more about the technical skills (Python, PyTorch, etc) required for a DL researcher/scientist.
 
 ### Q: What did I do outside of this project? ###
+Background research (reading literature/online documentations) on:
+- Techniques for H&E image normalization and augmentation (ex. Reinhard, Vahadane, StainTools, RandStainNA, Albumentations, Torchvisions, etc.)
+- List of self-supervised learning techniques (ex. Barlow Twins, MoCoV2, etc.)
+- Different model architectures (ex. UNet, Mask R-CNN, DeepLabv3+, YOLO, etc.)
+- Different loss functions and their differences (ex. Dice, Jaccard (IOU), Focal, BCE, Tversky, Bbox, etc.)
+- Tuning techniques (learning how to use Ray Train and Tune)
 
 ### Q: What impact did this project have on me? ###
+
+In academic research as a Master's student, often times you work with a colleague together on a project or work independently but for a part of a full pipeline. Since this was really my first time performing a full DL research pipeline,
+I discovered that so much time and effort can be saved if you actually *think and plan out your experiments*. This may sound cliché, but I think new DL researchers like me suffer with this a lot. For example, for some of my training runs 
+I had no idea why I was doing it, as I treated the DL model as a "black box" (while this is true, it's not 100% a black box) even when I already set the random seeds for all modules for full reproducibility. Some other mistakes I made 
+was training a huge model with the entire dataset before performing a smaller-scale experiment as a proof of concept. This led me to waste unnecessary time and efforts. Starting from a smaller-scale model and data with small number of epochs as a proof-of-concept is crucial, 
+as often times switching to a bigger model and more dataset is more about tuning the hyperparameters (which can be done after successful training) like batch size, learning rate, number of epochs, etc. 
 
 ---
