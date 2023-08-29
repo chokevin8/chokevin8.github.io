@@ -35,9 +35,9 @@ about stable diffusion and its predecessor, GANs. The next two parts as seen in 
 ### [Stable Diffusion In Numbers (Part 3)](/blog/2023/stable-diffusion-part3/)
 - ### VAEs and ELBO
 - ### Model Objective
-- ### Training and Inference
 
 ### [Stable Diffusion In Numbers Continued (To Be Continued...)](/blog/2023/stable-diffusion-part4/))
+- ### Training and Inference
 - ### Conditioning 
 - ### Classifier-Free Guidance
 

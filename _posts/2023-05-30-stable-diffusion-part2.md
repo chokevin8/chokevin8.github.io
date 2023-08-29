@@ -23,6 +23,7 @@ categories: posts
 - ### Model Objective
 
 ### [Stable Diffusion In Numbers Continued (To Be Continued...)](/blog/2023/stable-diffusion-part4/))
+- ### Training and Inference
 - ### Conditioning 
 - ### Classifier-Free Guidance
 ---

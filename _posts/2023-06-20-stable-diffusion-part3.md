@@ -21,9 +21,9 @@ categories: posts
 ### [Stable Diffusion In Numbers (Part 3)](#stable-diffusion-in-numbers-1) (This Blog!)
 - ### [VAEs and ELBO](#vaes-elbo)
 - ### [Model Objective](#model-objective-1)
-- ### [Training and Inference](#training-inference)
 
 ### [Stable Diffusion In Numbers Continued (To be continued...)](/blog/2023/stable-diffusion-part4/)
+- ### Training and Inference
 - ### Conditioning 
 - ### Classifier-Free Guidance
 
@@ -296,52 +296,10 @@ Simply put, the UNet learns to predict the ground truth noise $$\epsilon$$ that 
 this can also be seen as series of $$T$$ equally weighted autoencoders from $$T = 1,2....t-1,T$$ which predicts a denoised variant of their input $$x_t$$. As timestep reaches T, this Markovian process will then slowly converge to the ground truth input image 
 $$x_0$$, assuming the training of the decoder went well. 
 
---- 
-
-<a id="training-inference"></a>
-###  ***Training and Inference:***
-
-Now that we've derived the training (loss) objective, let's briefly go over the entire training and the inference algorithm, look below:
-
-<img src = "/assets/images/train_inference_algorithm.png" width = "985" height = "250" class = "center">
-<figcaption>The training and inference algorithm, summarized.</figcaption>
-<br>
-
-Let's first look at the training algorithm:
-1. We repeat the below process (steps 2~5) until convergence or a preset number of epochs. 
-2. Sample an image $$x_0$$ from our dataset/data distribution, $$q(x_0)$$.
-3. Sample t, or timestep.
-4. Sample noise from a normal distribution $$\epsilon \sim \mathcal{N}(0, I)$$
-5. Take gradient descent step on the previous training objective $$L_{LDM} = ||\epsilon - \epsilon_{\theta}(x_t,t)||^2 $$ with respect to $$\theta$$, which is the 
-parameters of the weights and biases of the decoder.
- 
-Note that for sampling, we only need the trained decoder from above. Therefore, we sample latent noise $$x_T$$ from prior $$p(x_T)$$, which is $$\epsilon \sim \mathcal{N}(0, I)$$
-and then run the series of $$T$$ equally weighted autoencoders as mentioned before in a Markovian style (sample from $$x_{t-1}$$). However, the sampling process using
-Denoising Diffusion Probabilistic Model (DDPM) uses a Markovian sampling process while an improved method called Denoising Diffusion Implicit Model (DDIM) uses a non-Markovian
-sampling process that makes the process much quicker. Therefore, DDIM uses $$S$$ steps instead of $$T$$ where $$ S<T $$, and the authors of LDM therefore use DDIM over DDPM.
-
-To derive the DDIM sampling process, we utilize the *reparametrization trick*, which we actually applied in equation #5 above. The reparametrization trick is used whenever we sample from
-a distribution (Gaussian in our case) that is not directly differentiable. For our case, the mean and the variance of the distribution are both dependent on the model
-parameters, which is learned through SGD (as shown above). The issue is that because sampling from the Gaussian distribution is stochastic, we cannot compute the gradient anymore to update
-the mean and variance parameters. So, we introduce the auxiliary random variable $$\epsilon$$ that is deterministic since it is sampled from a fixed standard Gaussian distribution ($$\epsilon \sim \mathcal{N}(0, 1) $$),
-which allows SGD to be possible since $$\epsilon$$ is not dependent on the model parameters. Therefore, the reparametrization trick $$ x = \mu + \sigma * \epsilon$$ works by initially computing the mean and standard deviation using current weights given input data,
-then drawing deterministic random variable $$\epsilon$$ to obtain the desired sample $$x$$. Then, loss can be computed with respect to mean and variance, and they can be backpropagated via SGD.
-
-Now, the previous reparametrization trick was used to allow SGD, but this time we can also use the reparametrization trick to essentially alter our sampling process $$q(x_{t-1}|x_t,x_0)$$ to be parametrized by another random variable,
-a desired standard deviation $$\epsilon_t$$. The reparametrization is shown below:
-
-
-
-The main advantages of DDIM over DDPM are:
-
-1. Consistency: DDIMs are consistent, meaning that if we initialize the same latent variable $$x_T$$ via same random seed during sampling, the samples 
-2. 
-
-
 ---
 
 Now that we've fully understood the entire story of the training objective (of how VAE's ELBO derivation is similar to LDMs) and how its simplified training objective is
-also just like a MSE, and briefly mentioned the training and sampling algorithms, the next part (last part of blog on stable diffusion) will cover more mathematical details on LDMs that were not covered in this part of the blog, especially regarding
+also just like a MSE, the next part (last part of blog on stable diffusion) will cover more mathematical details on LDMs that were not covered in this part of the blog, especially regarding
 conditioning and classifier-free guidance.
 
 *Image credits to:*
