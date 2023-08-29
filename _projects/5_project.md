@@ -86,7 +86,6 @@ still a list of things that I tried doing that worked and didn't work in increas
     - Using Mask2Former as a semantic segmentation model, but probably because I may have used the wrong pretrained model (imagenet pretrained).
     - Self-supervised learning, this is something I couldn't do due to only having a single GPU.
 
-
 ---
 
 ### ***Personal Comments:***
