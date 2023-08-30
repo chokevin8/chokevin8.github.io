@@ -9,12 +9,11 @@ selected_papers: false # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
 <b> Hi everyone, </b> my name is Kevin (Won June) Cho, and I'm an aspiring AI/DL researcher. I've used biological and medical data, 
-such as H&E images and RNA-Seq data to study problems in the field of biology and medicine, such as cancer diagnosis/genomics. I'm always striving
-to 
+such as H&E images and RNA-Seq data to study problems in the field of biology and medicine, such as cancer diagnosis/genomics.
 <br>
 <br>
-I received a bachelor's degree of science (BS) in Chemical and Biomolecular Engineering from Johns Hopkins University. Currently, I'm pursuing a master's degree of science in engineering in Chemical and Biomolecular Engineering at the Johns Hopkins University. I'm currently pursuing research under
-the guidance of Dr. Denis Wirtz in the [Wirtz Lab](https://wirtzlab.johnshopkins.edu/). My personal research is about utilizing deep learning image segmentation model(s) in skin H&E images to find new digital biomarkers in aging. Please refer to my [CV](/cv/) here for more
+I received a bachelor's degree of science (BS) in Chemical and Biomolecular Engineering from Johns Hopkins University in 2022. Currently, I'm pursuing a master's degree of science in engineering in Chemical and Biomolecular Engineering at the Johns Hopkins University. I'm currently pursuing research under
+the guidance of Dr. Denis Wirtz in the [Wirtz Lab](https://wirtzlab.johnshopkins.edu/). My master's thesis research is about utilizing deep learning image segmentation model(s) in skin H&E images to find new digital biomarkers in aging. Please refer to my [resume](/cv/) here for more
 information, and for details about my projects, please refer to my [projects page](/projects/) as well.
 <br>
 <br>
