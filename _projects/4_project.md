@@ -28,6 +28,7 @@ cancer vs healthy RNA-Seq data. When given these two sets of data, the standard 
 **pathway analysis** with the list of genes that are differentially expressed. This makes sense because the list of genes that show different level of expressions between the two group
 probably has something to do with the disease, and then we take those list of genes and perform a pathway analysis to see which biological pathways are associated with the list of genes.
 
+Now, because 
 bonferroni correction multiple testing
 
 *Context: For some context, my research internship was at a small start-up company focused on early drug discovery. The company aimed to discover new drug compounds or new drug targets for a known compound. Then,
@@ -48,6 +49,8 @@ the company would aim to out-license these early "hits" or "leads" to a bigger p
 ### **Personal Comments:**
 
 ### Q: Why did I choose this project? ###
+
+When I fortunately got an offer to work as a summer intern
 
 ### Q: What did I do outside of this project? ###
 
