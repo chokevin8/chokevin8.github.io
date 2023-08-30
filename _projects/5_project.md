@@ -66,7 +66,7 @@ The main steps that I took to tackle this problem is:
 
 ---
 
-### ***Results & Discussion:***
+### ***Results:***
 
 While the goal of this project wasn't focused on winning the competition (lack of time and experience/skills for me to do that yet), but there were
 still a list of things that I tried doing that worked and didn't work in increasing the performance of the model. 

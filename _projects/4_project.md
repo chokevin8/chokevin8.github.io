@@ -28,8 +28,27 @@ cancer vs healthy RNA-Seq data. When given these two sets of data, the standard 
 **pathway analysis** with the list of genes that are differentially expressed. This makes sense because the list of genes that show different level of expressions between the two group
 probably has something to do with the disease, and then we take those list of genes and perform a pathway analysis to see which biological pathways are associated with the list of genes.
 
-Now, because 
-bonferroni correction multiple testing
+However, in pathways, it is important to capture the *topology* of the pathways. In a pathway analysis, the goal is to find the most statistically perturbed pathways, and then get a list of those
+perturbed pathways and essentially search for possible targets in part of those pathways. However, standard methods such as the GSEA pathway analysis ignores the topology and just regards the pathways 
+as a simple gene set all grouped together. Pathway databases such as KEGG that is utilized here, however, contain topology in the form of graphs with nodes and edges showing interactions between genes and proteins.
+The comparison diagram below shows the difference between a topology-aware pathway and a simple gene set for the same pathway.
+
+<div class="row">
+    <div class="col-sm">
+        {% include figure.html path="assets/img/4_project/pathway_geneset.png" title="GS methods" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    Diagram showing difference between topology-aware pathway and simple gene set for the same example pathway.
+</div>
+
+Despite correcting for multiple hypothesis testing and utilizing the topology of the pathways, pathway analysis methods still suffered from false positives and negatives. Therefore, I utilized
+the "primary disregulation" method summarized in this [article](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6190577/), which essentially reduces the false positives and negatives and boosts accuracy by
+"distinguishing between genes that are true sources of perturbation" (more important, e.g. due to mutations, epigenetic changes, etc) and "genes that merely respond to perturbation signals coming upstream" (less important). 
+A numerical value of "primary disregulation" or pDis is calculated for each pathway which denotes the "change in a gene expression inherent to the gene itself". The p-value of this pDis value, or ppDis is also calculated and
+the list of the perturbed pathways with a low pDis and ppDis value can be further investigated to find for possible drug targets. Lastly, a "cut-off free analysis" may be superior, which doesn't perform the DGE analysis before
+performing the pathway analysis, as the DGE analysis usually eliminates almost 99% of all the genes available in the original RNA-Seq data, possibly removing important genes that may be relevant to the disease. Both cut-off free and
+cut-off analysis was performed.
 
 *Context: For some context, my research internship was at a small start-up company focused on early drug discovery. The company aimed to discover new drug compounds or new drug targets for a known compound. Then,
 the company would aim to out-license these early "hits" or "leads" to a bigger pharmaceutical company for profit.*
@@ -38,22 +57,45 @@ the company would aim to out-license these early "hits" or "leads" to a bigger p
 
 ### **Methods:**
 
+* Differential Gene Expression (DGE) Analysis:
+    - Use R Packages called voom, limma, edgeR for DGE analysis
+    - First normalize the read counts using voom (log of counts per million (CPM))
+    - Then perform statistical testing (eBayes, empirical bayes statistics) using limma and edgeR for differential expression testing.
+    - For cut-off analysis, cut-off DGE genes on a certain threshold. For cut-off free analysis, don't cut-off.
+    
+* Primary Disregulation (pDis) Pathway Analysis:
+    - Use R Packages ROntoTools and GeneBook for pathway analysis
+    - Fetch the DGE gene list and use them to perform pDis analysis (with a set bootstrap iteration), also using KEGG pathways.
+    - Sort the results of most perturbed pathways by pDis and ppDis values (lower the better).
+
+*Note that full code is on [github](https://github.com/chokevin8/CBD-Intern).*
 
 ---
 
-### **Results & Discussion:**
-
+### **Results:**
+I performed 50k bootstrap iterations of pDis analysis for both liver and pancreatic cancer (LIHC/PAAD) and then returned the list of the most perturbed pathways
+with low total pDis values and low p value (ppDis) values (p < 0.05). Before the analysis, a DGE analysis between cancer vs healthy patients was performed if performing
+cut-off analysis. However, cut-off free analysis was better, and some examples of LIHC pathways that were most perturbed were "Autophagy", "SNARE interactions in vescular transport", "RNA degradation", etc.
+Some examples of unique PAAD pathways that were most perturbed were "Autophagy", "Homologous recombination", "Asthma", etc. These names of pathways then can be searched on the [KEGG pathway database](https://www.genome.jp/kegg/pathway.html)
+to look at the associated genes and the topology regarding the pathway. Lastly, a bottom-up approach using these specific pathways can potentially lead to a new drug target.
 
 ---
 
 ### **Personal Comments:**
 
 ### Q: Why did I choose this project? ###
-
-When I fortunately got an offer to work as a summer intern
+When I fortunately got an offer to work as a summer intern for working on a RNA-Seq pipeline, I was excited because it was my first time at
+not only doing an internship, but also working with RNA-Seq data and R. I was a student who was always excited about cancer research, and 
+to be part of research that screens for possible novel targets for liver and pancreatic cancer was a fascinating opportunity I could not turn down.
 
 ### Q: What did I do outside of this project? ###
+Because it was my first time looking at RNA-Seq datasets and my first time coding in R, I did a lot of background article reading on RNA-Seq dataset and
+related R libraries mentioned above to perform the DGE and pathway analysis. Furthermore, preprocessing the RNA-Seq dataset also required me to learn R more, 
+especially the packages that are often used such as tidyr, dplyr, data.table, etc. 
 
 ### Q: What impact did this project have on me? ###
+This was my first experience in both working as an intern and working a computational job, so it was an eye-opening experience. I think this experience eventually 
+shaped my future research in computational work and allowed me to find another internship opportunity regarding RNA-Seq datasets. Therefore, while the project itself wasn't
+anything groundbreaking in itself, the impact was definitely long-lasting in that it got me into the industry and the field. 
 
 ---
