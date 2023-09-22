@@ -40,8 +40,8 @@ how latent diffusion works. Before looking at the model objective of LDMs, I thi
 <a id="vaes-elbo"></a>
 ###  ***VAEs and ELBO:***
 
-Let's look at variational autoencoders (VAEs) in a probabilistic way. The variational autoencoder holds a probability model with the $x$ representing
-the data, and the $z$ representing the latent variables of the autoencoder. Remember that we want our latent variable $$z$$ to model the data $$x$$ as 
+Let's look at variational autoencoders (VAEs) in a probabilistic way. The variational autoencoder holds a probability model with the $$x$$ representing
+the data, and the $$z$$ representing the latent variables of the autoencoder. Remember that we want our latent variable $$z$$ to model the data $$x$$ as 
 accurately as possible. Note that $$x$$ can be seen, but $$z$$ cannot since it is in the latent space. To perform the generative process, or run inference, 
 for each individual data $$j$$, we first sample latent variable $$z_i$$ from the prior $$P(z)$$: $$z_i \sim P(z)$$. 
 Then, with the prior sampled, we sample an individual data $$x_i$$ from the likelihood $$P(x | z)$$: $$x_i \sim P(x | z)$$.
