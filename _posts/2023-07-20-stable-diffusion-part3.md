@@ -292,10 +292,10 @@ Utilizing Baye's Rule, we can calculate the desired ground truth denoising step 
 <p>
 $$ q(x_{t-1}|x_t,x_0) = \frac{q(x_t|x_{t-1},x_0)q(x_{t-1}|x_0))}{q(x_t|x_0))} \quad (13) $$
 </p>
-Now, we know the form of the distribution of the denominator of equation #13 above, which is $$q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha}_t}x_0,\Sigma_t = (1-\hat{\alpha}_t)I)$$
+Now, hello we know the form of the distribution of the denominator of equation #13 above, which is $$ q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha_t}}x_0,\Sigma_t = (1-\hat{\alpha_t})I)$$
 Recall that this is from equation #5 from above and this was the reparametrization trick for the simplification of the forward diffusion process, or $$ q(x_t|x_0) $$ :
 <p>
-$$ x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}\epsilon  $$ 
+$$ x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}\epsilon $$ 
 </p>
 
 Now, how about the numerator? We also know the forms of the two distributions in the numerator of equation #1 above as well. $$ q(x_t|x_t{t-1},x_0) $$ is the forward diffusion noising step and is
