@@ -54,20 +54,7 @@ parameters of the weights and biases of the decoder.
  
 We are now well familiar with the training process since the objective was already explained in the previous part of the blog post. 
 
-The above sampling algorithm is the DDPM sampling process, which is just the reverse diffusion process explained in the previous part. Recall equation #5 from the previous blog [post](/blog/2023/stable-diffusion-part3/), which 
-is referred to equation #1 below:
-<p>
-$$ x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}\epsilon \quad (1) $$ 
-</p>
-Recall that this equation was the reparametrization trick for the simplification of the forward diffusion process, or $$ q(x_t|x_0) $$. 
-Utilizing Baye's Rule, we can calculate the desired reverse diffusion process or sampling process:
-<p>
-$$ q(x_{t-1}|x_t,x_0) = \frac{q(x_t|x_t{t-1},x_0)q(x_{t-1}|x_0}{q(x_t|x_0} $$
-</p>
-Now, we know the form of the distribution of the denominator of equation #1 above, which is $$q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha}_t}x_0,\Sigma_t = (1-\hat{\alpha}_t)I)}$$
-However, we also know the forms of the two distributions in the numerator of equation #1 above as well. When deriving the objective function
-
-The approximate denoising transition mean 
+The above sampling algorithm is the DDPM sampling process, which is just the reverse diffusion process explained in the previous part. 
 
 Now, note that for sampling, we only need the trained decoder from above (no encoder). Therefore, we sample latent noise $$x_T$$ from prior $$p(x_T)$$, which is $$\epsilon \sim \mathcal{N}(0, I)$$
 and then run the series of $$T$$ equally weighted autoencoders as mentioned before in a Markovian style (sample from $$x_{t-1}$$). However, the sampling process using
