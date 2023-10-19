@@ -170,7 +170,7 @@ Therefore, $$q(x_t|x_{t-1})$$ takes the image and outputs a slightly more noisy 
 $$q(x_t|x_{t-1}) = \mathcal{N}(x_t; \mu_t = \sqrt{1-\beta_t}x_{t-1},\Sigma_t = \beta_tI) \quad (3)$$
 </p>
 
-Assuming high-dimensionality, $$q(x_t|x_{t-1})$$ is a Gaussian distribution with the above defined mean and variance. Note that for each dimension, it has the same standard deviation $$\beta_t$$.
+Assuming high-dimensionality, $$q(x_t|x_{t-1})$$ is a Gaussian distribution with the above defined mean and variance. Note that for each dimension, it has the same variance $$\beta_t$$.
 $$\beta_t$$ is a number between 0 and 1, and essentially scales the data so the variance doesn't grow out of proportion. The authors use a *linear schedule* for $$\beta_t$$, meaning that $$\beta_t$$ is linearly
 increased as the image gets noised more. Note that with above formula, we can easily obtain desired noised image at timestep $$T$$ by using the Markovian nature of the process. Below is a tractable, closed-form 
 formula to sample a noised image at any timestep:
@@ -305,14 +305,17 @@ Now inputting all three of these formulations in the Baye's Rule above in equati
 $$ q(x_{t-1}|x_t,x_0) = \frac{\mathcal{N}(x_t; \mu_t = \sqrt{\alpha_t}x_{t-1},\Sigma_t = (1-\alpha_t)I)\mathcal{N}(x_{t-1}; \mu_t = \sqrt{\hat{\alpha}_{t-1}}x_0,\Sigma_t = (1-\hat{\alpha}_{t-1}})I)}}{\mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha}_t}x_0,\Sigma_t = (1-\hat{\alpha}_t)I)}} \quad (14) $$
 </p>
 
-Now, combining the three different Gaussian distributions above to get the mean and standard deviation for the desired $$q(x_{t-1}|x_0}$$ is a lot of computations to show in this blog. The full derivation, for those who are curious,
+Now, combining the three different Gaussian distributions above to get the mean and variance for the desired $$q(x_{t-1}|x_0}$$ is a lot of computations to show in this blog. The full derivation, for those who are curious,
 can be found in this [link](https://arxiv.org/pdf/2208.11970.pdf), *exactly in page 12 from equation 71 to 84*. (I just feel like this derivation is just a bunch of reshuffling variables with algebra, so it is unnecessary to include in my blog)
 Finishing this derivation shows that our desired $$q(x_{t-1}|x_0}$$ is normally distributed:
 <p>
 $$ q(x_{t-1}|x_t,x_0) = \mathcal{N}(x_{t-1}; \mu_t = \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t},\Sigma_t = \frac{(1-alpha_t)(1-\hat{\alpha_{t-1}})}{1-\hat{\alpha_t}I)} \quad (15) $$
 </p>
 
-The approximate denoising transition mean 
+From above, we can see that the above approximate denoising transition $$q(x_{t-1}|x_t,x_0)$$ has mean that is a function of $$x_t$$ and $$x_0$$ and therefore can be abbreviated as $$\mu_q(x_t,x_0)$$, and has variance that is a function of $$t$$ (naturally) and the
+$$\alpha$$ coefficients and therefore can be abbreviated as $$\Sigma_q(t)$$. Recall that these $$\alpha$$ coefficients are fixed and known, so that at any time step $$t$$, we know the variance. 
+
+
 
 
 
