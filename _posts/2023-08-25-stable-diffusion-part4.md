@@ -52,12 +52,32 @@ Let's first look at the training algorithm:
 5. Take gradient descent step on the previous training objective $$L_{LDM} = ||\epsilon - \epsilon_{\theta}(x_t,t)||^2 $$ with respect to $$\theta$$, which is the 
 parameters of the weights and biases of the decoder.
  
-Note that for sampling, we only need the trained decoder from above. Therefore, we sample latent noise $$x_T$$ from prior $$p(x_T)$$, which is $$\epsilon \sim \mathcal{N}(0, I)$$
+We are now well familiar with the training process since the objective was already explained in the previous part of the blog post. 
+
+The above sampling algorithm is the DDPM sampling process, which is just the reverse diffusion process explained in the previous part. Recall equation #5 from the previous blog [post](/blog/2023/stable-diffusion-part3/), which 
+is referred to equation #1 below:
+<p>
+$$ x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}\epsilon \quad (1) $$ 
+</p>
+Recall that this equation was the reparametrization trick for the simplification of the forward diffusion process, or $$ q(x_t|x_0) $$. 
+Utilizing Baye's Rule, we can calculate the desired reverse diffusion process or sampling process:
+<p>
+$$ q(x_{t-1}|x_t,x_0) = \frac{q(x_t|x_t{t-1},x_0)q(x_{t-1}|x_0}{q(x_t|x_0} $$
+</p>
+Now, we know the form of the distribution of the denominator of equation #1 above, which is $$q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha}_t}x_0,\Sigma_t = (1-\hat{\alpha}_t)I)}$$
+However, we also know the forms of the two distributions in the numerator of equation #1 above as well. When deriving the objective function
+
+The approximate denoising transition mean 
+
+Now, note that for sampling, we only need the trained decoder from above (no encoder). Therefore, we sample latent noise $$x_T$$ from prior $$p(x_T)$$, which is $$\epsilon \sim \mathcal{N}(0, I)$$
 and then run the series of $$T$$ equally weighted autoencoders as mentioned before in a Markovian style (sample from $$x_{t-1}$$). However, the sampling process using
 Denoising Diffusion Probabilistic Model (DDPM) uses a Markovian sampling process while an improved method called Denoising Diffusion Implicit Model (DDIM) uses a non-Markovian
 sampling process that makes the process much quicker. Therefore, DDIM uses $$S$$ steps instead of $$T$$ where $$ S<T $$, and the authors of LDM therefore use DDIM over DDPM.
 
-To derive the DDIM sampling process, we utilize the *reparametrization trick*, which we actually applied in equation #5 above. The reparametrization trick is used whenever we sample from
+
+
+
+To derive the DDIM sampling process, we utilize the *reparametrization trick*, which we applied in equation #5 above. The reparametrization trick is used whenever we sample from
 a distribution (Gaussian in our case) that is not directly differentiable. For our case, the mean and the variance of the distribution are both dependent on the model
 parameters, which is learned through SGD (as shown above). The issue is that because sampling from the Gaussian distribution is stochastic, we cannot compute the gradient anymore to update
 the mean and variance parameters. So, we introduce the auxiliary random variable $$\epsilon$$ that is deterministic since it is sampled from a fixed standard Gaussian distribution ($$\epsilon \sim \mathcal{N}(0, 1) $$),

@@ -185,7 +185,7 @@ $$ \text{Let} \quad \alpha_t = 1 - \beta_t \text{and} \quad \hat{\alpha}_t = \pr
 $$ \text{Also sample noise} \quad \epsilon_0, ..., \epsilon_{t-1} \sim \mathcal{N}(0,I) $$
 $$ \text{Then,} \quad x_t = \sqrt{1-\beta_t}x_{t-1} + \sqrt{\beta_t}\epsilon_{t-1} $$
 $$ x_t = \sqrt{\alpha_t}x_{t-1} + \sqrt{1-\alpha_t}\epsilon_{t-1} $$
-$$ x_t = \sqrt{\alpha_t \alpha_{t-1}}x_{t-2} + \sqrt{1-\alpha_t \alpha{t-1}}\epsilon_{t-2} $$
+$$ x_t = \sqrt{\alpha_t \alpha_{t-1}}x_{t-2} + \sqrt{1-\alpha_t \alpha_{t-1}}\epsilon_{t-2} $$
 $$ x_t = \quad ... $$
 $$ x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}\epsilon $$
 $$ \mathbf{ \text{Therefore,} \quad q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha}_t}x_0,\Sigma_t = (1-\hat{\alpha}_t)I)} \quad (5)$$
@@ -226,8 +226,8 @@ KL-divergence between the true unknown posterior $$q(x_{1:T}|x_0)$$ and the appr
 <p>
 $$ 0 \leq min \ D_{KL}(q(x_{1:T}|x_0)||p_{\theta}(x_{1:T}|x_0)) $$ 
 $$ - \log (p_{\theta}(x_0)) \leq - \log (p_{\theta}(x_0)) + min \ D_{KL}(q(x_{1:T}|x_0)||p_{\theta}(x_{1:T}|x_0)) $$ 
-$$ - \log (p_{\theta}(x_0)) \leq - \log (p_{\theta}(x_0)) + \log(\frac{q(x_{1:T}|x_0)}{p_{\theta}(x_{1:T}|x_0})$$ 
-$$ - \log (p_{\theta}(x_0)) \leq - \log (p_{\theta}(x_0)) + \log(\frac{q(x_{1:T}|x_0)}{p_{\theta}(x_{0:T}}) + \log(p_{\theta}(x_0)) \quad \text{since} \ p_{\theta}(x_{1:T}|x_0) = \frac{p_{\theta}(x_0|x_{1:T})p_{\theta}(x_{1:T})}{p_{\theta}(x_0)} = \frac{p_{\theta}(x_0,x_{1:T})}{p_{\theta}(x_0)} = \frac{p_{\theta}(x_{0:T})}{p_{\theta}(x_0)}$$
+$$ - \log (p_{\theta}(x_0)) \leq - \log (p_{\theta}(x_0)) + \log(\frac{q(x_{1:T}|x_0)}{p_{\theta}(x_{1:T}|x_0)})$$ 
+$$ - \log (p_{\theta}(x_0)) \leq - \log (p_{\theta}(x_0)) + \log(\frac{q(x_{1:T}|x_0)}{p_{\theta}(x_{0:T})}) + \log(p_{\theta}(x_0)) \quad \text{since} \ p_{\theta}(x_{1:T}|x_0) = \frac{p_{\theta}(x_0|x_{1:T})p_{\theta}(x_{1:T})}{p_{\theta}(x_0)} = \frac{p_{\theta}(x_0,x_{1:T})}{p_{\theta}(x_0)} = \frac{p_{\theta}(x_{0:T})}{p_{\theta}(x_0)}$$
 $$ - \log (p_{\theta}(x_0)) \leq \log(\frac{q(x_{1:T}|x_0)}{p_{\theta}(x_{0:T})}) \quad \text{since} \ - \log (p_{\theta}(x_0)) + \log(p_{\theta}(x_0)) = 0 \quad (7)$$
 </p>
 
@@ -238,7 +238,11 @@ Therefore, instead of minimizing the above KL-divergence, we can maximize the EL
 $$ - \log (p_{\theta}(x_0)) \leq \log(\frac{q(x_{1:T}|x_0)}{p_{\theta}(x_{0:T})}) $$
 $$ - \log (p_{\theta}(x_0)) \leq \log(\frac{\prod_{t=1}^{T} q(x_t|x_{t-1})}{p(x_T) \prod_{t=1}^{T}p_{\theta}(x_{t-1}|x_t)}) \quad \text{since} \ p_{\theta}(x_{0:T}) = p(x_T) \prod_{t=1}^{T} p_{\theta}(x_{t-1}|x_t)$$
 $$ - \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \log (\frac{\prod_{t=1}^{T} q(x_t|x_{t-1})}{\prod_{t=1}^{T}p_{\theta}(x_{t-1}|x_t)}) $$
-$$ - \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \sum_{t=1}^{T} \log(\frac{q(x_t|x_{t-1})}{p_{\theta}(x_{t-1}|x_t)}) $$
+$$ - \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \sum_{t=1}^{T} \log(\frac{q(x_t|x_{t-
+ 
+ 
+ 
+1})}{p_{\theta}(x_{t-1}|x_t)}) $$
 $$ - \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \sum_{t=2}^{T} \log(\frac{q(x_t|x_{t-1})}{p_{\theta}(x_{t-1}|x_t)}) + log(\frac{q(x_1|x_0)}{p_{\theta}(x_0|x_1)}) \quad \text{since} \ log(\frac{q(x_1|x_0)}{p_{\theta}(x_0|x_1)}) \ \text{is when} \ t = 1 \quad (8)$$
 </p>
 
@@ -257,7 +261,7 @@ For equation #9, we can further split the second term on the RHS (the summation 
 <p>
 $$ \sum_{t=2}^{T} \log(\frac{q(x_{t-1}|x_t,x_0)q(x_t|x_0)}{p_{\theta}(x_{t-1}|x_t)q(x_{t-1}|x_0)}) = \sum_{t=2}^{T} \log(\frac{q(x_{t-1}|x_t,x_0)}{p_{\theta}(x_{t-1}|x_t)}) + \sum_{t=2}^{T} \log(\frac{q(x_t|x_0)}{q(x_{t-1}|x_0)})$$
 </p>
-Examining $$\sum_{t=2}^{T} \log(\frac{q(x_t|x_0)}{q(x_{t-1}|x_0)})$$, for any $$ t>2 $$, we see that all the terms in the denominator and numerator will cancel out each other and will simplify to $$ \log(\frac{q(x_t|x_0)}{q(x_1|x_0}))$$.
+Examining $$\sum_{t=2}^{T} \log(\frac{q(x_t|x_0)}{q(x_{t-1}|x_0)})$$, for any $$ t>2 $$, we see that all the terms in the denominator and numerator will cancel out each other and will simplify to $$ \log(\frac{q(x_t|x_0)}{q(x_1|x_0)}))$$.
 <br>
 Performing all of these substitutions to equation #9 gives equation #10:
 <p>
@@ -279,8 +283,11 @@ Therefore, below is our final training objective, all we need to do is minimize 
 <p>
 $$ - \log (p_{\theta}(x_0)) \leq \sum_{t=2}^{T} D_{KL}(q(x_{t-1}|x_t,x_0)||p_{\theta}(x_{t-1}|x_t)) - \log(p_{\theta}(x_0|x_1)) \quad (12)$$
 </p>
-Now, let's look at the first term of the RHS $$\sum_{t=2}^{T} D_{KL}(q(x_{t-1}|x_t,x_0)||p_{\theta}(x_{t-1}|x_t))$$. For $$p_{\theta}(x_{t-1}|x_t)$$, we already know the
-mean and the variance from equation #6 above: $$ p_{\theta}(x_{t-1}|x_t) = \mathcal{N}(x_{t-1}; \mu_{\theta}(x_t,t),\beta I) $$. Note we assume that the variance is fixed by the
+Now, to minimize the RHS of the equation our only choice is two minimize the first term $$\sum_{t=2}^{T} D_{KL}(q(x_{t-1}|x_t,x_0)||p_{\theta}(x_{t-1}|x_t))$$. Before diving into the derivation, let's look at what this
+term actually means- it is the KL divergence between the ground truth denoising transition step $$q(x_{t-1}|x_t,x_0)$$ and our approximation of the denoising transition step
+$$p_{\theta}(x_{t-1}|x_t)$$, and it makes sense we want to minimize this KL divergence since we want the approximated denoising transition step to be as similar to the ground truth denoising transition step as possible.
+
+Now, for $$p_{\theta}(x_{t-1}|x_t)$$, we already know the mean and the variance from equation #6 above: $$ p_{\theta}(x_{t-1}|x_t) = \mathcal{N}(x_{t-1}; \mu_{\theta}(x_t,t),\beta I) $$. Note we assume that the variance is fixed by the
 noise schedule $$\beta$$. Then, we can also assume that $$q(x_{t-1}|x_t,x_0)$$ would also follow a similar distribution $$q(x_{t-1}|x_t,x_0) = \mathcal{N}(x_{t-1}; \tilde{\mu}_t(x_t,x_0),\tilde{\beta}_tI)$$. 
 Now, finding the mean $$\tilde{\mu}$$ would take too long and not showing this still wouldn't hurt our understanding, but the value and its derivation can be found in page 13 of this [paper](https://arxiv.org/pdf/2208.11970.pdf).
 
