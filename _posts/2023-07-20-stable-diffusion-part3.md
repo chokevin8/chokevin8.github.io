@@ -9,7 +9,7 @@ categories: posts
 ---
 
 ## **Table of Contents:**
-### [Background (Part 1)](/blog/2023/stable-diffusion/))
+### [Background (Part 1)](/blog/2023/stable-diffusion/)
 - ### Introduction
 - ### Stable Diffusion vs GAN
 
@@ -22,11 +22,11 @@ categories: posts
 - ### [VAEs and ELBO](#vaes-elbo)
 - ### [Model Objective](#model-objective-1)
 
-### [Stable Diffusion In Numbers Continued (To be continued...)](/blog/2023/stable-diffusion-part4/)
+### [Stable Diffusion In Numbers Continued (Part 4)](/blog/2023/stable-diffusion-part4/)
 - ### Training and Inference
 - ### Conditioning 
 - ### Classifier-Free Guidance
-
+- ### Summary
 ---
 
 *Note: For other parts, please click the link above in the table of contents.* 
@@ -298,7 +298,7 @@ Recall that this is from equation #5 from above and this was the reparametrizati
 $$ x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}\epsilon $$ 
 </p>
 
-Now, how about the numerator? We also know the forms of the two distributions in the numerator of equation #1 above as well. $$ q(x_t|x_t{t-1},x_0) $$ is the forward diffusion noising step and is
+Now, how about the numerator? We also know the forms of the two distributions in the numerator of equation #1 above as well. $$ q(x_t|x_{t-1},x_0) $$ is the forward diffusion noising step and is
 formulated in equation #3 above $$ q(x_t|x_{t-1}) = \mathcal{N}(x_t; \mu_t = \sqrt{1-\beta_t}x_{t-1},\Sigma_t = \beta_tI) = q(x_t|x_{t-1}, x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\alpha_t}x_{t-1},\Sigma_t = (1-\alpha_t)I) $$
 where $$ \alpha_t = 1-\beta_t $$. The other distribution $$ q(x_{t-1}|x_0} $$ is a slight modification of the distribution in the numerator $$ q(x_t|x_0) $$, with t being t-1 instead, so this is formulated as:
 $$ q(x_{t-1}|x_0} = \mathcal{N}(x_{t-1}; \mu_t = \sqrt{\hat{\alpha}_{t-1}}x_0,\Sigma_t = (1-\hat{\alpha}_{t-1}})I)$$

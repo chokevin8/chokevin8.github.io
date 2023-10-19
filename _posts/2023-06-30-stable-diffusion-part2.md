@@ -22,10 +22,12 @@ categories: posts
 - ### VAEs and ELBO
 - ### Model Objective
 
-### [Stable Diffusion In Numbers Continued (To Be Continued...)](/blog/2023/stable-diffusion-part4/))
+### [Stable Diffusion In Numbers Continued (Part 4)](/blog/2023/stable-diffusion-part4/))
 - ### Training and Inference
 - ### Conditioning 
 - ### Classifier-Free Guidance
+- ### Summary
+- 
 ---
 
 *Note: For other parts, please click the link above in the table of contents.* 
