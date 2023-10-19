@@ -26,8 +26,11 @@ categories: posts
 - ### [Training and Inference](#training-inference)
 - ### [Conditioning](#conditioning)
 - ### [Classifier-Free Guidance](#classifier-free-guidance)
+- ### [Summary](#summary)
 
 ---
+
+*Note: For other parts, please click the link above in the table of contents.* 
 
 <a id="stable-diffusion-in-numbers-2"></a>
 ## **Stable Diffusion In Numbers Continued**
@@ -52,7 +55,6 @@ Let's first look at the training algorithm:
 5. Take gradient descent step on the previous training objective $$L_{LDM} = ||\epsilon - \epsilon_{\theta}(x_t,t)||^2 $$ with respect to $$\theta$$, which is the 
 parameters of the weights and biases of the decoder.
  
-We are now well familiar with the training process since the objective was already explained in the previous part of the blog post. 
 
 The above sampling algorithm is the DDPM sampling process, which is just the reverse diffusion process explained in the previous part. 
 
@@ -60,9 +62,6 @@ Now, note that for sampling, we only need the trained decoder from above (no enc
 and then run the series of $$T$$ equally weighted autoencoders as mentioned before in a Markovian style (sample from $$x_{t-1}$$). However, the sampling process using
 Denoising Diffusion Probabilistic Model (DDPM) uses a Markovian sampling process while an improved method called Denoising Diffusion Implicit Model (DDIM) uses a non-Markovian
 sampling process that makes the process much quicker. Therefore, DDIM uses $$S$$ steps instead of $$T$$ where $$ S<T $$, and the authors of LDM therefore use DDIM over DDPM.
-
-
-
 
 To derive the DDIM sampling process, we utilize the *reparametrization trick*, which we applied in equation #5 above. The reparametrization trick is used whenever we sample from
 a distribution (Gaussian in our case) that is not directly differentiable. For our case, the mean and the variance of the distribution are both dependent on the model
@@ -79,10 +78,15 @@ The main advantages of DDIM over DDPM are:
 1. Consistency: DDIMs are consistent, meaning that if we initialize the same latent variable $$x_T$$ via same random seed during sampling, the samples 
 2. 
 
+<a id="conditioning"></a>
+###  ***Conditioning:***
 
 
+<a id="classifier-free-guidance"></a>
+###  ***Classifier-Free Guidance:***
 
+<a id="summary"></a>
+###  ***Summary:***
 For conditioning, look at table 15 of LDM paper
-*Note: For other parts, please click the link above in the table of contents.* 
 maybe include autoencoder training as well since conditioning is basically UNet training details + pretrained encoder.
 Autoencoder training is in appendix G: Details on Autoencoder Models

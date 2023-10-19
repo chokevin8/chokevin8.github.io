@@ -288,9 +288,9 @@ term actually means- it is the KL divergence between the ground truth denoising 
 $$p_{\theta}(x_{t-1}|x_t)$$, and it makes sense we want to minimize this KL divergence since we want the approximated denoising transition step to be as similar to the ground truth denoising transition step as possible.
 
 
-Utilizing Baye's Rule, we can calculate the desired ground truth denoising step: $$q(x_{t-1}|x_t,x_0)$$
+Utilizing Baye's Rule, we can calculate the desired ground truth denoising step $$q(x_{t-1}|x_t,x_0)$$ :
 <p>
-$$ q(x_{t-1}|x_t,x_0) = \frac{q(x_t|x_t{t-1},x_0)q(x_{t-1}|x_0}{q(x_t|x_0} \quad (13) $$
+$$ q(x_{t-1}|x_t,x_0) = \frac{q(x_t|x_{t-1},x_0)q(x_{t-1}|x_0))}{q(x_t|x_0))} \quad (13) $$
 </p>
 Now, we know the form of the distribution of the denominator of equation #13 above, which is $$q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha}_t}x_0,\Sigma_t = (1-\hat{\alpha}_t)I)}$$
 Recall that this is from equation #5 from above and this was the reparametrization trick for the simplification of the forward diffusion process, or $$ q(x_t|x_0) $$ :
