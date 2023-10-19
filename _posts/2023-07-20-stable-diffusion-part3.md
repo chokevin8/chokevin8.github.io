@@ -302,7 +302,7 @@ $$ q(x_{t-1}|x_0} = \mathcal{N}(x_{t-1}; \mu_t = \sqrt{\hat{\alpha}_{t-1}}x_0,\S
 
 Now inputting all three of these formulations in the Baye's Rule above in equation #13 we get equation #14 below: 
 <p>
-$$ q(x_{t-1}|x_t,x_0) = \frac{\mathcal{N}(x_t; \mu_t = \sqrt{\alpha_t}x_{t-1},\Sigma_t = (1-\alpha_t)I)\mathcal{N}(x_{t-1}; \mu_t = \sqrt{\hat{\alpha}_{t-1}}x_0,\Sigma_t = (1-\hat{\alpha}_{t-1}})I)}}{\mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha}_t}x_0,\Sigma_t = (1-\hat{\alpha}_t)I)}} \quad (14) $$
+$$ q(x_{t-1}|x_t,x_0) = \frac{\mathcal{N}(x_t; \mu_t = \sqrt{\alpha_t}x_{t-1},\Sigma_t = (1-\alpha_t)I) \mathcal{N}(x_{t-1}; \mu_t = \sqrt{\hat{\alpha}_{t-1}}x_0,\Sigma_t = (1-\hat{\alpha}_{t-1})I)}{\mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha}_t}x_0,\Sigma_t = (1-\hat{\alpha}_t)I)} \quad (14) $$
 </p>
 
 Now, combining the three different Gaussian distributions above to get the mean and variance for the desired $$q(x_{t-1}|x_0}$$ is a lot of computations to show in this blog. The full derivation, for those who are curious,
