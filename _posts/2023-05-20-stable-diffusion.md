@@ -13,7 +13,7 @@ categories: posts
 For my first post, I thought it'd be fitting to do an in-depth review on the stable diffusion model which basically started the stable diffusion boom last year. 
 It really is the "hot topic" right now, as the generative models are taking over the AI industry. For reference purposes, the stable diffusion paper that started it all is named 
 "High-Resolution Image Synthesis with Latent Diffusion Models", and can be found [here](https://arxiv.org/pdf/2112.10752.pdf). For this part (part 1), I will just touch upon the surface
-about stable diffusion and its predecessor, GANs. The next two parts as seen in the table of contents below will cover more details. 
+about stable diffusion and its predecessor, GANs. The next three parts, as seen in the table of contents below, will cover much more qualitative and quantitative details. 
 <strong> Let's dive right in!
 
 
@@ -27,7 +27,7 @@ about stable diffusion and its predecessor, GANs. The next two parts as seen in 
 - ###  [Introduction](#introduction)
 - ### [Why ditch GANs for Stable Diffusion?](#why-ditch-GANs)
 
-### [Stable Diffusion In Words(Part 2)](/blog/2023/stable-diffusion-part2/) 
+### [Stable Diffusion In Words (Part 2)](/blog/2023/stable-diffusion-part2/) 
 - ### Motivation
 - ### Model Architecture
 - ### Experiments & Results
