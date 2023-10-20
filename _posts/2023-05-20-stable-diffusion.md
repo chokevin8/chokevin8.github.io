@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Latent/Stable Diffusion for Beginners! (Part 1)
+title:  Latent/Stable Diffusion Fully Explained! (Part 1)
 date:   2023-05-20
 description: 
 tags: deep-learning machine-learning generative-models paper-review

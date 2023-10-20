@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Latent/Stable Diffusion for Beginners! (Part 3)
+title:  Latent/Stable Diffusion Fully Explained! (Part 3)
 date:   2023-08-15
 description: 
 tags: deep-learning machine-learning generative-models paper-review
@@ -34,7 +34,8 @@ categories: posts
 <a id="stable-diffusion-in-numbers-1"></a>
 ## **Stable Diffusion In Numbers**
 In this part of the blog, I will cover the mathematical details behind latent diffusion that is necessary to fully understand
-how latent diffusion works. Before looking at the model objective of LDMs, I think it's important to do an in-depth review on VAEs and how the Evidence Lower Bound
+how latent diffusion works. This one took longer to write, as it is mathematically heavy, but it will be eventually worth it since
+understanding the underlying math will allow us to really fully understand stable diffusion. Before looking at the model objective of LDMs, I think it's important to do an in-depth review on VAEs and how the Evidence Lower Bound
 (ELBO) is utilized: 
 
 <a id="vaes-elbo"></a>
@@ -342,15 +343,15 @@ We see why it's important to do derivations, it exactly shows what the objective
 as similar to the ground truth denoising step as possible! $$\mu_q$$ and $$\mu_{\theta}$$, using equation #15 is:
 <p>
 $$\mu_q = \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t}}$$
-$$\mu_{\theta} = \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)\hat{x}_{\theta}(x_t,t)}{1-\hat{\alpha_t}}
+$$\mu_{\theta} = \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)\hat{x}_{\theta}(x_t,t)}{1-\hat{\alpha_t}}$$
 </p>
 Note that the two are exactly the same except $$x_0$$ is replaced with $$\hat{x}_{\theta}(x_t,t)$$ as mentioned before. Finally, plugging these two into equation #16 allows us to find the training objective:
 <p>
-$$\mathop{\arg \min}\limits_{\theta} \quad \frac{1}{2{\sigma_q}^{2}(t)} [{|| \mu_{\theta} - \mu_q ||}^{2}] \quad $$
-$$\mathop{\arg \min}\limits_{\theta} \quad \frac{1}{2{\sigma_q}^{2}(t)} [{|| \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)\hat{x}_{\theta}(x_t,t)}{1-\hat{\alpha_t}} - \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t}} ||}^{2}]$$
+$$\mathop{\arg \min}\limits_{\theta} \quad \frac{1}{2{\sigma_q}^{2}(t)} [{ || \mu_{\theta} - \mu_q ||}^{2}] \quad $$
+$$\mathop{\arg \min}\limits_{\theta} \quad \frac{1}{2{\sigma_q}^{2}(t)} [{ || \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)\hat{x}_{\theta}(x_t,t)}{1-\hat{\alpha_t}} - \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t}} ||}^{2}]$$
 The first term of each term is the same, so after eliminating those:
-$$\mathop{\arg \min}\limits_{\theta} \quad \frac{1}{2{\sigma_q}^{2}(t)} [{|| \frac{\sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)\hat{x}_{\theta}(x_t,t)}{1-\hat{\alpha_t}} - \frac{\sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t}} ||}^{2}]$$
-$$\mathop{\arg \min}\limits_{\theta} \quad \frac{1}{2{\sigma_q}^{2}(t)} [{|| \frac{\sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)\hat{x}_{\theta}(x_t,t)}{1-\hat{\alpha_t}} - \frac{\sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t}} ||}^{2}]$$
+$$\mathop{\arg \min}\limits_{\theta} \quad \frac{1}{2{\sigma_q}^{2}(t)} [{ || \frac{\sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)\hat{x}_{\theta}(x_t,t)}{1-\hat{\alpha_t}} - \frac{\sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t}} ||}^{2}]$$
+$$\mathop{\arg \min}\limits_{\theta} \quad \frac{1}{2{\sigma_q}^{2}(t)} [{ || \frac{\sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)\hat{x}_{\theta}(x_t,t)}{1-\hat{\alpha_t}} - \frac{\sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t}} ||}^{2}]$$
 
 </p>
 What's important to take away from this, however, is understanding that ***minimizing the above KL divergence*** is like minimizing the mean-squared-error (MSE) between the two distributions. If you follow through from page 13 to page 15 of
