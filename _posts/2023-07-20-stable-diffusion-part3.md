@@ -311,20 +311,13 @@ can be found in this [link](https://arxiv.org/pdf/2208.11970.pdf), *exactly in p
 Finishing this derivation shows that our desired $$q(x_{t-1}|x_0)$$ is normally distributed:
 
 <p>
-$$q(x_{t-1}|x_t,x_0) = \mathcal{N}(x_{t-1}; \mu_t = \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t},\Sigma_t = \frac{(1-alpha_t)(1-\hat{\alpha_{t-1}})}{1-\hat{\alpha_t}I)} \quad (15)$$
+$$q(x_{t-1} \mid x_t,x_0) = \mathcal{N}(x_{t-1}; \mu_t = \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t},\Sigma_t = \frac{(1-alpha_t)(1-\hat{\alpha_{t-1}})}{1-\hat{\alpha_t}I)} \quad (15)$$
 </p>
 
-From above, we can see that the above approximate denoising transition $$q(x_{t-1}|x_t,x_0)$$ has mean that is a function of $$x_t$$ and $$x_0$$ and therefore can be abbreviated as $$\mu_q(x_t,x_0)$$, and has variance that is a function of $$t$$ (naturally) and the
+From above, we can see that the above approximate denoising transition $$q(x_{t-1} \mid x_t,x_0)$$ has mean that is a function of $$x_t$$ and $$x_0$$ and therefore can be abbreviated as $$\mu_q(x_t,x_0)$$, and has variance that is a function of $$t$$ (naturally) and the
 $$\alpha$$ coefficients and therefore can be abbreviated as $$\Sigma_q(t)$$. Recall that these $$\alpha$$ coefficients are fixed and known, so that at any time step $$t$$, we know the variance. 
 
 
-
-
-
-
-Now, for $$p_{\theta}(x_{t-1}|x_t)$$, we already know the mean and the variance from equation #6 above: $$ p_{\theta}(x_{t-1}|x_t) = \mathcal{N}(x_{t-1}; \mu_{\theta}(x_t,t),\beta I) $$. Note we assume that the variance is fixed by the
-noise schedule $$\beta$$. Then, we can also assume that $$q(x_{t-1}|x_t,x_0)$$ would also follow a similar distribution $$q(x_{t-1}|x_t,x_0) = \mathcal{N}(x_{t-1}; \tilde{\mu}_t(x_t,x_0),\tilde{\beta}_tI)$$. 
-Now, finding the mean $$\tilde{\mu}$$ would take too long and not showing this still wouldn't hurt our understanding, but the value and its derivation can be found in page 13 of this [paper](https://arxiv.org/pdf/2208.11970.pdf).
 
 What's important to take away from this, however, is understanding that ***minimizing the above KL divergence*** is like minimizing the mean-squared-error (MSE) between the two distributions. If you follow through from page 13 to page 15 of
 the above mentioned paper, we notice that the minimizing the above KL divergence is equivalent to minimizing below:
