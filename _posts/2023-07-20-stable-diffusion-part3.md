@@ -317,10 +317,9 @@ $$q(x_{t-1} \mid x_t,x_0) \sim \mathcal{N}(x_{t-1}; \mu_t = \frac{\sqrt{\alpha_t
 From above, we can see that the above approximate denoising transition $$q(x_{t-1} \mid x_t,x_0)$$ has mean that is a function of $$x_t$$ and $$x_0$$ and therefore can be abbreviated as $$\mu_q(x_t,x_0)$$, and has variance that is a function of $$t$$ (naturally) and the
 $$\alpha$$ coefficients and therefore can be abbreviated as $$\Sigma_q(t)$$. Recall that these $$\alpha$$ coefficients are fixed and known, so that at any time step $$t$$, we know the variance. 
 
-Now, back to equation #12 where we want to minimize the KL-divergence: 
-<p>
+Now, back to equation #12 where we want to minimize the KL-divergence:
 $$ \mathop{\arg \min}\limits_{\theta} D_{KL}(q(x_{t-1} \mid x_t,x_0)||p_{\theta}(x_{t-1} \mid x_t)) $$. 
-</p>
+
 Equation #15 above tells us the formulation for ground truth denoising transition step $$q(x_{t-1} \mid x_t,x_0)$$ , and we know the formulation for our approximate denoising transition step 
 $$ p_{\theta}(x_{t-1} \mid x_t) $$. 
 
@@ -330,13 +329,25 @@ $$ D_{KL}(\mathcal{N}(x;\mu_x,\Sigma_x) || \mathcal{N}(y;\mu_y,\Sigma_y)) = \fra
 </p>
 Applying this KL-divergence equation to equation #12 above is also just reshuffling algebra, which is shown in the same link as before, from equations 87 to 92. We can see that equation #12 is simplified to:
 <p>
-$$ \mathop{\arg \min}\limits_{\theta} D_{KL}(q(x_{t-1} \mid x_t,x_0)||p_{\theta}(x_{t-1} \mid x_t)) $$
+$$ \mathop{\arg \min}\limits_{\theta} \quad D_{KL}(q(x_{t-1} \mid x_t,x_0)||p_{\theta}(x_{t-1} \mid x_t)) $$
 $$ \mathop{\arg \min}\limits_{\theta} \frac{1}{2{\sigma_q}^{2}(t)} [{|| \mu_{\theta} - \mu_q ||}^{2}] \quad (16) $$
 </p>
 
-To explain equation #16 above, $$\mu_q$$ is the mean of the $$\mu_{\theta}$$
+To explain equation #16 above, $$\mu_q$$ is the mean of the ground truth denoising transition step $$(q(x_{t-1} \mid x_t,x_0)$$ and $$\mu_{\theta}$$ is the mean of our desired approximate denoising transition step $$p_{\theta}(x_{t-1} \mid x_t)$$.
+How do we get these two values? We calculated them at equation 15, we can just utilize the $$\mu_t$$, it depends on $$x_0$$ and $$x_t$$! But wait, while $$(q(x_{t-1} \mid x_t,x_0)$$ is dependent on $$x_0$$ and $$x_t$$, $$p_{\theta}(x_{t-1} \mid x_t)$$ is only 
+dependent on $$x_t$$, but not $$x_0$$! Well this is exactly what we're trying to do, our approximate denoising step $$\hat{x}_{\theta}(x_t,t)$$ is parametrized by the neural network with $$\theta$$ parameters, we predict
+the generated/original image $$x_0$$ using noisy image $$x_t$$ and time step $$t$$! 
 
+We see why it's important to do derivations, it exactly shows what the objective is here now: train a neural network that parametrizes $$\hat{x}_{\theta}(x_t,t)$$ to predict $$x_0$$ as accurately as possible to make our approximate denoising step 
+as similar to the ground truth denoising step as possible! $$\mu_q$$ and $$\mu_{\theta}$$, using equation #15 is:
+<p>
+$$\mu_q = \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t}}$$
+$$\mu_{\theta} = \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)\hat{x}_{\theta}(x_t,t)}{1-\hat{\alpha_t}}
+</p>
+Note that the two are exactly the same except $$x_0$$ is replaced with $$\hat{x}_{\theta}(x_t,t)$$ as mentioned before. Finally, plugging these two into equation #16 allows us to find the training objective:
+<p>
 
+</p>
 What's important to take away from this, however, is understanding that ***minimizing the above KL divergence*** is like minimizing the mean-squared-error (MSE) between the two distributions. If you follow through from page 13 to page 15 of
 the above mentioned paper, we notice that the minimizing the above KL divergence is equivalent to minimizing below:
 <p>
