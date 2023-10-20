@@ -311,13 +311,17 @@ can be found in this [link](https://arxiv.org/pdf/2208.11970.pdf), *exactly in p
 Finishing this derivation shows that our desired $$q(x_{t-1}|x_0)$$ is also normally distributed with the below formulation:
 
 <p>
-$$q(x_{t-1} \mid x_t,x_0) \sim \mathcal{N}(x_{t-1}; \mu_t = \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t}},\Sigma_t = \frac{(1-alpha_t)(1-\hat{\alpha}_{t-1})}{1-\hat{\alpha_t}I)} \quad (15)$$
+$$q(x_{t-1} \mid x_t,x_0) \sim \mathcal{N}(x_{t-1}; \mu_t = \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t}},\Sigma_t = \frac{(1-\alpha_t)(1-\hat{\alpha}_{t-1})}{1-\hat{\alpha_t}I)} \quad (15)$$
 </p>
 
 From above, we can see that the above approximate denoising transition $$q(x_{t-1} \mid x_t,x_0)$$ has mean that is a function of $$x_t$$ and $$x_0$$ and therefore can be abbreviated as $$\mu_q(x_t,x_0)$$, and has variance that is a function of $$t$$ (naturally) and the
 $$\alpha$$ coefficients and therefore can be abbreviated as $$\Sigma_q(t)$$. Recall that these $$\alpha$$ coefficients are fixed and known, so that at any time step $$t$$, we know the variance. 
 
-Now, back to equation #12 where we want to minimize the KL-divergence: $$ \mathop{\arg \min}\limits_{\theta} D_{KL}(q(x_{t-1} \mid x_t,x_0)||p_{\theta}(x_{t-1} \mid x_t)) $$. 
+Now, back to equation #12 where we want to minimize the KL-divergence: 
+<p>
+$$ \mathop{\arg \min}\limits_{\theta} D_{KL}(q(x_{t-1} \mid x_t,x_0)||p_{\theta}(x_{t-1} \mid x_t)) $$. 
+</p>
+
 Equation #15 above tells us the formulation for ground truth denoising transition step $$q(x_{t-1} \mid x_t,x_0)$$ , and we know the formulation for our approximate denoising transition step 
 $$ p_{\theta}(x_{t-1} \mid x_t) $$. 
 
