@@ -308,10 +308,10 @@ $$q(x_{t-1} \mid x_t,x_0) = \frac{\mathcal{N}(x_t; \mu_t = \sqrt{\alpha_t}x_{t-1
 
 Now, combining the three different Gaussian distributions above to get the mean and variance for the desired $$q(x_{t-1}|x_0)$$ is a lot of computations to show in this blog. The full derivation, for those who are curious,
 can be found in this [link](https://arxiv.org/pdf/2208.11970.pdf), *exactly in page 12 from equation 71 to 84*. (I just feel like this derivation is just a bunch of reshuffling variables with algebra, so it is unnecessary to include in my blog)
-Finishing this derivation shows that our desired $$q(x_{t-1}|x_0)$$ is normally distributed:
+Finishing this derivation shows that our desired $$q(x_{t-1}|x_0)$$ is also normally distributed with the below formulation:
 
 <p>
-$$q(x_{t-1} \mid x_t,x_0) = \mathcal{N}(x_{t-1}; \mu_t = \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t},\Sigma_t = \frac{(1-alpha_t)(1-\hat{\alpha_{t-1}})}{1-\hat{\alpha_t}I)} \quad (15)$$
+$$q(x_{t-1} \mid x_t,x_0) \sim \mathcal{N}(x_{t-1}; \mu_t = \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t}},\Sigma_t = \frac{(1-alpha_t)(1-\hat{\alpha}_{t-1})}{1-\hat{\alpha_t}I)} \quad (15)$$
 </p>
 
 From above, we can see that the above approximate denoising transition $$q(x_{t-1} \mid x_t,x_0)$$ has mean that is a function of $$x_t$$ and $$x_0$$ and therefore can be abbreviated as $$\mu_q(x_t,x_0)$$, and has variance that is a function of $$t$$ (naturally) and the
@@ -319,7 +319,7 @@ $$\alpha$$ coefficients and therefore can be abbreviated as $$\Sigma_q(t)$$. Rec
 
 Now, back to equation #12 where we want to calculate the KL-divergence: $$ D_{KL}(q(x_{t-1} \mid x_t,x_0)||p_{\theta}(x_{t-1} \mid x_t)) $$. 
 Equation #15 above tells us the formulation for ground truth denoising transition step $$q(x_{t-1} \mid x_t,x_0)$$ , and we know our approximate denoising transition step
-$$ p_{\theta}(x_{t-1} \mid x_t) ~ $$
+$$ p_{\theta}(x_{t-1} \mid x_t) $$
 
 
 What's important to take away from this, however, is understanding that ***minimizing the above KL divergence*** is like minimizing the mean-squared-error (MSE) between the two distributions. If you follow through from page 13 to page 15 of
