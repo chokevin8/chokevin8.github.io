@@ -295,6 +295,8 @@ $$ q(x_{t-1}|x_t,x_0) = \frac{q(x_t|x_{t-1},x_0)q(x_{t-1}|x_0))}{q(x_t|x_0))} \q
 Now, we know the form of the distribution of the denominator of equation #13 above, which is $$ q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha_t}}x_0,\Sigma_t = (1-\hat{\alpha_t})I) $$
 Recall that this is from equation #5 from above and this was the reparametrization trick for the simplification of the forward diffusion process, or $$q(x_t|x_0)$$ : $$x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}\epsilon$$.
 
+$$q(x_{t-1}|x_t,x_0)$$ 
+
 test:
 
 $$q(x_{t-1}|x_t,x_0)$$ 
