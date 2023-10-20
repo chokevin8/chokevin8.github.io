@@ -299,8 +299,9 @@ $$q(x_{t-1}|x_t,x_0)$$
 
 test:
 
-$$q(x_{t-1}|x_t,x_0)$$ 
 $$q(x_t|x_{t-1},x_0)$$
+$$q(x_{t-1}|x_t,x_0)$$ 
+
 
 Now, how about the numerator? We also know the forms of the two distributions in the numerator of equation #1 above as well. $$q(x_t|x_{t-1},x_0)$$ is the forward diffusion noising step and is formulated in equation #3 above $$q(x_t|x_{t-1}) = \mathcal{N}(x_t; \mu_t = \sqrt{1-\beta_t}x_{t-1},\Sigma_t = \beta_tI) = q(x_t|x_{t-1}, x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\alpha_t}x_{t-1},\Sigma_t = (1-\alpha_t)I)$$
 where $$\alpha_t = 1-\beta_t$$. The other distribution $$q(x_{t-1}|x_0)$$ is a slight modification of the distribution in the numerator $$q(x_t|x_0)$$, with $$t$$ being $$t-1$$ instead, so this is formulated as:
