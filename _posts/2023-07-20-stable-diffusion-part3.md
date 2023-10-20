@@ -321,14 +321,20 @@ Now, back to equation #12 where we want to minimize the KL-divergence:
 <p>
 $$ \mathop{\arg \min}\limits_{\theta} D_{KL}(q(x_{t-1} \mid x_t,x_0)||p_{\theta}(x_{t-1} \mid x_t)) $$. 
 </p>
-
 Equation #15 above tells us the formulation for ground truth denoising transition step $$q(x_{t-1} \mid x_t,x_0)$$ , and we know the formulation for our approximate denoising transition step 
 $$ p_{\theta}(x_{t-1} \mid x_t) $$. 
 
 What is the KL-divergence between two Gaussian distributions? It is:
 <p>
-
+D_{KL}(\mathcal{N}(x;\mu_x,\Sigma_x) || \mathcal{N}(y;\mu_y,\Sigma_y)) = \frac{1}{2} \[ \log \frac{\Sigma_y}{\Sigma_x} - d + tr({\Sigma_y}^{-1}\Sigma_x) + (\mu_y - \mu_x) ^ {T} {\Sigma_y}^{-1} (\mu_y - \mu_x) \]
 </p>
+Applying this KL-divergence equation to equation #12 above is also just reshuffling algebra, which is shown in the same link as before, from equations 87 to 92. We can see that equation #12 is simplified to:
+<p>
+$$ \mathop{\arg \min}\limits_{\theta} D_{KL}(q(x_{t-1} \mid x_t,x_0)||p_{\theta}(x_{t-1} \mid x_t)) $$
+$$ mathop{\arg \min}\limits_{\theta} \frac{1}{2{\sigma_q}^{2}(t)} \[ {|| \mu_{\theta} - \mu_q ||}^{2} \] \quad (16) $$
+</p>
+
+To explain equatoin #16 above, 
 
 
 What's important to take away from this, however, is understanding that ***minimizing the above KL divergence*** is like minimizing the mean-squared-error (MSE) between the two distributions. If you follow through from page 13 to page 15 of
