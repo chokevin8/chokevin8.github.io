@@ -319,7 +319,7 @@ $$\alpha$$ coefficients and therefore can be abbreviated as $$\Sigma_q(t)$$. Rec
 
 Now, back to equation #12 where we want to calculate the KL-divergence: $$ D_{KL}(q(x_{t-1} \mid x_t,x_0)||p_{\theta}(x_{t-1} \mid x_t)) $$. 
 Equation #15 above tells us the formulation for ground truth denoising transition step $$q(x_{t-1} \mid x_t,x_0)$$ , and we know our approximate denoising transition step
-$$ p_{\theta}(x_{t-1} \mid x_t) $$
+$$ p_{\theta}(x_{t-1} \mid x_t) ~ $$
 
 
 What's important to take away from this, however, is understanding that ***minimizing the above KL divergence*** is like minimizing the mean-squared-error (MSE) between the two distributions. If you follow through from page 13 to page 15 of
