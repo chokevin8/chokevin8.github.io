@@ -292,22 +292,21 @@ Utilizing Baye's Rule, we can calculate the desired ground truth denoising step 
 <p>
 $$ q(x_{t-1}|x_t,x_0) = \frac{q(x_t|x_{t-1},x_0)q(x_{t-1}|x_0))}{q(x_t|x_0))} \quad (13) $$
 </p>
-Now, we know the form of the distribution of the denominator of equation #13 above, which is $$ q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha_t}}x_0,\Sigma_t = (1-\hat{\alpha_t})I)$$
+Now, we know the form of the distribution of the denominator of equation #13 above, which is $$ q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha_t}}x_0,\Sigma_t = (1-\hat{\alpha_t})I) $$
 Recall that this is from equation #5 from above and this was the reparametrization trick for the simplification of the forward diffusion process, or $$ q(x_t|x_0) $$ : $$ x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}\epsilon $$ 
 
-Now, how about the numerator? We also know the forms of the two distributions in the numerator of equation #1 above as well. $$ q(x_t|x_{t-1},x_0) $$ is the forward diffusion noising step and is
-formulated in equation #3 above $$ q(x_t|x_{t-1}) = \mathcal{N}(x_t; \mu_t = \sqrt{1-\beta_t}x_{t-1},\Sigma_t = \beta_tI) = q(x_t|x_{t-1}, x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\alpha_t}x_{t-1},\Sigma_t = (1-\alpha_t)I) $$
-where $$ \alpha_t = 1-\beta_t $$. The other distribution $$ q(x_{t-1}|x_0} $$ is a slight modification of the distribution in the numerator $$ q(x_t|x_0) $$, with t being t-1 instead, so this is formulated as:
-$$ q(x_{t-1}|x_0} = \mathcal{N}(x_{t-1}; \mu_t = \sqrt{\hat{\alpha}_{t-1}}x_0,\Sigma_t = (1-\hat{\alpha}_{t-1}})I)$$
+Now, how about the numerator? We also know the forms of the two distributions in the numerator of equation #1 above as well. $$ q(x_t|x_{t-1},x_0) $$ is the forward diffusion noising step and is formulated in equation #3 above $$ q(x_t|x_{t-1}) = \mathcal{N}(x_t; \mu_t = \sqrt{1-\beta_t}x_{t-1},\Sigma_t = \beta_tI) = q(x_t|x_{t-1}, x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\alpha_t}x_{t-1},\Sigma_t = (1-\alpha_t)I) $$
+where $$ \alpha_t = 1-\beta_t $$. The other distribution $$ q(x_{t-1}|x_0) $$ is a slight modification of the distribution in the numerator $$ q(x_t|x_0) $$, with t being t-1 instead, so this is formulated as:
+$$ q(x_{t-1}|x_0) = \mathcal{N}(x_{t-1}; \mu_t = \sqrt{\hat{\alpha}_{t-1}}x_0,\Sigma_t = (1-\hat{\alpha}_{t-1})I)$$
 
 Now inputting all three of these formulations in the Baye's Rule above in equation #13 we get equation #14 below: 
 <p>
 $$ q(x_{t-1}|x_t,x_0) = \frac{\mathcal{N}(x_t; \mu_t = \sqrt{\alpha_t}x_{t-1},\Sigma_t = (1-\alpha_t)I) \mathcal{N}(x_{t-1}; \mu_t = \sqrt{\hat{\alpha}_{t-1}}x_0,\Sigma_t = (1-\hat{\alpha}_{t-1})I)}{\mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha}_t}x_0,\Sigma_t = (1-\hat{\alpha}_t)I)} \quad (14) $$
 </p>
 
-Now, combining the three different Gaussian distributions above to get the mean and variance for the desired $$q(x_{t-1}|x_0}$$ is a lot of computations to show in this blog. The full derivation, for those who are curious,
+Now, combining the three different Gaussian distributions above to get the mean and variance for the desired $$q(x_{t-1}|x_0)$$ is a lot of computations to show in this blog. The full derivation, for those who are curious,
 can be found in this [link](https://arxiv.org/pdf/2208.11970.pdf), *exactly in page 12 from equation 71 to 84*. (I just feel like this derivation is just a bunch of reshuffling variables with algebra, so it is unnecessary to include in my blog)
-Finishing this derivation shows that our desired $$q(x_{t-1}|x_0}$$ is normally distributed:
+Finishing this derivation shows that our desired $$q(x_{t-1}|x_0)$$ is normally distributed:
 <p>
 $$ q(x_{t-1}|x_t,x_0) = \mathcal{N}(x_{t-1}; \mu_t = \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t},\Sigma_t = \frac{(1-alpha_t)(1-\hat{\alpha_{t-1}})}{1-\hat{\alpha_t}I)} \quad (15) $$
 </p>
