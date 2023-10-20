@@ -331,7 +331,7 @@ $$ D_{KL}(\mathcal{N}(x;\mu_x,\Sigma_x) || \mathcal{N}(y;\mu_y,\Sigma_y)) = \fra
 Applying this KL-divergence equation to equation #12 above is also just reshuffling algebra, which is shown in the same link as before, from equations 87 to 92. We can see that equation #12 is simplified to:
 <p>
 $$ \mathop{\arg \min}\limits_{\theta} D_{KL}(q(x_{t-1} \mid x_t,x_0)||p_{\theta}(x_{t-1} \mid x_t)) $$
-$$ mathop{\arg \min}\limits_{\theta} qq \frac{1}{2{\sigma_q}^{2}(t)} [{|| \mu_{\theta} - \mu_q ||}^{2}] \quad (16) $$
+$$ \mathop{\arg \min}\limits_{\theta} \frac{1}{2{\sigma_q}^{2}(t)} [{|| \mu_{\theta} - \mu_q ||}^{2}] \quad (16) $$
 </p>
 
 To explain equation #16 above, $$\mu_q$$ is the mean of the $$\mu_{\theta}$$
