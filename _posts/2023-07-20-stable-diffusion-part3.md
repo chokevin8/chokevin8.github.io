@@ -330,7 +330,7 @@ $$ D_{KL}(\mathcal{N}(x;\mu_x,\Sigma_x) || \mathcal{N}(y;\mu_y,\Sigma_y)) = \fra
 Applying this KL-divergence equation to equation #12 above is also just reshuffling algebra, which is shown in the same link as before, from equations 87 to 92. We can see that equation #12 is simplified to:
 <p>
 $$ \mathop{\arg \min}\limits_{\theta} \quad D_{KL}(q(x_{t-1} \mid x_t,x_0)||p_{\theta}(x_{t-1} \mid x_t)) $$
-$$ \mathop{\arg \min}\limits_{\theta} \frac{1}{2{\sigma_q}^{2}(t)} [{|| \mu_{\theta} - \mu_q ||}^{2}] \quad (16) $$
+$$ \mathop{\arg \min}\limits_{\theta} \quad \frac{1}{2{\sigma_q}^{2}(t)} [{|| \mu_{\theta} - \mu_q ||}^{2}] \quad (16) $$
 </p>
 
 To explain equation #16 above, $$\mu_q$$ is the mean of the ground truth denoising transition step $$(q(x_{t-1} \mid x_t,x_0)$$ and $$\mu_{\theta}$$ is the mean of our desired approximate denoising transition step $$p_{\theta}(x_{t-1} \mid x_t)$$.
@@ -346,6 +346,11 @@ $$\mu_{\theta} = \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\al
 </p>
 Note that the two are exactly the same except $$x_0$$ is replaced with $$\hat{x}_{\theta}(x_t,t)$$ as mentioned before. Finally, plugging these two into equation #16 allows us to find the training objective:
 <p>
+$$\mathop{\arg \min}\limits_{\theta} \quad \frac{1}{2{\sigma_q}^{2}(t)} [{|| \mu_{\theta} - \mu_q ||}^{2}] \quad $$
+$$\mathop{\arg \min}\limits_{\theta} \quad \frac{1}{2{\sigma_q}^{2}(t)} [{|| \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)\hat{x}_{\theta}(x_t,t)}{1-\hat{\alpha_t}} - \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t}} ||}^{2}]$$
+The first term of each term is the same, so after eliminating those:
+$$\mathop{\arg \min}\limits_{\theta} \quad \frac{1}{2{\sigma_q}^{2}(t)} [{|| \frac{\sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)\hat{x}_{\theta}(x_t,t)}{1-\hat{\alpha_t}} - \frac{\sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t}} ||}^{2}]$$
+$$\mathop{\arg \min}\limits_{\theta} \quad \frac{1}{2{\sigma_q}^{2}(t)} [{|| \frac{\sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)\hat{x}_{\theta}(x_t,t)}{1-\hat{\alpha_t}} - \frac{\sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t}} ||}^{2}]$$
 
 </p>
 What's important to take away from this, however, is understanding that ***minimizing the above KL divergence*** is like minimizing the mean-squared-error (MSE) between the two distributions. If you follow through from page 13 to page 15 of
