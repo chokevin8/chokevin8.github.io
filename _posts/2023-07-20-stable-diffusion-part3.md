@@ -295,6 +295,11 @@ $$ q(x_{t-1}|x_t,x_0) = \frac{q(x_t|x_{t-1},x_0)q(x_{t-1}|x_0))}{q(x_t|x_0))} \q
 Now, we know the form of the distribution of the denominator of equation #13 above, which is $$ q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha_t}}x_0,\Sigma_t = (1-\hat{\alpha_t})I) $$
 Recall that this is from equation #5 from above and this was the reparametrization trick for the simplification of the forward diffusion process, or $$ q(x_t|x_0) $$ : $$ x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}\epsilon $$ 
 
+test:
+
+$$ \alpha_t $$ $$ \hat{\alpha_t} $$ $$ \hat{\alpha}_t $$ $$ \hat{\alpha_{t-1}} $$
+
+
 Now, how about the numerator? We also know the forms of the two distributions in the numerator of equation #1 above as well. $$ q(x_t|x_{t-1},x_0) $$ is the forward diffusion noising step and is formulated in equation #3 above $$ q(x_t|x_{t-1}) = \mathcal{N}(x_t; \mu_t = \sqrt{1-\beta_t}x_{t-1},\Sigma_t = \beta_tI) = q(x_t|x_{t-1}, x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\alpha_t}x_{t-1},\Sigma_t = (1-\alpha_t)I) $$
 where $$ \alpha_t = 1-\beta_t $$. The other distribution $$ q(x_{t-1}|x_0) $$ is a slight modification of the distribution in the numerator $$ q(x_t|x_0) $$, with t being t-1 instead, so this is formulated as:
 $$ q(x_{t-1}|x_0) = \mathcal{N}(x_{t-1}; \mu_t = \sqrt{\hat{\alpha}_{t-1}}x_0,\Sigma_t = (1-\hat{\alpha}_{t-1})I)$$
