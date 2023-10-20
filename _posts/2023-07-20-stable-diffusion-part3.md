@@ -283,7 +283,7 @@ Therefore, below is our final training objective, all we need to do is minimize 
 <p>
 $$ - \log (p_{\theta}(x_0)) \leq \sum_{t=2}^{T} D_{KL}(q(x_{t-1}|x_t,x_0)||p_{\theta}(x_{t-1}|x_t)) - \log(p_{\theta}(x_0|x_1)) \quad (12)$$
 </p>
-Now, to minimize the RHS of the equation our only choice is two minimize the first term $$\sum_{t=2}^{T} D_{KL}(q(x_{t-1}|x_t,x_0)||p_{\theta}(x_{t-1}|x_t))$$. Before diving into the derivation, let's look at what this
+Now, to minimize the RHS of the equation our only choice is to minimize the first term $$\sum_{t=2}^{T} D_{KL}(q(x_{t-1}|x_t,x_0)||p_{\theta}(x_{t-1}|x_t))$$. Before diving into the derivation, let's look at what this
 term actually means- it is the KL divergence between the ground truth denoising transition step $$q(x_{t-1}|x_t,x_0)$$ and our approximation of the denoising transition step
 $$p_{\theta}(x_{t-1}|x_t)$$, and it makes sense we want to minimize this KL divergence since we want the approximated denoising transition step to be as similar to the ground truth denoising transition step as possible.
 
@@ -293,12 +293,12 @@ Utilizing Baye's Rule, we can calculate the desired ground truth denoising step 
 $$ q(x_{t-1}|x_t,x_0) = \frac{q(x_t|x_{t-1},x_0)q(x_{t-1}|x_0))}{q(x_t|x_0))} \quad (13) $$
 </p>
 Now, we know the form of the distribution of the denominator of equation #13 above, which is $$ q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha_t}}x_0,\Sigma_t = (1-\hat{\alpha_t})I) $$
-Recall that this is from equation #5 from above and this was the reparametrization trick for the simplification of the forward diffusion process, or $$ q(x_t|x_0) $$ : $$ x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}\epsilon $$.
+Recall that this is from equation #5 from above and this was the reparametrization trick for the simplification of the forward diffusion process, or $$q(x_t|x_0)$$ : $$x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}\epsilon$$.
 
 test:
 
-$$ q(x_{t-1}|x_t,x_0)  $$ 
-$$ q(x_t|x_{t-1},x_0) $$
+$$q(x_{t-1}|x_t,x_0)$$ 
+$$q(x_t|x_{t-1},x_0)$$
 
 Now, how about the numerator? We also know the forms of the two distributions in the numerator of equation #1 above as well. $$ q(x_t|x_{t-1},x_0) $$ is the forward diffusion noising step and is formulated in equation #3 above $$ q(x_t|x_{t-1}) = \mathcal{N}(x_t; \mu_t = \sqrt{1-\beta_t}x_{t-1},\Sigma_t = \beta_tI) = q(x_t|x_{t-1}, x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\alpha_t}x_{t-1},\Sigma_t = (1-\alpha_t)I) $$
 where $$ \alpha_t = 1-\beta_t $$. The other distribution $$ q(x_{t-1}|x_0) $$ is a slight modification of the distribution in the numerator $$ q(x_t|x_0) $$, with t being t-1 instead, so this is formulated as:
