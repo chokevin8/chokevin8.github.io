@@ -357,23 +357,13 @@ $$\mathop{\arg \min}\limits_{\theta} \quad \frac{1}{2{\sigma_q}^{2}(t)} \frac{\h
 </p>
 
 Equation #17 is finally our training objective. To summarize again, we are learning the parameters $$theta$$ from training a neural network to predict the ground truth image $$x_0$$ from noised version of the image $$x_t$$. 
-What's important to take away from this, however, is understanding that ***minimizing the above KL divergence*** is like minimizing the mean-squared-error (MSE) between the two distributions. If you follow through from page 13 to page 15 of
-the above mentioned paper, we notice that the minimizing the above KL divergence is equivalent to minimizing below:
-<p>
-$$L_{LDM} = \frac{\beta_t^2}{2(\sigma_t)^2\alpha_t(1-\hat{\alpha}_t)}||\epsilon - \epsilon_{\theta}(x_t,t)||^2 $$
-$$L_{LDM} = ||\epsilon - \epsilon_{\theta}(x_t,t)||^2 \quad (13)$$
-</p>
-Note that the objective function finalizes to equation #13 above because it was experimentally proven that getting rid of the coefficient in front of the MSE term actually performed better when evaluating the performance of diffusion models.
-This final equation above is equivalent to the loss function the authors use, which is equation #1 in the paper. Therefore, we simply end up with the mean squared error (MSE) between the true noise $$\epsilon$$ and the predicted noise (using the decoder or UNet) $$\epsilon_{\theta}(x_t,t)$$. 
-Simply put, the UNet learns to predict the ground truth noise $$\epsilon$$ that is randomly sampled from $$\mathcal{N}(0, 1)$$ that determines the pure noised (image) $$x_t$$ from the original image $$x_0$$ and then denoises it. As stated in the paper,
-this can also be seen as series of $$T$$ equally weighted autoencoders from $$T = 1,2....t-1,T$$ which predicts a denoised variant of their input $$x_t$$. As timestep reaches T, this Markovian process will then slowly converge to the ground truth input image 
-$$x_0$$, assuming the training of the decoder went well. 
+What's important to take away from this, however, is understanding that, ultimately, applying the same ELBO method to maximize ELBO led to minimizing the KL divergence between ground truth and approximate denoising transition step, and 
+this happens to be a form of minimizing the mean-squared-error (MSE) between the two distributions as seen in equation #17 above. Now, with the training objective derived, the training algorithms and sampling algorithms will be
+explained in the final part of this blog with more mathematical details on LDMs that were not covered yet, especially regarding
+conditioning and classifier-free guidance.
 
 ---
 
-Now that we've fully understood the entire story of the training objective (of how VAE's ELBO derivation is similar to LDMs) and how its simplified training objective is
-also just like a MSE, the next part (last part of blog on stable diffusion) will cover more mathematical details on LDMs that were not covered in this part of the blog, especially regarding
-conditioning and classifier-free guidance.
 
 *Image credits to:*
 - [VAE Directed Graphical Model](https://arxiv.org/pdf/1312.6114.pdf)

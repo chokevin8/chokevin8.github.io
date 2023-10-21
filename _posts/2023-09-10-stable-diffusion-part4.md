@@ -41,6 +41,20 @@ look at the algorithms for training and inference.
 <a id="training-inference"></a>
 ###  ***Training and Inference:***
 
+<p>
+$$L_{LDM} = \frac{\beta_t^2}{2(\sigma_t)^2\alpha_t(1-\hat{\alpha}_t)}||\epsilon - \epsilon_{\theta}(x_t,t)||^2 $$
+$$L_{LDM} = ||\epsilon - \epsilon_{\theta}(x_t,t)||^2 \quad (13)$$
+</p>
+Note that the objective function finalizes to equation #13 above because it was experimentally proven that getting rid of the coefficient in front of the MSE term actually performed better when evaluating the performance of diffusion models.
+This final equation above is equivalent to the loss function the authors use, which is equation #1 in the paper. Therefore, we simply end up with the mean squared error (MSE) between the true noise $$\epsilon$$ and the predicted noise (using the decoder or UNet) $$\epsilon_{\theta}(x_t,t)$$. 
+Simply put, the UNet learns to predict the ground truth noise $$\epsilon$$ that is randomly sampled from $$\mathcal{N}(0, 1)$$ that determines the pure noised (image) $$x_t$$ from the original image $$x_0$$ and then denoises it. As stated in the paper,
+this can also be seen as series of $$T$$ equally weighted autoencoders from $$T = 1,2....t-1,T$$ which predicts a denoised variant of their input $$x_t$$. As timestep reaches T, this Markovian process will then slowly converge to the ground truth input image 
+$$x_0$$, assuming the training of the decoder went well. 
+
+
+
+
+
 Now that we've derived the training (loss) objective, let's briefly go over the entire training and the inference algorithm, look below:
 
 <img src = "/assets/images/train_inference_algorithm.png" width = "985" height = "250" class = "center">
