@@ -53,8 +53,6 @@ $$x_0$$, assuming the training of the decoder went well.
 
 
 
-
-
 Now that we've derived the training (loss) objective, let's briefly go over the entire training and the inference algorithm, look below:
 
 <img src = "/assets/images/train_inference_algorithm.png" width = "985" height = "250" class = "center">

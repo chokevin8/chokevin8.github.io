@@ -356,14 +356,16 @@ $$\mathop{\arg \min}\limits_{\theta} \quad \frac{1}{2{\sigma_q}^{2}(t)} [{ || \f
 $$\mathop{\arg \min}\limits_{\theta} \quad \frac{1}{2{\sigma_q}^{2}(t)} \frac{\hat{\alpha}_{t-1}(1-\alpha_t)^{2}}{(1-\hat{\alpha_t)^{2}}} [{||(\hat{x}_{\theta}(x_t,t)-x_0)||}^{2}] \quad (17)$$
 </p>
 
-Equation #17 is finally our training objective. To summarize again, we are learning the parameters $$theta$$ from training a neural network to predict the ground truth image $$x_0$$ from noised version of the image $$x_t$$. 
+Equation #17 is finally our training objective. *To summarize again, we are learning the parameters $${\theta}$$ from training a neural network to predict the ground truth image $$x_0$$ from noised version of the image $$x_t$$.* 
 What's important to take away from this, however, is understanding that, ultimately, applying the same ELBO method to maximize ELBO led to minimizing the KL divergence between ground truth and approximate denoising transition step, and 
-this happens to be a form of minimizing the mean-squared-error (MSE) between the two distributions as seen in equation #17 above. Now, with the training objective derived, the training algorithms and sampling algorithms will be
-explained in the final part of this blog with more mathematical details on LDMs that were not covered yet, especially regarding
+this happens to be a form of ***minimizing the mean-squared-error (MSE) between the two distributions*** as seen in equation #17 above. This is quite *fascinating*, as all of this derivation just boils down to a simple
+MSE-like loss function.
+
+Now, with the training objective derived, the training algorithms and sampling algorithms will be
+explained in the next, final part of this blog with more mathematical details on LDMs that were not covered yet, especially regarding
 conditioning and classifier-free guidance.
 
 ---
-
 
 *Image credits to:*
 - [VAE Directed Graphical Model](https://arxiv.org/pdf/1312.6114.pdf)
