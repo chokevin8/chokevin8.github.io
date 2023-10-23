@@ -104,10 +104,14 @@ Now that we've derived the training (loss) objective from scratch, let's briefly
 Let's first look at the training algorithm:
 1. We repeat the below process (steps 2~5) until convergence or a preset number of epochs. 
 2. Sample an image $$x_0$$ from our dataset/data distribution, $$q(x_0)$$.
-3. Sample t, or timestep.
+3. Sample t, or timestep from 1 to $$T$$.
 4. Sample noise from a normal distribution $$\epsilon \sim \mathcal{N}(0, I)$$
-5. Take gradient descent step on the previous training objective $$L_{LDM} = ||\epsilon - \epsilon_{\theta}(x_t,t)||^2 $$ with respect to $$\theta$$, which is the 
+5. Take gradient descent step on the training objective we just derived $$L_{LDM} = ||\epsilon - \epsilon_{\theta}(x_t,t)||^2 $$ with respect to $$\theta$$, which is the 
 parameters of the weights and biases of the decoder.
+
+Not too bad! What about the sampling algorithm?
+
+
 
 The above sampling algorithm is the DDPM sampling process, which is just the reverse diffusion process explained in the previous part. 
 
