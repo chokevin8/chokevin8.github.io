@@ -51,14 +51,31 @@ Recall equation #5 from the last blog (noted as equation #1 below), or the repar
 $$x_0$$ instead!
 
 $$ x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}{\epsilon}_0 \quad (1)$$
-$$ x_0 = \frac{x_t - \sqrt{1-\hat{\alpha}_t}{\epsilon}_0}{\sqrt{\hat{\alpha}_t}} (1)$$
+$$ x_0 = \frac{x_t - \sqrt{1-\hat{\alpha}_t}{\epsilon}_0}{\sqrt{\hat{\alpha}_t}} \quad (1)$$
 
-Then, recall the equations (equations #2 and 3 below) we derived for the mean of the ground truth denoising transition step distribution $$q(x_{t-1} \mid x_t,x_0) and mean of the desired approximate denoising transition step  
-p_{\theta}(x_{t-1} \mid x_t), as we calculated this to minimize the KL-divergence of the two derive our training objective:
-$$ $$
-$$ $$
-Now, plug equation #1 in to $$x_0$$ 
-then plug it into the equation
+Then, recall the equation (equation #2 below) we derived for the mean of the ground truth denoising transition step distribution $$q(x_{t-1} \mid x_t,x_0)$$  
+, as we calculated this to minimize the KL-divergence of the ground truth and desired approximate transition step distribution to derive our training objective:
+
+$$\mu_q = \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t}} \quad (2)$$
+
+Now, plug equation #1 in to $$x_0$$ of equation #2 above:
+<p>
+$$\mu_q = \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t}} \quad (2)$$
+$$\mu_q = \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)\frac{x_t - \sqrt{1-\hat{\alpha}_t}{\epsilon}_0}{\sqrt{\hat{\alpha}_t}}}{1-\hat{\alpha_t}} \quad (2)$$
+</p>
+Skipping the rearranging algebra (you can try this yourself if you want to), we end up with:
+$$\mu_q = \frac{1}{\sqrt{\alpha_t}}x_t - \frac{\sqrt{1-\alpha_t}}{\sqrt{1-\hat{\alpha_t}}\sqrt{\alpha_t}}}{\epsilon}_0 \quad (3)$$
+
+Then, like before, to find the mean of the desired approximate denoising transition distribution $$\mu_{\theta}$$, we simply replace the ground truth noise $${\epsilon}_0$$ (since we don't know ground truth distribution!) with a neural network that parametrizes 
+$$\hat{\epsilon}_{\theta}(x_t,t)$$ to predict $$\epsilon_0$$ as accurately as possible to make our approximate denoising step as similar to the ground truth denoising step as possible: 
+$$\mu_{\theta} = \frac{1}{\sqrt{\alpha_t}}x_t - \frac{\sqrt{1-\alpha_t}}{\sqrt{1-\hat{\alpha_t}}\sqrt{\alpha_t}}}\hat{\epsilon}_{\theta}(x_t,t) \quad (4)$$
+
+Now that equations #3 and #4 above both tell us the mean of both distributions, like what we did before, we find the KL divergence between the two. Recall the equation for calculating the
+KL-divergence between two Gaussians, and plug in to find the "new" training objective:
+<p>
+$$ D_{KL}(\mathcal{N}(x;\mu_x,\Sigma_x) || \mathcal{N}(y;\mu_y,\Sigma_y)) = \frac{1}{2} [ \log \frac{\Sigma_y}{\Sigma_x} - d + tr({\Sigma_y}^{-1}\Sigma_x) + (\mu_y - \mu_x) ^ {T} {\Sigma_y}^{-1} (\mu_y - \mu_x) ] $$
+</p>
+
 
 <a id="training-inference"></a>
 ###  ***Training and Inference:***
