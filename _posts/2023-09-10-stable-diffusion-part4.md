@@ -9,7 +9,7 @@ categories: posts
 ---
 
 ## **Table of Contents:**
-### [Background (Part 1)](/blog/2023/stable-diffusion/))
+### [Background (Part 1)](/blog/2023/stable-diffusion/)
 - ### Introduction
 - ### Stable Diffusion vs GAN
 
@@ -80,7 +80,7 @@ $$ D_{KL}(\mathcal{N}(x;\mu_x,\Sigma_x) || \mathcal{N}(y;\mu_y,\Sigma_y)) = \fra
 </p>
 Skipping the rearranging algebra again, we end up with our "new", different interpretation of our training objective:
 <p>
-$$\mathop{\arg \min}\limits_{\theta} \quad \frac{1}{2{\sigma_q}^{2}(t)} \frac{(1-\alpha_t)^{2}}{(1-\hat{\alpha_t})\alpha_t}} [{||\epsilon_0 - \hat{\epsilon}_{\theta}(x_t,t)||}^{2}] \quad (5)$$
+$$\mathop{\arg \min}\limits_{\theta} \quad \frac{1}{2{\sigma_q}^{2}(t)} \frac{(1-\alpha_t)^{2}}{(1-\hat{\alpha_t})\alpha_t}[{||\epsilon_0 - \hat{\epsilon}_{\theta}(x_t,t)||}^{2}] \quad (5)$$
 </p>
 Equation #5 above is our "new" training objective, instead of predicting ground truth image, we predict the ground truth noise instead here. Empirically, depending on the use case, it may work better
 to predict the noise instead of the image and vice versa, and it seems like the authors of the paper decided to predict the noise. Note that the objective function finalizes to equation #6 below because it was empirically proven that 
@@ -101,7 +101,6 @@ Now that we've derived the training (loss) objective from scratch, let's briefly
 <img src = "/assets/images/train_inference_algorithm.png" width = "985" height = "250" class = "center">
 <figcaption>The training and inference algorithm, summarized.</figcaption>
 <br>
-
 Let's first look at the training algorithm:
 1. We repeat the below process (steps 2~5) until convergence or a preset number of epochs. 
 2. Sample an image $$x_0$$ from our dataset/data distribution, $$q(x_0)$$.
@@ -109,7 +108,6 @@ Let's first look at the training algorithm:
 4. Sample noise from a normal distribution $$\epsilon \sim \mathcal{N}(0, I)$$
 5. Take gradient descent step on the previous training objective $$L_{LDM} = ||\epsilon - \epsilon_{\theta}(x_t,t)||^2 $$ with respect to $$\theta$$, which is the 
 parameters of the weights and biases of the decoder.
- 
 
 The above sampling algorithm is the DDPM sampling process, which is just the reverse diffusion process explained in the previous part. 
 
