@@ -36,11 +36,36 @@ categories: posts
 ## **Stable Diffusion In Numbers Continued**
 
 In this last part of the blog, I want to cover the mathematical details of conditioning and also classifier-free guidance. Before, that let's briefly
-look at the algorithms for training and inference.
+look at the algorithms for training and inference, and view the training objective we derived in a different way. 
+
+Recall equation #17 from the previous part of the blog, or the final training objective of our LDM:
+$$\mathop{\arg \min}\limits_{\theta} \quad \frac{1}{2{\sigma_q}^{2}(t)} \frac{\hat{\alpha}_{t-1}(1-\alpha_t)^{2}}{(1-\hat{\alpha_t)^{2}}} [{||(\hat{x}_{\theta}(x_t,t)-x_0)||}^{2}] $$
+Comparing this to equation #1 in the paper which describes the training objective, we can see that it is a bit different, as our equation above has some extra terms
+and is a MSE between predicted and ground truth original image, not noise as seen below. 
+
+*Equation #1 (Training objective) in the paper:*
+$$L_{LDM} = ||\epsilon - \epsilon_{\theta}(x_t,t)||^2$$
+
+So how are these *two somehow equivalent*? Well, let's interpret our training objective in a different way and we'll see how these two are connected. 
+Recall equation #5 from the last blog (noted as equation #1 below), or the reparametrization trick we used for forward diffusion $$q(x_t \mid x_0) to calculate $$x_t$$ in terms of the $$\hat{\alpha}$$. Let's rearrange the equation in terms of
+$$x_0$$ instead!
+
+$$ x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}{\epsilon}_0 \quad (1)$$
+$$ x_0 = \frac{x_t - \sqrt{1-\hat{\alpha}_t}{\epsilon}_0}{\sqrt{\hat{\alpha}_t}} (1)$$
+
+Then, recall the equations (equations #2 and 3 below) we derived for the mean of the ground truth denoising transition step distribution $$q(x_{t-1} \mid x_t,x_0) and mean of the desired approximate denoising transition step  
+p_{\theta}(x_{t-1} \mid x_t), as we calculated this to minimize the KL-divergence of the two derive our training objective:
+$$ $$
+$$ $$
+Now, plug equation #1 in to $$x_0$$ 
+then plug it into the equation
 
 <a id="training-inference"></a>
 ###  ***Training and Inference:***
 
+
+
+$$ x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}\epsilon $$
 <p>
 $$L_{LDM} = \frac{\beta_t^2}{2(\sigma_t)^2\alpha_t(1-\hat{\alpha}_t)}||\epsilon - \epsilon_{\theta}(x_t,t)||^2 $$
 $$L_{LDM} = ||\epsilon - \epsilon_{\theta}(x_t,t)||^2 \quad (13)$$
@@ -55,7 +80,7 @@ $$x_0$$, assuming the training of the decoder went well.
 
 Now that we've derived the training (loss) objective, let's briefly go over the entire training and the inference algorithm, look below:
 
-<img src = "/assets/images/train_inference_algorithm.png" width = "985" height = "250" class = "center">
+<img src = "/assets/images/train_inference_algom.png" width = "985" height = "250" class = "center">
 <figcaption>The training and inference algorithm, summarized.</figcaption>
 <br>
 
@@ -70,7 +95,7 @@ parameters of the weights and biases of the decoder.
 
 The above sampling algorithm is the DDPM sampling process, which is just the reverse diffusion process explained in the previous part. 
 
-Now, note that for sampling, we only need the trained decoder from above (no encoder). Therefore, we sample latent noise $$x_T$$ from prior $$p(x_T)$$, which is $$\epsilon \sim \mathcal{N}(0, I)$$
+Now, note that for sampling, we only need the trainerithd decoder from above (no encoder). Therefore, we sample latent noise $$x_T$$ from prior $$p(x_T)$$, which is $$\epsilon \sim \mathcal{N}(0, I)$$
 and then run the series of $$T$$ equally weighted autoencoders as mentioned before in a Markovian style (sample from $$x_{t-1}$$). However, the sampling process using
 Denoising Diffusion Probabilistic Model (DDPM) uses a Markovian sampling process while an improved method called Denoising Diffusion Implicit Model (DDIM) uses a non-Markovian
 sampling process that makes the process much quicker. Therefore, DDIM uses $$S$$ steps instead of $$T$$ where $$ S<T $$, and the authors of LDM therefore use DDIM over DDPM.
