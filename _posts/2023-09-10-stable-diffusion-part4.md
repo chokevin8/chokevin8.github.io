@@ -88,9 +88,9 @@ getting rid of the coefficient in front of the MSE term actually performed bette
 <p>
 $$L_{LDM} = ||\epsilon_0 - \epsilon_{\theta}(x_t,t)||^2 \quad (6)$$
 </p>
-Therefore, we simply end up with the mean squared error (MSE) between the ground truth noise $$\epsilon_0$$ and the predicted noise (using the decoder or UNet) $$\epsilon_{\theta}(x_t,t)$$. 
-Simply put, the UNet learns to predict the ground truth noise $$\epsilon$$ that is randomly sampled from $$\mathcal{N}(0, 1)$$ that determines the pure noised (image) $$x_t$$ from the original image $$x_0$$ and then denoises it. As stated in the paper,
-this can also be seen as series of $$T$$ equally weighted autoencoders from $$T = 1,2....t-1,T$$ which predicts a denoised variant of their input $$x_t$$. As timestep reaches T, this Markovian process will then slowly converge to the ground truth input image 
+Therefore, we simply end up with the mean squared error (MSE) between the ground truth noise $$\epsilon_0$$ and the predicted noise $$\epsilon_{\theta}(x_t,t)$$. 
+Simply put, the decoder $$\hat{\epsilon}_{\theta}(x_t,t)$$ learns to predict the ground truth source noise $$\epsilon_0$$ that is randomly sampled from $$\mathcal{N}(0, 1)$$. The predicted source noise is the noise that originally brought the original image $$x_0$$ to the pure noised (image) $$x_t$$ via forward diffusion.
+As stated in the paper, this can also be seen as a sequence of $$T$$ equally weighted autoencoders from $$T = 1,2....t-1,T$$ which predicts a denoised variant of their input $$x_t$$. As timestep reaches T, this Markovian process will then slowly converge to the ground truth input image 
 $$x_0$$, assuming the training of the decoder went well. 
 
 <a id="training-inference"></a>
