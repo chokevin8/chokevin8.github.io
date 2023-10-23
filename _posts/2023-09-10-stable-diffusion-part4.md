@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Latent/Stable Diffusion Fully Explained! (Part 4)
+title:  Latent/Stable Diffusion Fully Explained! (Part 4- Conditioning and Classifier-Free Guidance)
 date:   2023-09-10
 description: 
 tags: deep-learning machine-learning generative-models paper-review
@@ -65,12 +65,14 @@ Now, plug equation #1 in to $$x_0$$ of equation #2 above:
 $$\mu_q = \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)\frac{x_t - \sqrt{1-\hat{\alpha}_t}{\epsilon}_0}{\sqrt{\hat{\alpha}_t}}}{1-\hat{\alpha_t}} \quad (2)$$
 </p>
 Skipping the rearranging algebra (you can try this yourself if you want to), we end up with:
+<p>
 $$\mu_q = \frac{1}{\sqrt{\alpha_t}}x_t - \frac{\sqrt{1-\alpha_t}}{\sqrt{1-\hat{\alpha_t}}\sqrt{\alpha_t}}{\epsilon}_0 \quad (3)$$
-
+</p>
 Then, like before, to find the mean of the desired approximate denoising transition distribution $$\mu_{\theta}$$, we simply replace the ground truth noise $${\epsilon}_0$$ (since we don't know ground truth distribution!) with a neural network that parametrizes 
 $$\hat{\epsilon}_{\theta}(x_t,t)$$ to predict $$\epsilon_0$$ as accurately as possible to make our approximate denoising step as similar to the ground truth denoising step as possible: 
+<p>
 $$\mu_{\theta} = \frac{1}{\sqrt{\alpha_t}}x_t - \frac{\sqrt{1-\alpha_t}}{\sqrt{1-\hat{\alpha_t}}\sqrt{\alpha_t}}\hat{\epsilon}_{\theta}(x_t,t) \quad (4)$$
-
+</p>
 Now that equations #3 and #4 above both tell us the mean of both distributions, like what we did before, we find the KL divergence between the two. Recall the equation for calculating the
 KL-divergence between two Gaussians, and plug in to find the "new" training objective:
 <p>
@@ -82,11 +84,11 @@ $$\mathop{\arg \min}\limits_{\theta} \quad \frac{1}{2{\sigma_q}^{2}(t)} \frac{(1
 </p>
 Equation #5 above is our "new" training objective, instead of predicting ground truth image, we predict the ground truth noise instead here. Empirically, depending on the use case, it may work better
 to predict the noise instead of the image and vice versa, and it seems like the authors of the paper decided to predict the noise. Note that the objective function finalizes to equation #6 below because it was empirically proven that 
-getting rid of the coefficient in front of the MSE term actually performed better when evaluating the performance of diffusion models. This final objective function below is equivalent to the loss function the authors use, which we already saw above:
+getting rid of the coefficient in front of the MSE term actually performed better when evaluating the performance of diffusion models. This final objective function below (equation #6) is equivalent to the loss function the authors use, which we already saw above:
 <p>
-$$L_{LDM} = ||\epsilon - \epsilon_{\theta}(x_t,t)||^2 \quad (13)$$
+$$L_{LDM} = ||\epsilon_0 - \epsilon_{\theta}(x_t,t)||^2 \quad (6)$$
 </p>
-Therefore, we simply end up with the mean squared error (MSE) between the ground truth noise $$\epsilon$$ and the predicted noise (using the decoder or UNet) $$\epsilon_{\theta}(x_t,t)$$. 
+Therefore, we simply end up with the mean squared error (MSE) between the ground truth noise $$\epsilon_0$$ and the predicted noise (using the decoder or UNet) $$\epsilon_{\theta}(x_t,t)$$. 
 Simply put, the UNet learns to predict the ground truth noise $$\epsilon$$ that is randomly sampled from $$\mathcal{N}(0, 1)$$ that determines the pure noised (image) $$x_t$$ from the original image $$x_0$$ and then denoises it. As stated in the paper,
 this can also be seen as series of $$T$$ equally weighted autoencoders from $$T = 1,2....t-1,T$$ which predicts a denoised variant of their input $$x_t$$. As timestep reaches T, this Markovian process will then slowly converge to the ground truth input image 
 $$x_0$$, assuming the training of the decoder went well. 
@@ -96,7 +98,7 @@ $$x_0$$, assuming the training of the decoder went well.
 
 Now that we've derived the training (loss) objective from scratch, let's briefly go over the entire training and the inference algorithm:
 
-<img src = "/assets/images/train_inference_algom.png" width = "985" height = "250" class = "center">
+<img src = "/assets/images/train_inference_algorithm.png" width = "985" height = "250" class = "center">
 <figcaption>The training and inference algorithm, summarized.</figcaption>
 <br>
 

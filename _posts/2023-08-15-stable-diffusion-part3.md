@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Latent/Stable Diffusion Fully Explained! (Part 3)
+title:  Latent/Stable Diffusion Fully Explained! (Part 3- Training Objective Derivation)
 date:   2023-08-15
 description: 
 tags: deep-learning machine-learning generative-models paper-review
