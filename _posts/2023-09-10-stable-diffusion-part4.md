@@ -39,63 +39,62 @@ In this last part of the blog, I want to cover the mathematical details of condi
 look at the algorithms for training and inference, and view the training objective we derived in a different way. 
 
 Recall equation #17 from the previous part of the blog, or the final training objective of our LDM:
+<p>
 $$\mathop{\arg \min}\limits_{\theta} \quad \frac{1}{2{\sigma_q}^{2}(t)} \frac{\hat{\alpha}_{t-1}(1-\alpha_t)^{2}}{(1-\hat{\alpha_t)^{2}}} [{||(\hat{x}_{\theta}(x_t,t)-x_0)||}^{2}] $$
+</p>
 Comparing this to equation #1 in the paper which describes the training objective, we can see that it is a bit different, as our equation above has some extra terms
 and is a MSE between predicted and ground truth original image, not noise as seen below. 
 
 *Equation #1 (Training objective) in the paper:*
+<p>
 $$L_{LDM} = ||\epsilon - \epsilon_{\theta}(x_t,t)||^2$$
-
+</p>
 So how are these *two somehow equivalent*? Well, let's interpret our training objective in a different way and we'll see how these two are connected. 
-Recall equation #5 from the last blog (noted as equation #1 below), or the reparametrization trick we used for forward diffusion $$q(x_t \mid x_0) to calculate $$x_t$$ in terms of the $$\hat{\alpha}$$. Let's rearrange the equation in terms of
+Recall equation #5 from the last blog (noted as equation #1 below), or the reparametrization trick we used for forward diffusion $$q(x_t \mid x_0)$$ to calculate $$x_t$$ in terms of the $$\hat{\alpha}$$s. Let's rearrange this equation in terms of
 $$x_0$$ instead!
-
+<p>
 $$ x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}{\epsilon}_0 \quad (1)$$
 $$ x_0 = \frac{x_t - \sqrt{1-\hat{\alpha}_t}{\epsilon}_0}{\sqrt{\hat{\alpha}_t}} \quad (1)$$
-
-Then, recall the equation (equation #2 below) we derived for the mean of the ground truth denoising transition step distribution $$q(x_{t-1} \mid x_t,x_0)$$  
-, as we calculated this to minimize the KL-divergence of the ground truth and desired approximate transition step distribution to derive our training objective:
+</p>
+Then, recall the equation (equation #2 below) we derived for the mean of the ground truth denoising transition step distribution $$q(x_{t-1} \mid x_t,x_0)$$, as we calculated this to minimize the KL-divergence of the ground truth and desired approximate transition step distribution to derive our training objective:
 
 $$\mu_q = \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t}} \quad (2)$$
 
 Now, plug equation #1 in to $$x_0$$ of equation #2 above:
 <p>
-$$\mu_q = \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t}} \quad (2)$$
 $$\mu_q = \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)\frac{x_t - \sqrt{1-\hat{\alpha}_t}{\epsilon}_0}{\sqrt{\hat{\alpha}_t}}}{1-\hat{\alpha_t}} \quad (2)$$
 </p>
 Skipping the rearranging algebra (you can try this yourself if you want to), we end up with:
-$$\mu_q = \frac{1}{\sqrt{\alpha_t}}x_t - \frac{\sqrt{1-\alpha_t}}{\sqrt{1-\hat{\alpha_t}}\sqrt{\alpha_t}}}{\epsilon}_0 \quad (3)$$
+$$\mu_q = \frac{1}{\sqrt{\alpha_t}}x_t - \frac{\sqrt{1-\alpha_t}}{\sqrt{1-\hat{\alpha_t}}\sqrt{\alpha_t}}{\epsilon}_0 \quad (3)$$
 
 Then, like before, to find the mean of the desired approximate denoising transition distribution $$\mu_{\theta}$$, we simply replace the ground truth noise $${\epsilon}_0$$ (since we don't know ground truth distribution!) with a neural network that parametrizes 
 $$\hat{\epsilon}_{\theta}(x_t,t)$$ to predict $$\epsilon_0$$ as accurately as possible to make our approximate denoising step as similar to the ground truth denoising step as possible: 
-$$\mu_{\theta} = \frac{1}{\sqrt{\alpha_t}}x_t - \frac{\sqrt{1-\alpha_t}}{\sqrt{1-\hat{\alpha_t}}\sqrt{\alpha_t}}}\hat{\epsilon}_{\theta}(x_t,t) \quad (4)$$
+$$\mu_{\theta} = \frac{1}{\sqrt{\alpha_t}}x_t - \frac{\sqrt{1-\alpha_t}}{\sqrt{1-\hat{\alpha_t}}\sqrt{\alpha_t}}\hat{\epsilon}_{\theta}(x_t,t) \quad (4)$$
 
 Now that equations #3 and #4 above both tell us the mean of both distributions, like what we did before, we find the KL divergence between the two. Recall the equation for calculating the
 KL-divergence between two Gaussians, and plug in to find the "new" training objective:
 <p>
 $$ D_{KL}(\mathcal{N}(x;\mu_x,\Sigma_x) || \mathcal{N}(y;\mu_y,\Sigma_y)) = \frac{1}{2} [ \log \frac{\Sigma_y}{\Sigma_x} - d + tr({\Sigma_y}^{-1}\Sigma_x) + (\mu_y - \mu_x) ^ {T} {\Sigma_y}^{-1} (\mu_y - \mu_x) ] $$
 </p>
-
-
-<a id="training-inference"></a>
-###  ***Training and Inference:***
-
-
-
-$$ x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}\epsilon $$
+Skipping the rearranging algebra again, we end up with our "new", different interpretation of our training objective:
 <p>
-$$L_{LDM} = \frac{\beta_t^2}{2(\sigma_t)^2\alpha_t(1-\hat{\alpha}_t)}||\epsilon - \epsilon_{\theta}(x_t,t)||^2 $$
+$$\mathop{\arg \min}\limits_{\theta} \quad \frac{1}{2{\sigma_q}^{2}(t)} \frac{(1-\alpha_t)^{2}}{(1-\hat{\alpha_t})\alpha_t}} [{||\epsilon_0 - \hat{\epsilon}_{\theta}(x_t,t)||}^{2}] \quad (5)$$
+</p>
+Equation #5 above is our "new" training objective, instead of predicting ground truth image, we predict the ground truth noise instead here. Empirically, depending on the use case, it may work better
+to predict the noise instead of the image and vice versa, and it seems like the authors of the paper decided to predict the noise. Note that the objective function finalizes to equation #6 below because it was empirically proven that 
+getting rid of the coefficient in front of the MSE term actually performed better when evaluating the performance of diffusion models. This final objective function below is equivalent to the loss function the authors use, which we already saw above:
+<p>
 $$L_{LDM} = ||\epsilon - \epsilon_{\theta}(x_t,t)||^2 \quad (13)$$
 </p>
-Note that the objective function finalizes to equation #13 above because it was experimentally proven that getting rid of the coefficient in front of the MSE term actually performed better when evaluating the performance of diffusion models.
-This final equation above is equivalent to the loss function the authors use, which is equation #1 in the paper. Therefore, we simply end up with the mean squared error (MSE) between the true noise $$\epsilon$$ and the predicted noise (using the decoder or UNet) $$\epsilon_{\theta}(x_t,t)$$. 
+Therefore, we simply end up with the mean squared error (MSE) between the ground truth noise $$\epsilon$$ and the predicted noise (using the decoder or UNet) $$\epsilon_{\theta}(x_t,t)$$. 
 Simply put, the UNet learns to predict the ground truth noise $$\epsilon$$ that is randomly sampled from $$\mathcal{N}(0, 1)$$ that determines the pure noised (image) $$x_t$$ from the original image $$x_0$$ and then denoises it. As stated in the paper,
 this can also be seen as series of $$T$$ equally weighted autoencoders from $$T = 1,2....t-1,T$$ which predicts a denoised variant of their input $$x_t$$. As timestep reaches T, this Markovian process will then slowly converge to the ground truth input image 
 $$x_0$$, assuming the training of the decoder went well. 
 
+<a id="training-inference"></a>
+###  ***Training and Inference:***
 
-
-Now that we've derived the training (loss) objective, let's briefly go over the entire training and the inference algorithm, look below:
+Now that we've derived the training (loss) objective from scratch, let's briefly go over the entire training and the inference algorithm:
 
 <img src = "/assets/images/train_inference_algom.png" width = "985" height = "250" class = "center">
 <figcaption>The training and inference algorithm, summarized.</figcaption>
