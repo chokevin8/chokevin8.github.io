@@ -122,7 +122,7 @@ but then we will also mention a new, non-Markovian sampling process called DDIM 
 Remember that for sampling, we only need the trained decoder from above (no encoder). Therefore, we sample latent noise $$x_T$$ from prior $$p(x_T)$$, which is $$\epsilon \sim \mathcal{N}(0, I)$$
 and then run the series of $$T$$ equally weighted autoencoders as mentioned before in a Markovian style. The equation shown in the sampling algorithm is essentially identical to equation #4 above, or:
 <p>
-\mu_{\theta} = \frac{1}{\sqrt{\alpha_t}}x_t - \frac{\sqrt{1-\alpha_t}}{\sqrt{1-\hat{\alpha_t}}\sqrt{\alpha_t}}\hat{\epsilon}_{\theta}(x_t,t) 
+$$ \mu_{\theta} = \frac{1}{\sqrt{\alpha_t}}x_t - \frac{\sqrt{1-\alpha_t}}{\sqrt{1-\hat{\alpha_t}}\sqrt{\alpha_t}}\hat{\epsilon}_{\theta}(x_t,t) $$
 </p>
 
 Assuming our training went well, we now have the neural network $$\hat{\epsilon}_{\theta}(x_t,t)$$ trained that predicts the noise $$\epsilon$$ for given input image $$x_t$$. Inputting a 
