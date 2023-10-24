@@ -240,12 +240,8 @@ Therefore, instead of minimizing the above KL-divergence, we can maximize the EL
 $$ - \log (p_{\theta}(x_0)) \leq \log(\frac{q(x_{1:T}|x_0)}{p_{\theta}(x_{0:T})}) $$
 $$ - \log (p_{\theta}(x_0)) \leq \log(\frac{\prod_{t=1}^{T} q(x_t|x_{t-1})}{p(x_T) \prod_{t=1}^{T}p_{\theta}(x_{t-1}|x_t)}) \quad \text{since} \ p_{\theta}(x_{0:T}) = p(x_T) \prod_{t=1}^{T} p_{\theta}(x_{t-1}|x_t)$$
 $$ - \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \log (\frac{\prod_{t=1}^{T} q(x_t|x_{t-1})}{\prod_{t=1}^{T}p_{\theta}(x_{t-1}|x_t)}) $$
-$$ - \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \sum_{t=1}^{T} \log(\frac{q(x_t|x_{t-
- 
- 
- 
-1})}{p_{\theta}(x_{t-1}|x_t)}) $$
-$$ - \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \sum_{t=2}^{T} \log(\frac{q(x_t|x_{t-1})}{p_{\theta}(x_{t-1}|x_t)}) + log(\frac{q(x_1|x_0)}{p_{\theta}(x_0|x_1)}) \quad \text{since} \ log(\frac{q(x_1|x_0)}{p_{\theta}(x_0|x_1)}) \ \text{is when} \ t = 1 \quad (8)$$
+$$ - \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \sum_{t=1}^{T} \log(\frac{q(x_t|x_{t-1})}{p_{\theta}(x_{t-1}|x_t)}) $$
+$$ - \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \sum_{t=2}^{T} \log(\frac{q(x_t|x_{t-1})}{p_{\theta}(x_{t-1}|x_t)}) + \log(\frac{q(x_1|x_0)}{p_{\theta}(x_0|x_1)}) \quad \text{since} \ \log(\frac{q(x_1|x_0)}{p_{\theta}(x_0|x_1)}) \ \text{is when} \ t = 1 \quad (8)$$
 </p>
 
 Note equation #8 above, and focus on $$q(x_t|x_{t-1})$$ term. This is essentially the reverse diffusion step, but it is only conditioned on the pure Gaussian noise. The 
@@ -257,7 +253,7 @@ $$q(x_t|x_{t-1}) = \frac{q(x_{t-1}|x_t)q(x_t)}{q(x_{t-1})} = \frac{q(x_{t-1}|x_t
 </p>
 Substituting this to equation #8 gives equation #9:
 <p>
-$$ - \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \sum_{t=2}^{T} \log(\frac{q(x_{t-1}|x_t,x_0)q(x_t|x_0)}{p_{\theta}(x_{t-1}|x_t)q(x_{t-1}|x_0)}) + log(\frac{q(x_1|x_0)}{p_{\theta}(x_0|x_1)}) \quad (9)$$
+$$ - \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \sum_{t=2}^{T} \log(\frac{q(x_{t-1}|x_t,x_0)q(x_t|x_0)}{p_{\theta}(x_{t-1}|x_t)q(x_{t-1}|x_0)}) + \log(\frac{q(x_1|x_0)}{p_{\theta}(x_0|x_1)}) \quad (9)$$
 </p>
 For equation #9, we can further split the second term on the RHS (the summation term) to two different summation terms to further simplify the RHS: 
 <p>
@@ -267,7 +263,7 @@ Examining $$\sum_{t=2}^{T} \log(\frac{q(x_t|x_0)}{q(x_{t-1}|x_0)})$$, for any $$
 <br>
 Performing all of these substitutions to equation #9 gives equation #10:
 <p>
-$$- \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \sum_{t=2}^{T} \log(\frac{q(x_{t-1}|x_t,x_0)}{p_{\theta}(x_{t-1}|x_t)}) + \log(\frac{q(x_t|x_0)}{q(x_1|x_0)}) + log(\frac{q(x_1|x_0)}{p_{\theta}(x_0|x_1)}) \quad (10)$$ 
+$$- \log (p_{\theta}(x_0)) \leq - \log(p(x_T)) + \sum_{t=2}^{T} \log(\frac{q(x_{t-1}|x_t,x_0)}{p_{\theta}(x_{t-1}|x_t)}) + \log(\frac{q(x_t|x_0)}{q(x_1|x_0)}) + \log(\frac{q(x_1|x_0)}{p_{\theta}(x_0|x_1)}) \quad (10)$$ 
 </p>
 
 Now take the last two terms of the RHS in equation #10 above and further simplify by expanding the log:
@@ -292,7 +288,7 @@ $$p_{\theta}(x_{t-1}|x_t)$$, and it makes sense we want to minimize this KL dive
 
 Utilizing Baye's Rule, we can calculate the desired ground truth denoising step $$q(x_{t-1}|x_t,x_0)$$ :
 <p>
-$$ q(x_{t-1}|x_t,x_0) = \frac{q(x_t|x_{t-1},x_0)q(x_{t-1}|x_0))}{q(x_t|x_0))} \quad (13) $$
+$$ q(x_{t-1}|x_t,x_0) = \frac{q(x_t|x_{t-1},x_0)q(x_{t-1}|x_0)}{q(x_t|x_0)} \quad (13) $$
 </p>
 Now, we know the form of the distribution of the denominator of equation #13 above, which is $$ q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha_t}}x_0,\Sigma_t = (1-\hat{\alpha_t})I) $$
 Recall that this is from equation #5 from above and this was the reparametrization trick for the simplification of the forward diffusion process, or $$q(x_t|x_0)$$ : $$x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}\epsilon$$.
@@ -313,7 +309,7 @@ can be found in this [link](https://arxiv.org/pdf/2208.11970.pdf), *exactly in p
 Finishing this derivation shows that our desired $$q(x_{t-1}|x_0)$$ is also normally distributed with the below formulation:
 
 <p>
-$$q(x_{t-1} \mid x_t,x_0) \sim \mathcal{N}(x_{t-1}; \mu_t = \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t}},\Sigma_t = \frac{(1-\alpha_t)(1-\hat{\alpha}_{t-1})}{1-\hat{\alpha_t}I)} \quad (15)$$
+$$q(x_{t-1} \mid x_t,x_0) \sim \mathcal{N}(x_{t-1}; \mu_t = \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t}},\Sigma_t = \frac{(1-\alpha_t)(1-\hat{\alpha}_{t-1})}{(1-\hat{\alpha_t}I)} \quad (15)$$
 </p>
 
 From above, we can see that the above approximate denoising transition $$q(x_{t-1} \mid x_t,x_0)$$ has mean that is a function of $$x_t$$ and $$x_0$$ and therefore can be abbreviated as $$\mu_q(x_t,x_0)$$, and has variance that is a function of $$t$$ (naturally) and the

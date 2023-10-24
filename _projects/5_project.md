@@ -1,115 +1,104 @@
 ---
 layout: page
-title: HuBMAP Kidney Blood Vessel Segmentation Challenge on Kaggle 
-description: Participation in Kaggle Competition to Sharpen Image Segmentation Technique 
-moredescription: <i> Personal Side Project (2023) </i>
-img: assets/img/5_project/kaggle-thumbnail.png
+title: Differential Gene Analysis and Pathway Analysis of TCGA Patient RNA-Seq Dataset 
+description: Design of Pipeline to Search for Possible Drug Targets via RNA-Seq Analysis 
+moredescription: <i>Data Science Intern Project at Cowell Biodigm Co. (2020)</i>
+img: assets/img/5_project/cbd_intern-thumbnail.jpg
 importance: 5
-category: fun
+category: internship
 ---
 
 ---
 
-### ***Project Motivation & Background:***
+### **Project Motivation & Background:**
+A drug target is a specific molecule or a biological entity (ex. PD-L1) that a drug will target as a therapeutic intervention. 
+In the drug discovery space, there are two different approaches in discovering drug targets: *top-down and bottom-up*. A top-down approach is where
+researchers start with a certain disease (ex. liver cancer) and work backwards to identify potential drug targets. 
+If the pathology of the disease such as underlying molecular mechanisms and associated pathways is unknown, experiments must be followed to identify the key molecules and
+pathways that are associated with the disease. A bottom-up approach is the opposite, as it starts with a focus on the molecular components and pathways that are known to be involved 
+in various different cellular processes. This is different, as these molecular components and pathways will be associated with many different
+diseases, and once a specific molecular component and pathways are defined, researchers look for possible targets for certain diseases. 
 
-Since this is a [Kaggle competition (link)](https://www.kaggle.com/competitions/hubmap-hacking-the-human-vasculature/overview), below is the copy-and-pasted "motivation" or context of designing the competition for *annotating blood vessels, or microvasculature from healthy human 
-H&E kidney slides*:
+Computational drug target identification has been widely used over the industry, and there are many different methods to do this. One method that is widely used (which is the method that I also used),
+was the phenotype-based method. Phenotype-based computational drug target identification compares the biological phenotype, which are the -omics data. Out of the four major -omics data (genomics, transcriptomics, proteomics, metabolomics),
+I focused on transcriptomics, or RNA-Seq data. RNA-Seq data contains many key components, but the most important component is the **gene annotation and its read count.**
+Gene annotations are essentially the labels for the gene, and allows one to identify the gene and its associated pathways. Read counts are the gene expression levels, and the higher the read count, the higher the gene expression level is.
+Typically, when doing a RNA-Seq analysis, data from two opposite groups are given (ex. healthy vs disease, treated vs untreated), and in my case, I looked 
+cancer vs healthy RNA-Seq data. When given these two sets of data, the standard protocol is to first perform a **differential gene expression (DGE) analysis** and then a 
+**pathway analysis** with the list of genes that are differentially expressed. This makes sense because the list of genes that show different level of expressions between the two group
+probably has something to do with the disease, and then we take those list of genes and perform a pathway analysis to see which biological pathways are associated with those list of genes.
 
-<blockquote>
-"The proper functioning of your body's organs and tissues depends on the interaction, spatial organization, and specialization of your cells—all 37 trillion of them. With so many cells, determining their functions and relationships is a monumental undertaking.
-Current efforts to map cells involve the Vasculature Common Coordinate Framework (VCCF), which uses the blood vasculature in the human body as the primary navigation system. The VCCF crosses all scale levels--from the whole body to the single cell level--and provides a unique way to identify cellular locations using capillary structures as an address. 
-However, the gaps in what researchers know about microvasculature lead to gaps in the VCCF. If we could automatically segment microvasculature arrangements, researchers could use the real-world tissue data to begin to fill in those gaps and map out the vasculature.
-Competition host Human BioMolecular Atlas Program (HuBMAP) hopes to develop an open and global platform to map healthy cells in the human body. Using the latest molecular and cellular biology technologies, HuBMAP researchers are studying the connections that cells have with each other throughout the body.
-There are still many unknowns regarding microvasculature, but your Machine Learning insights could enable researchers to use the available tissue data to augment their understanding of how these small vessels are arranged throughout the body. Ultimately, you'll be helping to pave the way towards building a 
-Vascular Common Coordinate Framework (VCCF) and a Human Reference Atlas (HRA), which will identify how the relationships between cells can affect our health."
-</blockquote>
+However, it is important to capture the *topology* of the pathways. In a pathway analysis, the goal is to find the most statistically perturbed pathways, and then get a list of those
+perturbed pathways and search for possible targets. However, standard methods such as the GSEA pathway analysis ignores the topology and just regards the pathways 
+as a simple gene set all grouped together. Pathway databases such as KEGG that is utilized here, however, contain topology in the form of graphs with nodes and edges showing interactions between genes and proteins.
+The comparison diagram below shows the difference between a topology-aware pathway and a simple gene set for the same pathway.
 
-If interested, the raw data and the information about the data can also be found [here](https://www.kaggle.com/competitions/hubmap-hacking-the-human-vasculature/data).
-Writing all about the background of this competition regarding motivation, data, evaluation metric, etc. would be too repetitive since it's all in the website, so I'll skip this part and focus on the 
-methods.
+<div class="row">
+    <div class="col-sm">
+        {% include figure.html path="assets/img/5_project/pathway_geneset.png" title="GS methods" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    Diagram showing difference between topology-aware pathway and simple gene set for the same example pathway.
+</div>
 
----
+Despite correcting for multiple hypothesis testing and utilizing the topology of the pathways, pathway analysis methods still suffer from false positives and negatives. Therefore, I utilized
+the "primary disregulation" method summarized in this [article](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6190577/), which essentially reduces the false positives and negatives and boosts accuracy by
+"distinguishing between genes that are true sources of perturbation" (more important, e.g. due to mutations, epigenetic changes, etc) and "genes that merely respond to perturbation signals coming upstream" (less important). 
+A numerical value of "primary disregulation" or pDis is calculated for each pathway which denotes the "change in a gene expression inherent to the gene itself". The p-value of this pDis value, or ppDis is also calculated and
+the list of the perturbed pathways with a low pDis and ppDis value can be further investigated to find for possible drug targets. Lastly, a "cut-off free analysis" is hypothesized to be superior, which doesn't perform the DGE analysis before
+performing the pathway analysis, as the DGE analysis usually eliminates almost 99% of all the genes available in the original RNA-Seq data, possibly removing important genes that may be relevant to the disease. Both cut-off free and
+cut-off analysis was tested.
 
-### ***Methods:***
-
-The main steps that I took to tackle this problem is: 
-<br>
-* **Preprocessing the raw data**
-    - Preprocessing .json annotation files and data/metadata in .csvs. Dividing different versions of datasets depending on which approach of training to take
-    (ex. training a single object detection model for blood vessel, or train a segmentation model with two classes (blood vessel and glomerulus))
-    - Performing exploratory data analysis (EDA) to really dive into the metadata (ex. how many WSI images there are, how many tiles in each WSI, tile size, etc.)
-    - Then, using the .json annotation files to create binary masks (image) or a .txt file with (x,y) coordinate contours. This is paramount so that it can be utilized as labels for supervised training later.
-    - After training image and label is properly paired, using either each WSI number or class label as a stratification method to create cross-validation folds of the tiled images. Due to class
-    imbalance of training data, it can usually be a good idea to stratify based on class and create a 5-fold cross validation pipeline.
-
-* **Training and validating different models**
-    1. *Image augmentation/normalization:*
-        - Experimenting with different degrees and techniques of augmentation is crucial, and also the same with image normalization. Some common image augmentations such as horizontal/vertical flips,
-        resizes, color jittering, noising/blurring, etc are explored. 
-        - [RandStainNA](https://arxiv.org/abs/2206.12694), which is a pipeline that does image augmentation and normalization at the same time by utilizing other color spaces such as LAB and HSV is also
-        explored.
-
-    2. *Choosing a model architecture to train:*
-        - UNet (semantic segmentation), YOLOv8 (object detection/instance segmentation), and Mask2Former (semantic segmentation) models are chosen. These models are quite different from each other, so it was nice to explore each of them. 
-        - Then, if a pretrained model is available, explore if pretrained models will be useful (domain-specific or non-domain-specific). A pretrained domain-specific (histopathology) model hub developed [here](https://github.com/lunit-io/benchmark-ssl-pathology) is tested on model architectures if compatible.
-    3. *Choosing a loss function and validation metric:*
-        - Depending on the model, different loss functions and combinations of them are tested. 
-        - For example, UNet can be trained with different loss functions like Dice/Jaccard(IOU)/BCE losses, while YOLOv8 will be a combination of Focal, Bbox, and IOU loss. 
-        - Because the evaluation metric is known (average precision (AP) @0.6 IOU), returning the metric during validation is important.
-     
-* **Running inference locally and tuning (if possible)**
-    - Testing and validation metric are tested to see if they are closely correlated to see if training process is accurate and robust (no under/over-fitting).
-    - Once a decent model is trained, if possible, hyperparameters are tuned to further enhance the model performance.
-    - Test time augmentation (TTA) is also utilized to see if it can improve inference results.
-
-*Note that detailed methods can be seen in the preprocessing/training/infer/tune [code on github](https://github.com/chokevin8/Kaggle-hubmap).*
+*Context: For some context, my research internship was at a small start-up company focused on early drug discovery. The company aimed to discover new drug compounds or new drug targets for a known compound. Then,
+the company would aim to out-license these early "hits" or "leads" to a bigger pharmaceutical company for profit.*
 
 ---
 
-### ***Results:***
+### **Methods:**
 
-While the goal of this project wasn't focused on winning the competition (lack of time and experience/skills for me to do that yet), but there were
-still a list of things that I tried doing that worked and didn't work in increasing the performance of the model. 
+* Differential Gene Expression (DGE) Analysis:
+    - Use R Packages called voom, limma, edgeR for DGE analysis.
+    - First, normalize the read counts using voom (log of counts per million (CPM)).
+    - Then, perform statistical testing (eBayes, empirical bayes statistics) using limma and edgeR for differential gene expression testing.
+    - For cut-off analysis, cut-off DGE genes on a certain threshold. For cut-off free analysis, don't cut-off.
+    
+* Primary Disregulation (pDis) Pathway Analysis:
+    - Use R Packages ROntoTools and GeneBook for pathway analysis.
+    - Fetch the DGE gene list and use them to perform pDis analysis (with a set bootstrap iteration), also using KEGG pathways.
+    - Sort the results of most perturbed pathways by pDis and ppDis values (lower the better).
 
-- *Things that worked:*
-    - Dilating the dataset 2 annotations, since the annotations are inconsistent (some including the endothelial cells around blood vessels and some not) to make the annotations consistent with one another. 
-    - Stratification of WSI tiles based on dataset number and making sure each CV fold has dataset 1 for training and validation since testing dataset is solely based on dataset 1. 
-    - Using Albumentation's normalization and augmentation pipeline boosted performance compared to Torchvision or RandstainNA.
-    - YOLOv8 instance segmentation model worked pretty well, with some edits to the loss function weightings. 
-    - Utilizing Test-time augmentation (TTA) on YOLOv8 and UNet boosted performance compared to not utilizing it. 
-
-- *Things that didn't seem to work:*
-    - Stratification of WSI tiles based on its classes didn't work. Probably because the testing dataset was solely on dataset 1, so the validation data needs to include majority of dataset 1.
-    - Using RandStainNA as an augmentation + normalization tool together did not boost performance.
-    - Surprisingly, using pretrained model on histopathology dataset (Resnet50 backbone) didn't boost performance at all compared to random initialization.
-    - Using UNet as a sole semantic segmentation model, probably because the competition metric is an object-detection based metric, and UNet doesn't naturally create Bboxes and a confidence value. 
-    - Using Mask2Former as a sole semantic segmentation model, but probably because I may have used the wrong pretrained model (imagenet pretrained).
-    - Self-supervised learning, this is something I couldn't do due to only having access to a single GPU.
+*Note that full code is on [github](https://github.com/chokevin8/CBD-Intern).*
 
 ---
 
-### ***Personal Comments:***
+### **Results:**
+I performed 50k bootstrap iterations of pDis analysis for both liver and pancreatic cancer (LIHC/PAAD) and then returned the list of the most perturbed pathways
+with low total pDis values and low p value (ppDis) values (p < 0.05). Before the analysis, a DGE analysis between cancer vs healthy patients was performed if performing
+cut-off analysis. However, cut-off free analysis was better, and some examples of LIHC pathways that were most perturbed were "Autophagy", "SNARE interactions in vescular transport", "RNA degradation", etc.
+Some examples of unique PAAD pathways that were most perturbed were "Autophagy", "Homologous recombination", "Asthma", etc. These names of pathways then can be searched on the [KEGG pathway database](https://www.genome.jp/kegg/pathway.html)
+to look at the associated genes and the topology regarding the pathway. Lastly, a bottom-up approach using these specific pathways can potentially lead to a new drug target.
+
+---
+
+### **Personal Comments:**
 
 ### Q: Why did I choose this project? ###
-I decided to work on this project on the side whenever I had time to work on it, since I thought that I would need more experience in working on an entire project pipeline by myself. I thought that performing the entire DL research pipeline of
-EDA -> Data Preprocessing -> Training/Validating -> Testing/Tuning -> Post-processing by myself would be massively helpful to learn more about the technical skills (Python, PyTorch, etc) required for a DL researcher/scientist.
+When I fortunately got an offer to work as a summer intern for working on a RNA-Seq pipeline, I was excited because it was my first time at
+not only doing an internship, but also working with RNA-Seq data and R. I was a student who was always excited about cancer research, and 
+to be part of research that screens for possible novel targets for liver and pancreatic cancer was a fascinating opportunity I could not turn down.
 
 ### Q: What did I do outside of this project? ###
-More background research (reading literature/online documentations) on:
-- Techniques for H&E image normalization and augmentation (ex. Reinhard, Vahadane, StainTools, RandStainNA, Albumentations, Torchvisions, etc.)
-- List of self-supervised learning techniques (ex. Barlow Twins, MoCoV2, etc.)
-- Different model architectures (ex. UNet, Mask R-CNN, DeepLabv3+, YOLO, etc.) for segmentation.
-- Different loss functions and their differences (ex. Dice, Jaccard (IOU), Focal, BCE, Tversky, Bbox, etc.)
-- Tuning techniques (learning how to use Ray Train and Tune)
+Because it was my first time looking at RNA-Seq datasets and my first time coding in R, I did a lot of background article reading on RNA-Seq dataset and
+related R libraries mentioned above to perform the DGE and pathway analysis. Furthermore, preprocessing the RNA-Seq dataset also required me to learn R more, 
+especially the packages that are often used such as tidyr, dplyr, data.table, etc. 
 
 ### Q: What impact did this project have on me? ###
-
-In academic research as a master's student, you often work together on a project as a group or work independently but only for a part of a pipeline. As this was my first time going through a full DL research pipeline by myself,
-I discovered that so much time and effort could be saved if you actually *planned out your experiments*. This may sound cliché, but I think new DL researchers like me suffer with this a lot. 
-
-For example, in retrospect, for some of my training runs 
-I had no idea why I was performing them, as I treated the DL model as a complete "black box" (while this is partially true, it's not 100% a black box) even when I already set the random seeds for all modules for full reproducibility. Some other mistakes I made 
-was training a huge model with the entire dataset before performing a smaller-scale experiment as a proof of concept. This led me to waste a lot of unnecessary time and efforts that could've been used elsewhere. Starting from a smaller-scale model and data with small number of epochs as a proof-of-concept is crucial, 
-as often times switching to a bigger model and more dataset is more about tuning the hyperparameters (which can be done after successful training) like batch size, learning rate, number of epochs, etc. 
+This was my first experience in both working as an intern and working a computational job, so it was an eye-opening experience. I think this experience eventually 
+shaped my future research in computational work and allowed me to find another internship opportunity regarding RNA-Seq datasets. Therefore, while the project itself wasn't
+anything groundbreaking in itself, the impact was definitely long-lasting in that it got me into the industry and the field. 
 
 ---
+
+*Image credits to:*
+- [Diagram of Topology-aware Pathway and Simple Gene Set](https://advaitabio.com/science/pathway-analysis-vs-gene-set-analysis/)

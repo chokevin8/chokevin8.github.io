@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Latent/Stable Diffusion Fully Explained! (Part 4- Conditioning and Classifier-Free Guidance)
+title:  Latent/Stable Diffusion Fully Explained! (Part 4- Training/Sampling Algorithms & Conditioning/Classifier-Free Guidance)
 date:   2023-09-10
 description: 
 tags: deep-learning machine-learning generative-models paper-review
@@ -109,7 +109,7 @@ Let's first look at the training algorithm:
 5. Take gradient descent step on the training objective we just derived $$L_{LDM} = ||\epsilon - \epsilon_{\theta}(x_t,t)||^2 $$ with respect to $$\theta$$, which is the 
 parameters of the weights and biases of the decoder.
 
-Not too bad! What about the sampling algorithm? 
+Not too bad! What about the above sampling algorithm? 
 
 Before describing the sampling process, let's look back at the training objective, specifically regarding the value of T, or the timesteps for the forward process. 
 Above, we described this as a Markovian process, and ideally we would like to *maximize* $$T$$ or the number of timesteps in the forward diffusion so that the reverse process
@@ -117,7 +117,8 @@ can be as close to a Gaussian as possible so that the generative process is accu
 
 However, in this Markovian sampling process called DDPM (short for Denoising Diffusion Probabilistic Models), the $$T$$ timesteps have to be performed sequentially, meaning
 sampling speed is extremely slow, especially compared to fast sampling speeds of predecessors such as GANs. The above sampling algorithm is the DDPM sampling algorithm, which will be explained first,
-but then we will also mention a new, non-Markovian sampling process called DDIM (short for Denoising Diffusion Implicit Models) that is able to accelerate sampling speeds.
+but then we will also mention a new, non-Markovian sampling process called DDIM (short for Denoising Diffusion Implicit Models) that is able to accelerate sampling speeds. **Note that the authors of the
+LDM paper utilized DDIM because of this exact reason.**
 
 Remember that for sampling, we only need the trained decoder from above (no encoder). Therefore, we sample latent noise $$x_T$$ from prior $$p(x_T)$$, which is $$\epsilon \sim \mathcal{N}(0, I)$$
 and then run the series of $$T$$ equally weighted autoencoders as mentioned before in a Markovian style. The equation shown in the sampling algorithm is essentially identical to equation #4 above, or:
@@ -139,6 +140,10 @@ then drawing deterministic random variable $$\epsilon$$ to obtain the desired sa
 
 Now, the previous reparametrization trick was used to allow SGD, but this time we can also use the reparametrization trick to essentially alter our sampling process $$q(x_{t-1}|x_t,x_0)$$ to be parametrized by another random variable,
 a desired standard deviation $$\epsilon_t$$. The reparametrization is shown below:
+
+<p>
+\prod_{t=1}^{T} q(x_t|x_{t-1})
+</p>
 
 The main advantages of DDIM over DDPM are:
 

@@ -1,9 +1,9 @@
 ---
 layout: page
-title: Differential Gene Analysis and Pathway Analysis of TCGA Patient RNA-Seq Dataset 
-description: Design of Pipeline to Search for Possible Drug Targets via RNA-Seq Analysis 
-moredescription: <i>Data Science Intern Project at Cowell Biodigm Co. (2020)</i>
-img: assets/img/4_project/cbd_intern-thumbnail.jpg
+title: Evaluation and Improvement of Gene Signatures Using Single-cell RNA Sequencing (scRNA) Dataset in Lung Cancer 
+description: Deconvolution of In-House Gene Signature Usage for Better Utilization of Gene Signatures 
+moredescription: <i>Oncology Data Science Summer Intern Project at Novartis Institutes of Biological Research (NIBR) (2022)</i>
+img: assets/img/4_project/novartis-intern_thumbnail.png
 importance: 4
 category: internship
 ---
@@ -11,94 +11,118 @@ category: internship
 ---
 
 ### **Project Motivation & Background:**
-A drug target is a specific molecule or a biological entity (ex. PD-L1) that a drug will target as a therapeutic intervention. 
-In the drug discovery space, there are two different approaches in discovering drug targets: *top-down and bottom-up*. A top-down approach is where
-researchers start with a certain disease (ex. liver cancer) and work backwards to identify potential drug targets. 
-If the pathology of the disease such as underlying molecular mechanisms and associated pathways is unknown, experiments must be followed to identify the key molecules and
-pathways that are associated with the disease. A bottom-up approach is the opposite, as it starts with a focus on the molecular components and pathways that are known to be involved 
-in various different cellular processes. This is different, as these molecular components and pathways will be associated with many different
-diseases, and once a specific molecular component and pathways are defined, researchers look for possible targets for certain diseases. 
 
-Computational drug target identification has been widely used over the industry, and there are many different methods to do this. One method that is widely used (which is the method that I also used),
-was the phenotype-based method. Phenotype-based computational drug target identification compares the biological phenotype, which are the -omics data. Out of the four major -omics data (genomics, transcriptomics, proteomics, metabolomics),
-I focused on transcriptomics, or RNA-Seq data. RNA-Seq data contains many key components, but the most important component is the **gene annotation and its read count.**
-Gene annotations are essentially the labels for the gene, and allows one to identify the gene and its associated pathways. Read counts are the gene expression levels, and the higher the read count, the higher the gene expression level is.
-Typically, when doing a RNA-Seq analysis, data from two opposite groups are given (ex. healthy vs disease, treated vs untreated), and in my case, I looked 
-cancer vs healthy RNA-Seq data. When given these two sets of data, the standard protocol is to first perform a **differential gene expression (DGE) analysis** and then a 
-**pathway analysis** with the list of genes that are differentially expressed. This makes sense because the list of genes that show different level of expressions between the two group
-probably has something to do with the disease, and then we take those list of genes and perform a pathway analysis to see which biological pathways are associated with those list of genes.
+<p>
+As the precision medicine era comes closer and closer, gone are the times when breast cancer patients are all grouped together for a new clinical trial.
+Clinical biomarker studies that are conducted by pharmaceutical companies reveal the importance of biomarker-driven oncology clinical trials to not only boost
+the clinical effectiveness of the drug, but also to position their drugs properly in the market. Nowadays, all cancer patients are divided into various tumor subtypes
+based on a positive/negative testing for certain prognostic biomarkers for that specific type of cancer. 
+</p>
+<p>
+For example, in breast cancer, the first-line therapy for triple-negative breast cancer (TNBC) and HER2-positive cancer are different. Additionally, even within a tumor subtype such as TNBC, the first-line therapy
+may be different depending on whether one tests positive for a BRCA mutation or/and PD-L1 protein. Furthermore, while not a specific protein biomarker, general biomarkers such as
+tumor mutation burden (TMB) and microsatellite instability (MSI) can both be a great predictive biomarker to determine the best therapy for a patient.
+</p>
 
-However, it is important to capture the *topology* of the pathways. In a pathway analysis, the goal is to find the most statistically perturbed pathways, and then get a list of those
-perturbed pathways and search for possible targets. However, standard methods such as the GSEA pathway analysis ignores the topology and just regards the pathways 
-as a simple gene set all grouped together. Pathway databases such as KEGG that is utilized here, however, contain topology in the form of graphs with nodes and edges showing interactions between genes and proteins.
-The comparison diagram below shows the difference between a topology-aware pathway and a simple gene set for the same pathway.
+To develop the above tumor subtype differentiation, analyzing the patient's cancer transcriptome via **RNA sequencing (RNA-seq)** is the main method to analyze the heterogeneity of the tumor subtype
+and possibly discover novel biomarkers or therapeutic strategies. From the RNA-Seq data, ***gene expression signatures (GS)*** are constructed after pre-processing of the raw RNA-Seq data (QC, normalization, etc). 
+*GS are sets of genes that are comprised of multiple individual member genes that show a unique gene expression pattern (GEP), which is a result of a biological or pathogenic process.*
+Below is an example of a cross-correlation heatmap of all pairwise member gene pairs for B cell related GS in lung cancer before applying a cross-correlation coefficient cutoff/threshold to eliminate poorly correlated pairs.
 
 <div class="row">
     <div class="col-sm">
-        {% include figure.html path="assets/img/4_project/pathway_geneset.png" title="GS methods" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/4_project/b_cell_GS.png" title="BCell GS" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    Diagram showing difference between topology-aware pathway and simple gene set for the same example pathway.
+    Cross-correlation heatmap of member gene pairs showing high correlation for B cell related GS in lung cancer.
 </div>
 
-Despite correcting for multiple hypothesis testing and utilizing the topology of the pathways, pathway analysis methods still suffer from false positives and negatives. Therefore, I utilized
-the "primary disregulation" method summarized in this [article](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6190577/), which essentially reduces the false positives and negatives and boosts accuracy by
-"distinguishing between genes that are true sources of perturbation" (more important, e.g. due to mutations, epigenetic changes, etc) and "genes that merely respond to perturbation signals coming upstream" (less important). 
-A numerical value of "primary disregulation" or pDis is calculated for each pathway which denotes the "change in a gene expression inherent to the gene itself". The p-value of this pDis value, or ppDis is also calculated and
-the list of the perturbed pathways with a low pDis and ppDis value can be further investigated to find for possible drug targets. Lastly, a "cut-off free analysis" is hypothesized to be superior, which doesn't perform the DGE analysis before
-performing the pathway analysis, as the DGE analysis usually eliminates almost 99% of all the genes available in the original RNA-Seq data, possibly removing important genes that may be relevant to the disease. Both cut-off free and
-cut-off analysis was tested.
+<p>
+Above, we see several highly correlated genes, with the member genes being all related to B cell function such as activation and proliferation. Compared to 
+evaluating individual gene expression and its correlation to lung cancer, evaluating GS as seen above is statistically much more significant. However, while it is true that these GS
+can be significant in discovering new prognostic/predictive biomarkers and therapeutic strategies, its potential can be often times exaggerated. 
+</p>
 
-*Context: For some context, my research internship was at a small start-up company focused on early drug discovery. The company aimed to discover new drug compounds or new drug targets for a known compound. Then,
-the company would aim to out-license these early "hits" or "leads" to a bigger pharmaceutical company for profit.*
+Nowadays, GS are used everywhere in RNA-Seq studies for clinical biomarker studies, and as a result, there are a plethora of different GS that are available (whether the GS
+is an in-house or publicly available GS). Since GS is constructed from RNA samples, which can be vastly different depending on the experimental conditions and the indication fo the sample as well,
+we often have numerous GS for a single biological/pathological process- which makes GS highly redundant. For example, a B-cell GS that is different from the one above can be constructed if 
+the experimental conditions, or the patient pool is different. Furthermore, many biological processes (ex. immune cells) are studied at the same time, which results in a GS with significant gene overlap.
+Therefore, understanding interdependencies among the member gnes of the GS can have implications on how a GS should be used. 
+
+***Therefore, these redundancies and complexities calls for a method that could be utilized to continuously evaluate, improve, and finally deconvolve the 
+usage of GS in these studies. In this internship project, I worked on seeing if the in-house curated GS called "OncDS GS" and the publicly available and wisely used "MSigDB C6/Hallmark GS" were 
+"good enough", or applicable to some of the commonly used RNASeq datasets (bulk and pseudobulk single-cell (sc) RNASeq dataset) for clinical biomarker analysis.*** 
 
 ---
 
 ### **Methods:**
 
-* Differential Gene Expression (DGE) Analysis:
-    - Use R Packages called voom, limma, edgeR for DGE analysis.
-    - First, normalize the read counts using voom (log of counts per million (CPM)).
-    - Then, perform statistical testing (eBayes, empirical bayes statistics) using limma and edgeR for differential gene expression testing.
-    - For cut-off analysis, cut-off DGE genes on a certain threshold. For cut-off free analysis, don't cut-off.
-    
-* Primary Disregulation (pDis) Pathway Analysis:
-    - Use R Packages ROntoTools and GeneBook for pathway analysis.
-    - Fetch the DGE gene list and use them to perform pDis analysis (with a set bootstrap iteration), also using KEGG pathways.
-    - Sort the results of most perturbed pathways by pDis and ppDis values (lower the better).
+<div class="row">
+    <div class="col-sm">
+        {% include figure.html path="assets/img/4_project/GS_methods.png" title="GS methods" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    Steps of methods taken for the GS project.
+</div>
 
-*Note that full code is on [github](https://github.com/chokevin8/CBD-Intern).*
+
+As seen above, there were three major steps for executing the project.
+1. To perform pairwise cross-correlation on bulk RNASeq data (bulk RNASeq data means no individual cell-type expression data (scRNA), but an average of the cell population expressions) first,
+the data was downloaded from TCGA and preprocessed in R. Then, Spearman’s Rho pairwise cross-correlation analysis was performed in R for all genes in lung cancer bulk RNASeq data.
+<br>
+2. To filter genes by different cross-correlation cutoffs and apply relevant GS, I established three different methods of cutoff that was used to filter the in-house "Onc-DS" GS
+and the publicly available "MSigDB C6" GS. Then, the different methods of cutoffs were applied and its results were analyzed.
+<br>
+3. Lastly, the lung cancer pseudobulk scRNASeq data (pseudobulk scRNASeq is "pseudobulk" because the expression data of a single type of cell is averaged, ex. all CD8+ T cell expression is averaged) was preprocessed in R.
+Since, these pseudobulk scRNASeq data only has cell populations, we evaluated only the cell-type specific signatures and evaluated if cross-correlation cutoff could improve or refine GS.
+
+Furthermore, we analyze a *"gene signature score" (GS score)*, which is simply the average of the raw read counts of the RNASeq data. The raw read counts of each RNASeq data is the data utilized to
+calculate the cross-correlation coefficients between member genes of a GS. After applying a cutoff and essentially leaving the highly correlated genes, we can take the average of the raw read
+counts of those genes and calculate the GS score. This GS score then can be utilized as a metric to analyze how specific and robust these cell-type specific GS are by utilizing the pseudobulk scRNASeq data.
 
 ---
 
 ### **Results:**
-I performed 50k bootstrap iterations of pDis analysis for both liver and pancreatic cancer (LIHC/PAAD) and then returned the list of the most perturbed pathways
-with low total pDis values and low p value (ppDis) values (p < 0.05). Before the analysis, a DGE analysis between cancer vs healthy patients was performed if performing
-cut-off analysis. However, cut-off free analysis was better, and some examples of LIHC pathways that were most perturbed were "Autophagy", "SNARE interactions in vescular transport", "RNA degradation", etc.
-Some examples of unique PAAD pathways that were most perturbed were "Autophagy", "Homologous recombination", "Asthma", etc. These names of pathways then can be searched on the [KEGG pathway database](https://www.genome.jp/kegg/pathway.html)
-to look at the associated genes and the topology regarding the pathway. Lastly, a bottom-up approach using these specific pathways can potentially lead to a new drug target.
+
+*Note that unfortunately, due to company (Novartis) guidelines, only the results available in the [poster](https://docs.google.com/presentation/d/1YHDFwXkiKVQMFpiFV2PlcCRim0-ycFSD/edit?usp=sharing&ouid=102273945805745041682&rtpof=true&sd=true) are available, and any other results cannot be 
+shown. For the same reason, the pipeline of this analysis, which was fully written in R, cannot be shown either.*
+
+The notable results are:
+1. After applying different cross-correlation cutoffs to both in-house "OncDS" GS and "MSigDB C6" GS, the
+graphs of cross correlation distribution and example heatmaps in the poster shows that the "OncDS" GS have a higher cross-correlation score (Figure 4),
+perhaps suggesting that the in-house "Onc DS" GS are more specific, at least in lung cancer. 
+<br>
+2. After applying the different cross-correlation cutoffs to the "OncDS" GS and analyzing the scRNASeq data to plot a graph (Figure 6) showing GS score vs cell-type for all three cross-correlation cutoff values,
+we can analyze each cell-type specific GS for its specificity. Some cell-type specific GS such as B cell and Mast cell GS were determined to be specific to their cell type/population, as its GS score
+was notably higher for their own cell type than the other cell types (ex. B cell GS score is much higher for B cell GS than any other cell types), meaning that the GS is well refined. However, some cell-type specific
+GS such as CD8+ T cells and NK cells were not very cell-type specific (ex. NK cell GS score is high for NK cell, but also in other cell types). This analysis can show that these GS may need some
+refinement in the future. 
+<br>
+3. A caveat of this study is that due to the nature of the pseudobulk scRNASeq data, we can only analyze immune cell-type specific GS. To deconvolve and refine other GS, a more universal method may need to be developed.
 
 ---
 
 ### **Personal Comments:**
 
 ### Q: Why did I choose this project? ###
-When I fortunately got an offer to work as a summer intern for working on a RNA-Seq pipeline, I was excited because it was my first time at
-not only doing an internship, but also working with RNA-Seq data and R. I was a student who was always excited about cancer research, and 
-to be part of research that screens for possible novel targets for liver and pancreatic cancer was a fascinating opportunity I could not turn down.
+After my initial exposure to analyzing RNA-Seq dataset, I wanted more exposure of using bulk and single-cell RNA-Seq dataset to perform more analysis. I was fortunate enough to be picked for this project at Novartis (NIBR),
+and the project was even more fascinating because the project was related to clinical biomarker analysis team. Even though I could not use the real in-house patient RNA-Seq data from clinical trials in Novartis due to privacy
+and permission issues, the fact that the project that I would be working on could have an impact in the future biomarker analyses in clinical trials itself was enough to get me hooked to the project. Lastly, it was a different use
+of a RNA-Seq dataset compared to the first experience I had with [it](https://chokevin8.github.io/projects/5_project/).
 
 ### Q: What did I do outside of this project? ###
-Because it was my first time looking at RNA-Seq datasets and my first time coding in R, I did a lot of background article reading on RNA-Seq dataset and
-related R libraries mentioned above to perform the DGE and pathway analysis. Furthermore, preprocessing the RNA-Seq dataset also required me to learn R more, 
-especially the packages that are often used such as tidyr, dplyr, data.table, etc. 
+I made sure to read upon the background of GS, but most of the time I had to kind of re-learn R, since the project was pretty much everything in R (preprocessing, analyzing, plotting, etc). I made sure to review and learn more about
+the popular packages in R for data science such as dplyr, tidyr, ggplot2, etc and also in-house packages in R that was developed specifically for clinical biomarker analysis. 
 
 ### Q: What impact did this project have on me? ###
-This was my first experience in both working as an intern and working a computational job, so it was an eye-opening experience. I think this experience eventually 
-shaped my future research in computational work and allowed me to find another internship opportunity regarding RNA-Seq datasets. Therefore, while the project itself wasn't
-anything groundbreaking in itself, the impact was definitely long-lasting in that it got me into the industry and the field. 
+While I can't downplay the technical skills and knowledge that I gained throughout the internship such as being able to understand GS better and being a better coder in R, the biggest impact was
+the privilege to be in the middle of an oncology data science group in a big pharma, experiencing everything happening in the company for a couple of months. It's almost to a point where putting this experience into words would be difficult to do.
+This also left me with more interest in computational work in oncology, which eventually led me to my [master's thesis research project](https://chokevin8.github.io/projects/2_project/).
 
 ---
 
 *Image credits to:*
-- [Diagram of Topology-aware Pathway and Simple Gene Set](https://advaitabio.com/science/pathway-analysis-vs-gene-set-analysis/)
+- [Cross Correlation Heatmap of B cell GS](https://docs.google.com/presentation/d/1YHDFwXkiKVQMFpiFV2PlcCRim0-ycFSD/edit?usp=sharing&ouid=102273945805745041682&rtpof=true&sd=true)
+- [Methods](https://docs.google.com/presentation/d/1YHDFwXkiKVQMFpiFV2PlcCRim0-ycFSD/edit?usp=sharing&ouid=102273945805745041682&rtpof=true&sd=true)

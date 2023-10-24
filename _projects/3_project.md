@@ -1,128 +1,176 @@
 ---
 layout: page
-title: Evaluation and Improvement of Gene Signatures Using Single-cell RNA Sequencing (scRNA) Dataset in Lung Cancer 
-description: Deconvolution of In-House Gene Signature Usage for Better Utilization of Gene Signatures 
-moredescription: <i>Oncology Data Science Summer Intern Project at Novartis Institutes of Biological Research (NIBR) (2022)</i>
-img: assets/img/3_project/novartis-intern_thumbnail.png
+title: Gene Delivery Using Lipid Nanoparticle-based Immunoengineering Approach 
+description: Development of Targeted mRNA/pDNA Vaccines for Cancer/Malaria Prevention and Protection 
+moredescription: <i>Undergraduate Research Assistant Project (2021 ~ 2022)</i>
+img: assets/img/3_project/lnp_thumbnail.png
 importance: 3
-category: internship
+category: research
 ---
 
 ---
-
 ### **Project Motivation & Background:**
+Nucleic acid-based therapeutics have been emergent, as more and more nucleic acid therapeutics are being approved due to their
+ability to treat diseases by targeting the genetic blueprint itself. Four main types of nucleic acid-based therapeutics are: 1) antisense
+oligonucleotides (ASO), 2) ligand conjugated small interfering RNA (siRNA), 3) adeno-associated virus vectors (AAV), and 4) lipid nanoparticles (LNP).
+Recently, more and more nucleic acid-based therapeutics have been approved by the FDA, the most famous being the two COVID-19 vaccines during the pandemic (mRNA-
+based therapeutic). Recently, the FDA approved Adstiladrin, which is an AAV-based therapeutic for non-muscle-invasive bladder cancer (NMIBC), so more and more
+nucleic acid-based therapeutics are hitting the market in the oncology space as well. 
 
-<p>
-As the precision medicine era comes closer and closer, gone are the times when breast cancer patients are all grouped together for a new clinical trial.
-Clinical biomarker studies that are conducted by pharmaceutical companies reveal the importance of biomarker-driven oncology clinical trials to not only boost
-the clinical effectiveness of the drug, but also to position their drugs properly in the market. Nowadays, all cancer patients are divided into various tumor subtypes
-based on a positive/negative testing for certain prognostic biomarkers for that specific type of cancer. 
-</p>
-<p>
-For example, in breast cancer, the first-line therapy for triple-negative breast cancer (TNBC) and HER2-positive cancer are different. Additionally, even within a tumor subtype such as TNBC, the first-line therapy
-may be different depending on whether one tests positive for a BRCA mutation or/and PD-L1 protein. Furthermore, while not a specific protein biomarker, general biomarkers such as
-tumor mutation burden (TMB) and microsatellite instability (MSI) can both be a great predictive biomarker to determine the best therapy for a patient.
-</p>
+Compared to conventional therapeutics that usually target proteins that results in transient therapeutic effects, nucleic-acid based therapeutics are often much
+longer-lasting or even permanent depending on the nucleic acid used and the target. However, most nucleic-acid based therapies require a carrier, as they will be
+targeted by the immune system for degradation and clearance and therefore will cause unwanted inflammation and toxicity that can be detrimental or even fatal to the patient.
+*Therefore, this project's research was focused on the design of the lipid nanoparticles, or LNPs, for effective delivery of pDNAs/mRNAs to develop vaccines for malaria/cancer.*
 
-To develop the above tumor subtype differentiation, analyzing the patient's cancer transcriptome via **RNA sequencing (RNA-seq)** is the main method to analyze the heterogeneity of the tumor subtype
-and possibly discover novel biomarkers or therapeutic strategies. From the RNA-Seq data, ***gene expression signatures (GS)*** are constructed after pre-processing of the raw RNA-Seq data (QC, normalization, etc). 
-*GS are sets of genes that are comprised of multiple individual member genes that show a unique gene expression pattern (GEP), which is a result of a biological or pathogenic process.*
-Below is an example of a cross-correlation heatmap of all pairwise member gene pairs for B cell related GS in lung cancer before applying a cross-correlation coefficient cutoff/threshold to eliminate poorly correlated pairs.
+To briefly introduce the background of LNPs, LNPs usually are constituted of four components: 1) Ionizable lipid, 2) PEGylated lipid, 3) Cholesterol, and 4) Helper lipid. The first three components 
+were fixed, and six different helper lipids were explored, with the ratios of the four lipids being varied as well. A total of 1080 different LNPs were designed, with two of the helper lipids being
+cationic, anionic, and zwitterionic. The ratio and the different helper lipids have a huge impact on the surface charge, pKa, and size of LNPs, which all have a huge influence in the successful delivery of the 
+drug payload. *Therefore, the project's main motivation is not only for successful delivery of the drug payload, but also about optimizing the formulation of the LNP beforehand.*
+
+**To briefly introduce the two projects:**
+<br>
+For the ***malaria pDNA vaccine project***, the proposed route of administration was oral, or through the mouth. This makes sense, as it is a wide known fact that oral drugs experience a
+"first pass effect", where the orally taken drugs go through the intestines and end up in the liver. This is why drugs that do not target cells in the liver cannot be taken
+orally as it is often times metabolized in the liver before it even has a chance to circulate in the bloodstream. In addition, the low pH environment of the stomach due to
+gastric acid also necessitates a delivery mechanism such as LNPs. However, because the target of the pDNA malaria vaccine is hepatocytes, an oral administration was fitting. Furthermore,
+pDNA is used rather than mRNA because pDNA has a more long-lasting effect than mRNAs do, however they are therefore more likely to elicit an unwanted immune response, which was known to be 
+alleviated by co-delivery of anti-inflammatory siRNA.
+
+For the ***cancer mRNA vaccine project***, the proposed method of administration was intramuscular, or through the muscle tissue. This is the same route of administration as the COVID-19 vaccines,
+as it is most effective to elicit a potent immune response. The cancer vaccine can either be prophylactic or therapeutic, but either way, it has to be able to deliver the mRNA that codes for the 
+specific tumor-specific antigens (TSA) that the T cells can recognize and kill the tumor cells. In order to ensure this happens effectively, below is the proposed entire uptake and trafficking scheme of the mRNA LNPs:
 
 <div class="row">
     <div class="col-sm">
-        {% include figure.html path="assets/img/3_project/b_cell_GS.png" title="BCell GS" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/3_project/mRNA_uptake.png" title="mRNA uptake" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    Cross-correlation heatmap of member gene pairs showing high correlation for B cell related GS in lung cancer.
+    Proposed scheme showing the uptake and trafficking of mRNA LNPs.
 </div>
 
-<p>
-Above, we see several highly correlated genes, with the member genes being all related to B cell function such as activation and proliferation. Compared to 
-evaluating individual gene expression and its correlation to lung cancer, evaluating GS as seen above is statistically much more significant. However, while it is true that these GS
-can be significant in discovering new prognostic/predictive biomarkers and therapeutic strategies, its potential can be often times exaggerated. 
-</p>
-
-Nowadays, GS are used everywhere in RNA-Seq studies for clinical biomarker studies, and as a result, there are a plethora of different GS that are available (whether the GS
-is an in-house or publicly available GS). Since GS is constructed from RNA samples, which can be vastly different depending on the experimental conditions and the indication fo the sample as well,
-we often have numerous GS for a single biological/pathological process- which makes GS highly redundant. For example, a B-cell GS that is different from the one above can be constructed if 
-the experimental conditions, or the patient pool is different. Furthermore, many biological processes (ex. immune cells) are studied at the same time, which results in a GS with significant gene overlap.
-Therefore, understanding interdependencies among the member gnes of the GS can have implications on how a GS should be used. 
-
-***Therefore, these redundancies and complexities calls for a method that could be utilized to continuously evaluate, improve, and finally deconvolve the 
-usage of GS in these studies. In this internship project, I worked on seeing if the in-house curated GS called "OncDS GS" and the publicly available and wisely used "MSigDB C6/Hallmark GS" were 
-"good enough", or applicable to some of the commonly used RNASeq datasets (bulk and pseudobulk single-cell (sc) RNASeq dataset) for clinical biomarker analysis.*** 
+As we see above, mRNA LNPs are designed to enter the target antigen-presenting cells (APCs), which in our case are dendritic cells (DCs). They enter the cells via endocytosis, and it is important
+to design the LNPs in a way so they initiate *endosomal escape*, or else they are degraded by the lysosomes. After escaping the endosome by breaking the membrane of it, the mRNA is released in to the cytoplasm 
+of the DCs, which initiates translation of the desired TSAs. Now, in DCs, DCs use the proteasome-TAP pathway as a main, conventional route for cross-presentation of the TSAs via MHC Class I molecules. In short, the 
+translated TSA is broken into peptides by the proteasome, and the peptide is translocated by the TAP transporters into the lumen of the endoplasmic reticulum (ER). Then, the MHC Class I complex containing peptides
+and other molecules are assembled in the ER and transported to the cell surface. Lastly, as seen in the diagram, the CD8+ T-cells recognize the MHC Class 1 complex/molecule via its surface receptor, or T cell receptor (TCR). 
+When this cross-presentation is successful, with the help of other signals called co-stimulary signals, the CD8+ T cell is *activated*, meaning it can now detect and kill target tumor cells via recognizing their TSAs.
 
 ---
 
 ### **Methods:**
 
+The methods for screening the 1080 LNPs for the pDNA malaria vaccine project are shown in below diagram. 
+
 <div class="row">
     <div class="col-sm">
-        {% include figure.html path="assets/img/3_project/GS_methods.png" title="GS methods" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/3_project/lnp_optimization_method.PNG" title="LNP optimization" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    Steps of methods taken for the GS project.
+    Proposed method to screen 1080 LNPs of different lipid composition and helper lipid types.
 </div>
 
-
-As seen above, there were three major steps for executing the project.
-1. To perform pairwise cross-correlation on bulk RNASeq data (bulk RNASeq data means no individual cell-type expression data (scRNA), but an average of the cell population expressions) first,
-the data was downloaded from TCGA and preprocessed in R. Then, Spearman’s Rho pairwise cross-correlation analysis was performed in R for all genes in lung cancer bulk RNASeq data.
+***Screening Process:***
 <br>
-2. To filter genes by different cross-correlation cutoffs and apply relevant GS, I established three different methods of cutoff that was used to filter the in-house "Onc-DS" GS
-and the publicly available "MSigDB C6" GS. Then, the different methods of cutoffs were applied and its results were analyzed.
+**1.** Component and ratio screening was done via *in vitro* transfection for each of the 1080 LNPs. Each LNPs were synthesized and tested for pDNA transfection in human HepG2 cells via using
+50% mCherry and 50% Luc pDNA. Then, subsequent luciferase protein expression (more pDNA delivered, more bioluminescence in the cells) was tested and as a result, top 32 formulations for each of the six helper lipids
+were selected.
 <br>
-3. Lastly, the lung cancer pseudobulk scRNASeq data (pseudobulk scRNASeq is "pseudobulk" because the expression data of a single type of cell is averaged, ex. all CD8+ T cell expression is averaged) was preprocessed in R.
-Since, these pseudobulk scRNASeq data only has cell populations, we evaluated only the cell-type specific signatures and evaluated if cross-correlation cutoff could improve or refine GS.
+**2.** An *in vivo* screening via intrahepatic injection was performed, but in *batch mode*. Just like in COVID-19 testing, where multiple patients' samples are merged together to test for COVID, the same logic was applied here.
+8 of the top 32 formulations were grouped, meaning there were four clusters per helper lipid with a total of 24 clusters tested for intrahepatic injection. The same mix of mCherry and Luc pDNA were injected,
+and transfection efficiency were determined by imaging the mice liver via in vivo imaging system (IVIS). Furthermore, flow cytometry was used to measure mCherry levels in different types of cells in the liver to see which cells
+were transfected. As a result, top 12 clusters were selected for having the highest bioluminescence in the liver.
+<br>
+**3.** Again, subsequent *in vivo* screenings via intravenous injection was performed, which was in batch mode as well. The same procedure as before was repeated twice, until only top four formulations remained.
+<br>
+***Post-Screening Process:***
+<br>
+Then, after the screening process was over that left us with top four formulations, a final *in vivo* screening was performed via using Cre-Ai9 mouse. A Cre-Ai9 mouse, when injected with a Cre pDNA loaded LNP, 
+allows the expression of tdTom only if the pDNA is successfully delivered. Following experiments using confocal imaging and flow cytometry was used to compare the top four formulations effectiveness. Lastly,
 
-Furthermore, we analyze a *"gene signature score" (GS score)*, which is simply the average of the raw read counts of the RNASeq data. The raw read counts of each RNASeq data is the data utilized to
-calculate the cross-correlation coefficients between member genes of a GS. After applying a cutoff and essentially leaving the highly correlated genes, we can take the average of the raw read
-counts of those genes and calculate the GS score. This GS score then can be utilized as a metric to analyze how specific and robust these cell-type specific GS are by utilizing the pseudobulk scRNASeq data.
+The above method was for the pDNA malaria vaccine project, and more details and further experiments are explained in the published paper [here](https://www.nature.com/articles/s41467-022-31993-y). 
+For the mRNA cancer vaccine project, the same screening process can be used, but just in a different applied method:
+<br>
+***Screening Process:***
+<br>
+**1.** Component and ratio screening was done via *in vitro* transfection for the same 1080 LNPs. Each LNPs were synthesized, and tested for mRNA transfection in bone-marrow dendritic cells (BMDCs) instead, since the target is DCs. Then, after waiting for
+a few days, we collect the BMDCs and co-culture them with CD8+ T cell. Then, we measure level of cell proliferation to test if MHC class I cross-presentation between BMDCs and CD8+ T cells happened or not.
+<br>
+**2.** An *in vivo* screening via subcutaneous/intramuscular injection was performed, also in batch mode. Screening based on measuring cell proliferation- cell proliferation will be evident if T-cells are activated by BMDCs.
+<br>
+**3.** Again, subsequent *in vivo* screenings in batch mode until top four formulations remain.
+<br>
+<br>
+***Post-Screening Process:***
+<br>
+Then, after the screening process was over that left us with top four formulations, a final *in vivo* screening was performed via using the Cre-Ai9 mouse as well.
+
+***Below is a summary of the main work and contributions that I did to each of the two projects, with a list of other detailed experiments not mentioned for brevity.***
+<br>
+
+1. **In pDNA malaria vaccine project:**
+- Formulated and screened ~1080 LNPs via cluster-mode in vitro transfection assays and in vivo intrahepatic/intraduodenal injections.
+- Tested Ai9 Cre reporter mice for co-delivery of anti-inflammatory siRNA with pDNA for in vivo assays of top formulations. 
+<br>
+List of other experiments not explicitly mentioned above: 
+- *In vivo* experiment with using OVA-SIINFEKL model antigen to determine immunological effects. 
+- *In vivo* experiment using Cy5 stain to look at LNP biodistribution.
+- ELISA for measuring STAT and NF-κB levels within the liver to determine inflammation levels.
+<br>
+2. **In mRNA cancer vaccine project:**
+- Formulated and screened ~1080 LNPs via cluster-mode in vitro transfection assays on dendritic cells, and in vivo subcutaneous/intramuscular injections.
+- Tested Ai9 Cre reporter mice for mRNA delivery and participated in subsequent therapeutic and prophylactic mice tumor studies.
+<br>
+
+List of other experiments not explicitly mentioned above: 
+- *In vivo* experiment with using OVA-SIINFEKL model antigen to determine immunological effects. 
+- *In vivo* experiment using Cy5 stain to look at LNP biodistribution.
+- CCK-8 for measure of proliferation in co-culture of BMDCs and CD8+ T cells.
+- ELISA for measuring overall cytokine concentration in the following cell culture supernatant and ELISPOT for frequency of cytokine release.
+- ICS (intracellular cytokine staining) followed by flow cytometry measuring cytokine concentration at a cell-type specific manner.
+
+***Note that I participated in group discussions/experiments of designing/performing all of the experiments shown above.***
 
 ---
-
 ### **Results:**
 
-*Note that unfortunately, due to company (Novartis) guidelines, only the results available in the [poster](https://docs.google.com/presentation/d/1YHDFwXkiKVQMFpiFV2PlcCRim0-ycFSD/edit?usp=sharing&ouid=102273945805745041682&rtpof=true&sd=true) are available, and any other results cannot be 
-shown. For the same reason, the pipeline of this analysis, which was fully written in R, cannot be shown either.*
+The results of the [published paper](https://www.nature.com/articles/s41467-022-31993-y) were mainly the fact that the batch-mode screening process is effective in selecting top performing formulations out of a huge library of LNPs. 
+Furthermore, another major result is that co-delivery of anti-inflammatory siRNA with pDNA alleviates the unwanted inflammation caused by the pDNA and the adjuvant effect of LNPs and therefore extends
+the duration of transgene expression via pDNA. This is possible due to the STAT and NF-κB siRNA being co-delivered with the pDNA as a payload.
 
-The notable results are:
-1. After applying different cross-correlation cutoffs to both in-house "OncDS" GS and "MSigDB C6" GS, the
-graphs of cross correlation distribution and example heatmaps in the poster shows that the "OncDS" GS have a higher cross-correlation score (Figure 4),
-perhaps suggesting that the in-house "Onc DS" GS are more specific, at least in lung cancer. 
-<br>
-2. After applying the different cross-correlation cutoffs to the "OncDS" GS and analyzing the scRNASeq data to plot a graph (Figure 6) showing GS score vs cell-type for all three cross-correlation cutoff values,
-we can analyze each cell-type specific GS for its specificity. Some cell-type specific GS such as B cell and Mast cell GS were determined to be specific to their cell type/population, as its GS score
-was notably higher for their own cell type than the other cell types (ex. B cell GS score is much higher for B cell GS than any other cell types), meaning that the GS is well refined. However, some cell-type specific
-GS such as CD8+ T cells and NK cells were not very cell-type specific (ex. NK cell GS score is high for NK cell, but also in other cell types). This analysis can show that these GS may need some
-refinement in the future. 
-<br>
-3. A caveat of this study is that due to the nature of the pseudobulk scRNASeq data, we can only analyze immune cell-type specific GS. To deconvolve and refine other GS, a more universal method may need to be developed.
+*Note that I cannot reveal the detailed methods and results for the mRNA cancer vaccine project since it has not been published yet.*
 
 ---
 
 ### **Personal Comments:**
 
 ### Q: Why did I choose this project? ###
-After my initial exposure to analyzing RNA-Seq dataset, I wanted more exposure of using bulk and single-cell RNA-Seq dataset to perform more analysis. I was fortunate enough to be picked for this project at Novartis (NIBR),
-and the project was even more fascinating because the project was related to clinical biomarker analysis team. Even though I could not use the real in-house patient RNA-Seq data from clinical trials in Novartis due to privacy
-and permission issues, the fact that the project that I would be working on could have an impact in the future biomarker analyses in clinical trials itself was enough to get me hooked to the project. Lastly, it was a different use
-of a RNA-Seq dataset compared to the first experience I had with [it](https://chokevin8.github.io/projects/4_project/).
+<p>
+Due to the COVID-19 outbreak, my start to undergraduate research was late, but the mRNA COVID-19 vaccine sparked my interests in gene delivery, particularly
+for therapeutic gene delivery mechanisms for a prophylactic/therapeutic cancer vaccine. Therefore, participating in these two projects was perfectly in-line with my interests
+at that time. Furthermore, utilizing and activating the human immune system for preventing/reversing cancer just sounded really cool, as other similar therapies such as 
+CAR-T or immune checkpoint inhibitors were the new "hot" immunotherapies in the oncology space around that time.
+</p>
 
 ### Q: What did I do outside of this project? ###
-I made sure to read upon the background of GS, but most of the time I had to kind of re-learn R, since the project was pretty much everything in R (preprocessing, analyzing, plotting, etc). I made sure to review and learn more about
-the popular packages in R for data science such as dplyr, tidyr, ggplot2, etc and also in-house packages in R that was developed specifically for clinical biomarker analysis. 
+<p>
+Before joining this lab, I did not have any practical experience in the wet lab, while I did have some background knowledge regarding LNPs because I took relevant courses in school
+(ex. drug delivery, supramolecular materials, etc). Therefore, I made sure to review the experimental protocols and analyzed why an experiment was planned the way it is. Lastly,
+reading articles (journal club) regarding LNPs also helped me to stay up to date with recent discoveries/techniques.
+</p>
 
 ### Q: What impact did this project have on me? ###
-While I can't downplay the technical skills and knowledge that I gained throughout the internship such as being able to understand GS better and being a better coder in R, the biggest impact was
-the privilege to be in the middle of an oncology data science group in a big pharma, experiencing everything happening in the company for a couple of months. It's almost to a point where putting this experience into words would be difficult to do.
-This also left me with more interest in computational work in oncology, which eventually led me to my [master's thesis research project](https://chokevin8.github.io/projects/1_project/).
+<p>
+Thanks to the kind guidance of the group in the lab, I had the privilege of designing and performing various different wet lab techniques as summarized above. 
+Even though I'm currently doing computational work, I believe the so-called "scientific method" is equal whether it's in the wet lab or the dry lab. Therefore, 
+this has really taught me how to effectively set up an experiment and execute it in the most efficient way. Also, I believe the relative oncology and immunobiology/engineering
+background that I gained with this experience will eventually help me in the future, even though I've switched over to dry lab. Latly, while not one of the principal authors of the paper,
+this was my first time contributing to performing experiments and writing a manuscript to be submitted for publication. 
+</p>
 
 ---
 
 *Image credits to:*
-- [Cross Correlation Heatmap of B cell GS](https://docs.google.com/presentation/d/1YHDFwXkiKVQMFpiFV2PlcCRim0-ycFSD/edit?usp=sharing&ouid=102273945805745041682&rtpof=true&sd=true)
-- [Methods](https://docs.google.com/presentation/d/1YHDFwXkiKVQMFpiFV2PlcCRim0-ycFSD/edit?usp=sharing&ouid=102273945805745041682&rtpof=true&sd=true)
+- Scheme of uptake and trafficking of mRNA LNPs (In-house)
+- [Method to screen 1080 LNPs](https://www.nature.com/articles/s41467-022-31993-y)

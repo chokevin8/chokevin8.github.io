@@ -1,176 +1,145 @@
 ---
 layout: page
-title: Gene Delivery Using Lipid Nanoparticle-based Immunoengineering Approach 
-description: Development of Targeted mRNA/pDNA Vaccines for Cancer/Malaria Prevention and Protection 
-moredescription: <i>Undergraduate Research Assistant Project (2021 ~ 2022)</i>
-img: assets/img/2_project/lnp_thumbnail.png
+title: 2/3D Semantic Segmentation of Skin H&E Tissue Images 
+description: Segmentation of Skin H&E Tissue Images to Analyze Novel Cellular Biomarkers of Aging
+moredescription: <i>Master's Thesis Project (2023 ~ Present)</i>
+img: assets/img/2_project/h&e_thumbnail.PNG
 importance: 2
 category: research
 ---
 
 ---
+
 ### **Project Motivation & Background:**
-Nucleic acid-based therapeutics have been emergent, as more and more nucleic acid therapeutics are being approved due to their
-ability to treat diseases by targeting the genetic blueprint itself. Four main types of nucleic acid-based therapeutics are: 1) antisense
-oligonucleotides (ASO), 2) ligand conjugated small interfering RNA (siRNA), 3) adeno-associated virus vectors (AAV), and 4) lipid nanoparticles (LNP).
-Recently, more and more nucleic acid-based therapeutics have been approved by the FDA, the most famous being the two COVID-19 vaccines during the pandemic (mRNA-
-based therapeutic). Recently, the FDA approved Adstiladrin, which is an AAV-based therapeutic for non-muscle-invasive bladder cancer (NMIBC), so more and more
-nucleic acid-based therapeutics are hitting the market in the oncology space as well. 
-
-Compared to conventional therapeutics that usually target proteins that results in transient therapeutic effects, nucleic-acid based therapeutics are often much
-longer-lasting or even permanent depending on the nucleic acid used and the target. However, most nucleic-acid based therapies require a carrier, as they will be
-targeted by the immune system for degradation and clearance and therefore will cause unwanted inflammation and toxicity that can be detrimental or even fatal to the patient.
-*Therefore, this project's research was focused on the design of the lipid nanoparticles, or LNPs, for effective delivery of pDNAs/mRNAs to develop vaccines for malaria/cancer.*
-
-To briefly introduce the background of LNPs, LNPs usually are constituted of four components: 1) Ionizable lipid, 2) PEGylated lipid, 3) Cholesterol, and 4) Helper lipid. The first three components 
-were fixed, and six different helper lipids were explored, with the ratios of the four lipids being varied as well. A total of 1080 different LNPs were designed, with two of the helper lipids being
-cationic, anionic, and zwitterionic. The ratio and the different helper lipids have a huge impact on the surface charge, pKa, and size of LNPs, which all have a huge influence in the successful delivery of the 
-drug payload. *Therefore, the project's main motivation is not only for successful delivery of the drug payload, but also about optimizing the formulation of the LNP beforehand.*
-
-**To briefly introduce the two projects:**
 <br>
-For the ***malaria pDNA vaccine project***, the proposed route of administration was oral, or through the mouth. This makes sense, as it is a wide known fact that oral drugs experience a
-"first pass effect", where the orally taken drugs go through the intestines and end up in the liver. This is why drugs that do not target cells in the liver cannot be taken
-orally as it is often times metabolized in the liver before it even has a chance to circulate in the bloodstream. In addition, the low pH environment of the stomach due to
-gastric acid also necessitates a delivery mechanism such as LNPs. However, because the target of the pDNA malaria vaccine is hepatocytes, an oral administration was fitting. Furthermore,
-pDNA is used rather than mRNA because pDNA has a more long-lasting effect than mRNAs do, however they are therefore more likely to elicit an unwanted immune response, which was known to be 
-alleviated by co-delivery of anti-inflammatory siRNA.
 
-For the ***cancer mRNA vaccine project***, the proposed method of administration was intramuscular, or through the muscle tissue. This is the same route of administration as the COVID-19 vaccines,
-as it is most effective to elicit a potent immune response. The cancer vaccine can either be prophylactic or therapeutic, but either way, it has to be able to deliver the mRNA that codes for the 
-specific tumor-specific antigens (TSA) that the T cells can recognize and kill the tumor cells. In order to ensure this happens effectively, below is the proposed entire uptake and trafficking scheme of the mRNA LNPs:
+**Let's play a simple guessing game: Look at the pictures below. Can you guess who is older?**
 
 <div class="row">
-    <div class="col-sm">
-        {% include figure.html path="assets/img/2_project/mRNA_uptake.png" title="mRNA uptake" class="img-fluid rounded z-depth-1" %}
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/2_project/real_95yr_man.png" title="95 Year Old Man" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/2_project/Tom_Brady_44yr_old.png" title="44 Year Old Tom Brady" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    Proposed scheme showing the uptake and trafficking of mRNA LNPs.
+    On the left, we have a 95 year old man, and on the right, we have 44 year old Tom Brady. 
 </div>
 
-As we see above, mRNA LNPs are designed to enter the target antigen-presenting cells (APCs), which in our case are dendritic cells (DCs). They enter the cells via endocytosis, and it is important
-to design the LNPs in a way so they initiate *endosomal escape*, or else they are degraded by the lysosomes. After escaping the endosome by breaking the membrane of it, the mRNA is released in to the cytoplasm 
-of the DCs, which initiates translation of the desired TSAs. Now, in DCs, DCs use the proteasome-TAP pathway as a main, conventional route for cross-presentation of the TSAs via MHC Class I molecules. In short, the 
-translated TSA is broken into peptides by the proteasome, and the peptide is translocated by the TAP transporters into the lumen of the endoplasmic reticulum (ER). Then, the MHC Class I complex containing peptides
-and other molecules are assembled in the ER and transported to the cell surface. Lastly, as seen in the diagram, the CD8+ T-cells recognize the MHC Class 1 complex/molecule via its surface receptor, or T cell receptor (TCR). 
-When this cross-presentation is successful, with the help of other signals called co-stimulary signals, the CD8+ T cell is *activated*, meaning it can now detect and kill target tumor cells via recognizing their TSAs.
+*Pretty obvious, right?* The man on the left is older and the man on the right (Tom Brady, if you didn't recognize him) is younger. 
+Now, assume we were able to receive the skin tissue samples of both men, cut them into serial sections, applied H&E stain to them, scanned/digitized them, 
+and then looked at one part of the whole slide images (WSI). Two pairs of pictures at different magnifications (4x and 20x) are shown below, and each man's H&E image pairs 
+are either on the left or the right. ***Can you answer the same question now?***
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/2_project/44yr_4x.PNG" title="44yr_4x" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/2_project/95yr_4x.PNG" title="95yr_4x" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/2_project/44yr_20x.PNG" title="44yr_20x" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/2_project/95yr_20x.PNG" title="95yr_20x" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    Which tissue belongs to the 95-year old man? The image pair on the left or the right? 
+</div>
+
+The answer is: ***44-year old Tom Brady is on the left, and 95-year old man is on the right.*** While these tissues are not actually from the people
+pictured above, they actually are tissue samples from patients who are 44 years old and 95 years old. How can we tell? The picture in the first row actually shows that
+there are more oil glands in the left than the right, and the second row shows more ECM alignment. However, without this previous knowledge, *the point is, compared to
+just looking at someone's face, it's much harder to determine a person's age by just looking at their skin H&E tissue sample.* But someone may ask, ***Why do we want to do this? Why study aging, 
+specifically in skin H&E tissue samples?***
+
+It's a well-known fact that old age is correlated with virtually every disease that are the leading causes of death- heart disease, cancer, stroke, Alzheimer's, and recently,
+COVID-19. To help facilitate possible interventions to prevent these chronic age-related diseases, it is critical to develop methods to accurately calculate one's biological age.
+And as we've seen above, the easiest way of telling the approximate age of someone is to look at their face, or *skin*. Therefore, this study aims to find features related to aging
+in the skin, and like any other organs, skin function also  deteriorates with age. For example, as we age, the skin loses its structural integrity and self-renewal capabilities, 
+and experiences increased inflammation and poor temperature regulation. Look at the below diagram:
+
+<div class="row">
+    <div class="col-sm">
+        {% include figure.html path="assets/img/2_project/skin_background.png" title="Skin Background" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    Diagram comparing major differences between young and old skin. Diagram from <i>Orioli et al (Cells 2018) Epigenetic Regulation of Skin Cells in Natural Aging and Premature Aging Diseases</i>.
+</div>
+
+As seen in the above diagram, we already know the major differences between young and old skin. However, there has been lack of research done in the biomarkers of aging
+at a ***cellular level***. [Previous Research](https://www.nature.com/articles/s41551-017-0093) in our lab has revealed biomolecular and biophysical biomarkers at the cellular level
+by analyzing primary dermal fibroblasts. The purpose of this study is to extend the results of this study in finding ***specific morphological biomarkers correlated with aging by utilizing skin H&E images
+to shed more light in the biological aging process.***
 
 ---
 
 ### **Methods:**
-
-The methods for screening the 1080 LNPs for the pDNA malaria vaccine project are shown in below diagram. 
-
 <div class="row">
     <div class="col-sm">
-        {% include figure.html path="assets/img/2_project/lnp_optimization_method.PNG" title="LNP optimization" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/2_project/methods.png" title="Methods" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    Proposed method to screen 1080 LNPs of different lipid composition and helper lipid types.
+    Simplified diagram showing overall methods of this project.
 </div>
 
-***Screening Process:***
-<br>
-**1.** Component and ratio screening was done via *in vitro* transfection for each of the 1080 LNPs. Each LNPs were synthesized and tested for pDNA transfection in human HepG2 cells via using
-50% mCherry and 50% Luc pDNA. Then, subsequent luciferase protein expression (more pDNA delivered, more bioluminescence in the cells) was tested and as a result, top 32 formulations for each of the six helper lipids
-were selected.
-<br>
-**2.** An *in vivo* screening via intrahepatic injection was performed, but in *batch mode*. Just like in COVID-19 testing, where multiple patients' samples are merged together to test for COVID, the same logic was applied here.
-8 of the top 32 formulations were grouped, meaning there were four clusters per helper lipid with a total of 24 clusters tested for intrahepatic injection. The same mix of mCherry and Luc pDNA were injected,
-and transfection efficiency were determined by imaging the mice liver via in vivo imaging system (IVIS). Furthermore, flow cytometry was used to measure mCherry levels in different types of cells in the liver to see which cells
-were transfected. As a result, top 12 clusters were selected for having the highest bioluminescence in the liver.
-<br>
-**3.** Again, subsequent *in vivo* screenings via intravenous injection was performed, which was in batch mode as well. The same procedure as before was repeated twice, until only top four formulations remained.
-<br>
-***Post-Screening Process:***
-<br>
-Then, after the screening process was over that left us with top four formulations, a final *in vivo* screening was performed via using Cre-Ai9 mouse. A Cre-Ai9 mouse, when injected with a Cre pDNA loaded LNP, 
-allows the expression of tdTom only if the pDNA is successfully delivered. Following experiments using confocal imaging and flow cytometry was used to compare the top four formulations effectiveness. Lastly,
+As seen in above diagram, we first obtain skin tissue samples, cut them into serial sections, apply H&E stain, and scan and digitize each
+slide to obtain a z-stack of 2D WSIs. Then, we undergo image registration to registrate all of the z-stack together and divide the images into
+a train-val-test split. 
 
-The above method was for the pDNA malaria vaccine project, and more details and further experiments are explained in the published paper [here](https://www.nature.com/articles/s41467-022-31993-y). 
-For the mRNA cancer vaccine project, the same screening process can be used, but just in a different applied method:
-<br>
-***Screening Process:***
-<br>
-**1.** Component and ratio screening was done via *in vitro* transfection for the same 1080 LNPs. Each LNPs were synthesized, and tested for mRNA transfection in bone-marrow dendritic cells (BMDCs) instead, since the target is DCs. Then, after waiting for
-a few days, we collect the BMDCs and co-culture them with CD8+ T cell. Then, we measure level of cell proliferation to test if MHC class I cross-presentation between BMDCs and CD8+ T cells happened or not.
-<br>
-**2.** An *in vivo* screening via subcutaneous/intramuscular injection was performed, also in batch mode. Screening based on measuring cell proliferation- cell proliferation will be evident if T-cells are activated by BMDCs.
-<br>
-**3.** Again, subsequent *in vivo* screenings in batch mode until top four formulations remain.
-<br>
-<br>
-***Post-Screening Process:***
-<br>
-Then, after the screening process was over that left us with top four formulations, a final *in vivo* screening was performed via using the Cre-Ai9 mouse as well.
+We train two different models: 1) Nuclei segmentation model using [HoVer-Net](https://arxiv.org/pdf/1812.06499v5.pdf) and 2) Tissue segmentation model
+using [DeepLabV3+](https://arxiv.org/pdf/1802.02611.pdf). In order to train these supervised models, we manually annotate the nuclei or the twelve different tissue
+classes in the training and validation images.
 
-***Below is a summary of the main work and contributions that I did to each of the two projects, with a list of other detailed experiments not mentioned for brevity.***
-<br>
-
-1. **In pDNA malaria vaccine project:**
-- Formulated and screened ~1080 LNPs via cluster-mode in vitro transfection assays and in vivo intrahepatic/intraduodenal injections.
-- Tested Ai9 Cre reporter mice for co-delivery of anti-inflammatory siRNA with pDNA for in vivo assays of top formulations. 
-<br>
-List of other experiments not explicitly mentioned above: 
-- *In vivo* experiment with using OVA-SIINFEKL model antigen to determine immunological effects. 
-- *In vivo* experiment using Cy5 stain to look at LNP biodistribution.
-- ELISA for measuring STAT and NF-κB levels within the liver to determine inflammation levels.
-<br>
-2. **In mRNA cancer vaccine project:**
-- Formulated and screened ~1080 LNPs via cluster-mode in vitro transfection assays on dendritic cells, and in vivo subcutaneous/intramuscular injections.
-- Tested Ai9 Cre reporter mice for mRNA delivery and participated in subsequent therapeutic and prophylactic mice tumor studies.
-<br>
-
-List of other experiments not explicitly mentioned above: 
-- *In vivo* experiment with using OVA-SIINFEKL model antigen to determine immunological effects. 
-- *In vivo* experiment using Cy5 stain to look at LNP biodistribution.
-- CCK-8 for measure of proliferation in co-culture of BMDCs and CD8+ T cells.
-- ELISA for measuring overall cytokine concentration in the following cell culture supernatant and ELISPOT for frequency of cytokine release.
-- ICS (intracellular cytokine staining) followed by flow cytometry measuring cytokine concentration at a cell-type specific manner.
-
-***Note that I participated in group discussions/experiments of designing/performing all of the experiments shown above.***
+Then, after confirming the model performance on the test dataset, we use a post-processing pipeline to extract different meaningful 2D features. Some example features to extract are 
+individual tissue compositions and its area, distance between different cells and tissues (ex. distance between fibroblast and sweat glands), and more. 
 
 ---
+
 ### **Results:**
-
-The results of the [published paper](https://www.nature.com/articles/s41467-022-31993-y) were mainly the fact that the batch-mode screening process is effective in selecting top performing formulations out of a huge library of LNPs. 
-Furthermore, another major result is that co-delivery of anti-inflammatory siRNA with pDNA alleviates the unwanted inflammation caused by the pDNA and the adjuvant effect of LNPs and therefore extends
-the duration of transgene expression via pDNA. This is possible due to the STAT and NF-κB siRNA being co-delivered with the pDNA as a payload.
-
-*Note that I cannot reveal the detailed methods and results for the mRNA cancer vaccine project since it has not been published yet.*
+In total, 1090 2D features were extracted. Out of the 1090 features, through statistical testing with univariate/multivariate analyses and correlation coefficient calculations,
+features that were most predictive and correlated with age were selected. Additionally, gender differences and body part differences (skin
+from different body parts) were also analyzed. Currently, 2D results are being finalized and a 3D version of the same pipeline is being developed.
+More summaries of results and discussions will be further updated after the conclusion of my Master's research. 
 
 ---
 
 ### **Personal Comments:**
 
 ### Q: Why did I choose this project? ###
-<p>
-Due to the COVID-19 outbreak, my start to undergraduate research was late, but the mRNA COVID-19 vaccine sparked my interests in gene delivery, particularly
-for therapeutic gene delivery mechanisms for a prophylactic/therapeutic cancer vaccine. Therefore, participating in these two projects was perfectly in-line with my interests
-at that time. Furthermore, utilizing and activating the human immune system for preventing/reversing cancer just sounded really cool, as other similar therapies such as 
-CAR-T or immune checkpoint inhibitors were the new "hot" immunotherapies in the oncology space around that time.
-</p>
+
+This is a fascinating project to me because it necessitates both biology and deep-learning background. I was originally planning to continue my research about
+[gene delivery for immunoengineering](/projects/3_project/), but my interests in different types of computational work grew more after my [summer internship experience
+at Novartis](/projects/4_project/). As I switched my research interests to computational work, I was initially worried because I still wanted to continue cancer research in one way or another. 
+Also, I wanted experience in handling different types of biological/medical data. Therefore, while this project is not directly related to cancer, the project was a perfect choice because the 
+pipeline could easily be applied to cancer (just switch the H&E WSIs to tumor WSIs and find ways of developing digital biomarkers for cancer diagnosis instead), and handled image data, which 
+I never had prior experience with. Therefore, since August of 2022, I switched labs and have been working on this project.
+
 
 ### Q: What did I do outside of this project? ###
 <p>
-Before joining this lab, I did not have any practical experience in the wet lab, while I did have some background knowledge regarding LNPs because I took relevant courses in school
-(ex. drug delivery, supramolecular materials, etc). Therefore, I made sure to review the experimental protocols and analyzed why an experiment was planned the way it is. Lastly,
-reading articles (journal club) regarding LNPs also helped me to stay up to date with recent discoveries/techniques.
+Since I didn't have any significant prior knowledge in the field of dermatology, histopathology, or deep learning before starting this as my Master's Thesis project, this is a fun but challenging project for me. 
+To make up for my lack of knowledge, I always strive to do more background article reading to learn about the computational pathology space. There are a plethora of different subfields within computational pathology
+that interest me- for example, we can utilize various models like CNNs or ViTs for image registration, segmentation, and even translation/generation for not only H&E stained images, but also for different types of stains frequently 
+utilized such as IHC stains. In addition, since I'm not a computer science major, I also try to continue to learn more about Python/PyTorch and probabilistic machine/deep learning everyday by taking relevant
+courses in school or reading online articles/textbooks. 
 </p>
 
 ### Q: What impact did this project have on me? ###
-<p>
-Thanks to the kind guidance of the group in the lab, I had the privilege of designing and performing various different wet lab techniques as summarized above. 
-Even though I'm currently doing computational work, I believe the so-called "scientific method" is equal whether it's in the wet lab or the dry lab. Therefore, 
-this has really taught me how to effectively set up an experiment and execute it in the most efficient way. Also, I believe the relative oncology and immunobiology/engineering
-background that I gained with this experience will eventually help me in the future, even though I've switched over to dry lab. Latly, while not one of the principal authors of the paper,
-this was my first time contributing to performing experiments and writing a manuscript to be submitted for publication. 
-</p>
+
+This project has and will be an important turning point of my career in developing myself as an interdisciplinary scientist that is able to utilize biology/medical data and extract
+meaningful features out of them. 
 
 ---
 
 *Image credits to:*
-- Scheme of uptake and trafficking of mRNA LNPs (In-house)
-- [Method to screen 1080 LNPs](https://www.nature.com/articles/s41467-022-31993-y)
+- [95 Year Old Man](https://www.gq.com/story/how-does-a-95-year-old-runner-stay-in-shape)
+- [Tom Brady](https://en.wikipedia.org/wiki/Tom_Brady)
+- [Young and Old Skin Comparison Diagram](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6315602/)
