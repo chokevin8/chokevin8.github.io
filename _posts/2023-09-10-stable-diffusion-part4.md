@@ -142,6 +142,8 @@ Now, the previous reparametrization trick was used to allow SGD, but this time w
 a desired standard deviation $$\epsilon_t$$. The reparametrization is shown below:
 
 <p>
+$$\text{Recall:} $$
+$$ $$
 \prod_{t=1}^{T} q(x_t|x_{t-1})
 </p>
 
@@ -152,13 +154,12 @@ The main advantages of DDIM over DDPM are:
 
 <a id="conditioning"></a>
 ###  ***Conditioning:***
-
+For conditioning, look at table 15 of LDM paper
+maybe include autoencoder training as well since conditioning is basically UNet training details + pretrained encoder.
+Autoencoder training is in appendix G: Details on Autoencoder Models
 
 <a id="classifier-free-guidance"></a>
 ###  ***Classifier-Free Guidance:***
 
 <a id="summary"></a>
 ###  ***Summary:***
-For conditioning, look at table 15 of LDM paper
-maybe include autoencoder training as well since conditioning is basically UNet training details + pretrained encoder.
-Autoencoder training is in appendix G: Details on Autoencoder Models

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Evaluation and Improvement of Gene Signatures Using Single-cell RNA Sequencing (scRNA) Dataset in Lung Cancer 
-description: Deconvolution of In-House Gene Signature Usage for Better Utilization of Gene Signatures 
+description: Deconvolution of In-House Gene Signature Usage for Better Utilization of Gene Signatures in Clinical Trials
 moredescription: <i>Oncology Data Science Summer Intern Project at Novartis Institutes of Biological Research (NIBR) (2022)</i>
 img: assets/img/4_project/novartis-intern_thumbnail.png
 importance: 4

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Differential Gene Analysis and Pathway Analysis of TCGA Patient RNA-Seq Dataset 
-description: Design of Pipeline to Search for Possible Drug Targets via RNA-Seq Analysis 
+description: Design of Pipeline to Search for Possible Cancer Drug Targets via Patient RNA-Seq Analysis 
 moredescription: <i>Data Science Intern Project at Cowell Biodigm Co. (2020)</i>
 img: assets/img/5_project/cbd_intern-thumbnail.jpg
 importance: 5
