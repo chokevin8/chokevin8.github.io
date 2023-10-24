@@ -90,7 +90,7 @@ $$L_{LDM} = ||\epsilon_0 - \epsilon_{\theta}(x_t,t)||^2 \quad (6)$$
 </p>
 Therefore, we simply end up with the mean squared error (MSE) between the ground truth noise $$\epsilon_0$$ and the predicted noise $$\epsilon_{\theta}(x_t,t)$$. 
 Simply put, the decoder $$\hat{\epsilon}_{\theta}(x_t,t)$$ learns to predict the ground truth source noise $$\epsilon_0$$ that is randomly sampled from $$\mathcal{N}(0, 1)$$. The predicted source noise is the noise that originally brought the original image $$x_0$$ to the pure noised (image) $$x_t$$ via forward diffusion.
-As stated in the paper, this can also be seen as a sequence of $$T$$ equally weighted autoencoders from $$T = 1,2....t-1,T$$ which predicts a denoised variant of their input $$x_t$$. As timestep reaches T, this Markovian process will then slowly converge to the ground truth input image 
+As stated in the paper, this can also be seen as a sequence of $$T$$ equally weighted autoencoders from $$t = 1,2....t-1,T$$ which predicts a denoised variant of their input $$x_t$$ in a Markov chain. As timestep reaches T, this Markovian process will then slowly converge to the ground truth input image 
 $$x_0$$, assuming the training of the decoder went well. 
 
 <a id="training-inference"></a>
@@ -109,12 +109,26 @@ Let's first look at the training algorithm:
 5. Take gradient descent step on the training objective we just derived $$L_{LDM} = ||\epsilon - \epsilon_{\theta}(x_t,t)||^2 $$ with respect to $$\theta$$, which is the 
 parameters of the weights and biases of the decoder.
 
-Not too bad! What about the sampling algorithm? The above sampling algorithm is the DDPM sampling process, which is just the reverse diffusion process explained in the previous part. 
+Not too bad! What about the sampling algorithm? 
 
-Now, note that for sampling, we only need the trainerithd decoder from above (no encoder). Therefore, we sample latent noise $$x_T$$ from prior $$p(x_T)$$, which is $$\epsilon \sim \mathcal{N}(0, I)$$
-and then run the series of $$T$$ equally weighted autoencoders as mentioned before in a Markovian style (sample from $$x_{t-1}$$). However, the sampling process using
-Denoising Diffusion Probabilistic Model (DDPM) uses a Markovian sampling process while an improved method called Denoising Diffusion Implicit Model (DDIM) uses a non-Markovian
-sampling process that makes the process much quicker. Therefore, DDIM uses $$S$$ steps instead of $$T$$ where $$ S<T $$, and the authors of LDM therefore use DDIM over DDPM.
+Before describing the sampling process, let's look back at the training objective, specifically regarding the value of T, or the timesteps for the forward process. 
+Above, we described this as a Markovian process, and ideally we would like to *maximize* $$T$$ or the number of timesteps in the forward diffusion so that the reverse process
+can be as close to a Gaussian as possible so that the generative process is accurate and generates a good image quality. 
+
+However, in this Markovian sampling process called DDPM (short for Denoising Diffusion Probabilistic Models), the $$T$$ timesteps have to be performed sequentially, meaning
+sampling speed is extremely slow, especially compared to fast sampling speeds of predecessors such as GANs. The above sampling algorithm is the DDPM sampling algorithm, which will be explained first,
+but then we will also mention a new, non-Markovian sampling process called DDIM (short for Denoising Diffusion Implicit Models) that is able to accelerate sampling speeds.
+
+Remember that for sampling, we only need the trained decoder from above (no encoder). Therefore, we sample latent noise $$x_T$$ from prior $$p(x_T)$$, which is $$\epsilon \sim \mathcal{N}(0, I)$$
+and then run the series of $$T$$ equally weighted autoencoders as mentioned before in a Markovian style. The equation shown in the sampling algorithm is essentially identical to equation #4 above, or:
+<p>
+\mu_{\theta} = \frac{1}{\sqrt{\alpha_t}}x_t - \frac{\sqrt{1-\alpha_t}}{\sqrt{1-\hat{\alpha_t}}\sqrt{\alpha_t}}\hat{\epsilon}_{\theta}(x_t,t) 
+</p>
+
+Assuming our training went well, we now have the neural network $$\hat{\epsilon}_{\theta}(x_t,t)$$ trained that predicts the noise $$\epsilon$$ for given input image $$x_t$$. Inputting a 
+timestep $t$$ and original image $$x_t$$ to the trained neural network gives us the predicted noise $$\epsilon$$, and using that we can sample $$x_{t-1}$$ until $$t=1$$. When $$t=1$$, we have
+our sampled output of $$x_0$$. However, as discussed above, Denoising Diffusion Implicit Model (DDIM) uses a non-Markovian sampling process that makes the process much quicker. Essentially, DDIM uses $$S$$ steps instead of $$T$$ where $$ S<T $$, and the authors of the LDM paper
+therefore use *DDIM over DDPM.*
 
 To derive the DDIM sampling process, we utilize the *reparametrization trick*, which we applied in equation #5 above. The reparametrization trick is used whenever we sample from
 a distribution (Gaussian in our case) that is not directly differentiable. For our case, the mean and the variance of the distribution are both dependent on the model
