@@ -263,7 +263,7 @@ For equation #9, we can further split the second term on the RHS (the summation 
 <p>
 $$ \sum_{t=2}^{T} \log(\frac{q(x_{t-1}|x_t,x_0)q(x_t|x_0)}{p_{\theta}(x_{t-1}|x_t)q(x_{t-1}|x_0)}) = \sum_{t=2}^{T} \log(\frac{q(x_{t-1}|x_t,x_0)}{p_{\theta}(x_{t-1}|x_t)}) + \sum_{t=2}^{T} \log(\frac{q(x_t|x_0)}{q(x_{t-1}|x_0)})$$
 </p>
-Examining $$\sum_{t=2}^{T} \log(\frac{q(x_t|x_0)}{q(x_{t-1}|x_0)})$$, for any $$ t>2 $$, we see that all the terms in the denominator and numerator will cancel out each other and will simplify to $$ \log(\frac{q(x_t|x_0)}{q(x_1|x_0)}))$$.
+Examining $$\sum_{t=2}^{T} \log(\frac{q(x_t|x_0)}{q(x_{t-1}|x_0)})$$, for any $$ t>2 $$, we see that all the terms in the denominator and numerator will cancel out each other and will simplify to $$ \log(\frac{q(x_t|x_0)}{q(x_1|x_0)})$$.
 <br>
 Performing all of these substitutions to equation #9 gives equation #10:
 <p>
@@ -320,6 +320,7 @@ From above, we can see that the above approximate denoising transition $$q(x_{t-
 $$\alpha$$ coefficients and therefore can be abbreviated as $$\Sigma_q(t)$$. Recall that these $$\alpha$$ coefficients are fixed and known, so that at any time step $$t$$, we know the variance. 
 
 Now, back to equation #12 where we want to minimize the KL-divergence:
+
 $$ \mathop{\arg \min}\limits_{\theta} D_{KL}(q(x_{t-1} \mid x_t,x_0)||p_{\theta}(x_{t-1} \mid x_t)) $$. 
 
 Equation #15 above tells us the formulation for ground truth denoising transition step $$q(x_{t-1} \mid x_t,x_0)$$ , and we know the formulation for our approximate denoising transition step 

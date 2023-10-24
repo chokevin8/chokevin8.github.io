@@ -109,11 +109,7 @@ Let's first look at the training algorithm:
 5. Take gradient descent step on the training objective we just derived $$L_{LDM} = ||\epsilon - \epsilon_{\theta}(x_t,t)||^2 $$ with respect to $$\theta$$, which is the 
 parameters of the weights and biases of the decoder.
 
-Not too bad! What about the sampling algorithm?
-
-
-
-The above sampling algorithm is the DDPM sampling process, which is just the reverse diffusion process explained in the previous part. 
+Not too bad! What about the sampling algorithm? The above sampling algorithm is the DDPM sampling process, which is just the reverse diffusion process explained in the previous part. 
 
 Now, note that for sampling, we only need the trainerithd decoder from above (no encoder). Therefore, we sample latent noise $$x_T$$ from prior $$p(x_T)$$, which is $$\epsilon \sim \mathcal{N}(0, I)$$
 and then run the series of $$T$$ equally weighted autoencoders as mentioned before in a Markovian style (sample from $$x_{t-1}$$). However, the sampling process using
