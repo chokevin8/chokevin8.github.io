@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Virtual Stain Conversion of IHC/Not-stained Bright-field Images to H&E Images (IHC2HE)
-description: Segmentation of Skin H&E Tissue Images to Analyze Novel Cellular Biomarkers of Aging
+title: Virtual Stain Conversion of IHC/Unstained to H&E Images (IHC2HE/US2HE)
+description: Design of Generative Models to Virtually Stain/Convert IHC/Unstained (Bright-field) Images to H&E Images 
 moredescription: <i>Master's Thesis Project (2023 ~ Present)</i>
 img: assets/img/1_project/ihc2he_thumbnail.png
 importance: 1
