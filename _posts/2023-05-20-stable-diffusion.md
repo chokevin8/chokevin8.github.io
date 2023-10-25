@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Latent/Stable Diffusion Fully Explained! (Part 1- Introduction/Background)
+title:  Latent/Stable Diffusion Fully Explained! (Part 1)
 date:   2023-05-20
 description: Introduction to generative models and drawbacks of GANs
 tags: deep-learning machine-learning generative-models paper-review
@@ -145,11 +145,9 @@ Inception Score (IS) and Frechet Inception Distance (FID).
 
 ---
 
-<p>
 While the drawbacks of GANs listed above do have their own remedies, they may still not work, or even if they do work, they may require a lot of time and effort- which may not be worth it.
 However, stable diffusion hasn't become the SOTA generative model just because of the drawbacks of GANs, they have their own advantages as well! The paper itself will be detailed in
-the next part (part 2) now.
-</p>
+[part 2](/blog/2023/stable-diffusion-part2/). 
 
 *Image credits to:*
 - [Discriminative Model vs Generative Model](https://developers.google.com/machine-learning/gan/generative)
