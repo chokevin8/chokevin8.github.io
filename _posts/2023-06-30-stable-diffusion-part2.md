@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  Latent/Stable Diffusion Fully Explained! (Part 2- Diffusion Explained in Words)
+title:  Latent/Stable Diffusion Fully Explained! (Part 2)
 date:   2023-06-30
-description: 
+description: Analysis of model architecture, and explanation of major experiments/results of the paper
 tags: deep-learning machine-learning generative-models paper-review
 categories: posts
 ---
@@ -209,7 +209,7 @@ to be trained. This classifier guidance technique did boost the sample quality o
 and the gradient of the log probability of this auxillary classifier model. However, not only was training this auxillary classifier time-consuming (it requires training on noisy images, meaning
 it cannot be pre-trained), but this process of mixing resembles an "adversarial attack" (adversarial attack meaning introducing slight perturbations the input which confuses the model and results in different outputs). Therefore,
 a classifier-free diffusion process is utilized by the authors, which doesn't require a separate classifier to be trained, and still boosts the sample quality of the LDM. This classifier-free approach requires
-training a conditional and an unconditional diffusion model simultaneously, and mixes the two scores together.
+training a conditional and an unconditional diffusion model simultaneously, and mixes the two scores together. We will look at classifier-guidance in more detail in [Part 4 of the blog](/blog/2023/stable-diffusion-part4/).
 
 <p>
 Now, to come back to the conditional LDMs, the authors wanted to test how their model performed on a text-to-image synthesis by using a BERT tokenizer. The authors concluded that their "LDM-KL-8-G" model, or their classifier-free,
@@ -240,7 +240,7 @@ Image inpainting is to fill in a masked region of a specific image. The authors 
 ---
 
 Most of the important parts of the paper has been covered, but there was barely any math in my explanations. Fully understanding stable diffusion without covering its mathematic details
-would not be possible. The next part (Part 3) will cover all of this.
+would not be possible. The next two parts (Parts 3 and 4) will cover all of this.
 
 *Image credits to:*
 - [Stable Diffusion Architecture](https://towardsdatascience.com/what-are-stable-diffusion-models-and-why-are-they-a-step-forward-for-image-generation-aa1182801d46) 

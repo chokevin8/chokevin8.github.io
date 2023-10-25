@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  Latent/Stable Diffusion Fully Explained! (Part 3- Training Objective Derivation)
+title:  Latent/Stable Diffusion Fully Explained! (Part 3)
 date:   2023-08-15
-description: 
+description: Derivation of ELBO in VAEs, and using that to derive training objective of latent/stable diffusion!
 tags: deep-learning machine-learning generative-models paper-review
 categories: posts
 ---
@@ -332,8 +332,8 @@ $$ \mathop{\arg \min}\limits_{\theta} \quad D_{KL}(q(x_{t-1} \mid x_t,x_0)||p_{\
 $$ \mathop{\arg \min}\limits_{\theta} \quad \frac{1}{2{\sigma_q}^{2}(t)} [{|| \mu_{\theta} - \mu_q ||}^{2}] \quad (16) $$
 </p>
 
-To explain equation #16 above, $$\mu_q$$ is the mean of the ground truth denoising transition step $$(q(x_{t-1} \mid x_t,x_0)$$ and $$\mu_{\theta}$$ is the mean of our desired approximate denoising transition step $$p_{\theta}(x_{t-1} \mid x_t)$$.
-How do we get these two values? We calculated them at equation 15, we can just utilize the $$\mu_t$$, it depends on $$x_0$$ and $$x_t$$! But wait, while $$(q(x_{t-1} \mid x_t,x_0)$$ is dependent on $$x_0$$ and $$x_t$$, $$p_{\theta}(x_{t-1} \mid x_t)$$ is only 
+To explain equation #16 above, $$\mu_q$$ is the mean of the ground truth denoising transition step $$q(x_{t-1} \mid x_t,x_0)$$ and $$\mu_{\theta}$$ is the mean of our desired approximate denoising transition step $$p_{\theta}(x_{t-1} \mid x_t)$$.
+How do we get these two values? We calculated them at equation 15, we can just utilize the $$\mu_t$$, it depends on $$x_0$$ and $$x_t$$! But wait, while $$q(x_{t-1} \mid x_t,x_0)$$ is dependent on $$x_0$$ and $$x_t$$, $$p_{\theta}(x_{t-1} \mid x_t)$$ is only 
 dependent on $$x_t$$, but not $$x_0$$! Well this is exactly what we're trying to do, our approximate denoising step $$\hat{x}_{\theta}(x_t,t)$$ is parametrized by the neural network with $$\theta$$ parameters, we predict
 the generated/original image $$x_0$$ using noisy image $$x_t$$ and time step $$t$$! 
 

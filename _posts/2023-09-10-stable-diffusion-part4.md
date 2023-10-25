@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  Latent/Stable Diffusion Fully Explained! (Part 4- Training/Sampling Algorithms & Conditioning/Classifier-Free Guidance)
+title:  Latent/Stable Diffusion Fully Explained! (Part 4)
 date:   2023-09-10
-description: 
+description: Different interpretation of the training objective, DDIM vs DDPM sampling objective, and conditioning/classifier-free guidance
 tags: deep-learning machine-learning generative-models paper-review
 categories: posts
 ---
@@ -126,12 +126,12 @@ and then run the series of $$T$$ equally weighted autoencoders as mentioned befo
 $$ \mu_{\theta} = \frac{1}{\sqrt{\alpha_t}}x_t - \frac{\sqrt{1-\alpha_t}}{\sqrt{1-\hat{\alpha_t}}\sqrt{\alpha_t}}\hat{\epsilon}_{\theta}(x_t,t) $$
 </p>
 
-Assuming our training went well, we now have the neural network $$\hat{\epsilon}_{\theta}(x_t,t)$$ trained that predicts the noise $$\epsilon$$ for given input image $$x_t$$. Inputting a 
-timestep $$t$$ and original image $$x_t$$ to the trained neural network gives us the predicted noise $$\epsilon$$, and using that we can sample $$x_{t-1}$$ until $$t=1$$. When $$t=1$$, we have
+The equation in the sampling algorithm just has an additional noise term $$\sigma_tz$$ for stochasticity during sampling. Assuming our training went well, we now have the neural network $$\hat{\epsilon}_{\theta}(x_t,t)$$ trained that predicts the noise $$\epsilon$$ for given input image $$x_t$$. Now, remember that this neural network
+in our LDM is our U-Net architecture with the attention layers that predicts the noise given our input image. Inputting a timestep $$t$$ and original image $$x_t$$ to the trained neural network gives us the predicted noise $$\epsilon$$, and using that we can sample $$x_{t-1}$$ until $$t=1$$. When $$t=1$$, we have
 our sampled output of $$x_0$$. However, as discussed above, Denoising Diffusion Implicit Model (DDIM) uses a non-Markovian sampling process that makes the process much quicker. Essentially, DDIM uses $$S$$ steps instead of $$T$$ where $$S<T$$, and the authors of the LDM paper
 therefore use *DDIM over DDPM.*
 
-To derive the DDIM sampling process, we utilize the *reparametrization trick*, which we applied in equation #5 above. The reparametrization trick is used whenever we sample from
+To derive the DDIM sampling process, we utilize the *reparametrization trick*, which we applied previously for forward diffusion. The reparametrization trick is used whenever we sample from
 a distribution (Gaussian in our case) that is not directly differentiable. For our case, the mean and the variance of the distribution are both dependent on the model
 parameters, which is learned through SGD (as shown above). The issue is that because sampling from the Gaussian distribution is stochastic, we cannot compute the gradient anymore to update
 the mean and variance parameters. So, we introduce the auxiliary random variable $$\epsilon$$ that is deterministic since it is sampled from a fixed standard Gaussian distribution ($$\epsilon \sim \mathcal{N}(0, 1) $$),
@@ -141,13 +141,13 @@ then drawing deterministic random variable $$\epsilon$$ to obtain the desired sa
 Now, the previous reparametrization trick was used to allow SGD, but this time we can also use the reparametrization trick to essentially alter our sampling process $$q(x_{t-1}|x_t,x_0)$$ to be parametrized by another random variable,
 a desired standard deviation $$\epsilon_t$$. The reparametrization is shown below:
 <p>
-$$\text{Recall:} $$
-$$ $$
-\prod_{t=1}^{T} q(x_t|x_{t-1})
+$$\text{Recall equation #1:} x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}{\epsilon}_0 $$
+$$\text{The equation for} $$x_{t-1}$$ \text{instead is:} x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}x_0 + \sqrt{1-\hat{\alpha}_{t-1}}{\epsilon}_{t-1} $$
+$$\prod_{t=1}^{T} q(x_t|x_{t-1})
 </p>
 
 The main advantages of DDIM over DDPM are:
-
+stochastic, allows consistency and also interpolation (interpolation in DDPM is possible, but stochasticity ruins it)
 1. Consistency: DDIMs are consistent, meaning that if we initialize the same latent variable $$x_T$$ via same random seed during sampling, the samples 
 2. 
 
