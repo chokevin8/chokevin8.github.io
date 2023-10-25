@@ -2,7 +2,7 @@
 layout: post
 title:  How to use Class Activation Maps (CAM) for Explainable AI in Semantic Segmentation!
 date:   2023-10-20
-description: 
+description: Introduction to CAM, explanation of different types of CAMs in semantic segmentation, showcasing some example code using CAM, and CAM results in my project.
 tags: deep-learning machine-learning image-segmentation project-update
 categories: posts
 ---
