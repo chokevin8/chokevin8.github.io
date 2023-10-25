@@ -140,7 +140,6 @@ then drawing deterministic random variable $$\epsilon$$ to obtain the desired sa
 
 Now, the previous reparametrization trick was used to allow SGD, but this time we can also use the reparametrization trick to essentially alter our sampling process $$q(x_{t-1}|x_t,x_0)$$ to be parametrized by another random variable,
 a desired standard deviation $$\epsilon_t$$. The reparametrization is shown below:
-
 <p>
 $$\text{Recall:} $$
 $$ $$

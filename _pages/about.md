@@ -12,8 +12,8 @@ social: true  # includes social icons at the bottom of the page
 such as H&E images and RNA-Seq data to study problems in the field of biology and medicine, such as cancer diagnosis/genomics.
 <br>
 <br>
-I received a bachelor's degree of science (BS) in Chemical and Biomolecular Engineering from Johns Hopkins University in 2022. Currently, I'm pursuing a master's degree of science in engineering in Chemical and Biomolecular Engineering at the Johns Hopkins University. I'm currently pursuing research under
-the guidance of Dr. Denis Wirtz in the [Wirtz Lab](https://wirtzlab.johnshopkins.edu/). My master's thesis research is about utilizing deep learning image segmentation model(s) in skin H&E images to find new digital biomarkers in aging. Please refer to my [resume](/cv/) here for more
+I received a bachelor's degree of science (BS) in Chemical and Biomolecular Engineering from Johns Hopkins University in 2022. Currently, I'm pursuing a master's degree of science in engineering (MSE) in Chemical and Biomolecular Engineering at the Johns Hopkins University. I'm currently pursuing research under
+the guidance of Dr. Denis Wirtz in the [Wirtz Lab](https://wirtzlab.johnshopkins.edu/). **My master's research is about utilizing image segmentation model in skin H&E images to find new digital biomarkers in aging and utilizing generative models to virtually convert different kinds of histological stains.** Please refer to my [resume](/cv/) here for more
 information, and for details about my projects, please refer to my [projects page](/projects/) as well.
 <br>
 <br>
