@@ -2,7 +2,7 @@
 layout: post
 title:  Latent/Stable Diffusion Fully Explained! (Part 4)
 date:   2023-09-10
-description: Different interpretation of the training objective, DDIM vs DDPM sampling objective, and conditioning/classifier-free guidance!
+description: Different interpretation of the training objective, explanation of training/sampling algorithm, DDIM vs DDPM sampling methods, and conditioning/classifier-free guidance!
 tags: deep-learning machine-learning generative-models paper-review
 categories: posts
 ---
@@ -141,9 +141,11 @@ then drawing deterministic random variable $$\epsilon$$ to obtain the desired sa
 Now, the previous reparametrization trick was used to allow SGD, but this time we can also use the reparametrization trick to essentially alter our sampling process $$q(x_{t-1}|x_t,x_0)$$ to be parametrized by another random variable,
 a desired standard deviation $$\epsilon_t$$. The reparametrization is shown below:
 <p>
-$$\text{Recall equation #1:} x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}{\epsilon}_0 $$
-$$\text{The equation for} $$x_{t-1}$$ \text{instead is:} x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}x_0 + \sqrt{1-\hat{\alpha}_{t-1}}{\epsilon}_{t-1} $$
-$$\prod_{t=1}^{T} q(x_t|x_{t-1})
+$$\text{Recall equation #1:} \quad x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}{\epsilon}_0 $$
+$$\text{The equation for} \quad x_{t-1} \quad \text{instead is:} \quad x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}x_0 + \sqrt{1-\hat{\alpha}_{t-1}}{\epsilon}_{t-1} $$
+$$\text{Add extra term} \quad \sigma_t \epsilon \quad \text{where} \quad \sigma_t^{2} \quad \text{is the variance of our distribution}: \quad x_{t-1} \quad \text{instead is:} \quad x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}x_0 + \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\epsilon_t + \sigma_t \epsilon $$
+$$\text{Since} \quad epsilon_t = \frac{x_t - \sqrt{\hat{\alpha_t}}x_0}{\sqrt(1-\hat{\alpha_t}}:$$
+$$ x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}x_0 + \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\sqrt{\hat{\alpha_t}}x_0}{\sqrt(1-\hat{\alpha_t}}  + \sigma_t \epsilon
 </p>
 
 The main advantages of DDIM over DDPM are:
