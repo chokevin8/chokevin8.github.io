@@ -2,7 +2,7 @@
 layout: post
 title:  Latent/Stable Diffusion Fully Explained! (Part 4)
 date:   2023-09-10
-description: Different interpretation of the training objective, DDIM vs DDPM sampling objective, and conditioning/classifier-free guidance
+description: Different interpretation of the training objective, DDIM vs DDPM sampling objective, and conditioning/classifier-free guidance!
 tags: deep-learning machine-learning generative-models paper-review
 categories: posts
 ---

@@ -2,7 +2,7 @@
 layout: post
 title:  Latent/Stable Diffusion Fully Explained! (Part 1)
 date:   2023-05-20
-description: Introduction to generative models and drawbacks of GANs
+description: Introduction to generative models and drawbacks of GANs!
 tags: deep-learning machine-learning generative-models paper-review
 categories: posts
 ---
