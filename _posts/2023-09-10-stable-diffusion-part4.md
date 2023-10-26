@@ -135,7 +135,7 @@ To derive the DDIM sampling process, we utilize the *reparametrization trick* ag
 We can use $$ x = \mu + \sigma * \epsilon$$ to essentially alter our sampling process $$q(x_{t-1}|x_t,x_0)$$ to be parametrized by another random variable,
 a desired standard deviation $$\epsilon_t$$. The reparametrization is shown below:
 <p>
-$$\text{Recall equation #1:} \text{} x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}{\epsilon}_0 $$
+$$\text{Recall equation #1:} \text{ } x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}{\epsilon}_0 $$
 $$\text{The equation for} \quad x_{t-1} \quad \text{instead is:} \quad x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}x_0 + \sqrt{1-\hat{\alpha}_{t-1}}{\epsilon}_{t-1} $$
 $$\text{Add extra term} \quad \sigma_t \epsilon \quad \text{for reparametrization trick, where} \quad \sigma_t^{2} \quad \text{is the variance of our distribution.}$$
 $$\quad x_{t-1} \quad \text{instead is:} \quad x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}x_0 + \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\epsilon_t + \sigma_t \epsilon $$
