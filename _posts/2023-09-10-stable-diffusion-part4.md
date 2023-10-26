@@ -131,17 +131,11 @@ in our LDM is our U-Net architecture with the attention layers that predicts the
 our sampled output of $$x_0$$. However, as discussed above, Denoising Diffusion Implicit Model (DDIM) uses a non-Markovian sampling process that makes the process much quicker. Essentially, DDIM uses $$S$$ steps instead of $$T$$ where $$S<T$$, and the authors of the LDM paper
 therefore use *DDIM over DDPM.*
 
-To derive the DDIM sampling process, we utilize the *reparametrization trick*, which we applied previously for forward diffusion. The reparametrization trick is used whenever we sample from
-a distribution (Gaussian in our case) that is not directly differentiable. For our case, the mean and the variance of the distribution are both dependent on the model
-parameters, which is learned through SGD (as shown above). The issue is that because sampling from the Gaussian distribution is stochastic, we cannot compute the gradient anymore to update
-the mean and variance parameters. So, we introduce the auxiliary random variable $$\epsilon$$ that is deterministic since it is sampled from a fixed standard Gaussian distribution ($$\epsilon \sim \mathcal{N}(0, 1) $$),
-which allows SGD to be possible since $$\epsilon$$ is not dependent on the model parameters. Therefore, the reparametrization trick $$ x = \mu + \sigma * \epsilon$$ works by initially computing the mean and standard deviation using current weights given input data,
-then drawing deterministic random variable $$\epsilon$$ to obtain the desired sample $$x$$. Then, loss can be computed with respect to mean and variance, and they can be backpropagated via SGD.
-
-Now, the previous reparametrization trick was used to allow SGD, but this time we can also use the reparametrization trick to essentially alter our sampling process $$q(x_{t-1}|x_t,x_0)$$ to be parametrized by another random variable,
+To derive the DDIM sampling process, we utilize the *reparametrization trick* again, which we applied previously for forward diffusion. 
+We can use $$ x = \mu + \sigma * \epsilon$$ to essentially alter our sampling process $$q(x_{t-1}|x_t,x_0)$$ to be parametrized by another random variable,
 a desired standard deviation $$\epsilon_t$$. The reparametrization is shown below:
 <p>
-$$\text{Recall equation #1:} \quad x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}{\epsilon}_0 $$
+$$\text{Recall equation #1:} \, x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}{\epsilon}_0 $$
 $$\text{The equation for} \quad x_{t-1} \quad \text{instead is:} \quad x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}x_0 + \sqrt{1-\hat{\alpha}_{t-1}}{\epsilon}_{t-1} $$
 $$\text{Add extra term} \quad \sigma_t \epsilon \quad \text{where} \quad \sigma_t^{2} \quad \text{is the variance of our distribution}: \quad x_{t-1} \quad \text{instead is:} \quad x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}x_0 + \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\epsilon_t + \sigma_t \epsilon $$
 $$\text{Since} \quad epsilon_t = \frac{x_t - \sqrt{\hat{\alpha_t}}x_0}{\sqrt(1-\hat{\alpha_t}}:$$

@@ -180,7 +180,13 @@ formula to sample a noised image at any timestep:
 $$q(x_{1:T}|x_0) = \prod_{t=1}^{T} q(x_t|x_{t-1}) \quad (4)$$
 </p>
 Basically, if T = 200 timesteps, we would have 200 products to sample the noised image $$x_{t=200}$$. However, if the timestep gets larger, we run in to trouble of computational issues. Therefore,
-we utilize the *reparametrization trick* which gives us a much simpler tractable, closed-form formula for sampling that requires much fewer computations:
+we utilize the *reparametrization trick* which gives us a much simpler tractable, closed-form formula for sampling that requires much fewer computations.
+
+The reparametrization trick is used whenever we sample from a distribution (Gaussian in our case) that is not directly differentiable. For our case, the mean and the variance of the distribution are both dependent on the model
+parameters, which is learned through SGD (as shown above). The issue is that because sampling from the Gaussian distribution is stochastic, we cannot compute the gradient anymore to update
+the mean and variance parameters. So, we introduce the auxiliary random variable $$\epsilon$$ that is deterministic since it is sampled from a fixed standard Gaussian distribution ($$\epsilon \sim \mathcal{N}(0, 1) $$),
+which allows SGD to be possible since $$\epsilon$$ is not dependent on the model parameters. Therefore, the reparametrization trick $$ x = \mu + \sigma * \epsilon$$ works by initially computing the mean and standard deviation using current weights given input data,
+then drawing deterministic random variable $$\epsilon$$ to obtain the desired sample $$x$$. Then, loss can be computed with respect to mean and variance, and they can be backpropagated via SGD.
 
 <p>
 $$ \text{Let} \quad \alpha_t = 1 - \beta_t \text{and} \quad \hat{\alpha}_t = \prod_{i=1}^{t} \alpha_i $$
@@ -190,7 +196,7 @@ $$ x_t = \sqrt{\alpha_t}x_{t-1} + \sqrt{1-\alpha_t}\epsilon_{t-1} $$
 $$ x_t = \sqrt{\alpha_t \alpha_{t-1}}x_{t-2} + \sqrt{1-\alpha_t \alpha_{t-1}}\epsilon_{t-2} $$
 $$ x_t = \quad ... $$
 $$ x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}{\epsilon}_0 $$
-$$ \mathbf{ \text{Therefore,} \quad q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha}_t}x_0,\Sigma_t = (1-\hat{\alpha}_t)I)} \quad (5)$$
+$$ \mathbf{ \text{Therefore, since } \quad \mu + \sigma * \epsilon, \quad q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha}_t}x_0,\Sigma_t = (1-\hat{\alpha}_t)I)} \quad (5)$$
 </p>
 *Note that above simplification is possible since the variance of two merged Gaussians is simply the sum of the two variances.*
 
