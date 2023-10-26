@@ -141,7 +141,9 @@ $$\text{Add extra term} \text{ } \sigma_t \epsilon \text{ } \text{for reparametr
 $$x_{t-1} \text{ } \text{instead is:} \text{ } x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}x_0 + \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\epsilon_t + \sigma_t \epsilon $$
 $$\text{Since} \text{ } \epsilon_t = \frac{x_t - \sqrt{\hat{\alpha_t}}x_0}{\sqrt{(1-\hat{\alpha_t})}} : $$
 $$ x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}x_0 + \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\sqrt{\hat{\alpha_t}}x_0}{\sqrt(1-\hat{\alpha_t}} + \sigma_t \epsilon $$
-$$\text{Therefore,} q(x_{t-1}|x_t,x_0) = \mathcal{N}(x_{t-1};\mu_{t-1} = \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\sqrt{\hat{\alpha_t}}x_0}{\sqrt(1-\hat{\alpha_t}}},\Sigma_{t-1}= \sigma_t^{2}I)) $$
+$$\text{Therefore,} \text{ } q(x_{t-1}|x_t,x_0) = \mathcal{N}(x_{t-1};\mu_{t-1} = \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\sqrt{\hat{\alpha_t}}x_0}{\sqrt(1-\hat{\alpha_t}}},\Sigma_{t-1}= \sigma_t^{2}I)) $$
+$$\text{Recall equation #15 from last blog, or distribution:} \text{ } $$q(x_{t-1} \mid x_t,x_0) \sim \mathcal{N}(x_{t-1}; \mu_t = \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t}},\Sigma_t = \frac{(1-\alpha_t)(1-\hat{\alpha}_{t-1})}{(1-\hat{\alpha_t})}I \quad (15)$$
+$$\text{Therefore, 
 </p>
 
 The main advantages of DDIM over DDPM are:
