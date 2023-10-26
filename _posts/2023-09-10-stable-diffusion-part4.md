@@ -112,7 +112,7 @@ parameters of the weights and biases of the decoder.
 Not too bad! What about the above sampling algorithm? 
 
 Before describing the sampling process, let's look back at the training objective, specifically regarding the value of T, or the timesteps for the forward process. 
-Above, we described this as a Markovian process, and ideally we would like to *maximize* $$T$$ or the number of timesteps in the forward diffusion so that the reverse process
+Above, we described this as a Markovian process, and ideally we would like to *maximize*  $$T$$ or the number of timesteps in the forward diffusion so that the reverse process
 can be as close to a Gaussian as possible so that the generative process is accurate and generates a good image quality. 
 
 However, in this Markovian sampling process called DDPM (short for Denoising Diffusion Probabilistic Models), the $$T$$ timesteps have to be performed sequentially, meaning
@@ -126,8 +126,8 @@ and then run the series of $$T$$ equally weighted autoencoders as mentioned befo
 $$ \mu_{\theta} = \frac{1}{\sqrt{\alpha_t}}x_t - \frac{\sqrt{1-\alpha_t}}{\sqrt{1-\hat{\alpha_t}}\sqrt{\alpha_t}}\hat{\epsilon}_{\theta}(x_t,t) $$
 </p>
 
-The equation in the sampling algorithm just has an additional noise term $$\sigma_tz$$ for stochasticity during sampling. Assuming our training went well, we now have the neural network $$\hat{\epsilon}_{\theta}(x_t,t)$$ trained that predicts the noise $$\epsilon$$ for given input image $$x_t$$. Now, remember that this neural network
-in our LDM is our U-Net architecture with the attention layers that predicts the noise given our input image. Inputting a timestep $$t$$ and original image $$x_t$$ to the trained neural network gives us the predicted noise $$\epsilon$$, and using that we can sample $$x_{t-1}$$ until $$t=1$$. When $$t=1$$, we have
+The equation in the sampling algorithm just has an additional noise term $$\sigma_tz$$ for stochasticity during sampling. Assuming our training went well, we now have the neural network $$\hat{\epsilon}_{\theta}(x_t,t)$$ trained that predicts the noise $$\epsilon$$ for given input image $$x_t$$. ***Now, remember that this neural network
+in our LDM is our U-Net architecture with the attention layers that predicts the noise given our input image.*** Inputting a timestep $$t$$ and original image $$x_t$$ to the trained neural network gives us the predicted noise $$\epsilon$$, and using that we can sample $$x_{t-1}$$ until $$t=1$$. When $$t=1$$, we have
 our sampled output of $$x_0$$. However, as discussed above, Denoising Diffusion Implicit Model (DDIM) uses a non-Markovian sampling process that makes the process much quicker. Essentially, DDIM uses $$S$$ steps instead of $$T$$ where $$S<T$$, and the authors of the LDM paper
 therefore use *DDIM over DDPM.*
 
@@ -135,7 +135,7 @@ To derive the DDIM sampling process, we utilize the *reparametrization trick* ag
 We can use $$ x = \mu + \sigma * \epsilon$$ to essentially alter our sampling process $$q(x_{t-1}|x_t,x_0)$$ to be parametrized by another random variable,
 a desired standard deviation $$\epsilon_t$$. The reparametrization is shown below:
 <p>
-$$\text{Recall equation #1:} \, x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}{\epsilon}_0 $$
+$$\text{Recall equation #1:} \: x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}{\epsilon}_0 $$
 $$\text{The equation for} \quad x_{t-1} \quad \text{instead is:} \quad x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}x_0 + \sqrt{1-\hat{\alpha}_{t-1}}{\epsilon}_{t-1} $$
 $$\text{Add extra term} \quad \sigma_t \epsilon \quad \text{where} \quad \sigma_t^{2} \quad \text{is the variance of our distribution}: \quad x_{t-1} \quad \text{instead is:} \quad x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}x_0 + \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\epsilon_t + \sigma_t \epsilon $$
 $$\text{Since} \quad epsilon_t = \frac{x_t - \sqrt{\hat{\alpha_t}}x_0}{\sqrt(1-\hat{\alpha_t}}:$$
