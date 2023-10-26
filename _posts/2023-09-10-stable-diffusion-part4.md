@@ -139,14 +139,16 @@ $$\text{Recall equation #1:} \text{ } x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-
 $$\text{The equation for} \text{ } x_{t-1} \text{ } \text{instead is:} \text{ } x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}x_0 + \sqrt{1-\hat{\alpha}_{t-1}}{\epsilon}_{t-1} $$
 $$\text{Add extra term} \text{ } \sigma_t \epsilon \text{ } \text{for reparametrization trick, where} \text{ } \sigma_t^{2} \text{ } \text{is the variance of our distribution.}$$
 $$x_{t-1} \text{ } \text{instead is:} \text{ } x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}x_0 + \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\epsilon_t + \sigma_t \epsilon $$
-$$\text{Since} \text{ } \epsilon_t = \frac{x_t - \sqrt{\hat{\alpha_t}}x_0}{\sqrt{(1-\hat{\alpha_t})}} : $$
-$$ x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}x_0 + \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\sqrt{\hat{\alpha_t}}x_0}{\sqrt(1-\hat{\alpha_t}} + \sigma_t \epsilon $$
-$$\text{Therefore,} \text{ } q(x_{t-1}|x_t,x_0) = \mathcal{N}(x_{t-1};\mu_{t-1} = \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\sqrt{\hat{\alpha_t}}x_0}{\sqrt(1-\hat{\alpha_t}}},\Sigma_{t-1}= \sigma_t^{2}I)) $$
+$$\text{Since} \text{ } \epsilon_t = \frac{x_t - \sqrt{\hat{\alpha_t}}x_0}{\sqrt{1-\hat{\alpha_t}}} : $$
+$$ x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}x_0 + \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\frac{x_t - \sqrt{\hat{\alpha_t}}x_0}{\sqrt{1-\hat{\alpha_t}}} + \sigma_t \epsilon $$
+$$\text{Therefore,} \text{ } q(x_{t-1}|x_t,x_0) = \mathcal{N}(x_{t-1};\mu_{t-1} = \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\frac{x_t - \sqrt{\hat{\alpha_t}}x_0}{\sqrt{1-\hat{\alpha_t}}},\Sigma_{t-1}= \sigma_t^{2}I)) $$
 $$\text{Recall equation #15 from last blog for variance formulation:} \text{ } $$q(x_{t-1} \mid x_t,x_0) \sim \mathcal{N}(x_{t-1}; \mu_t = \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t}},\Sigma_t = \frac{(1-\alpha_t)(1-\hat{\alpha}_{t-1})}{(1-\hat{\alpha_t})}I \quad $$
 $$\text{Then, also recall that} \text{ } \beta_t = 1-\alpha_t \text{ ,} \text{ } \text{therefore our new variance} \text{ } \hat{\beta_t} = \sigma_t^{2} = \frac{1-\hat{\alpha}_{t-1}}{1-\hat{\alpha_t}} * \beta_t $$
 </p>
 
-With above result, we can now let $$\eta$$
+With above result, we can now let $$\eta = \frac{1-\hat{\alpha}_{t-1}}{1-\hat{\alpha_t}}$$ and now $$\sigma_t^{2} = \eta * \hat{\beta_t}$$ where $$\eta$$ can now be used to control the stochasticity/determinism of the sampling process.
+As one can see, if $$\eta = 0$$, this means that the variance of the above denoising step becomes zero and therefore the sampling becomes completely deterministic. This means that given an input image, no matter how many
+different times you sampled, you would end up with the same sampled image!
 The main advantages of DDIM over DDPM are:
 stochastic, allows consistency and also interpolation (interpolation in DDPM is possible, but stochasticity ruins it)
 1. Consistency: DDIMs are consistent, meaning that if we initialize the same latent variable $$x_T$$ via same random seed during sampling, the samples 
