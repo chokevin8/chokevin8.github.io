@@ -12,6 +12,16 @@ category: research
 
 ### **Project Motivation & Background:**
 <br>
+**Let's play a simple guessing game: Look at the two pictures below. At the most left is the ground truth IHC image to be converted. The next two images on the right
+is the ground truth H&E version of the ground truth IHC image and the virtually stained H&E version of the ground truth IHC image. Can you guess which is "real" and
+which is "fake"?**
+
+<div class="row">
+    <div class="col-sm">
+        {% include figure.html path="assets/img/1_project/ihc2_he_intro.png" title="IHC2HE_intro" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+
 
 ---
 
