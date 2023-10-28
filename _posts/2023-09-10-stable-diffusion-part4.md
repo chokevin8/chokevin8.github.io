@@ -131,7 +131,7 @@ in our LDM is our U-Net architecture with the attention layers that predicts the
 our sampled output of $$x_0$$. However, as discussed above, Denoising Diffusion Implicit Model (DDIM) uses a non-Markovian sampling process that makes the process much quicker. Essentially, DDIM uses $$S$$ steps instead of $$T$$ where $$S<T$$, and the authors of the LDM paper
 therefore use *DDIM over DDPM.*
 
-To derive the DDIM sampling process, we utilize the *reparametrization trick* again, which we applied previously for forward diffusion. 
+To derive the DDIM training process first, we utilize the *reparametrization trick* again, which we applied previously for forward diffusion. 
 We can use $$ x = \mu + \sigma * \epsilon$$ to essentially alter our sampling process $$q(x_{t-1}|x_t,x_0)$$ to be parametrized by another random variable,
 a desired standard deviation $$\sigma_t$$ (square this for variance). The reparametrization is shown below:
 <p>
@@ -148,14 +148,17 @@ $$\hat{\beta_t} = \sigma_t^{2} = \frac{1-\hat{\alpha}_{t-1}}{1-\hat{\alpha_t}} *
 </p>
 
 With above result, we can now let $$\eta = \frac{1-\hat{\alpha}_{t-1}}{1-\hat{\alpha_t}}$$ and now $$\sigma_t^{2} = \eta * \hat{\beta_t}$$ where $$\eta$$ can now be used to control the stochasticity/determinism of the sampling process.
-As one can see, if $$\eta = 0$$, this means that the variance of the above denoising step becomes zero and therefore the sampling becomes completely deterministic. This means that given an input image, no matter how many
-different times you sampled, you would end up with the same sampled image!
+As one can see, if $$\eta = 0$$, this means that the variance of the above denoising step becomes zero and therefore the sampling becomes deterministic. This means that given an input image, no matter how many
+different times you sampled, you would end up with the same sampled image! Therefore, this is why this process is called "denoising diffusion implicit model", as like other implicit models like GANs, the sampling process is deterministic. 
 
-But we also talked about how DDIM speeds up the sampling process, how?
-The main advantages of DDIM over DDPM are:
+But we also talked about how DDIM speeds up the sampling process, why? Look at the
+
+To wrap up, the main advantages of DDIM over DDPM are:
 stochastic, allows consistency and also interpolation (interpolation in DDPM is possible, but stochasticity ruins it)
-1. Consistency: DDIMs are consistent, meaning that if we initialize the same latent variable $$x_T$$ via same random seed during sampling, the samples 
-2. 
+1. Faster sampling: 
+2. Control of stochasticity: As mentioned above, when $$eta=0$$, DDIMs are deterministic, meaning that if we start with the same latent vector (predicted noise) $$x_T$$ via same random seed during sampling, the samples generated from that will be identical.
+
+Therefore, this is why the authors of the LDM paper use DDIM over DDPM. 
 
 <a id="conditioning"></a>
 ###  ***Conditioning:***

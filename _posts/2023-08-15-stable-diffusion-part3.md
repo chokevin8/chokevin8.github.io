@@ -2,7 +2,7 @@
 layout: post
 title:  Latent/Stable Diffusion Fully Explained! (Part 3)
 date:   2023-08-15
-description: Derivation of ELBO in VAEs, and using that to derive training objective of latent/stable diffusion!
+description: Full derivation of ELBO in VAEs, and using that to derive training objective of latent/stable diffusion from scratch!
 tags: deep-learning machine-learning generative-models paper-review
 categories: posts
 ---
