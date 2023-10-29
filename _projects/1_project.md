@@ -12,9 +12,10 @@ category: research
 
 ### **Project Motivation & Background:**
 <br>
-**Let's play a simple guessing game: Look at the two pictures below. At the most left is the ground truth IHC image to be converted. The next two images on the right
-is the ground truth H&E version of the ground truth IHC image and the virtually stained H&E version of the ground truth IHC image. Can you guess which is "real" and
-which is "fake"?**
+
+**Let's play a simple guessing game:** Look at the two pictures below. At the most left is the ground truth IHC image to be converted. The next two images on the right
+are the ground truth H&E version of the ground truth IHC image and the virtually stained H&E version of the ground truth IHC image. Can you guess which is "real" and
+which is "fake"?
 
 <div class="row">
     <div class="col-sm">
@@ -22,6 +23,26 @@ which is "fake"?**
     </div>
 </div>
 
+The correct answer is that the images in the right (column) are the "fake" ones, or the ones sampled from the generative model. 
+<br>
+Let's play another game, this time for a ground truth unstained, bright-field image to be converted. The next two images on the right are the ground truth H&E version of the ground truth unstained image and the 
+virtually stained H&E version of the ground truth unstained image. Can you guess which is "real" and which is "fake"?
+
+<div class="row">
+    <div class="col-sm">
+        {% include figure.html path="assets/img/1_project/us2_he_intro.png" title="US2HE_intro" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+
+The correct answer again is that the images in the right (column) are the "fake" ones, or the ones sampled from the generative model. 
+If you look closely, you could tell that the images on the right have slight artifacts and may be a bit "awkward" in general, this is because
+this is still a work in progress. With correct training, I hope to make them indistinguishable! But someone may ask, **why do we want to do this?
+Why virtually stain or convert stains?**
+
+The above two examples tell us the two different kinds of stain conversions: 1) label-free-to-stain conversions and 2) stain-to-stain conversions. This [review paper](https://www.nature.com/articles/s41377-023-01104-7) 
+published in March of 2023
+
+General motivation:
 
 ---
 
@@ -34,6 +55,9 @@ which is "fake"?**
 
 ### **Results:**
 
+
+***Note that more technical details/explanations and further results are omitted on purpose as I focus on motivation/personal comments in introducing the project. More technical details
+will be shown in the technical powerpoint presentation (PPT).***
 
 ---
 
