@@ -23,20 +23,20 @@ about stable diffusion and its predecessor, GANs. The next three parts, as seen 
 ---
 
 ## **Table of Contents:**
-### [Background (Part 1)](#background) (This Blog!)
+### [Latent/Stable Diffusion Fully Explained! (Part 1)](#background) (This Blog!)
 - ###  [Introduction](#introduction)
 - ### [Why ditch GANs for Stable Diffusion?](#why-ditch-GANs)
 
-### [Stable Diffusion In Words (Part 2)](/blog/2023/stable-diffusion-part2/) 
+### [Latent/Stable Diffusion Fully Explained! (Part 2)](/blog/2023/stable-diffusion-part2/) 
 - ### Motivation
 - ### Model Architecture
 - ### Experiments & Results
 
-### [Stable Diffusion In Numbers (Part 3)](/blog/2023/stable-diffusion-part3/)
+### [Latent/Stable Diffusion Fully Explained! (Part 3)](/blog/2023/stable-diffusion-part3/)
 - ### VAEs and ELBO
 - ### Model Objective
 
-### [Stable Diffusion In Numbers Continued (Part 4)](/blog/2023/stable-diffusion-part4/)
+### [Latent/Stable Diffusion Fully Explained! (Part 4)](/blog/2023/stable-diffusion-part4/)
 - ### Training and Inference
 - ### Conditioning 
 - ### Classifier-Free Guidance

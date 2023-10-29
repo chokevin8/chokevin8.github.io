@@ -9,20 +9,20 @@ categories: posts
 ---
 
 ## **Table of Contents:**
-### [Background (Part 1)](/blog/2023/stable-diffusion/)
+### [Latent/Stable Diffusion Fully Explained! (Part 1)](/blog/2023/stable-diffusion/)
 - ### Introduction
 - ### Why ditch GANs for Stable Diffusion?
 
-### [Stable Diffusion In Words (Part 2)](#stable-diffusion-in-words) (This Blog!)
+### [Latent/Stable Diffusion Fully Explained! (Part 2)](#stable-diffusion-in-words) (This Blog!)
 - ### [Motivation](#motivation)
 - ### [Model Architecture](#model-architecture)
 - ### [Experiments & Results](#experiment-results)
 
-### [Stable Diffusion In Numbers (Part 3)](/blog/2023/stable-diffusion-part3/)
+### [Latent/Stable Diffusion Fully Explained! (Part 3)](/blog/2023/stable-diffusion-part3/)
 - ### VAEs and ELBO
 - ### Model Objective
 
-### [Stable Diffusion In Numbers Continued (Part 4)](/blog/2023/stable-diffusion-part4/)
+### [Latent/Stable Diffusion Fully Explained! (Part 4)](/blog/2023/stable-diffusion-part4/)
 - ### Training and Inference
 - ### Conditioning 
 - ### Classifier-Free Guidance
