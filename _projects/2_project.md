@@ -55,7 +55,7 @@ are either on the left or the right. ***Can you answer the same question now?***
 The answer is: ***44-year old Tom Brady is on the left, and 95-year old man is on the right.*** While these tissues are not actually from the people
 pictured above, they actually are tissue samples from patients who are 44 years old and 95 years old. How can we tell? The picture in the first row actually shows that
 there are more oil glands in the left than the right, and the second row shows more ECM alignment. However, without this previous knowledge, *the point is, compared to
-just looking at someone's face, it's much harder to determine a person's age by just looking at their skin H&E tissue sample.* But someone may ask, ***Why do we want to do this? Why study aging, 
+just looking at someone's face, it's much harder to determine a person's age by just looking at their skin H&E tissue sample.* But someone may ask, ***why do we want to do this? Why study aging, 
 specifically in skin H&E tissue samples?***
 
 It's a well-known fact that old age is correlated with virtually every disease that are the leading causes of death- heart disease, cancer, stroke, Alzheimer's, and recently,
@@ -74,7 +74,7 @@ and experiences increased inflammation and poor temperature regulation. Look at 
 </div>
 
 As seen in the above diagram, we already know the major differences between young and old skin. However, there has been lack of research done in the biomarkers of aging
-at a ***cellular level***. [Previous Research](https://www.nature.com/articles/s41551-017-0093) in our lab has revealed biomolecular and biophysical biomarkers at the cellular level
+at a ***cellular level***. [Previous research](https://www.nature.com/articles/s41551-017-0093) in our lab has revealed biomolecular and biophysical biomarkers at the cellular level
 by analyzing primary dermal fibroblasts. The purpose of this study is to extend the results of this study in finding ***specific morphological biomarkers correlated with aging by utilizing skin H&E images
 to shed more light in the biological aging process.***
 
@@ -95,19 +95,21 @@ slide to obtain a z-stack of 2D WSIs. Then, we undergo image registration to reg
 a train-val-test split. 
 
 We train two different models: 1) Nuclei segmentation model using [HoVer-Net](https://arxiv.org/pdf/1812.06499v5.pdf) and 2) Tissue segmentation model
-using [DeepLabV3+](https://arxiv.org/pdf/1802.02611.pdf). In order to train these supervised models, we manually annotate the nuclei or the twelve different tissue
+using [DeepLabV3+](https://arxiv.org/pdf/1802.02611.pdf) and/or [UNet++](https://arxiv.org/abs/1807.10165). In order to train these supervised models, we manually annotate the nuclei or the twelve different tissue
 classes in the training and validation images.
 
-Then, after confirming the model performance on the test dataset, we use a post-processing pipeline to extract different meaningful 2D features. Some example features to extract are 
-individual tissue compositions and its area, distance between different cells and tissues (ex. distance between fibroblast and sweat glands), and more. 
+Then, after confirming the model performance using overall precision and recall (F1 score) on the test dataset, we use a post-processing pipeline to extract different meaningful 2D features. Some example features to extract are 
+individual tissue compositions and its area, distance between different cells and tissues (ex. distance between fibroblast and sweat glands), and more.
 
 ---
 
 ### **Results:**
 In total, 1090 2D features were extracted. Out of the 1090 features, through statistical testing with univariate/multivariate analyses and correlation coefficient calculations,
 features that were most predictive and correlated with age were selected. Additionally, gender differences and body part differences (skin
-from different body parts) were also analyzed. Currently, 2D results are being finalized and a 3D version of the same pipeline is being developed.
-More summaries of results and discussions will be further updated after the conclusion of my Master's research. 
+from different body parts) were also analyzed. Currently, 2D results are being finalized and we can see more predictive features. 
+
+***Note that more technical details/explanations and further results are omitted on purpose as I focus on motivation/personal comments in introducing the project. More technical details
+will be shown in the technical powerpoint presentation (PPT).***
 
 ---
 
