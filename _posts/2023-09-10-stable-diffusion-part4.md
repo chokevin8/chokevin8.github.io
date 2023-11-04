@@ -157,14 +157,15 @@ With above result, we can now let $$\eta = \frac{1-\hat{\alpha}_{t-1}}{1-\hat{\a
 As one can see, if $$\eta = 0$$, this means that the variance of the above denoising step becomes zero and therefore the sampling becomes deterministic. This means that given an input image, no matter how many
 different times you sampled, you would end up with similar images with the same high-level features! Therefore, this is why this process is called "denoising diffusion implicit model", as like other implicit models like GANs, the sampling process is deterministic. 
 
-But we also talked about how DDIM's another advantage over DDPM is that it dramatically speeds up the sampling process. Recall the derived sampling process from above $$q(x_{t-1}|x_t,x_0) = \mathcal{N}(x_{t-1};\mu_{t-1} = \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\frac{x_t - \sqrt{\hat{\alpha_t}}x_0}{\sqrt{1-\hat{\alpha_t}}},\Sigma_{t-1}= \sigma_t^{2}I))$$. 
-Here, we can see that given $$x_t$$, we first make a prediction of $$x_0$$, and then use both to make the prediction for $$x_{t-1}$$. Now, recall the previously mentioned forward process $$q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha}_t}x_0,\Sigma_t = (1-\hat{\alpha}_t)I)}$$. 
-With reparametrization trick, we already showed that this gives our forward process to find $$x_t$$ given $$x_0$$ and our Gaussian noise: $$\epsilon$$: $$x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}{\epsilon}$$.
-
+But we also talked about how DDIM's another advantage over DDPM is that it dramatically speeds up the sampling process. Recall the derived sampling process from above: $$q(x_{t-1}|x_t,x_0) = \mathcal{N}(x_{t-1};\mu_{t-1} = \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\frac{x_t - \sqrt{\hat{\alpha_t}}x_0}{\sqrt{1-\hat{\alpha_t}}},\Sigma_{t-1}= \sigma_t^{2}I))$$. 
+Here, we can see that given $$x_t$$, we first make a prediction of $$x_0$$, and then use both to make the prediction for $$x_{t-1}$$. Now, recall the previously mentioned forward process $$q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha}_t}x_0,\Sigma_t = (1-\hat{\alpha}_t)I)$$. 
+With reparametrization trick, we already showed that this gives our forward process to find $$x_t$$ given $$x_0$$ and our Gaussian noise $$\epsilon$$: $$x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}{\epsilon}$$. Rearranging the equation for $$x_0$$ gives: $$x_0 = \frac{x_t - \sqrt{1-\hat{\alpha}_t}{\epsilon}}{\sqrt{\hat{\alpha}_t}}$$. 
+Here's the important part, where do we utilize our trained model if this is the generative process? Recall from above again that **our trained model $$\hat{\epsilon}_{\theta}(x_t,t)$$ predicts noise $$\epsilon$$ given $$x_t$$ and timestep $$t$$.** Therefore, we rewrite the equation for $$x_0$$ as: 
 <p>
-$$\text $$
-$$      $$
+$$x_0 = \frac{x_t - \sqrt{1-\hat{\alpha}_t}\hat{\epsilon}_{\theta}(x_t,t)}{\sqrt{\hat{\alpha}_t}}$$
 </p>
+
+
 
 To wrap up, the main advantages of DDIM over DDPM are:
 1. Faster sampling: As mentioned above, DDIM is a non-Markovian process that enables sample generation with a much smaller timestep $$S$$, where $$S<T$$ when $$T$$ is the timestep required for DDPM.

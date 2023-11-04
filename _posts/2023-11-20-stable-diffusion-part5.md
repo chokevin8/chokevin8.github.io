@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Latent/Stable Diffusion Fully Explained! (Part 5)
-date:   2023-11-10
+date:   2023-11-20
 description: Explanation of conditioning and classifier/classifier-free guidance.
 tags: deep-learning machine-learning generative-models paper-review
 categories: posts
@@ -38,16 +38,25 @@ categories: posts
 <a id="stable-diffusion-in-numbers-2"></a>
 ## **Stable Diffusion In Numbers Continued**
 
+***Currently work in progress!***
 
 
-<a id="conditioning"></a>
-###  ***Conditioning:***
-For conditioning, look at table 15 of LDM paper
-maybe include autoencoder training as well since conditioning is basically UNet training details + pretrained encoder.
-Autoencoder training is in appendix G: Details on Autoencoder Models
+[//]: # (<a id="conditioning"></a>)
 
-<a id="classifier-free-guidance"></a>
-###  ***Classifier-Free Guidance:***
+[//]: # (###  ***Conditioning:***)
 
-<a id="summary"></a>
-###  ***Summary:***
+[//]: # (For conditioning, look at table 15 of LDM paper)
+
+[//]: # (maybe include autoencoder training as well since conditioning is basically UNet training details + pretrained encoder.)
+
+[//]: # (Autoencoder training is in appendix G: Details on Autoencoder Models)
+
+[//]: # ()
+[//]: # (<a id="classifier-free-guidance"></a>)
+
+[//]: # (###  ***Classifier-Free Guidance:***)
+
+[//]: # ()
+[//]: # (<a id="summary"></a>)
+
+[//]: # (###  ***Summary:***)
