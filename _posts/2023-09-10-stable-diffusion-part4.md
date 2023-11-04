@@ -155,15 +155,23 @@ $$\hat{\beta_t} = \sigma_t^{2} = \frac{1-\hat{\alpha}_{t-1}}{1-\hat{\alpha_t}} *
 
 With above result, we can now let $$\eta = \frac{1-\hat{\alpha}_{t-1}}{1-\hat{\alpha_t}}$$ and now $$\sigma_t^{2} = \eta * \hat{\beta_t}$$ where $$\eta$$ can now be used to control the stochasticity/determinism of the sampling process.
 As one can see, if $$\eta = 0$$, this means that the variance of the above denoising step becomes zero and therefore the sampling becomes deterministic. This means that given an input image, no matter how many
-different times you sampled, you would end up with a similar image with the same high-level ! Therefore, this is why this process is called "denoising diffusion implicit model", as like other implicit models like GANs, the sampling process is deterministic. 
+different times you sampled, you would end up with similar images with the same high-level features! Therefore, this is why this process is called "denoising diffusion implicit model", as like other implicit models like GANs, the sampling process is deterministic. 
 
-But we also talked about how DDIM's another advantage over DDPM is that it dramatically speeds up the sampling process. Look at the
+But we also talked about how DDIM's another advantage over DDPM is that it dramatically speeds up the sampling process. Recall the derived sampling process from above $$q(x_{t-1}|x_t,x_0) = \mathcal{N}(x_{t-1};\mu_{t-1} = \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\frac{x_t - \sqrt{\hat{\alpha_t}}x_0}{\sqrt{1-\hat{\alpha_t}}},\Sigma_{t-1}= \sigma_t^{2}I))$$. 
+Here, we can see that given $$x_t$$, we first make a prediction of $$x_0$$, and then use both to make the prediction for $$x_{t-1}$$. Now, recall the previously mentioned forward process $$q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha}_t}x_0,\Sigma_t = (1-\hat{\alpha}_t)I)}$$. 
+With reparametrization trick, we already showed that this gives our forward process to find $$x_t$$ given $$x_0$$ and our Gaussian noise: $$\epsilon$$: $$x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}{\epsilon}$$.
+
+<p>
+$$\text $$
+$$      $$
+</p>
 
 To wrap up, the main advantages of DDIM over DDPM are:
-stochastic, allows consistency and also interpolation (interpolation in DDPM is possible, but stochasticity ruins it)
-1. Faster sampling: 
-2. Control of stochasticity: As mentioned above, when $$eta=0$$, DDIMs are deterministic, meaning that if we start with the same latent vector (predicted noise) $$x_T$$ via same random seed during sampling, the samples generated from that will be identical.
+1. Faster sampling: As mentioned above, DDIM is a non-Markovian process that enables sample generation with a much smaller timestep $$S$$, where $$S<T$$ when $$T$$ is the timestep required for DDPM.
+2. Control of stochasticity: As mentioned above, when $$\eta=0$$, DDIMs are deterministic, meaning that if we start with the same latent vector (predicted noise) $$x_T$$ via same random seed during sampling, the samples generated will all have the same high-level features.
+3. Allows interpolation: In DDPMs, interpolation is still possible, but the interpolation will not be accurate due to the stochasticity in the samples generated from DDPM. However, utilizing deterministic samples from DDIM allows us to not only generate our samples quickly, but also be able to interpolate between two different domains easily. 
 
-Therefore, this is why the authors of the LDM paper use DDIM over DDPM. 
+Finally, we can see that utilizing DDIM over DDPM does not require training a separate objective, as the training objective remains the same. Therefore, we just utilize a more efficient and effective sampling procedure called DDIM over DDPM, and
+**therefore, this is why the authors of the LDM paper use DDIM over DDPM.** In the next and final part of the blog, we will cover conditioning and classifier/classifier-free guidance!
 
 

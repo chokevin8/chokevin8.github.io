@@ -25,6 +25,7 @@ which is "fake"?
 
 The correct answer is that the images in the right (column) are the "fake" ones, or the ones sampled from the generative model. 
 <br>
+<br>
 Let's play another game, this time for a ground truth unstained, bright-field image to be converted. The next two images on the right are the ground truth H&E version of the ground truth unstained image and the 
 virtually stained H&E version of the ground truth unstained image. Can you guess which is "real" and which is "fake"?
 
