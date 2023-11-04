@@ -23,7 +23,10 @@ categories: posts
 - ### [Model Objective](#model-objective-1)
 
 ### [Latent/Stable Diffusion Fully Explained! (Part 4)](/blog/2023/stable-diffusion-part4/)
+- ### Different View on Model Objective
 - ### Training and Inference
+
+### [Latent/Stable Diffusion Fully Explained! (Part 5)](/blog/2023/stable-diffusion-part5/)
 - ### Conditioning 
 - ### Classifier-Free Guidance
 - ### Summary
@@ -364,8 +367,8 @@ this happens to be a form of ***minimizing the mean-squared-error (MSE) between 
 MSE-like loss function.
 
 Now, with the training objective derived, the training algorithms and sampling algorithms will be
-explained in the next, final part of this blog with more mathematical details on LDMs that were not covered yet, especially regarding
-conditioning and classifier-free guidance.
+explained in the next two parts of this blog with more mathematical details on LDMs that were not covered yet, especially regarding
+training/inference algorithms and conditioning/classifier-free guidance.
 
 ---
 

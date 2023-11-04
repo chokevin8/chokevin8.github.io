@@ -23,7 +23,10 @@ categories: posts
 - ### Model Objective
 
 ### [Latent/Stable Diffusion Fully Explained! (Part 4)](/blog/2023/stable-diffusion-part4/)
+- ### Different View on Model Objective
 - ### Training and Inference
+
+### [Latent/Stable Diffusion Fully Explained! (Part 5)](/blog/2023/stable-diffusion-part5/)
 - ### Conditioning 
 - ### Classifier-Free Guidance
 - ### Summary
@@ -240,7 +243,7 @@ Image inpainting is to fill in a masked region of a specific image. The authors 
 ---
 
 Most of the important parts of the paper has been covered, but there was barely any math in my explanations. Fully understanding stable diffusion without covering its mathematic details
-would not be possible. The next two parts (Parts 3 and 4) will cover all of this.
+would not be possible. The next three parts (Parts 3, 4, and 5) will cover all of this.
 
 *Image credits to:*
 - [Stable Diffusion Architecture](https://towardsdatascience.com/what-are-stable-diffusion-models-and-why-are-they-a-step-forward-for-image-generation-aa1182801d46) 

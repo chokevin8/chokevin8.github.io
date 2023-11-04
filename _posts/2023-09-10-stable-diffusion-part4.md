@@ -2,7 +2,7 @@
 layout: post
 title:  Latent/Stable Diffusion Fully Explained! (Part 4)
 date:   2023-09-10
-description: Different interpretation of the training objective, explanation of training/sampling algorithm, DDIM vs DDPM sampling methods, and conditioning/classifier-free guidance!
+description: Different interpretation of the training objective, explanation of training/sampling algorithm and short comparison on DDIM and DDPM sampling methods.
 tags: deep-learning machine-learning generative-models paper-review
 categories: posts
 ---
@@ -23,10 +23,13 @@ categories: posts
 - ### Model Objective
 
 ### [Latent/Stable Diffusion Fully Explained! (Part 4)](#stable-diffusion-in-numbers-2) (This Blog!)
+- ### [Different View on Model Objective](#model-objective2)
 - ### [Training and Inference](#training-inference)
-- ### [Conditioning](#conditioning)
-- ### [Classifier-Free Guidance](#classifier-free-guidance)
-- ### [Summary](#summary)
+
+### [Latent/Stable Diffusion Fully Explained! (Part 5)](/blog/2023/stable-diffusion-part5/)
+- ### Conditioning 
+- ### Classifier-Free Guidance
+- ### Summary
 
 ---
 
@@ -34,6 +37,9 @@ categories: posts
 
 <a id="stable-diffusion-in-numbers-2"></a>
 ## **Stable Diffusion In Numbers Continued**
+
+<a id="#model-objective2"></a>
+### **Different View on Model Objective**
 
 In this last part of the blog, I want to cover the mathematical details of conditioning and also classifier-free guidance. Before, that let's briefly
 look at the algorithms for training and inference, and view the training objective we derived in a different way. 
@@ -89,8 +95,8 @@ getting rid of the coefficient in front of the MSE term actually performed bette
 $$L_{LDM} = ||\epsilon_0 - \epsilon_{\theta}(x_t,t)||^2 \quad (6)$$
 </p>
 Therefore, we simply end up with the mean squared error (MSE) between the ground truth noise $$\epsilon_0$$ and the predicted noise $$\epsilon_{\theta}(x_t,t)$$. 
-Simply put, the decoder $$\hat{\epsilon}_{\theta}(x_t,t)$$ learns to predict the ground truth source noise $$\epsilon_0$$ that is randomly sampled from $$\mathcal{N}(0, 1)$$. The predicted source noise is the noise that originally brought the original image $$x_0$$ to the pure noised (image) $$x_t$$ via forward diffusion.
-As stated in the paper, this can also be seen as a sequence of $$T$$ equally weighted autoencoders from $$t = 1,2....t-1,T$$ which predicts a denoised variant of their input $$x_t$$ in a Markov chain. As timestep reaches T, this Markovian process will then slowly converge to the ground truth input image 
+Simply put, the decoder $$\hat{\epsilon}_{\theta}(x_t,t)$$ (which is the U-Net) learns to predict the ground truth source noise $$\epsilon_0$$ that is randomly sampled from $$\mathcal{N}(0, 1)$$. The predicted source noise is the noise that originally brought the original image $$x_0$$ to the pure noised (image) $$x_t$$ via forward diffusion.
+As stated in the paper, this can also be seen as a sequence of $$T$$ equally weighted autoencoders from $$t = 1,2....t-1,T$$ which predicts a denoised variant of their input $$x_t$$ in a Markovian fashion. As timestep reaches T, this Markovian process will then slowly converge to the ground truth input image 
 $$x_0$$, assuming the training of the decoder went well. 
 
 <a id="training-inference"></a>
@@ -127,7 +133,7 @@ $$ \mu_{\theta} = \frac{1}{\sqrt{\alpha_t}}x_t - \frac{\sqrt{1-\alpha_t}}{\sqrt{
 </p>
 
 The equation in the sampling algorithm just has an additional noise term $$\sigma_tz$$ for stochasticity during sampling. Assuming our training went well, we now have the neural network $$\hat{\epsilon}_{\theta}(x_t,t)$$ trained that predicts the noise $$\epsilon$$ for given input image $$x_t$$. ***Now, remember that this neural network
-in our LDM is our U-Net architecture with the attention layers that predicts the noise given our input image.*** Inputting a timestep $$t$$ and original image $$x_t$$ to the trained neural network gives us the predicted noise $$\epsilon$$, and using that we can sample $$x_{t-1}$$ until $$t=1$$. When $$t=1$$, we have
+in our LDM is our U-Net architecture with the (cross) attention layers that predicts the noise given our input image.*** Inputting a timestep $$t$$ and original image $$x_t$$ to the trained neural network gives us the predicted noise $$\epsilon$$, and using that we can sample $$x_{t-1}$$ until $$t=1$$. When $$t=1$$, we have
 our sampled output of $$x_0$$. However, as discussed above, Denoising Diffusion Implicit Model (DDIM) uses a non-Markovian sampling process that makes the process much quicker. Essentially, DDIM uses $$S$$ steps instead of $$T$$ where $$S<T$$, and the authors of the LDM paper
 therefore use *DDIM over DDPM.*
 
@@ -149,9 +155,9 @@ $$\hat{\beta_t} = \sigma_t^{2} = \frac{1-\hat{\alpha}_{t-1}}{1-\hat{\alpha_t}} *
 
 With above result, we can now let $$\eta = \frac{1-\hat{\alpha}_{t-1}}{1-\hat{\alpha_t}}$$ and now $$\sigma_t^{2} = \eta * \hat{\beta_t}$$ where $$\eta$$ can now be used to control the stochasticity/determinism of the sampling process.
 As one can see, if $$\eta = 0$$, this means that the variance of the above denoising step becomes zero and therefore the sampling becomes deterministic. This means that given an input image, no matter how many
-different times you sampled, you would end up with the same sampled image! Therefore, this is why this process is called "denoising diffusion implicit model", as like other implicit models like GANs, the sampling process is deterministic. 
+different times you sampled, you would end up with a similar image with the same high-level ! Therefore, this is why this process is called "denoising diffusion implicit model", as like other implicit models like GANs, the sampling process is deterministic. 
 
-But we also talked about how DDIM speeds up the sampling process, why? Look at the
+But we also talked about how DDIM's another advantage over DDPM is that it dramatically speeds up the sampling process. Look at the
 
 To wrap up, the main advantages of DDIM over DDPM are:
 stochastic, allows consistency and also interpolation (interpolation in DDPM is possible, but stochasticity ruins it)
@@ -160,14 +166,4 @@ stochastic, allows consistency and also interpolation (interpolation in DDPM is 
 
 Therefore, this is why the authors of the LDM paper use DDIM over DDPM. 
 
-<a id="conditioning"></a>
-###  ***Conditioning:***
-For conditioning, look at table 15 of LDM paper
-maybe include autoencoder training as well since conditioning is basically UNet training details + pretrained encoder.
-Autoencoder training is in appendix G: Details on Autoencoder Models
 
-<a id="classifier-free-guidance"></a>
-###  ***Classifier-Free Guidance:***
-
-<a id="summary"></a>
-###  ***Summary:***

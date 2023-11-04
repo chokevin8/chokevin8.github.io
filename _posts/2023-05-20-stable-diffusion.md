@@ -37,7 +37,10 @@ about stable diffusion and its predecessor, GANs. The next three parts, as seen 
 - ### Model Objective
 
 ### [Latent/Stable Diffusion Fully Explained! (Part 4)](/blog/2023/stable-diffusion-part4/)
+- ### Different View on Model Objective
 - ### Training and Inference
+
+### [Latent/Stable Diffusion Fully Explained! (Part 5)](/blog/2023/stable-diffusion-part5/)
 - ### Conditioning 
 - ### Classifier-Free Guidance
 - ### Summary
