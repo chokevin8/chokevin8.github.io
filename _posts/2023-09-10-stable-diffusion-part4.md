@@ -122,7 +122,8 @@ Above, we described this as a Markovian process, and ideally we would like to *m
 can be as close to a Gaussian as possible so that the generative process is accurate and generates a good image quality. 
 
 However, in this Markovian sampling process called DDPM (short for Denoising Diffusion Probabilistic Models), the $$T$$ timesteps have to be performed sequentially, meaning
-sampling speed is extremely slow, especially compared to fast sampling speeds of predecessors such as GANs. The above sampling algorithm is the DDPM sampling algorithm, which will be explained first,
+sampling speed is extremely slow, especially compared to fast sampling speeds of predecessors such as GANs. The forward $$T$$ steps and the reverse sampling $$T$$ steps have to be equal,
+as we are reversing the forward process. The above Markovian sampling algorithm is the DDPM sampling algorithm, which will be explained first,
 but then we will also mention a new, non-Markovian sampling process called DDIM (short for Denoising Diffusion Implicit Models) that is able to accelerate sampling speeds. **Note that the authors of the
 LDM paper utilized DDIM because of this exact reason.**
 
@@ -132,10 +133,14 @@ and then run the series of $$T$$ equally weighted autoencoders as mentioned befo
 $$ \mu_{\theta} = \frac{1}{\sqrt{\alpha_t}}x_t - \frac{\sqrt{1-\alpha_t}}{\sqrt{1-\hat{\alpha_t}}\sqrt{\alpha_t}}\hat{\epsilon}_{\theta}(x_t,t) $$
 </p>
 
-The equation in the sampling algorithm just has an additional noise term $$\sigma_tz$$ for stochasticity during sampling. Assuming our training went well, we now have the neural network $$\hat{\epsilon}_{\theta}(x_t,t)$$ trained that predicts the noise $$\epsilon$$ for given input image $$x_t$$. ***Now, remember that this neural network
+The equation in the sampling algorithm just has an additional noise term $$\sigma_tz$$ since the reparametrization trick $$ x = \mu + \sigma_tz $$. Assuming our training went well, we now have the neural network $$\hat{\epsilon}_{\theta}(x_t,t)$$ trained that predicts the noise $$\epsilon$$ for given input image $$x_t$$. ***Now, remember that this neural network
 in our LDM is our U-Net architecture with the (cross) attention layers that predicts the noise given our input image.*** Inputting a timestep $$t$$ and original image $$x_t$$ to the trained neural network gives us the predicted noise $$\epsilon$$, and using that we can sample $$x_{t-1}$$ until $$t=1$$. When $$t=1$$, we have
-our sampled output of $$x_0$$. However, as discussed above, Denoising Diffusion Implicit Model (DDIM) uses a non-Markovian sampling process that makes the process much quicker. Essentially, DDIM uses $$S$$ steps instead of $$T$$ where $$S<T$$, and the authors of the LDM paper
-therefore use *DDIM over DDPM.*
+our sampled output of $$x_0$$. To explain further, recall the forward diffusion process mentioned in the previous part of the blog: $$ x_t|x_{t-1}) = \mathcal{N}(x_t; \mu_t = \sqrt{1-\beta_t}x_{t-1},\Sigma_t = \beta_tI) $$. This is essentially the
+forward process of DDPMs, which we can see that the process is Markovian, as $$x_t$$ only depends on $$x_{t-1}$$. 
+
+
+However, as discussed above, Denoising Diffusion Implicit Model (DDIM) uses a non-Markovian sampling process that makes the process much quicker. DDPMs use a sampling process that is essentially the reverse of the forward diffusion ($$T$$ forward and backward timesteps), while DDIM uses $$S$$ 
+steps instead of $$T$$ where $$S<T$$, by using the fact that the forward diffusion process can be made non-Markovian and therefore the reverse sampling process can also be made non-Markovian. Therefore, the authors of the LDM paper use *DDIM over DDPM.* 
 
 To derive the DDIM training process first, we utilize the *reparametrization trick* again, which we applied previously for forward diffusion. 
 We can use $$ x = \mu + \sigma * \epsilon$$ to essentially alter our sampling process $$q(x_{t-1}|x_t,x_0)$$ to be parametrized by another random variable,
@@ -157,22 +162,32 @@ With above result, we can now let $$\eta = \frac{1-\hat{\alpha}_{t-1}}{1-\hat{\a
 As one can see, if $$\eta = 0$$, this means that the variance of the above denoising step becomes zero and therefore the sampling becomes deterministic. This means that given an input image, no matter how many
 different times you sampled, you would end up with similar images with the same high-level features! Therefore, this is why this process is called "denoising diffusion implicit model", as like other implicit models like GANs, the sampling process is deterministic. 
 
-But we also talked about how DDIM's another advantage over DDPM is that it dramatically speeds up the sampling process. Recall the derived sampling process from above: $$q(x_{t-1}|x_t,x_0) = \mathcal{N}(x_{t-1};\mu_{t-1} = \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\frac{x_t - \sqrt{\hat{\alpha_t}}x_0}{\sqrt{1-\hat{\alpha_t}}},\Sigma_{t-1}= \sigma_t^{2}I))$$. 
-Here, we can see that given $$x_t$$, we first make a prediction of $$x_0$$, and then use both to make the prediction for $$x_{t-1}$$. Now, recall the previously mentioned forward process $$q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha}_t}x_0,\Sigma_t = (1-\hat{\alpha}_t)I)$$. 
+But we also talked about how DDIM's another advantage over DDPM is that it dramatically speeds up the sampling process. Recall the derived sampling process from above: $$x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}x_0 + \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\frac{x_t - \sqrt{\hat{\alpha_t}}x_0}{\sqrt{1-\hat{\alpha_t}}} + \sigma_t \epsilon $$
+We will now aim to parametrize this sampling process for $$x_{t-1}$$ in terms of our trained model. Here, we can see that given $$x_t$$, we first make a prediction of $$x_0$$, and then use both to make the prediction for $$x_{t-1}$$. Now, recall the previously mentioned forward process $$q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha}_t}x_0,\Sigma_t = (1-\hat{\alpha}_t)I)$$. 
 With reparametrization trick, we already showed that this gives our forward process to find $$x_t$$ given $$x_0$$ and our Gaussian noise $$\epsilon$$: $$x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}{\epsilon}$$. Rearranging the equation for $$x_0$$ gives: $$x_0 = \frac{x_t - \sqrt{1-\hat{\alpha}_t}{\epsilon}}{\sqrt{\hat{\alpha}_t}}$$. 
-Here's the important part, where do we utilize our trained model if this is the generative process? Recall from above again that **our trained model $$\hat{\epsilon}_{\theta}(x_t,t)$$ predicts noise $$\epsilon$$ given $$x_t$$ and timestep $$t$$.** Therefore, we rewrite the equation for $$x_0$$ as: 
+Now, here's the important part, where do we utilize our trained model if this is the generative process? Recall from above again that **our trained model $$\hat{\epsilon}_{\theta}(x_t,t)$$ predicts noise $$\epsilon$$ given $$x_t$$ and timestep $$t$$.** Therefore, we rewrite the equation for $$x_0$$ as: 
 <p>
 $$x_0 = \frac{x_t - \sqrt{1-\hat{\alpha}_t}\hat{\epsilon}_{\theta}(x_t,t)}{\sqrt{\hat{\alpha}_t}}$$
 </p>
+Therefore, when we plug in this equation for $$x_0$$ in original sampling process equation, we get:  $$x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}\frac{x_t - \sqrt{1-\hat{\alpha}_t}\hat{\epsilon}_{\theta}(x_t,t)}{\sqrt{\hat{\alpha}_t}} + \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\frac{x_t - \sqrt{\hat{\alpha_t}}x_0}{\sqrt{1-\hat{\alpha_t}}} + \sigma_t \epsilon $$. 
+But recall that when we rearrange the same equation $$x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}{\epsilon}$$ in terms of $$\epsilon$$, we get $$\epsilon = \frac{x_t - \sqrt{\hat{\alpha_t}}x_0}$$. Therefore, we replace that term above with our trained model as well, giving us the final equation for $$x_{t-1}$$ for DDIM sampling:
+<p>
+$$x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}\frac{x_t - \sqrt{1-\hat{\alpha}_t}\hat{\epsilon}_{\theta}(x_t,t)}{\sqrt{\hat{\alpha}_t}} + \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\hat{\epsilon}_{\theta}(x_t,t) + \sigma_t \epsilon_t $$. 
+</p>
+The above equation is the final DDIM equation that allows us to sample $$x_{t-1}$$ from given $$x_t$$ using our trained model. The first term of the right hand side of the equation, as we derived, is the predicted $$x_0$$ given $$x_t$$. The second term can be interpreted as the
+direction pointing to $$x_t$$, and the third term is random noise sampled from a normal distribution. With the above equation, we have two special cases depending on the value of $$\sigma_t$$. First, when $$ \sigma_t = \sqrt{\frac{1-\hat{\alpha}_{t-1}{1-\hat{\alpha}_t}} \sqrt{\frac{1-\hat{\alpha}_t}{\hat{\alpha}_{t-1}}}$$, 
+the forward diffusion process actually becomes Markovian, which means that the sampling process naturally becomes DDPM as well. Second, like when $$ eta=0$$ above, we see that when $$\sigma_t = 0$$ for all timestep, we see that there is no stochasticity as there is no random noise added. With the exception for when $$ t=1 $$, we see that the process is deterministic
+and therefore this is why samples generated are nearly identical or share the same high level features. 
 
-
+Lastly, another important note to make is that with the above equation, we can see that with the same trained model $$\hat{\epsilon}_{\theta}(x_t,t)$$, we can have two different sampling methods DDPM and DDIM, with DDIM usually being superior over DDPM. Therefore, with DDIM, we do not need to retrain
+the model, which gives us another reason to use DDIM over DDPM. 
 
 To wrap up, the main advantages of DDIM over DDPM are:
-1. Faster sampling: As mentioned above, DDIM is a non-Markovian process that enables sample generation with a much smaller timestep $$S$$, where $$S<T$$ when $$T$$ is the timestep required for DDPM.
-2. Control of stochasticity: As mentioned above, when $$\eta=0$$, DDIMs are deterministic, meaning that if we start with the same latent vector (predicted noise) $$x_T$$ via same random seed during sampling, the samples generated will all have the same high-level features.
-3. Allows interpolation: In DDPMs, interpolation is still possible, but the interpolation will not be accurate due to the stochasticity in the samples generated from DDPM. However, utilizing deterministic samples from DDIM allows us to not only generate our samples quickly, but also be able to interpolate between two different domains easily. 
+1. **Faster sampling**: As mentioned above, DDIM is a non-Markovian process that enables sample generation with a much smaller timestep $$S$$, where $$S<T$$ when $$T$$ is the timestep required for DDPM.
+2. **Control of stochasticity**: As mentioned above, when $$\eta=0$$ or $$\sigma_t=0$$ for all timesteps, DDIMs are deterministic, meaning that if we start with the same latent vector (predicted noise) $$x_T$$ via same random seed during sampling, the samples generated will all have the same high-level features.
+3. **Allows interpolation**: In DDPMs, interpolation is still possible, but the interpolation will not be accurate due to the stochasticity in the samples generated from DDPM. However, utilizing deterministic samples from DDIM allows us to not only generate our samples quickly, but also be able to interpolate between two different domains easily. 
 
-Finally, we can see that utilizing DDIM over DDPM does not require training a separate objective, as the training objective remains the same. Therefore, we just utilize a more efficient and effective sampling procedure called DDIM over DDPM, and
-**therefore, this is why the authors of the LDM paper use DDIM over DDPM.** In the next and final part of the blog, we will cover conditioning and classifier/classifier-free guidance!
+Therefore, we see that DDIM is a more efficient and effective sampling procedure over DDPM, and **therefore, this is why the authors of the LDM paper use DDIM over DDPM.** 
+In the next and final part of the blog, we will cover conditioning and classifier/classifier-free guidance!
 
 

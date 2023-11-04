@@ -219,8 +219,6 @@ inductive bias to images and its compatibility with cross attention). Like the f
 <p>
 $$ p_{\theta}(x_{0:T}) = p(x_T) \prod_{t=1}^{T} p_{\theta}(x_{t-1}|x_t) = \mathcal{N}(x_{t-1}; \mu_{\theta}(x_t,t),\Sigma_{\theta}(x_t,t)) \quad (6)$$
 </p>
-*Note that above process can be made non-Markovian in a more fast, effective sampling process called DDIM rather than the above Markovian process which is called DDPM(this will be explained
-in next part of this blog).*
 
 This is just like the forward process in equation #4 but in reverse. By applying this formula, we can go from pure noise $$x_T$$ to the
 approximated data distribution. Remember the encoder does not have learnable parameters (pre-defined or fixed), so we only need to train the decoder in learning the conditionals
