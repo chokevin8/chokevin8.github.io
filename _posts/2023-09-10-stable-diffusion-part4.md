@@ -26,7 +26,7 @@ categories: posts
 - ### [Different View on Model Objective](#model-objective2)
 - ### [Training and Inference](#training-inference)
 
-### [Latent/Stable Diffusion Fully Explained! (Part 5)](/blog/2023/stable-diffusion-part5/)
+### [Latent/Stable Diffusion Fully Explained! (Part 5- Coming Soon!)](/blog/2023/stable-diffusion-part5/)
 - ### Conditioning 
 - ### Classifier-Free Guidance
 - ### Summary
