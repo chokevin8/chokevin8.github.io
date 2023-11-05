@@ -311,9 +311,9 @@ Now inputting all three of these formulations in the Baye's Rule above in equati
 $$q(x_{t-1} \mid x_t,x_0) = \frac{\mathcal{N}(x_t; \mu_t = \sqrt{\alpha_t}x_{t-1},\Sigma_t = (1-\alpha_t)I) \mathcal{N}(x_{t-1}; \mu_t = \sqrt{\hat{\alpha}_{t-1}}x_0,\Sigma_t = (1-\hat{\alpha}_{t-1})I)}{\mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha}_t}x_0,\Sigma_t = (1-\hat{\alpha}_t)I)} \quad (14)$$
 </p>
 
-Now, combining the three different Gaussian distributions above to get the mean and variance for the desired $$q(x_{t-1}|x_0)$$ is a lot of computations to show in this blog. The full derivation, for those who are curious,
+Now, combining the three different Gaussian distributions above to get the mean and variance for the desired $$q(x_{t-1} \mid x_t,x_0)$$ is a lot of computations to show in this blog. The full derivation, for those who are curious,
 can be found in this [link](https://arxiv.org/pdf/2208.11970.pdf), *exactly in page 12 from equation 71 to 84*. (I just feel like this derivation is just a bunch of reshuffling variables with algebra, so it is unnecessary to include in my blog)
-Finishing this derivation shows that our desired $$q(x_{t-1}|x_0)$$ is also normally distributed with the below formulation:
+Finishing this derivation shows that our desired $$q(x_{t-1} \mid x_t,x_0)$$ is also normally distributed with the below formulation:
 
 <p>
 $$q(x_{t-1} \mid x_t,x_0) \sim \mathcal{N}(x_{t-1}; \mu_t = \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t}},\Sigma_t = \frac{(1-\alpha_t)(1-\hat{\alpha}_{t-1})}{(1-\hat{\alpha_t})}I \quad (15)$$

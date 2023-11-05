@@ -143,6 +143,12 @@ However, as discussed above, Denoising Diffusion Implicit Model (DDIM) uses a no
 steps instead of $$T$$ where $$S<T$$, by using the fact that the forward diffusion process can be made non-Markovian and therefore the reverse sampling process can also be made non-Markovian. Therefore, the authors of the LDM paper use *DDIM over DDPM.* 
 
 In fact, in the previous part of the blog, we've already shown the forward process that can be made non-Markovian when we were deriving the training objective.
+Recall the Baye's rule we used to derive the mean and variance of the approximate denoising step:
+$$ q(x_{t-1}|x_t,x_0) = \frac{q(x_t|x_{t-1},x_0)q(x_{t-1}|x_0)}{q(x_t|x_0)} $$
+Note by rearranging the above equation for the forward diffusion step $$q(x_t|x_{t-1},x_0)$$ we see that the forward step is no longer Markovian, and this is the forward step for DDIM:
+$$ q(x_t|x_{t-1},x_0) =  = \frac{q(x_{t-1}|x_t,x_0)q(x_t|x_0)}{q(x_{t-1}|x_0)} $$
+
+With this non-Markovian step, the DDIM sampling process is also no longer forced to have the same number of timesteps $$T$$. But how do we derive the DDIM sampling process?
 Then, to derive the DDIM sampling process, we utilize the *reparametrization trick* again, which we applied previously for forward diffusion. 
 We can use $$ x = \mu + \sigma * \epsilon$$ to essentially alter our sampling process $$q(x_{t-1}|x_t,x_0)$$ to be parametrized by another random variable,
 a desired standard deviation $$\sigma_t$$ (square this for variance). The reparametrization is shown below:
@@ -159,25 +165,43 @@ $$\text{Then, also recall that} \text{ } \beta_t = 1-\alpha_t \text{ ,} \text{ }
 $$\hat{\beta_t} = \sigma_t^{2} = \frac{1-\hat{\alpha}_{t-1}}{1-\hat{\alpha_t}} * \beta_t $$
 </p>
 
-With above result, we can now let $$\eta = \frac{1-\hat{\alpha}_{t-1}}{1-\hat{\alpha_t}}$$ and now $$\sigma_t^{2} = \eta * \hat{\beta_t}$$ where $$\eta$$ can now be used to control the stochasticity/determinism of the sampling process.
+Above shows the mean and the variance of the DDIM denoising step. With above result, we can now let $$\eta = \frac{1-\hat{\alpha}_{t-1}}{1-\hat{\alpha_t}}$$ and now $$\sigma_t^{2} = \eta * \hat{\beta_t}$$ where $$\eta$$ can now be used to control the stochasticity/determinism of the sampling process.
 As one can see, if $$\eta = 0$$, this means that the variance of the above denoising step becomes zero and therefore the sampling becomes deterministic. This means that given an input image, no matter how many
 different times you sampled, you would end up with similar images with the same high-level features! Therefore, this is why this process is called "denoising diffusion implicit model", as like other implicit models like GANs, the sampling process is deterministic. 
 
-But we also talked about how DDIM's another advantage over DDPM is that it dramatically speeds up the sampling process. Recall the derived sampling process from above: $$x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}x_0 + \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\frac{x_t - \sqrt{\hat{\alpha_t}}x_0}{\sqrt{1-\hat{\alpha_t}}} + \sigma_t \epsilon $$
+**But our main point was that DDIM dramatically speeds up the sampling process. We've shown that the forward process is non-Markovian, but how do we show that the reverse process requires fewer steps as well?** Recall the derived sampling process from above: 
+<p>
+$$x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}x_0 + \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\frac{x_t - \sqrt{\hat{\alpha_t}}x_0}{\sqrt{1-\hat{\alpha_t}}} + \sigma_t \epsilon $$
+</p>
 We will now aim to parametrize this sampling process for $$x_{t-1}$$ in terms of our trained model. Here, we can see that given $$x_t$$, we first make a prediction of $$x_0$$, and then use both to make the prediction for $$x_{t-1}$$. Now, recall the previously mentioned forward process $$q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha}_t}x_0,\Sigma_t = (1-\hat{\alpha}_t)I)$$. 
 With reparametrization trick, we already showed that this gives our forward process to find $$x_t$$ given $$x_0$$ and our Gaussian noise $$\epsilon$$: $$x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}{\epsilon}$$. Rearranging the equation for $$x_0$$ gives: $$x_0 = \frac{x_t - \sqrt{1-\hat{\alpha}_t}{\epsilon}}{\sqrt{\hat{\alpha}_t}}$$. 
 Now, here's the important part, where do we utilize our trained model if this is the generative process? Recall from above again that **our trained model $$\hat{\epsilon}_{\theta}(x_t,t)$$ predicts noise $$\epsilon$$ given $$x_t$$ and timestep $$t$$.** Therefore, we rewrite the equation for $$x_0$$ as: 
 <p>
 $$x_0 = \frac{x_t - \sqrt{1-\hat{\alpha}_t}\hat{\epsilon}_{\theta}(x_t,t)}{\sqrt{\hat{\alpha}_t}}$$
 </p>
-Therefore, when we plug in this equation for $$x_0$$ in original sampling process equation, we get:  $$x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}\frac{x_t - \sqrt{1-\hat{\alpha}_t}\hat{\epsilon}_{\theta}(x_t,t)}{\sqrt{\hat{\alpha}_t}} + \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\frac{x_t - \sqrt{\hat{\alpha_t}}x_0}{\sqrt{1-\hat{\alpha_t}}} + \sigma_t \epsilon $$. 
-But recall that when we rearrange the same equation $$x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}{\epsilon}$$ in terms of $$\epsilon$$, we get $$\epsilon = \frac{x_t - \sqrt{\hat{\alpha_t}}x_0}$$. Therefore, we replace that term above with our trained model as well, giving us the final equation for $$x_{t-1}$$ for DDIM sampling:
+Therefore, when we plug in this equation for $$x_0$$ in original sampling process equation, we get:  
+<p>
+$$x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}\frac{x_t - \sqrt{1-\hat{\alpha}_t}\hat{\epsilon}_{\theta}(x_t,t)}{\sqrt{\hat{\alpha}_t}} + \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\frac{x_t - \sqrt{\hat{\alpha_t}}x_0}{\sqrt{1-\hat{\alpha_t}}} + \sigma_t \epsilon $$. 
+</p>
+But recall that when we rearrange the same equation $$x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}{\epsilon}$$ in terms of $$\epsilon$$, we get $$\epsilon = \frac{x_t - \sqrt{\hat{\alpha_t}}x_0}{\sqrt{1-\hat{\alpha_t}}} $$. Therefore, we replace that term above with our trained model as well, giving us the final equation for $$x_{t-1}$$ for DDIM sampling:
 <p>
 $$x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}\frac{x_t - \sqrt{1-\hat{\alpha}_t}\hat{\epsilon}_{\theta}(x_t,t)}{\sqrt{\hat{\alpha}_t}} + \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\hat{\epsilon}_{\theta}(x_t,t) + \sigma_t \epsilon_t $$. 
+\text{where: }q(x_{t-1} \mid x_t,x_0) \sim \mathcal{N}(x_{t-1}; \mu_t = \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t}},\Sigma_t = \frac{(1-\alpha_t)(1-\hat{\alpha}_{t-1})}{(1-\hat{\alpha_t})}I)
 </p>
-The above equation is the final DDIM equation that allows us to sample $$x_{t-1}$$ from given $$x_t$$ using our trained model. The first term of the right hand side of the equation, as we derived, is the predicted $$x_0$$ given $$x_t$$. The second term can be interpreted as the
+The above equation is the final equation that allows us to sample $$x_{t-1}$$ from given $$x_t$$ using our trained model. Suppose the forward process is non-Markovian now, and instead of having all of the Markovian steps from
+$$x_{1:T}$$, we have a subset of $$S$$ timesteps $${x_{\tau 1},....x_{\tau S}}$$ where $$\tau$$ is simply increasing sequence of $$S$$ timesteps. Look at the figure below:
+
+<img src = "/assets/images/ddim-sampling.png.png" width = "1096" height = "340" class = "center">
+<figcaption>Diagram showing DDIM forward and sampling process in comparison to DDIM.</figcaption>
+<br>
+
+As seen 
+<p>
+$$x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}\frac{x_t - \sqrt{1-\hat{\alpha}_t}\hat{\epsilon}_{\theta}(x_t,t)}{\sqrt{\hat{\alpha}_t}} + \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\hat{\epsilon}_{\theta}(x_t,t) + \sigma_t \epsilon_t $$.
+</p>
+Now, let's look back at each term of the right hand side of the above equation, the first term is the predicted $$x_0$$ given $$x_t$$. The second term can be interpreted as the
 direction pointing to $$x_t$$, and the third term is random noise sampled from a normal distribution. With the above equation, we have two special cases depending on the value of $$\sigma_t$$. First, when $$ \sigma_t = \sqrt{\frac{1-\hat{\alpha}_{t-1}{1-\hat{\alpha}_t}} \sqrt{\frac{1-\hat{\alpha}_t}{\hat{\alpha}_{t-1}}}$$, 
-the forward diffusion process actually becomes Markovian, which means that the sampling process naturally becomes DDPM as well. Second, like when $$ eta=0$$ above, we see that when $$\sigma_t = 0$$ for all timestep, we see that there is no stochasticity as there is no random noise added. With the exception for when $$ t=1 $$, we see that the process is deterministic
+the forward diffusion process actually becomes Markovian, which means that the sampling process naturally becomes DDPM as well. Second, like when $$\eta=0$$ above, we see that when $$\sigma_t = 0$$ for all timestep, we see that there is no stochasticity as there is no random noise added. With the exception for when $$ t=1 $$, we see that the process is deterministic
 and therefore this is why samples generated are nearly identical or share the same high level features. 
 
 Lastly, another important note to make is that with the above equation, we can see that with the same trained model $$\hat{\epsilon}_{\theta}(x_t,t)$$, we can have two different sampling methods DDPM and DDIM, with DDIM usually being superior over DDPM. Therefore, with DDIM, we do not need to retrain
@@ -191,4 +215,8 @@ To wrap up, the main advantages of DDIM over DDPM are:
 Therefore, we see that DDIM is a more efficient and effective sampling procedure over DDPM, and **therefore, this is why the authors of the LDM paper use DDIM over DDPM.** 
 In the next and final part of the blog, we will cover conditioning and classifier/classifier-free guidance!
 
+---
+*Image credits to:*
+- [DDPM Training and Sampling Algorithm](https://arxiv.org/pdf/2006.11239.pdf)
+- [DDIM Forward/Sampling Diagram](https://arxiv.org/pdf/2010.02502.pdf)
 
