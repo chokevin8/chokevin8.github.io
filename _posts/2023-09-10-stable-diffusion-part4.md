@@ -227,6 +227,7 @@ Therefore, we see that DDIM is a more efficient and effective sampling procedure
 In the next and final part of the blog, we will cover conditioning and classifier/classifier-free guidance!
 
 ---
+
 *Image credits to:*
 - [DDPM Training and Sampling Algorithm](https://arxiv.org/pdf/2006.11239.pdf)
 - [DDIM Forward/Sampling Diagram](https://arxiv.org/pdf/2010.02502.pdf)
