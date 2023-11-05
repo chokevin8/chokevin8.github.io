@@ -133,20 +133,30 @@ and then run the series of $$T$$ equally weighted autoencoders as mentioned befo
 $$ \mu_{\theta} = \frac{1}{\sqrt{\alpha_t}}x_t - \frac{\sqrt{1-\alpha_t}}{\sqrt{1-\hat{\alpha_t}}\sqrt{\alpha_t}}\hat{\epsilon}_{\theta}(x_t,t) $$
 </p>
 
-The equation in the sampling algorithm at step #4 above just has an additional noise term $$\sigma_tz$$ since the reparametrization trick $$ x = \mu + \sigma_tz $$. Assuming our training went well, we now have the neural network $$\hat{\epsilon}_{\theta}(x_t,t)$$ trained that predicts the noise $$\epsilon$$ for given input image $$x_t$$. ***Now, remember that this neural network
+The equation in the sampling algorithm at step #4 above just has an additional noise term $$\sigma_tz$$ since the reparametrization trick $$ x = \mu + \sigma_tz $$. 
+Let's then look at the sampling algorithm:
+1. First sample Gaussian noise $$x_T$$ from normal distribution.
+2. Then, reverse the timesteps for the forward diffusion, and for each timestep, sample noise $$z$$ from another independent normal distribution. Note that when $$t=1$$, we don't want to further add noise. Lastly, for each timestep, sample $$x_{t-1}$$ according to above equation.
+3. Repeat step #2 for each timestep until $$t=1$$, and the generated sample is the desired $$x_0$$. 
+
+Assuming our training went well, we now have the neural network $$\hat{\epsilon}_{\theta}(x_t,t)$$ trained that predicts the noise $$\epsilon$$ for given input image $$x_t$$. ***Now, remember that this neural network
 in our LDM is our U-Net architecture with the (cross) attention layers that predicts the noise given our input image.*** Inputting a timestep $$t$$ and original image $$x_t$$ to the trained neural network gives us the predicted noise $$\epsilon$$, and using that we can sample $$x_{t-1}$$ until $$t=1$$. When $$t=1$$, we have
 our sampled output of $$x_0$$. To explain further, recall the forward diffusion process mentioned in the previous part of the blog: $$ (x_t|x_{t-1}) = \mathcal{N}(x_t; \mu_t = \sqrt{1-\beta_t}x_{t-1},\Sigma_t = \beta_tI) $$. This is essentially the
 forward process of DDPMs, which we can see that the process is Markovian, as $$x_t$$ only depends on $$x_{t-1}$$. 
-
 
 However, as discussed above, Denoising Diffusion Implicit Model (DDIM) uses a non-Markovian sampling process that makes the process much quicker. DDPMs use a sampling process that is essentially the reverse of the forward diffusion ($$T$$ forward and backward timesteps), while DDIM uses $$S$$ 
 steps instead of $$T$$ where $$S<T$$, by using the fact that the forward diffusion process can be made non-Markovian and therefore the reverse sampling process can also be made non-Markovian. Therefore, the authors of the LDM paper use *DDIM over DDPM.* 
 
 In fact, in the previous part of the blog, we've already shown the forward process that can be made non-Markovian when we were deriving the training objective.
-Recall the Baye's rule we used to derive the mean and variance of the approximate denoising step:
+Recall the Baye's rule we used to derive the mean and variance of the approximate denoising step: 
+<p>
 $$ q(x_{t-1}|x_t,x_0) = \frac{q(x_t|x_{t-1},x_0)q(x_{t-1}|x_0)}{q(x_t|x_0)} $$
+</p>
+<p>
 Note by rearranging the above equation for the forward diffusion step $$q(x_t|x_{t-1},x_0)$$ we see that the forward step is no longer Markovian, and this is the forward step for DDIM:
+<p> 
 $$ q(x_t|x_{t-1},x_0) =  = \frac{q(x_{t-1}|x_t,x_0)q(x_t|x_0)}{q(x_{t-1}|x_0)} $$
+</p>
 
 With this non-Markovian step, the DDIM sampling process is also no longer forced to have the same number of timesteps $$T$$. But how do we derive the DDIM sampling process?
 Then, to derive the DDIM sampling process, we utilize the *reparametrization trick* again, which we applied previously for forward diffusion. 
