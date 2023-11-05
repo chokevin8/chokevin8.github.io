@@ -186,7 +186,7 @@ $$x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}\frac{x_t - \sqrt{1-\hat{\alpha}_t}\hat{\ep
 But recall that when we rearrange the same equation $$x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}{\epsilon}$$ in terms of $$\epsilon$$, we get $$\epsilon = \frac{x_t - \sqrt{\hat{\alpha_t}}x_0}{\sqrt{1-\hat{\alpha_t}}} $$. Therefore, we replace that term above with our trained model as well, giving us the final equation for $$x_{t-1}$$ for DDIM sampling:
 <p>
 $$x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}\frac{x_t - \sqrt{1-\hat{\alpha}_t}\hat{\epsilon}_{\theta}(x_t,t)}{\sqrt{\hat{\alpha}_t}} + \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\hat{\epsilon}_{\theta}(x_t,t) + \sigma_t \epsilon_t $$. 
-\text{where: }q(x_{t-1} \mid x_t,x_0) \sim \mathcal{N}(x_{t-1}; \mu_t = \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t}},\Sigma_t = \frac{(1-\alpha_t)(1-\hat{\alpha}_{t-1})}{(1-\hat{\alpha_t})}I)
+$$\text{where: }q(x_{t-1} \mid x_t,x_0) \sim \mathcal{N}(x_{t-1}; \mu_t = \frac{\sqrt{\alpha_t}(1-\hat{\alpha}_{t-1})x_t + \sqrt{\hat{\alpha}_{t-1}}(1-\alpha_t)x_0}{1-\hat{\alpha_t}},\Sigma_t = \frac{(1-\alpha_t)(1-\hat{\alpha}_{t-1})}{(1-\hat{\alpha_t})}I)$$
 </p>
 The above equation is the final equation that allows us to sample $$x_{t-1}$$ from given $$x_t$$ using our trained model. Suppose the forward process is non-Markovian now, and instead of having all of the Markovian steps from
 $$x_{1:T}$$, we have a subset of $$S$$ timesteps $${x_{\tau 1},....x_{\tau S}}$$ where $$\tau$$ is simply increasing sequence of $$S$$ timesteps. Look at the figure below:
@@ -195,7 +195,8 @@ $$x_{1:T}$$, we have a subset of $$S$$ timesteps $${x_{\tau 1},....x_{\tau S}}$$
 <figcaption>Diagram showing DDIM forward and sampling process in comparison to DDIM.</figcaption>
 <br>
 
-As seen 
+As seen above, 
+
 <p>
 $$x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}\frac{x_t - \sqrt{1-\hat{\alpha}_t}\hat{\epsilon}_{\theta}(x_t,t)}{\sqrt{\hat{\alpha}_t}} + \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\hat{\epsilon}_{\theta}(x_t,t) + \sigma_t \epsilon_t $$.
 </p>
