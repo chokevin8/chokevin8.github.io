@@ -148,15 +148,8 @@ However, as discussed above, Denoising Diffusion Implicit Model (DDIM) uses a no
 steps instead of $$T$$ where $$S<T$$, by using the fact that the forward diffusion process can be made non-Markovian and therefore the reverse sampling process can also be made non-Markovian. Therefore, the authors of the LDM paper use *DDIM over DDPM.* 
 
 In fact, in the previous part of the blog, we've already shown the forward process that can be made non-Markovian when we were deriving the training objective.
-Recall the Baye's rule we used to derive the mean and variance of the approximate denoising step: 
-<p>
-$$ q(x_{t-1}|x_t,x_0) = \frac{q(x_t|x_{t-1},x_0)q(x_{t-1}|x_0)}{q(x_t|x_0)} $$
-</p>
-<p>
-Note by rearranging the above equation for the forward diffusion step $$q(x_t|x_{t-1},x_0)$$ we see that the forward step is no longer Markovian, and this is the forward step for DDIM:
-<p> 
-$$ q(x_t|x_{t-1},x_0) =  = \frac{q(x_{t-1}|x_t,x_0)q(x_t|x_0)}{q(x_{t-1}|x_0)} $$
-</p>
+Recall the Baye's rule we used to derive the mean and variance of the approximate denoising step:$$ q(x_{t-1}|x_t,x_0) = \frac{q(x_t|x_{t-1},x_0)q(x_{t-1}|x_0)}{q(x_t|x_0)} $$
+Note by rearranging the above equation for the forward diffusion step $$q(x_t|x_{t-1},x_0)$$ we see that the forward step is no longer Markovian, and this is the forward step for DDIM: $$ q(x_t|x_{t-1},x_0) =  = \frac{q(x_{t-1}|x_t,x_0)q(x_t|x_0)}{q(x_{t-1}|x_0)} $$
 
 With this non-Markovian step, the DDIM sampling process is also no longer forced to have the same number of timesteps $$T$$. But how do we derive the DDIM sampling process?
 Then, to derive the DDIM sampling process, we utilize the *reparametrization trick* again, which we applied previously for forward diffusion. 

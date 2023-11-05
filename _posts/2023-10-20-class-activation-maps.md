@@ -8,7 +8,7 @@ categories: posts
 ---
 
 In this post, I will briefly describe Class Activation Maps (CAM) and some of its popular subtypes, usages in semantic segmentation,
-and then finally post some introductory code and results in utilizing CAM in my own semantic segmentation project using [H&E images](/projects/1_project/)
+and then finally post some introductory code and results in utilizing CAM in my own semantic segmentation project using [H&E images](/projects/1_project/).
 
 ---
 
