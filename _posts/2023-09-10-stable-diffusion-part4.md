@@ -135,14 +135,15 @@ $$ \mu_{\theta} = \frac{1}{\sqrt{\alpha_t}}x_t - \frac{\sqrt{1-\alpha_t}}{\sqrt{
 
 The equation in the sampling algorithm just has an additional noise term $$\sigma_tz$$ since the reparametrization trick $$ x = \mu + \sigma_tz $$. Assuming our training went well, we now have the neural network $$\hat{\epsilon}_{\theta}(x_t,t)$$ trained that predicts the noise $$\epsilon$$ for given input image $$x_t$$. ***Now, remember that this neural network
 in our LDM is our U-Net architecture with the (cross) attention layers that predicts the noise given our input image.*** Inputting a timestep $$t$$ and original image $$x_t$$ to the trained neural network gives us the predicted noise $$\epsilon$$, and using that we can sample $$x_{t-1}$$ until $$t=1$$. When $$t=1$$, we have
-our sampled output of $$x_0$$. To explain further, recall the forward diffusion process mentioned in the previous part of the blog: $$ x_t|x_{t-1}) = \mathcal{N}(x_t; \mu_t = \sqrt{1-\beta_t}x_{t-1},\Sigma_t = \beta_tI) $$. This is essentially the
+our sampled output of $$x_0$$. To explain further, recall the forward diffusion process mentioned in the previous part of the blog: $$ (x_t|x_{t-1}) = \mathcal{N}(x_t; \mu_t = \sqrt{1-\beta_t}x_{t-1},\Sigma_t = \beta_tI) $$. This is essentially the
 forward process of DDPMs, which we can see that the process is Markovian, as $$x_t$$ only depends on $$x_{t-1}$$. 
 
 
 However, as discussed above, Denoising Diffusion Implicit Model (DDIM) uses a non-Markovian sampling process that makes the process much quicker. DDPMs use a sampling process that is essentially the reverse of the forward diffusion ($$T$$ forward and backward timesteps), while DDIM uses $$S$$ 
 steps instead of $$T$$ where $$S<T$$, by using the fact that the forward diffusion process can be made non-Markovian and therefore the reverse sampling process can also be made non-Markovian. Therefore, the authors of the LDM paper use *DDIM over DDPM.* 
 
-To derive the DDIM training process first, we utilize the *reparametrization trick* again, which we applied previously for forward diffusion. 
+In fact, in the previous part of the blog, we've already shown the forward process that can be made non-Markovian when we were deriving the training objective.
+Then, to derive the DDIM sampling process, we utilize the *reparametrization trick* again, which we applied previously for forward diffusion. 
 We can use $$ x = \mu + \sigma * \epsilon$$ to essentially alter our sampling process $$q(x_{t-1}|x_t,x_0)$$ to be parametrized by another random variable,
 a desired standard deviation $$\sigma_t$$ (square this for variance). The reparametrization is shown below:
 <p>
