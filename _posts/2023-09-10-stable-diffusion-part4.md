@@ -122,8 +122,8 @@ Above, we described this as a Markovian process, and ideally we would like to *m
 can be as close to a Gaussian as possible so that the generative process is accurate and generates a good image quality. 
 
 However, in this Markovian sampling process called DDPM (short for Denoising Diffusion Probabilistic Models), the $$T$$ timesteps have to be performed sequentially, meaning
-sampling speed is extremely slow, especially compared to fast sampling speeds of predecessors such as GANs. The forward $$T$$ steps and the reverse sampling $$T$$ steps have to be equal,
-as we are reversing the forward process. The above Markovian sampling algorithm is the DDPM sampling algorithm, which will be explained first,
+sampling speed is extremely slow, especially compared to fast sampling speeds of predecessors such as GANs. The limitation here is that the forward $$T$$ steps and the reverse sampling $$T$$ steps must be equal,
+as we are reversing the forward process for sampling. The above Markovian sampling algorithm is the DDPM sampling algorithm, which will be explained first,
 but then we will also mention a new, non-Markovian sampling process called DDIM (short for Denoising Diffusion Implicit Models) that is able to accelerate sampling speeds. **Note that the authors of the
 LDM paper utilized DDIM because of this exact reason.**
 
@@ -133,7 +133,7 @@ and then run the series of $$T$$ equally weighted autoencoders as mentioned befo
 $$ \mu_{\theta} = \frac{1}{\sqrt{\alpha_t}}x_t - \frac{\sqrt{1-\alpha_t}}{\sqrt{1-\hat{\alpha_t}}\sqrt{\alpha_t}}\hat{\epsilon}_{\theta}(x_t,t) $$
 </p>
 
-The equation in the sampling algorithm just has an additional noise term $$\sigma_tz$$ since the reparametrization trick $$ x = \mu + \sigma_tz $$. Assuming our training went well, we now have the neural network $$\hat{\epsilon}_{\theta}(x_t,t)$$ trained that predicts the noise $$\epsilon$$ for given input image $$x_t$$. ***Now, remember that this neural network
+The equation in the sampling algorithm at step #4 above just has an additional noise term $$\sigma_tz$$ since the reparametrization trick $$ x = \mu + \sigma_tz $$. Assuming our training went well, we now have the neural network $$\hat{\epsilon}_{\theta}(x_t,t)$$ trained that predicts the noise $$\epsilon$$ for given input image $$x_t$$. ***Now, remember that this neural network
 in our LDM is our U-Net architecture with the (cross) attention layers that predicts the noise given our input image.*** Inputting a timestep $$t$$ and original image $$x_t$$ to the trained neural network gives us the predicted noise $$\epsilon$$, and using that we can sample $$x_{t-1}$$ until $$t=1$$. When $$t=1$$, we have
 our sampled output of $$x_0$$. To explain further, recall the forward diffusion process mentioned in the previous part of the blog: $$ (x_t|x_{t-1}) = \mathcal{N}(x_t; \mu_t = \sqrt{1-\beta_t}x_{t-1},\Sigma_t = \beta_tI) $$. This is essentially the
 forward process of DDPMs, which we can see that the process is Markovian, as $$x_t$$ only depends on $$x_{t-1}$$. 
@@ -195,13 +195,13 @@ $$x_{1:T}$$, we have a subset of $$S$$ timesteps $${x_{\tau 1},....x_{\tau S}}$$
 <figcaption>Diagram showing DDIM forward and sampling process in comparison to DDIM.</figcaption>
 <br>
 
-The diagram above is a simplified one in that $$\tau = [1,3]$$, and the forward DDIM process $$q(x_3 \mid x1,x0)$$ can be simply reversed by sampling using the above derived sampling process. Therefore, we see that DDIM
-utilizes a non-Markovian forward process that uses less timesteps which in turn allows it to use less computations in the reverse step as well.
+The diagram above is a simplified one in that $$\tau = [1,3]$$, and the forward DDIM process $$q(x_3 \mid x_1,x_0)$$ can be simply reversed by sampling using the above derived sampling process. **Therefore, we see that DDIM
+utilizes a non-Markovian forward process that uses less timesteps which in turn allows it to use less computations in the reverse step as well.**
 <p>
 $$x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}\frac{x_t - \sqrt{1-\hat{\alpha}_t}\hat{\epsilon}_{\theta}(x_t,t)}{\sqrt{\hat{\alpha}_t}} + \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\hat{\epsilon}_{\theta}(x_t,t) + \sigma_t \epsilon_t $$.
 </p>
 Now, let's look back at each term of the right hand side of the above equation, the first term is the predicted $$x_0$$ given $$x_t$$. The second term can be interpreted as the
-direction pointing to $$x_t$$, and the third term is random noise sampled from a normal distribution. With the above equation, we have two special cases depending on the value of $$\sigma_t$$. First, when $$ \sigma_t = \sqrt{\frac{1-\hat{\alpha}_{t-1}{1-\hat{\alpha}_t}} \sqrt{\frac{1-\hat{\alpha}_t}{\hat{\alpha}_{t-1}}}$$, 
+direction pointing to $$x_t$$, and the third term is random noise sampled from a normal distribution. With the above equation, we have two special cases depending on the value of $$\sigma_t$$. First, when $$ \sigma_t = \sqrt{\frac{1-\hat{\alpha}_{t-1}}{1-\hat{\alpha}_t}\sqrt{\frac{1-\hat{\alpha}_t}{\hat{\alpha}_{t-1}}}$$, 
 the forward diffusion process actually becomes Markovian, which means that the sampling process naturally becomes DDPM as well. Second, like when $$\eta=0$$ above, we see that when $$\sigma_t = 0$$ for all timestep, we see that there is no stochasticity as there is no random noise added. With the exception for when $$ t=1 $$, we see that the process is deterministic
 and therefore this is why samples generated are nearly identical or share the same high level features. 
 
