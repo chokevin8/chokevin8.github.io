@@ -195,7 +195,7 @@ $$x_{1:T}$$, we have a subset of $$S$$ timesteps $${x_{\tau 1},....x_{\tau S}}$$
 <figcaption>Diagram showing DDIM forward and sampling process in comparison to DDIM.</figcaption>
 <br>
 
-As seen above, 
+The diagram above is a simplified one in that $$\tau = [1,3]$$, and the forward DDIM process $$q(x_3 \mid x1,x0) can be simply reversed by sampling 
 
 <p>
 $$x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}\frac{x_t - \sqrt{1-\hat{\alpha}_t}\hat{\epsilon}_{\theta}(x_t,t)}{\sqrt{\hat{\alpha}_t}} + \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\hat{\epsilon}_{\theta}(x_t,t) + \sigma_t \epsilon_t $$.
