@@ -185,7 +185,7 @@ $$x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}x_0 + \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{
 </p>
 We will now aim to parametrize this sampling process for $$x_{t-1}$$ in terms of our trained model. Here, we can see that given $$x_t$$, we first make a prediction of $$x_0$$, and then use both to make the prediction for $$x_{t-1}$$. Now, recall the previously mentioned forward process $$q(x_t|x_0) = \mathcal{N}(x_t; \mu_t = \sqrt{\hat{\alpha}_t}x_0,\Sigma_t = (1-\hat{\alpha}_t)I)$$. 
 With reparametrization trick, we already showed that this gives our forward process to find $$x_t$$ given $$x_0$$ and our Gaussian noise $$\epsilon$$: $$x_t = \sqrt{\hat{\alpha}_t}x_0 +  \sqrt{1-\hat{\alpha}_t}{\epsilon}$$. Rearranging the equation for $$x_0$$ gives: $$x_0 = \frac{x_t - \sqrt{1-\hat{\alpha}_t}{\epsilon}}{\sqrt{\hat{\alpha}_t}}$$. 
-Now, here's the important part, where do we utilize our trained model if this is the generative process? Recall from above again that **our trained model $$\hat{\epsilon}_{\theta}(x_t,t)$$ predicts noise $$\epsilon$$ given $$x_t$$ and timestep $$t$$.** Therefore, we rewrite the equation for $$x_0$$ as: 
+Now, here's the important part, where do we utilize our trained model if this is the generative process? Recall from above again that **our trained model $$\hat{\epsilon}_{\theta}(x_t,t)$$ predicts noise $$\epsilon$$ given $$x_t$$ and timestep $$t$$.** Therefore, we rewrite the equation for $$x_0$$ as:
 <p>
 $$x_0 = \frac{x_t - \sqrt{1-\hat{\alpha}_t}\hat{\epsilon}_{\theta}(x_t,t)}{\sqrt{\hat{\alpha}_t}}$$
 </p>
@@ -211,7 +211,7 @@ utilizes a non-Markovian forward process that uses less timesteps which in turn 
 $$x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}\frac{x_t - \sqrt{1-\hat{\alpha}_t}\hat{\epsilon}_{\theta}(x_t,t)}{\sqrt{\hat{\alpha}_t}} + \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\hat{\epsilon}_{\theta}(x_t,t) + \sigma_t \epsilon_t $$.
 </p>
 Now, let's look back at each term of the right hand side of the above equation, the first term is the predicted $$x_0$$ given $$x_t$$. The second term can be interpreted as the
-direction pointing to $$x_t$$, and the third term is random noise sampled from a normal distribution. With the above equation, we have two special cases depending on the value of $$\sigma_t$$. First, when $$\sigma_t = \sqrt{\frac{1-\hat{\alpha}_{t-1}}{1-\hat{\alpha}_t}\sqrt{\frac{1-\hat{\alpha}_t}{\hat{\alpha}_{t-1}}}$$, the 
+direction pointing to $$x_t$$, and the third term is random noise sampled from a normal distribution. With the above equation, we have two special cases depending on the value of $$\sigma_t$$. First, when $$\sigma_t = \sqrt{\frac{1-\hat{\alpha}_{t-1}}{1-\hat{\alpha}_t}} \sqrt{\frac{1-\hat{\alpha}_t}{\hat{\alpha}_{t-1}}}$$, the 
 forward diffusion process actually becomes Markovian, which means that the sampling process naturally becomes DDPM as well. Second, like when $$\eta=0$$ above, we see that when $$\sigma_t = 0$$ for all timestep, we see that there is no stochasticity as there is no random noise added. With the exception for when $$ t=1 $$, we see that the process is deterministic
 and therefore this is why samples generated are nearly identical or share the same high level features. 
 
