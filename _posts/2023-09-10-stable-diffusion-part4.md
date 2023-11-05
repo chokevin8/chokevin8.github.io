@@ -191,12 +191,12 @@ $$\text{where: }q(x_{t-1} \mid x_t,x_0) \sim \mathcal{N}(x_{t-1}; \mu_t = \frac{
 The above equation is the final equation that allows us to sample $$x_{t-1}$$ from given $$x_t$$ using our trained model. Suppose the forward process is non-Markovian now, and instead of having all of the Markovian steps from
 $$x_{1:T}$$, we have a subset of $$S$$ timesteps $${x_{\tau 1},....x_{\tau S}}$$ where $$\tau$$ is simply increasing sequence of $$S$$ timesteps. Look at the figure below:
 
-<img src = "/assets/images/ddim-sampling.png" width = "1096" height = "340" class = "center">
+<img src = "/assets/images/ddim-sampling.png" width = "731" height = "227" class = "center">
 <figcaption>Diagram showing DDIM forward and sampling process in comparison to DDIM.</figcaption>
 <br>
 
-The diagram above is a simplified one in that $$\tau = [1,3]$$, and the forward DDIM process $$q(x_3 \mid x1,x0) can be simply reversed by sampling 
-
+The diagram above is a simplified one in that $$\tau = [1,3]$$, and the forward DDIM process $$q(x_3 \mid x1,x0)$$ can be simply reversed by sampling using the above derived sampling process. Therefore, we see that DDIM
+utilizes a non-Markovian forward process that uses less timesteps which in turn allows it to use less computations in the reverse step as well.
 <p>
 $$x_{t-1} = \sqrt{\hat{\alpha}_{t-1}}\frac{x_t - \sqrt{1-\hat{\alpha}_t}\hat{\epsilon}_{\theta}(x_t,t)}{\sqrt{\hat{\alpha}_t}} + \sqrt{1-\hat{\alpha}_{t-1}-\sigma_t^{2}}\hat{\epsilon}_{\theta}(x_t,t) + \sigma_t \epsilon_t $$.
 </p>
@@ -209,7 +209,7 @@ Lastly, another important note to make is that with the above equation, we can s
 the model, which gives us another reason to use DDIM over DDPM. 
 
 To wrap up, the main advantages of DDIM over DDPM are:
-1. **Faster sampling**: As mentioned above, DDIM is a non-Markovian process that enables sample generation with a much smaller timestep $$S$$, where $$S<T$$ when $$T$$ is the timestep required for DDPM. Furthermore, the DDIM sampling process can also utilize less steps than the $$S$$ timesteps at the cost of generated image quality.
+1. **Faster sampling**: As mentioned above, DDIM is a non-Markovian process that enables sample generation with a much smaller timestep $$S$$, where $$S<T$$ when $$T$$ is the timestep required for DDPM. When the sampling trajectory $$S$$ is much smaller than $$T$$, we experience more computational efficiency at some cost of image generation quality.
 2. **Control of stochasticity**: As mentioned above, when $$\eta=0$$ or $$\sigma_t=0$$ for all timesteps, DDIMs are deterministic, meaning that if we start with the same latent vector (predicted noise) $$x_T$$ via same random seed during sampling, the samples generated will all have the same high-level features.
 3. **Allows interpolation**: In DDPMs, interpolation is still possible, but the interpolation will not be accurate due to the stochasticity in the samples generated from DDPM. However, utilizing deterministic samples from DDIM allows us to not only generate our samples quickly, but also be able to interpolate between two different domains easily. 
 
