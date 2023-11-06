@@ -76,14 +76,37 @@ Below is the scheme for training and evaluating the trained model for the IHC-to
     </div>
 </div>
 
-As seen above, during training,
+As seen above, I registered the serial sections together so that the IHC-H&E image pair are aligned properly. Then, they are tiled to 256 x 256 tiles and divided into train/val/test sets. 
+The main thing to note here is that I am training a vanilla pix2pix (GAN) model and a more novel score-based-generative model called image-to-image schrödinger bridge (I2SB). The two 
+generative models are trained. Then, as seen in the evaluation stage, the sampled image from the validation set is passed through a pretrained segmentation model to generate a tissue map. 
+Then, this is compared to the ground truth tissue map generated from the ground truth image, and the F-1 score is deduced. Another method to compare the quality of the images is to calculate
+the inception score (IS) or/and Fréchet Inception Distance (FID) of the generated images.
 
+To briefly talk about the models, pix2pix is a familiar model for most. Like any other GAN models, through adversarial training with GAN and L1 loss, we map the pixels of image of one domain
+to another. However, I2SB is more novel- it is a new class of conditional diffusion model based on training a schrödinger bridge between two different domains A and B, which finds the optimal transport path
+of diffusing from domain A to domain B. I2SB is related to score-based generative models, and I plan to fully explain about this in a future blog post since it is very mathematically dense. The main reason
+of utilizing I2SB in this project is that all of the previous works of stain-to-stain conversion out there utilize different subtypes of GANs (pix2pix, cycleGAN, etc), and do not test on the 
+state-of-the-art diffusion models and its variants like I2SB. But why not use diffusion then? Look at below diagram:
+
+<div class="row">
+    <div class="col-sm">
+        {% include figure.html path="assets/img/1_project/I2SB_vs_diffusion.png" title="IHC2HE_eval" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+
+As seen above, the main difference between conditional latent/stable diffusion models and I2SB in the field of image to image translation or restoration is that the I2SB allows direct utilization
+of the degraded image or the image to be converted during training, which is a much more structurally informative prior compared to conditional diffusion models which start from noise during training/sampling and feeds the
+degraded image/image to be converted via conditioning. Likewise, in image restoration or translation, the degraded image or the image to be translated often contains useful structural information. ***This is definitely the case in our project,
+as for stain conversions, most or all of the structure should remain intact during the conversion.*** Furthermore, it also makes more intuitive sense that to go from image A to B, it would make sense to directly 
+train to go from A to B, not noise to B. With the models and the training/evaluation methods in mind, let's look at the preliminary results.
 
 ---
 
 ### **Results:**
 
-The most recent results is 
+***Since this is currently a work-in-progress, updates will be made if deemed necessary.***
+
+
 
 ***Note that more technical details/explanations and further results are omitted on purpose as I focus on motivation/personal comments in introducing the project. More technical details
 will be shown in the technical powerpoint presentation (PPT).***
@@ -94,8 +117,14 @@ will be shown in the technical powerpoint presentation (PPT).***
 
 ### Q: Why did I choose this project? ###
 
+After somewhat finishing training the segmentation model for the [H&E image segmentation project]((/projects/2_project/)), I wanted to 
 
 ### Q: What did I do outside of this project? ###
+
+Similar to the H&E image segmentation project, I also had no significant prior knowledge in the field of generative models, especially on
+GANs and diffusion models. To utilize I2SB and understand it properly, I had to do (and still doing) a lot of intensive background research on
+papers for GANs, diffusion models, score-based generative models (SGM), and schrödinger bridges (SB). I'd probably say that I've done a lot of
+math learning/recap regarding statistics and differential equations during this process.
 
 ### Q: What impact did this project have on me? ###
 
