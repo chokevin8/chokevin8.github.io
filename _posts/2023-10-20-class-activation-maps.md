@@ -71,8 +71,8 @@ HiResCAM:
 <a id="cam-in-my-proj"></a>
 ## **Utilizing CAM in My Project:**
 
-
-Code:
+Now that we know the differences between GradCAM and HiResCAM, below is the code that I utilized to generate CAM for my skin H&E tissue images to 
+assess how my DeepLabv3+ image segmentation segments the classes and if it is cheating or not!
 
 First import relevant packages, including our pytorch-grad-cam library from the official [repo](https://github.com/jacobgil/pytorch-grad-cam):
 
@@ -111,7 +111,7 @@ class TestDataSet(Dataset):
     def __len__(self):
         return len(self.image_paths)
 
-    # define main function to read image and label, apply transform function and return the transformed images.
+    # define main function to read image, apply transform function and return the transformed images.
     def __getitem__(self, idx):
         image_path = self.image_paths[idx]
         image = cv2.imread(image_path, cv2.COLOR_BGR2RGB)
@@ -135,28 +135,84 @@ test_images = # complete path of the single image to test for CAM within image_p
 test_dataloader = load_test_dataset() 
 @torch.no_grad()  #decorator to disable gradient calc
 def return_image_mask(model, dataloader, device):
-    weight_dir = r"C:\Users\Kevin\PycharmProjects\wsi_analysis\kevin\skin_morphometric_analysis\deeplab_pytorch\model\DeepLabV3+_baseline_resnet50"
-    model_path = os.path.join(weight_dir, "best_epoch-0{}.pt".format(1))
-    model.load_state_dict(torch.load(model_path))  #load model weights
+    weight_dir = # your own path to the saved model weights
+    model.load_state_dict(torch.load(weight_dir))  #load model weights
     pbar = tqdm(enumerate(dataloader), total=len(dataloader), desc='Inference', colour='red')
     for idx, (images, image_path) in pbar:
         model.eval()  # eval stage
         images = images.to(device, dtype=torch.float)  #move tensor to gpu
         prediction = model(images)
         prediction = torch.nn.functional.softmax(prediction, dim=1).cpu() #softmax for multiclass
-
     return prediction
 prediction = return_image_mask(model,test_dataloader,device) #predicted segmentation tissue map
 ```
-
+Then, preprocess the image (imagenet mean/std) to generate HiResCAM for:
+```python
+rgb_img = np.array(Image.open(image_path))
+rgb_img = np.float32(rgb_img) / 255
+input_tensor = preprocess_image(rgb_img, mean=[0.485, 0.456, 0.406],
+                                std=[0.229, 0.224, 0.225]) #imagenet mean/std
+```
+Then, define a class to return the sum of the predictions of a specific chosen class (ex. class ECM for skin tissue), or the "target". 
 
 ```python
-CAMmethod = "HiResCAM"
-with HiResCAM(model = model, target_layers = target_layers, use_cuda = torch.cuda.is_available()) as cam:
-    grayscale_cam = cam(input_tensor=input_tensor,targets=targets)[0,:]
-    cam_image = show_cam_on_image(rgb_img, grayscale_cam, use_rgb=True)
+class SemanticSegmentationTarget:
+    def __init__(self, category, mask):
+        self.category = category
+        self.mask = torch.from_numpy(mask)
+        if torch.cuda.is_available():
+            self.mask = self.mask.cuda()
 
+    def __call__(self, model_output):
+        return (model_output[self.category, :, : ] * self.mask).sum()
 ```
+Then, below is the most important part: For a specific chosen class (ex. class ECM for skin tissue), return the "target", choose a layer of interest from the loaded model,
+choose a CAM method (we choose HiResCAM, which was explained above) and utilize pytorch-grad-cam's functions to generate our CAM image!
+```python
+he_mask = prediction[0, :, :, :].argmax(axis=0).detach().cpu().numpy()
+# for skin: {"corneum" : 1,"spinosum": 2,"hairshaft":3,"hairfollicle":4,"smoothmuscle":5,"oil":6,"sweat":7,"nerve":8,"bloodvessel":9,"ecm":10,"fat":11,"white/background":12}
+class_category = 6 # 6 = oil glands
+he_mask_float = np.float32(he_mask == class_category)
+targets = [SemanticSegmentationTarget(class_category, he_mask_float)] # return targets
+target_layers = [model.encoder.layer4] # we choose last layer
+with HiResCAM(model = model, target_layers = target_layers, use_cuda = torch.cuda.is_available()) as cam:
+    grayscale_cam = cam(input_tensor=input_tensor,targets=targets)[0,:] # return CAM
+    cam_image = show_cam_on_image(rgb_img, grayscale_cam, use_rgb=True) # overlay CAM with original rgb image
+Image.fromarray(cam_image) #visualize resulting CAM
+```
+
+Finally, let's look at some examples of CAMs for some of my skin H&E tissue images, and hopefully we'll see that
+my trained model is actually focusing on the right parts of the images and not cheating!
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/images/CAMs/white_background_GradCAMElementWise.png" title="White/background GradCAM class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/images/CAMs/white_background_HiResCAM.png" title="White/background HiResCAM" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/images/CAMs/bloodvessel_GradCAMElementWise.png" title="White/background GradCAM class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/images/CAMs/bloodvessel_HiResCAM.png" title="White/background HiResCAM" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/images/CAMs/oil_GradCAMElementWise.png" title="White/background GradCAM class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/images/CAMs/oil_HiResCAM.png" title="White/background HiResCAM" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+
+The left images are HiResCAMs, and the right images are GradCAMs. Now let's analyze the images of each row. The first row are the CAMs for the background, and 
+we can see that there isn't a big difference between the two, except that HiResCAM does show a more "accurate" depiction, as it is a faithful explanation after all. 
 
 
 
