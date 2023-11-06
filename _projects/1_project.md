@@ -164,4 +164,4 @@ image classification,segmentation and generation.
 ---
 
 *Image credits to:*
--[I2SB vs Diffusion Diagram](https://arxiv.org/pdf/2302.05872.pdf)
+- [I2SB vs Diffusion Diagram](https://arxiv.org/pdf/2302.05872.pdf)
