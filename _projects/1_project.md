@@ -77,7 +77,7 @@ Below is the scheme for training and evaluating the trained model for the IHC-to
 </div>
 
 As seen above, I registered the serial sections together so that the IHC-H&E image pair are aligned properly. Then, they are tiled to 256 x 256 tiles and divided into train/val/test sets. 
-The main thing to note here is that I am training a vanilla pix2pix (GAN) model and a more novel score-based-generative model called image-to-image schrödinger bridge (I2SB). The two 
+The main thing to note here is that I am training a vanilla pix2pix (GAN) model and a more novel score-based-generative model called image-to-image schrödinger bridge ([I2SB](https://arxiv.org/pdf/2302.05872.pdf)). The two 
 generative models are trained. Then, as seen in the evaluation stage, the sampled image from the validation set is passed through a pretrained segmentation model to generate a tissue map. 
 Then, this is compared to the ground truth tissue map generated from the ground truth image, and the F-1 score is deduced. Another method to compare the quality of the images is to calculate
 the inception score (IS) or/and Fréchet Inception Distance (FID) of the generated images.
@@ -112,12 +112,15 @@ Below are some of the pix2pix-generated H&E images compared to the ground truth 
         {% include figure.html path="assets/img/1_project/pix2pix_result.png" title="IHC2HE_eval" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
+As expected for most GAN-based models, the circled region above shows low fidelity for some features of the image, image artifacts, and edge effects.
 Below is an example of direct comparison of pix2pix-generated and I2SB-generated image:
 <div class="row">
     <div class="col-sm">
         {% include figure.html path="assets/img/1_project/comparison_result.png" title="IHC2HE_eval" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
+
+As seen in the circled part of the image and the overall image, we can see that I2SB does a better job than pix2pix in generating a more realistic image compared to ground truth.
 Below are some of the DDPM sampled images from the trained I2SB model:
 <div class="row">
     <div class="col-sm">
@@ -125,12 +128,15 @@ Below are some of the DDPM sampled images from the trained I2SB model:
     </div>
 </div>
 
-The confusion matrix and F-1 score is a work-in-progress since DDPM sampling is quite slow. For the unstained-to-H&E virtual staining project,
+As seen in the first image, we can see that the IHC stains get properly converted to H&E as well. The second image shows local features being preserved during the
+stain conversion as well. With this DDPM sampling process, unlike GANs, we can also generate an interpolated image between two domains, if necessary for other uses. 
+
+The F-1 score and FID to evaluate the performance of the two models are a work-in-progress since DDPM sampling is quite slow. For the unstained-to-H&E virtual staining project,
 the model is still being trained, the image in the project motivation was just some image sampled from an intermediate checkpoint. As stated above,
 more updates will be posted here in the near future.
 
 ***Note that more technical details/explanations and further results are omitted on purpose as I focus on motivation/personal comments in introducing the project. More technical details
-will be shown in the technical powerpoint presentation (PPT).***
+will be shown in the technical powerpoint presentation (PPT).*** 
 
 ---
 
@@ -158,3 +164,4 @@ image classification,segmentation and generation.
 ---
 
 *Image credits to:*
+-[I2SB vs Diffusion Diagram](https://arxiv.org/pdf/2302.05872.pdf)
