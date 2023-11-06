@@ -186,19 +186,15 @@ my trained model is actually focusing on the right parts of the images and not c
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/images/CAMs/white_background_GradCAMElementWise.png" title="White/background GradCAM class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/images/CAMs/white_background_GradCAMElementWise.png" title="White/background GradCAM" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.html path="assets/images/CAMs/white_background_HiResCAM.png" title="White/background HiResCAM" class="img-fluid rounded z-depth-1" %}
     </div>
-</div>
-<div class="caption">
-    Hello
-</div>
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/images/CAMs/bloodvessel_GradCAMElementWise.png" title="Blood vessel GradCAM class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/images/CAMs/bloodvessel_GradCAMElementWise.png" title="Blood vessel GradCAM" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.html path="assets/images/CAMs/bloodvessel_HiResCAM.png" title="Blood vessel HiResCAM" class="img-fluid rounded z-depth-1" %}
@@ -207,7 +203,7 @@ my trained model is actually focusing on the right parts of the images and not c
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/images/CAMs/oil_GradCAMElementWise.png" title="Oil GradCAM class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/images/CAMs/oil_GradCAMElementWise.png" title="Oil GradCAM" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.html path="assets/images/CAMs/oil_HiResCAM.png" title="Oil HiResCAM" class="img-fluid rounded z-depth-1" %}
