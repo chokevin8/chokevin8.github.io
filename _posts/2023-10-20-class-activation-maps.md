@@ -192,6 +192,9 @@ my trained model is actually focusing on the right parts of the images and not c
         {% include figure.html path="assets/images/CAMs/white_background_HiResCAM.png" title="White/background HiResCAM" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
+<div class="caption">
+    Hello
+</div>
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
