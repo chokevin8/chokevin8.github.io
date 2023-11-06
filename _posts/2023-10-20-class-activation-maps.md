@@ -63,7 +63,8 @@ multiple heatmaps will be generated for
 
 As mentioned previously, the three requirements for CAM severely limited the usage to certain types of architectures, and was totally not applicable for non-CNN based models such as vision transformers, or ViTs (to be fair, when CAM was first
 released, transformers were not a thing yet). 
-LayerCAM:
+
+GradCAM:
 
 HiResCAM:
 
@@ -73,10 +74,85 @@ HiResCAM:
 
 Code:
 
+First import relevant packages, including our pytorch-grad-cam library from the official [repo](https://github.com/jacobgil/pytorch-grad-cam):
 
 ```python
-CAMmethod = "GradCAMElementWise"
-with GradCAMElementWise(model = model, target_layers = target_layers, use_cuda = torch.cuda.is_available()) as cam:
+import torch
+import torch.functional as F
+import numpy as np
+import requests
+import torchvision
+from PIL import Image
+from torch.utils.data import Dataset, DataLoader
+import cv2
+import os
+from natsort import natsorted
+from tqdm import tqdm
+from pytorch_grad_cam.utils.image import show_cam_on_image, preprocess_image
+from pytorch_grad_cam import GradCAM, HiResCAM, GradCAMElementWise, ScoreCAM, GradCAMPlusPlus, AblationCAM, XGradCAM, EigenCAM, EigenGradCAM, FullGrad, LayerCAM
+from pytorch_grad_cam.utils.model_targets import ClassifierOutputTarget
+from pytorch_grad_cam.utils.image import show_cam_on_image
+Image.MAX_IMAGE_PIXELS = None
+import segmentation_models_pytorch as smp
+import albumentations as A
+from albumentations.pytorch import ToTensorV2
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+```
+Then, write your own function to load relevant model (for me, my DeepLabV3+ segmentation model) and if necessary, your own dataloading function as well:
+```python
+test_transforms = A.Compose([ToTensorV2()])  #just convert to tensor
+
+class TestDataSet(Dataset):
+    # initialize imagepath, transforms:
+    def __init__(self, image_paths: list, transforms=None):
+        self.image_paths = image_paths
+        self.transforms = transforms
+
+    def __len__(self):
+        return len(self.image_paths)
+
+    # define main function to read image and label, apply transform function and return the transformed images.
+    def __getitem__(self, idx):
+        image_path = self.image_paths[idx]
+        image = cv2.imread(image_path, cv2.COLOR_BGR2RGB)
+        image = np.array(image)
+        if self.transforms is not None:  # albumentations
+            transformed = self.transforms(image=image)
+            image = transformed['image']
+        return image # return tensors of equal dtype and size
+        # image is size 3x1024x1024 and mask and bin_mask is size 1x1024x1024 (need dummy dimension to match dimension)
+
+# define dataloading function to use above dataset to return train and val dataloaders:
+def load_test_dataset():
+    test_dataset = TestDataSet(image_paths=test_images, transforms=test_transforms)
+    test_dataloader = DataLoader(dataset=test_dataset, batch_size=1, num_workers=0, pin_memory=True, shuffle=False)
+    return test_dataloader  # return train and val dataloaders
+```
+Then write a function to return the predicted segmentation tissue map (for all classes) for the image to generate HiResCAM for:
+```python
+image_path = # your own path to folder containing images to test for CAM
+test_images = # complete path of the single image to test for CAM within image_path
+test_dataloader = load_test_dataset() 
+@torch.no_grad()  #decorator to disable gradient calc
+def return_image_mask(model, dataloader, device):
+    weight_dir = r"C:\Users\Kevin\PycharmProjects\wsi_analysis\kevin\skin_morphometric_analysis\deeplab_pytorch\model\DeepLabV3+_baseline_resnet50"
+    model_path = os.path.join(weight_dir, "best_epoch-0{}.pt".format(1))
+    model.load_state_dict(torch.load(model_path))  #load model weights
+    pbar = tqdm(enumerate(dataloader), total=len(dataloader), desc='Inference', colour='red')
+    for idx, (images, image_path) in pbar:
+        model.eval()  # eval stage
+        images = images.to(device, dtype=torch.float)  #move tensor to gpu
+        prediction = model(images)
+        prediction = torch.nn.functional.softmax(prediction, dim=1).cpu() #softmax for multiclass
+
+    return prediction
+prediction = return_image_mask(model,test_dataloader,device) #predicted segmentation tissue map
+```
+
+
+```python
+CAMmethod = "HiResCAM"
+with HiResCAM(model = model, target_layers = target_layers, use_cuda = torch.cuda.is_available()) as cam:
     grayscale_cam = cam(input_tensor=input_tensor,targets=targets)[0,:]
     cam_image = show_cam_on_image(rgb_img, grayscale_cam, use_rgb=True)
 
