@@ -86,7 +86,8 @@ To briefly talk about the models, pix2pix is a familiar model for most. Like any
 to another. However, I2SB is more novel- it is a new class of conditional diffusion model based on training a schrödinger bridge between two different domains A and B, which finds the optimal transport path
 of diffusing from domain A to domain B. I2SB is related to score-based generative models, and I plan to fully explain about this in a future blog post since it is very mathematically dense. The main reason
 of utilizing I2SB in this project is that all of the previous works of stain-to-stain conversion out there utilize different subtypes of GANs (pix2pix, cycleGAN, etc), and do not test on the 
-state-of-the-art diffusion models and its variants like I2SB. But why not use diffusion then? Look at below diagram:
+state-of-the-art diffusion models and its variants like I2SB (obviously there are more theoretical reasons to not utilizing GANs since diffusion models are known to generate more diverse images and
+avoids adversarial training and mode collapse). But why not use diffusion, why use I2SB? Well, look at the below diagram:
 
 <div class="row">
     <div class="col-sm">
@@ -103,10 +104,30 @@ train to go from A to B, not noise to B. With the models and the training/evalua
 ---
 
 ### **Results:**
+***Since this is currently a work-in-progress, updates will be made.***
 
-***Since this is currently a work-in-progress, updates will be made if deemed necessary.***
+Below are some of the pix2pix-generated H&E images compared to the ground truth H&E images:
+<div class="row">
+    <div class="col-sm">
+        {% include figure.html path="assets/img/1_project/pix2pix_result.png" title="IHC2HE_eval" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+Below is an example of direct comparison of pix2pix-generated and I2SB-generated image:
+<div class="row">
+    <div class="col-sm">
+        {% include figure.html path="assets/img/1_project/comparison_result.png" title="IHC2HE_eval" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+Below are some of the DDPM sampled images from the trained I2SB model:
+<div class="row">
+    <div class="col-sm">
+        {% include figure.html path="assets/img/1_project/I2SB_result.png" title="IHC2HE_eval" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
 
-
+The confusion matrix and F-1 score is a work-in-progress since DDPM sampling is quite slow. For the unstained-to-H&E virtual staining project,
+the model is still being trained, the image in the project motivation was just some image sampled from an intermediate checkpoint. As stated above,
+more updates will be posted here in the near future.
 
 ***Note that more technical details/explanations and further results are omitted on purpose as I focus on motivation/personal comments in introducing the project. More technical details
 will be shown in the technical powerpoint presentation (PPT).***
@@ -117,7 +138,10 @@ will be shown in the technical powerpoint presentation (PPT).***
 
 ### Q: Why did I choose this project? ###
 
-After somewhat finishing training the segmentation model for the [H&E image segmentation project]((/projects/2_project/)), I wanted to 
+After somewhat finishing training the segmentation model for the [H&E image segmentation project]((/projects/2_project/)), I wanted to independently work
+on a challenging project. As mentioned in the motivation above, "fortunately", I found that our lab would benefit from a 
+virtual stain conversion method so that multiple stains can be analyzed in the same tissue slide. Furthermore, I was excited to dive into the
+realm of generative models as it was very different from image classification/segmentation models that I was working on previously.
 
 ### Q: What did I do outside of this project? ###
 
@@ -128,6 +152,8 @@ math learning/recap regarding statistics and differential equations during this 
 
 ### Q: What impact did this project have on me? ###
 
+This project has fueled me to explore more types of deep learning fields. The field of computer vision and deep learning has still much more to offer than
+image classification,segmentation and generation. 
 
 ---
 
