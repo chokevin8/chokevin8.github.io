@@ -38,7 +38,7 @@ categories: posts
 <a id="stable-diffusion-in-numbers-2"></a>
 ## **Stable Diffusion In Numbers Continued**
 
-***Currently work in progress!***
+***Currently work in progress, will be updated soon!***
 
 
 [//]: # (<a id="conditioning"></a>)
