@@ -46,8 +46,8 @@ and all the $$n$$ feature maps. For example, in the diagram above, we can tell t
 $$Y_c = \sum_{k} {w_k}^{c} \cdot \frac{1}{Z} \sum_{i}\sum_{j} A_{(i,j)}^{k}$$
 $$Y_c = \sum_{k} {w_k}^{c} \cdot F^{k} \quad (1)$$
 </p>
-,where $$Y_c$$ is the activation score (CAM) for $$c$$, which is the specific class (like Australian terrier). $$k$$ is the number of feature maps and therefore $${w_k}^{c}$$ is the weight for feature map $$k$$ for class $$c$$. 
-Lastly, $$A_{(i,j)}^{k}$$ is the feature map $$k$$ for pixel coordinate $$(i,j)$$, which is summed over all $$i$$ and $$j$$ and divided by total number of pixels $$Z$$ to return our global average pooled feature map $$F^{k}$$. 
+,where $$Y_c$$ is the activation score (CAM) for $$c$$, which is the specific class (like Australian terrier). $$k$$ is the number of feature maps and therefore $${w_k}^{c}$$ is the weight for $$k$$th feature map for class $$c$$. 
+Lastly, $$A_{(i,j)}^{k}$$ is the $$k$$th feature map for pixel coordinate $$(i,j)$$, which is summed over all $$i$$ and $$j$$ and divided by total number of pixels $$Z$$ to return our global average pooled feature map $$F^{k}$$. 
 We can see that $$\frac{1}{Z} \sum_{i}\sum_{j}$$ is the mathematical representation of global average pooling (GAP). Finally, since feature maps are downsampled compared to the original image size,
 we need to perform bi-linear interpolation on the CAM to upsample for us to visualize the overlay of the CAM on the query image like shown in the diagram above.
 
@@ -63,7 +63,7 @@ Since not all methods satisfy all three requirements above, CAM was only limited
 
 As mentioned previously, the three requirements for CAM severely limited the usage to certain types of architectures, and was totally not applicable for non-CNN based models such as vision transformers, or ViTs (to be fair, when CAM was first
 released, transformers were not a thing yet). Therefore, GradCAM, or Gradient-weighted CAMs, were widely used which essentially replaces the weights of the fully connected layer with calculated gradients that flow back into the last
-convolutional layer. To calculate gradients consider taking the gradient of the activation score for class $$c$$ ($$Y^{c}$$) with respect to feature map $$F^{k}$$ from the above CAM equation, or equation #1:
+convolutional layer. To show that this is true, consider taking the gradient of the activation score for class $$c$$ ($$Y^{c}$$) with respect to feature map $$F^{k}$$ from the above CAM equation, or equation #1:
 <p>
 $$ Y_c = \sum_{k} {w_k}^{c} \cdot F^{k}$$
 $$\frac{\delta Y^{c}}{\delta F^{k}} = \frac{\frac{\delta Y^{c}}{\delta A_{(i,j)}^{k}}} {\frac{\delta F^{k}}{\delta A_{(i,j)}^{k}}} $$
@@ -72,10 +72,31 @@ $$\text{Then: } \frac{\delta Y^{c}}{\delta F^{k}} = \frac{\delta Y^{c}}{\delta A
 $$\text{Recall from above: } Y_c = \sum_{k} {w_k}^{c} \cdot F^{k} \text{ so: } \frac{\delta Y^{c}}{\delta F^{k}} = {w_k}^{c}$$
 $$\text{Then: } {w_k}^{c} = Z \cdot \frac{\delta Y^{c}}{\delta A_{(i,j)}^{k}} \quad (2)$$
 </p>
-
-
-
-Now, even though CAMs were widely used for classification, they could definitely also be used for semantic segmentation tasks where each pixel is labeled as a class. In this case,
+Now note that above equation #2 is only for pixel location $$(i,j)$$, so let's sum over all pixels. Note that $$\sum_{i}\sum_{j} 1 = Z$$:
+<p>
+$$\sum_{i}\sum_{j} {w_k}^{c} = Z \sum_{i}\sum_{j} \frac{\delta Y^{c}}{\delta A_{(i,j)}^{k}}$$
+$$Z{w_k}^{c} = Z \sum_{i}\sum_{j} \frac{\delta Y^{c}}{\delta A_{(i,j)}^{k}}$$
+$${w_k}^{c} = \sum_{i}\sum_{j} \frac{\delta Y^{c}}{\delta A_{(i,j)}^{k}} \quad (3)$$
+</p>
+The equation #3 is an important result, this shows us that the weights for feature map $$k$$ for class $$c$$ are equal to the gradient of the 
+activation score with respect to the $$k$$th feature map. But remember, we're no longer using the weights of the fully connected layer!
+By re-introducing the normalization constant $$1/Z$$ for global average pooling, and pooling over the gradients instead, we obtain neural importance weights $$\alpha_k^{c}$$ instead:
+<p>
+$${\alpha_k}^{c} = \frac{1}{Z} \sum_{i}\sum_{j} \frac{\delta Y^{c}}{\delta A_{(i,j)}^{k}} \quad (4)$$
+</p>
+We can think of this neural importance weight $${\alpha_k}^{c}$$ as the equivalent to the $${w_k}^{c}$$ in vanilla CAMs. Therefore, use equation #1 for CAM above and sum over all $$k$$ feature maps
+to find our equation for evaluating our activation score for Grad-CAM:
+<p>
+$$Y_c = \sum_{k} {\alpha_k}^{c} \cdot F^{k} \text{ where } {\alpha_k}^{c} = \frac{1}{Z} \sum_{i}\sum_{j} \frac{\delta Y^{c}}{\delta A_{(i,j)}^{k}} (5)$$
+</p>
+Equation #5 is one-step short of completion. Why? The gradients can be negative or positive! We are only interested in finding features that have a positive influence
+on class $$c$$. This means that the activation score should be positive, and to have a positive gradient, the feature map should be positive as well. Negative gradients
+most likely belong to features in the image that are correlated with classes that are not $$c$$. Therefore, we utilize ReLU to suppress negative gradients and keep positive gradients:
+<p>
+$$Y_c = ReLU (\sum_{k} {\alpha_k}^{c} \cdot F^{k}) \text{ where } {\alpha_k}^{c} = \frac{1}{Z} \sum_{i}\sum_{j} \frac{\delta Y^{c}}{\delta A_{(i,j)}^{k}} (6)$$
+</p>
+Equation #6 above is the final equation for Grad-CAM. Now, even though CAMs were widely used for classification, they could definitely also be used for semantic segmentation tasks 
+where each pixel is labeled as a class. In this case,
 
 HiResCAM:
 
