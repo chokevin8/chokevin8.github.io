@@ -96,9 +96,18 @@ most likely belong to features in the image that are correlated with classes tha
 $$Y_c = ReLU (\sum_{k} {\alpha_k}^{c} \cdot F^{k}) \text{ where } {\alpha_k}^{c} = \frac{1}{Z} \sum_{i}\sum_{j} \frac{\delta Y^{c}}{\delta A_{(i,j)}^{k}} (6)$$
 </p>
 Equation #6 above is the final equation for Grad-CAM. Now, even though CAMs were widely used for classification, they could definitely also be used for semantic segmentation tasks 
-where each pixel is labeled as a class. In this case,
+where each pixel is labeled as a class. In this case, however, we have to modify equation #6 a bit. This is because image classification outputs a single class distribution (ex. this image is 
+a dog), image semantic segmentation doesn't, as it outputs logits for every pixel $$(a,b)$$ predicted for class $$c$$. Therefore, it makes sense to sum all of these pixels as the activation score so that
+it becomes a single class distribution like image classification. We therefore modify the $$Y^{c}$$ in the gradient to $$\sum_{(a,b) \in M}{y_{(a,b)}}^{c}$$ where $$M$$ is a set of all pixel indices that belong
+to class $$c$$ in the segmentation prediction. The final equation for Grad-CAM in image segmentation is shown below:
+<p>
+$$Y_c = ReLU (\sum_{k} {\alpha_k}^{c} \cdot F^{k}) \text{ where } {\alpha_k}^{c} = \frac{1}{Z} \sum_{i}\sum_{j} \frac{\delta Y^{c}}{\delta A_{(i,j)}^{k}} (6)$$
 
-HiResCAM:
+</p>
+
+However, if we look at the equation for Grad-CAM carefully, there is a critical issue- the gradients are averaged due to global average pooling (GAP). Why can this be a problem?
+Look at the diagram below:
+
 
 <a id="cam-in-my-proj"></a>
 ## **Utilizing CAM in My Project:**
@@ -252,3 +261,4 @@ we can see that there isn't a big difference between the two, except that HiResC
 
 *Image credits to:*
 - [Image Classification CAM Diagram](http://cnnlocalization.csail.mit.edu/)
+- [HiResCAM Diagram](https://arxiv.org/pdf/2011.08891.pdf)
