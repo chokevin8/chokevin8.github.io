@@ -66,8 +66,11 @@ released, transformers were not a thing yet). Therefore, GradCAM, or Gradient-we
 convolutional layer. To calculate gradients consider taking the gradient of the activation score for class $$c$$ ($$Y^{c}$$) with respect to feature map $$F^{k}$$ from the above CAM equation, or equation #1:
 <p>
 $$ Y_c = \sum_{k} {w_k}^{c} \cdot F^{k}$$
-$$\frac{\delta Y^{c}}{\delta F^{k}} = \frac{\frac{\delta Y^{c}}{\delta A_{(i,j)}^{k}}}{\frac{\delta Y^{c}{\delta A_{(i,j)}^{k}}} $$
-
+$$\frac{\delta Y^{c}}{\delta F^{k}} = \frac{\frac{\delta Y^{c}}{\delta A_{(i,j)}^{k}}} {\frac{\delta F^{k}}{\delta A_{(i,j)}^{k}}} $$
+$$\text{Recall from above: } F^{k} = \frac{1}{Z} \sum_{i}\sum_{j} \text{ so: } \frac{\delta F^{k}}{\delta A_{(i,j)}^{k}} = \frac{1}{Z}$$
+$$\text{Then: } \frac{\delta Y^{c}}{\delta F^{k}} = \frac{\delta Y^{c}}{\delta A_{(i,j)}^{k}} \cdot Z $$
+$$\text{Recall from above: } Y_c = \sum_{k} {w_k}^{c} \cdot F^{k} \text{ so: } \frac{\delta Y^{c}}{\delta F^{k}} = {w_k}^{c}$$
+$$\text{Then: } {w_k}^{c} = Z \cdot \frac{\delta Y^{c}}{\delta A_{(i,j)}^{k}} \quad (2)$$
 </p>
 
 
