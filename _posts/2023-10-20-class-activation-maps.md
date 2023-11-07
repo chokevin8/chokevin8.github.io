@@ -90,23 +90,26 @@ to find our equation for evaluating our activation score for Grad-CAM:
 $$Y_c = \sum_{k} {\alpha_k}^{c} \cdot F^{k} \text{ where } {\alpha_k}^{c} = \frac{1}{Z} \sum_{i}\sum_{j} \frac{\delta Y^{c}}{\delta A_{(i,j)}^{k}} (5)$$
 </p>
 Equation #5 is one-step short of completion. Why? The gradients can be negative or positive! We are only interested in finding features that have a positive influence
-on class $$c$$. This means that the activation score should be positive, and to have a positive gradient, the feature map should be positive as well. Negative gradients
-most likely belong to features in the image that are correlated with classes that are not $$c$$. Therefore, we utilize ReLU to suppress negative gradients and keep positive gradients:
+on class $$c$$. This means that the activation score should be positive, and to have a positive gradient, the feature map should be positive as well. Therefore, with Grad-CAM
+we can highlight regions in the image, or features, that contribute to increasing the class activation score. On the other hand, negative gradients
+most likely belong to features in the image that are correlated with classes that are not $$c$$, and therefore we apply ReLU function to suppress negative gradients and only keep positive gradients:
 <p>
 $$Y_c = ReLU (\sum_{k} {\alpha_k}^{c} \cdot F^{k}) \text{ where } {\alpha_k}^{c} = \frac{1}{Z} \sum_{i}\sum_{j} \frac{\delta Y^{c}}{\delta A_{(i,j)}^{k}} (6)$$
 </p>
 Equation #6 above is the final equation for Grad-CAM. Now, even though CAMs were widely used for classification, they could definitely also be used for semantic segmentation tasks 
 where each pixel is labeled as a class. In this case, however, we have to modify equation #6 a bit. This is because image classification outputs a single class distribution (ex. this image is 
 a dog), image semantic segmentation doesn't, as it outputs logits for every pixel $$(a,b)$$ predicted for class $$c$$. Therefore, it makes sense to sum all of these pixels as the activation score so that
-it becomes a single class distribution like image classification. We therefore modify the $$Y^{c}$$ in the gradient to $$\sum_{(a,b) \in M}{y_{(a,b)}}^{c}$$ where $$M$$ is a set of all pixel indices that belong
+it becomes a single class distribution like image classification. We therefore modify the $$Y^{c}$$ in the gradient to $$\sum_{(a,b) \in M}{Y_{(a,b)}}^{c}$$ where $$M$$ is a set of all pixel indices that belong
 to class $$c$$ in the segmentation prediction. The final equation for Grad-CAM in image segmentation is shown below:
 <p>
-$$Y_c = ReLU (\sum_{k} {\alpha_k}^{c} \cdot F^{k}) \text{ where } {\alpha_k}^{c} = \frac{1}{Z} \sum_{i}\sum_{j} \frac{\delta Y^{c}}{\delta A_{(i,j)}^{k}} (6)$$
-
+$$Y_c = ReLU (\sum_{k} {\alpha_k}^{c} \cdot F^{k}) \text{ where } {\alpha_k}^{c} = \frac{1}{Z} \sum_{i}\sum_{j} \frac{\delta \sum_{(a,b) \in M}{Y_{(a,b)}}^{c}}{\delta A_{(i,j)}^{k}} (7)$$
 </p>
-
-However, if we look at the equation for Grad-CAM carefully, there is a critical issue- the gradients are averaged due to global average pooling (GAP). Why can this be a problem?
+However, if we look at the equation #6 or #7 above for Grad-CAM carefully, there is a critical issue- the gradients are averaged due to global average pooling (GAP). Why can this be a problem?
 Look at the diagram below:
+<img src = "/assets/images/hirescam.png" width = "930" height = "600" class = "center">
+<figcaption> Diagram comparing HiResCAM and GradCAM and how HiResCAM alleviates the problem of averaging the gradients in GradCAM. </figcaption>
+<br>
+As seen in the diagram above, 
 
 
 <a id="cam-in-my-proj"></a>
