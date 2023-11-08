@@ -54,7 +54,7 @@ tissues, and if poorly performed, can damage the tissue. Most importantly, apply
 same slide. 
 
 While virtual staining cannot expedite the time-consuming process of tissue extraction, fixation, embedding, and mounting, it can resolve most of the other issues mentioned above. Virtual stain conversions from label-free
-(unstained) slides to stained slides can not only expedite the staining process, it can be more accurate due to no mechanical/chemical damage on the tissue and be much cheaper as the 
+(unstained) slides to stained slides can not only expedite the staining process, it can be more accurate due to absence of mechanical/chemical damage on the tissue and be much cheaper as the 
 stain does not need to be purchased. Furthermore, stain-to-stain conversions have a huge benefit as it allows staining on the same tissue slide, enabling further biological analysis on the same slide. 
 **Therefore, the main motivation of the unstained-to-HE virtual stain conversion of skin tissue images is to expedite and refine the staining process, while the main motivation of the
 IHC-to-HE virtual stain conversion of pancreatic tissue images is to allow multiple stain analysis on the same tissue slide.**
@@ -79,7 +79,7 @@ Below is the scheme for training and evaluating the trained model for the IHC-to
 As seen above, I registered the serial sections together so that the IHC-H&E image pair are aligned properly. Then, they are tiled to 256 x 256 tiles and divided into train/val/test sets. 
 The main thing to note here is that I am training a vanilla pix2pix (GAN) model and a more novel score-based-generative model called image-to-image schrödinger bridge ([I2SB](https://arxiv.org/pdf/2302.05872.pdf)). The two 
 generative models are trained. Then, as seen in the evaluation stage, the sampled image from the validation set is passed through a pretrained segmentation model to generate a tissue map. 
-Then, this is compared to the ground truth tissue map generated from the ground truth image, and the F-1 score is deduced. Another method to compare the quality of the images is to calculate
+Next, this is compared to the ground truth tissue map generated from the ground truth image, and the F-1 score is deduced. I also plan to compare the quality of the images by calculating
 the inception score (IS) or/and Fréchet Inception Distance (FID) of the generated images.
 
 To briefly talk about the models, pix2pix is a familiar model for most. Like any other GAN models, through adversarial training with GAN and L1 loss, we map the pixels of image of one domain
@@ -98,13 +98,13 @@ avoids adversarial training and mode collapse). But why not use diffusion, why u
 As seen above, the main difference between conditional latent/stable diffusion models and I2SB in the field of image to image translation or restoration is that the I2SB allows direct utilization
 of the degraded image or the image to be converted during training, which is a much more structurally informative prior compared to conditional diffusion models which start from noise during training/sampling and feeds the
 degraded image/image to be converted via conditioning. Likewise, in image restoration or translation, the degraded image or the image to be translated often contains useful structural information. ***This is definitely the case in our project,
-as for stain conversions, most or all of the structure should remain intact during the conversion.*** Furthermore, it also makes more intuitive sense that to go from image A to B, it would make sense to directly 
+as for stain conversions, most or all of the structure should remain unchanged during the conversion.*** Furthermore, it also makes more intuitive sense that, to go from image A to B, it would make sense to directly 
 train to go from A to B, not noise to B. With the models and the training/evaluation methods in mind, let's look at the preliminary results.
 
 ---
 
 ### **Results:**
-***Since this is currently a work-in-progress, updates will be made.***
+***Since this is currently a work-in-progress, updates will be made whenever possible.***
 
 Below are some of the pix2pix-generated H&E images compared to the ground truth H&E images:
 <div class="row">

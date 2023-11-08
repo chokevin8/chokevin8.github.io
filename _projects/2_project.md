@@ -96,7 +96,8 @@ a train-val-test split.
 
 We train two different models: 1) Nuclei segmentation model using [HoVer-Net](https://arxiv.org/pdf/1812.06499v5.pdf) and 2) Tissue segmentation model
 using [DeepLabV3+](https://arxiv.org/pdf/1802.02611.pdf) and/or [UNet++](https://arxiv.org/abs/1807.10165). In order to train these supervised models, we manually annotate the nuclei or the twelve different tissue
-classes in the training and validation images.
+classes in the training and validation images. I hypothesized DeepLabV3+ to be a more lightweight model due to its ASPP (atrous spatial pyramid pooling) module and depthwise separable convolution,
+while Unet++ to be a more heavyweight but accurate model due to its dense skip connections. However, both models had negligible differences in their F-1 scores on the validation set. 
 
 Then, after confirming the model performance using overall precision and recall (F1 score) on the test dataset, we use a post-processing pipeline to extract different meaningful 2D features. Some example features to extract are 
 individual tissue compositions and its area, distance between different cells and tissues (ex. distance between fibroblast and sweat glands), and more.
@@ -104,9 +105,11 @@ individual tissue compositions and its area, distance between different cells an
 ---
 
 ### **Results:**
-In total, 1090 2D features were extracted. Out of the 1090 features, through statistical testing with univariate/multivariate analyses and correlation coefficient calculations,
-features that were most predictive and correlated with age were selected. Additionally, gender differences and body part differences (skin
-from different body parts) were also analyzed. Currently, 2D results are being finalized and we can see more predictive features. 
+***Since this is currently a work-in-progress, updates will be made whenever possible.***
+
+In total, 1090 2D features were extracted. Out of the 1090 features, through statistical testing with univariate analyses (multivariate analyses will be done in the future as well)
+and correlation coefficient calculations, features that were most predictive and correlated with age were selected. Additionally, gender differences and body part differences (skin
+from different body parts) will also be analyzed. Currently, the results are being finalized and I plan to update this soon.
 
 ***Note that more technical details/explanations and further results are omitted on purpose as I focus on motivation/personal comments in introducing the project. More technical details
 will be shown in the technical powerpoint presentation (PPT).***
@@ -121,7 +124,7 @@ This is a fascinating project to me because it necessitates both biology and dee
 [gene delivery for immunoengineering](/projects/3_project/), but my interests in different types of computational work grew more after my [summer internship experience
 at Novartis](/projects/4_project/). As I switched my research interests to computational work, I was initially worried because I still wanted to continue cancer research in one way or another. 
 Also, I wanted experience in handling different types of biological/medical data. Therefore, while this project is not directly related to cancer, the project was a perfect choice because the 
-pipeline could easily be applied to cancer (just switch the H&E WSIs to tumor WSIs and find ways of developing digital biomarkers for cancer diagnosis instead), and handled image data, which 
+pipeline could easily be applicable to cancer (just switch the H&E WSIs to tumor WSIs and find new ways of developing digital biomarkers for cancer instead), and handled image data, which 
 I never had prior experience with. Therefore, since August of 2022, I switched labs and have been working on this project.
 
 
