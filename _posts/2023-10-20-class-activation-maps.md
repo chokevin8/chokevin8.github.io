@@ -268,6 +268,7 @@ The last example like above is the reason why we must continue to explore and tr
 Hope this helps!
 
 ---
+
 *Image credits to:*
 - [Image Classification CAM Diagram](http://cnnlocalization.csail.mit.edu/)
 - [HiResCAM Diagram](https://arxiv.org/pdf/2011.08891.pdf)
