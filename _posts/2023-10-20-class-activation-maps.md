@@ -112,7 +112,7 @@ Look at the diagram below:
 As seen in the diagram above, we see an example of a 3 x 3 feature map. Note the positive/negative pattern of this feature map. With HiResCAM,
 the feature map is multiplied by the gradients in an element-wise matter, and we can see that the positive and negative gradients are taken into account
 in the resulting HiResCAM. However, with Grad-CAM the gradients are all averaged out, and therefore the negative gradients are actually suppressed, and
-therefore the resulting Grad-CAM retains its original positive/negative feature map pattern. Therefore, we see that HiResCAM produces accurate attention
+therefore the resulting Grad-CAM retains its original positive/negative feature map pattern. Therefore, we see that HiResCAM produces accurate attention.
 
 
 <a id="cam-in-my-proj"></a>
