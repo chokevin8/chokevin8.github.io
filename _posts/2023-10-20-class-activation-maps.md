@@ -104,12 +104,15 @@ to class $$c$$ in the segmentation prediction. The final equation for Grad-CAM i
 <p>
 $$Y_c = ReLU (\sum_{k} {\alpha_k}^{c} \cdot F^{k}) \text{ where } {\alpha_k}^{c} = \frac{1}{Z} \sum_{i}\sum_{j} \frac{\delta \sum_{(a,b) \in M}{Y_{(a,b)}}^{c}}{\delta A_{(i,j)}^{k}} (7)$$
 </p>
-However, if we look at the equation #6 or #7 above for Grad-CAM carefully, there is a critical issue- the gradients are averaged due to global average pooling (GAP). Why can this be a problem?
+However, if we look at the equation #6 or #7 above for Grad-CAM carefully, there is a critical issue- when calculating the neural importance weight $${\alpha_k}^{c}$$ the gradients are averaged due to global average pooling (GAP). Why can this be a problem?
 Look at the diagram below:
-<img src = "/assets/images/hirescam.png" width = "930" height = "600" class = "center">
+<img src = "/assets/images/hirescam.png" width = "744" height = "480" class = "center">
 <figcaption> Diagram comparing HiResCAM and GradCAM and how HiResCAM alleviates the problem of averaging the gradients in GradCAM. </figcaption>
 <br>
-As seen in the diagram above, 
+As seen in the diagram above, we see an example of a 3 x 3 feature map. Note the positive/negative pattern of this feature map. With HiResCAM,
+the feature map is multiplied by the gradients in an element-wise matter, and we can see that the positive and negative gradients are taken into account
+in the resulting HiResCAM. However, with Grad-CAM the gradients are all averaged out, and therefore the negative gradients are actually suppressed, and
+therefore the resulting Grad-CAM retains its original positive/negative feature map pattern. Therefore, we see that HiResCAM produces accurate attention
 
 
 <a id="cam-in-my-proj"></a>
@@ -254,7 +257,7 @@ my trained model is actually focusing on the right parts of the images and not c
     </div>
 </div>
 
-The left images are HiResCAMs, and the right images are GradCAMs. Now let's analyze the images of each row. The first row are the CAMs for the background, and 
+The left images are GradCAMs, and the right images are HiResCAMs Now let's analyze the images of each row. The first row are the CAMs for the background, and 
 we can see that there isn't a big difference between the two, except that HiResCAM does show a more "accurate" depiction, as it is a faithful explanation after all. 
 
 
