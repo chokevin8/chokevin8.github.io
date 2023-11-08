@@ -259,12 +259,15 @@ my trained model is actually focusing on the right parts of the images and not c
 
 The left images are GradCAMs, and the right images are HiResCAMs Now let's analyze the images of each row. The first row are the CAMs for the background, and 
 we can see that there isn't a big difference between the two, except that HiResCAM does show a more "accurate" depiction, as it is a faithful explanation after all. 
+The second row are the CAMs for the blood vessels, and we can see that HiResCAM also has a more "accurate" depiction while GradCAM shows activation scores for spots that
+are not blood vessel-specific. Lastly, the third row are the CAMs for the oil glands, and this is where GradCAM is a bit misleading. GradCAM does highlight the oil glands
+successfully, but when looking at HiResCAM, we can see that the model doesn't only look at oil glands. Therefore, with HiResCAM, I can see that the model 
+is also mostly looking at nearby ECM and hair follicle areas for segmenting oil glands, which is quite interesting. 
 
-
-
+The last example like above is the reason why we must continue to explore and try different types of CAMs, and also explore other options of explainable AI as well. 
+Hope this helps!
 
 ---
-
 *Image credits to:*
 - [Image Classification CAM Diagram](http://cnnlocalization.csail.mit.edu/)
 - [HiResCAM Diagram](https://arxiv.org/pdf/2011.08891.pdf)
