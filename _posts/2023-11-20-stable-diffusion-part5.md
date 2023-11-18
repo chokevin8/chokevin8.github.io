@@ -3,7 +3,7 @@ layout: post
 title:  Latent/Stable Diffusion Fully Explained! (Part 5)
 date:   2023-11-20
 description: Explanation of conditioning and classifier/classifier-free guidance.
-tags: deep-learning machine-learning generative-models paper-review
+tags: concept-review generative-model
 categories: posts
 ---
 

@@ -91,7 +91,7 @@ bing_site_verification:  # out your bing-site-verification ID (Bing Webmaster)
 
 blog_name: Welcome to My Deep Learning Blog! # blog_name will be displayed in your blog page
 blog_nav_title: My Blog # your blog must have a title for it to be displayed in the nav bar
-blog_description: This is my personal blog, usually posting about any ML/DL of interest, or sometimes interesting updates on my projects as well. Feel free to take a look at anything that interests you!
+blog_description: Please use the tags below to filter my blogs. Paper reviews focus on reviewing one paper, while concept reviews focus on a in-depth explanation of the concept. Also, you can filter my segmentation or generative models as well.
 permalink: /blog/:year/:title/
 
 # Pagination
@@ -217,7 +217,7 @@ jekyll-archives:
     tag: '/blog/tag/:name/'
     category: '/blog/category/:name/'
 
-display_tags: ['machine-learning', 'deep-learning', 'image-segmentation', 'generative-models','paper-review', 'project-update'] # this tags will be dispalyed on the front page of your blog
+display_tags: ['paper-review','concept-review','segmentation-model','generative-model'] # this tags will be dispalyed on the front page of your blog
 
 # -----------------------------------------------------------------------------
 # Jekyll Scholar

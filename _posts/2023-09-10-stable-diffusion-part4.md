@@ -3,7 +3,7 @@ layout: post
 title:  Latent/Stable Diffusion Fully Explained! (Part 4)
 date:   2023-09-10
 description: Different interpretation of the training objective, explanation of training/sampling algorithm and mathematical comparison of DDIM and DDPM sampling methods.
-tags: deep-learning machine-learning generative-models paper-review
+tags: concept-review generative-model
 categories: posts
 ---
 ---

@@ -3,7 +3,7 @@ layout: post
 title:  Latent/Stable Diffusion Fully Explained! (Part 2)
 date:   2023-06-30
 description: Analysis of latent/stable diffusion model architecture, and explanation of major experiments/results of the paper!
-tags: deep-learning machine-learning generative-models paper-review
+tags: concept-review generative-model
 categories: posts
 ---
 ---

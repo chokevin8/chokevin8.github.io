@@ -3,7 +3,7 @@ layout: post
 title:  How to use Class Activation Maps (CAM) for Explainable AI in Semantic Segmentation!
 date:   2023-10-20
 description: Introduction to CAM, explanation of GradCAM and HiResCAM in semantic segmentation, showcasing some example code for CAM and CAM image results in my project!
-tags: deep-learning machine-learning image-segmentation project-update
+tags: concept-review segmentation-model
 categories: posts
 ---
 
