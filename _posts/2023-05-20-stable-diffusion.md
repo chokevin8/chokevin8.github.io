@@ -38,7 +38,7 @@ about stable diffusion and its predecessor, GANs. The next three parts, as seen 
 
 ### [Latent/Stable Diffusion Fully Explained! (Part 4)](/blog/2023/stable-diffusion-part4/)
 - ### Different View on Model Objective
-- ### Training and Inference
+- ### Training and Inference (DDIM vs DDPM)
 
 ### [Latent/Stable Diffusion Fully Explained! (Part 5- Coming Soon!)](/blog/2023/stable-diffusion-part5/)
 - ### Conditioning 

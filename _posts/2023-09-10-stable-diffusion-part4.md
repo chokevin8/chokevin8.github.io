@@ -24,7 +24,7 @@ categories: posts
 
 ### [Latent/Stable Diffusion Fully Explained! (Part 4)](#stable-diffusion-in-numbers-2) (This Blog!)
 - ### [Different View on Model Objective](#model-objective2)
-- ### [Training and Inference](#training-inference)
+- ### [Training and Inference (DDIM vs DDPM)](#training-inference)
 
 ### [Latent/Stable Diffusion Fully Explained! (Part 5- Coming Soon!)](/blog/2023/stable-diffusion-part5/)
 - ### Conditioning 
@@ -100,7 +100,7 @@ As stated in the paper, this can also be seen as a sequence of $$T$$ equally wei
 $$x_0$$, assuming the training of the decoder went well. 
 
 <a id="training-inference"></a>
-###  ***Training and Inference:***
+###  ***Training and Inference (DDIM vs DDPM):***
 
 Now that we've derived the training (loss) objective from scratch, let's briefly go over the entire training and the inference algorithm:
 

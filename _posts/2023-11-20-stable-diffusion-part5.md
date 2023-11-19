@@ -24,7 +24,7 @@ categories: posts
 
 ### [Latent/Stable Diffusion Fully Explained! (Part 4)](#stable-diffusion-in-numbers-2) (This Blog!)
 - ### [Different View on Model Objective](#model-objective2)
-- ### [Training and Inference](#training-inference)
+- ### [Training and Inference (DDIM vs DDPM)](#training-inference)
 
 ### [Latent/Stable Diffusion Fully Explained! (Part 5)](/blog/2023/stable-diffusion-part5/)
 - ### Conditioning 
