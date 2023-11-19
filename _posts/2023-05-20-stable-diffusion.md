@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  {Concept Review/Generative Models} Latent/Stable Diffusion Fully Explained! (Part 1)
+title:  (Concept Review/Generative Models) Latent/Stable Diffusion Fully Explained, Part 1
 date:   2023-05-20
 description: Introduction to generative models and drawbacks of GANs!
 tags: concept-review generative-model

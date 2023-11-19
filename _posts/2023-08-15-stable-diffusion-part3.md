@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Latent/Stable Diffusion Fully Explained! (Part 3)
+title:  (Concept Review/Generative Models) Latent/Stable Diffusion Fully Explained, Part 3
 date:   2023-08-15
 description: Full derivation of ELBO in VAEs, and using that to derive training objective of latent/stable diffusion from scratch!
 tags: concept-review generative-model
