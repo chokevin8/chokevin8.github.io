@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  (Concept Review/Generative Models) Latent/Stable Diffusion Fully Explained, Part 5
-date:   2023-11-20
+date:   2023-11-18
 description: Explanation of conditioning and classifier/classifier-free guidance.
 tags: concept-review generative-model
 categories: posts
